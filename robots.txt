@@ -1,2 +1,3 @@
 User-agent: *
 Allow: /
+Sitemap: https://transparent-background-tool.d98c38e4.er.aliyun-esa.net/sitemap.xml
