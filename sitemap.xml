@@ -36,4 +36,20 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://imagec.xin/blog/remove-white-background-guide.html"/>
     <xhtml:link rel="alternate" hreflang="zh-CN" href="https://imagec.xin/blog/white-to-transparent-guide.html"/>
   </url>
+  <url>
+    <loc>https://imagec.xin/blog/ecommerce-white-background.html</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://imagec.xin/blog/ecommerce-white-background.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://imagec.xin/blog/ecommerce-white-background-guide.html"/>
+  </url>
+  <url>
+    <loc>https://imagec.xin/blog/ecommerce-white-background-guide.html</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://imagec.xin/blog/ecommerce-white-background-guide.html"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://imagec.xin/blog/ecommerce-white-background.html"/>
+  </url>
 </urlset>
