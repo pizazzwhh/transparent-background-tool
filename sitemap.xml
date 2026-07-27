@@ -20,4 +20,20 @@
     <xhtml:link rel="alternate" hreflang="th" href="https://imagec.xin/?lang=th"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://imagec.xin/"/>
   </url>
+  <url>
+    <loc>https://imagec.xin/blog/white-to-transparent-guide.html</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://imagec.xin/blog/white-to-transparent-guide.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://imagec.xin/blog/remove-white-background-guide.html"/>
+  </url>
+  <url>
+    <loc>https://imagec.xin/blog/remove-white-background-guide.html</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://imagec.xin/blog/remove-white-background-guide.html"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://imagec.xin/blog/white-to-transparent-guide.html"/>
+  </url>
 </urlset>
