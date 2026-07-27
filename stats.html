@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="robots" content="noindex,nofollow" />
+<title>访问统计 · 透白</title>
+<style>
+:root{
+  --bg:#0f1214;--panel:#171b1f;--panel2:#1e242a;--border:#262d35;
+  --ink:#e6edf3;--muted:#8b949e;--dim:#6e7681;
+  --accent:#7ee787;--accent2:#1f6feb;--accent3:#a371f7;
+  --pv:#58a6ff;--uv:#7ee787;
+  --danger:#f85149;--warn:#d29922;
+  --radius:14px;
+}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;font:13px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink);background:var(--bg);-webkit-text-size-adjust:100%}
+.shell{max-width:1240px;margin:0 auto;padding:24px}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+h1{font-size:20px;font-weight:600;margin:0;letter-spacing:-.01em}
+header .sub{color:var(--muted);font-size:12px;margin-top:4px}
+.actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.btn{background:var(--panel2);border:1px solid var(--border);color:var(--ink);padding:8px 14px;border-radius:8px;font:inherit;font-weight:500;cursor:pointer;transition:.15s;-webkit-tap-highlight-color:transparent}
+.btn:hover{background:#262d35;border-color:#3a424b}
+.btn.primary{background:var(--accent2);border-color:var(--accent2);color:#fff}
+.btn.primary:hover{background:#388bfd}
+.back{color:var(--muted);text-decoration:none;font-size:12px;white-space:nowrap}
+.back:hover{color:var(--ink)}
+
+.grid{display:grid;gap:16px}
+.kpi-grid{grid-template-columns:repeat(5,1fr)}
+@media(max-width:900px){.kpi-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.kpi-grid{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:18px}
+.kpi{padding:16px}
+.kpi .label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.kpi .value{font-size:28px;font-weight:700;margin-top:6px;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.kpi .sub{font-size:11px;color:var(--dim);margin-top:4px}
+.kpi .value.pv{color:var(--pv)}
+.kpi .value.uv{color:var(--uv)}
+.kpi .value.accent{color:var(--accent3)}
+
+.panel-title{font-size:14px;font-weight:600;margin:0 0 12px;display:flex;align-items:center;gap:8px}
+.panel-title .icon{width:4px;height:14px;background:var(--accent3);border-radius:2px}
+.panel-title .badge{font-size:10px;background:var(--panel2);border:1px solid var(--border);color:var(--muted);padding:2px 8px;border-radius:10px;font-weight:500}
+
+.chart-wrap{position:relative;height:220px}
+.chart-wrap svg{width:100%;height:100%;display:block}
+
+.dist-grid{grid-template-columns:repeat(2,1fr)}
+@media(max-width:700px){.dist-grid{grid-template-columns:1fr}}
+.dist-list{display:flex;flex-direction:column;gap:10px}
+.dist-row{display:flex;align-items:center;gap:10px;font-size:12px}
+.dist-row .name{width:72px;color:var(--muted);text-transform:capitalize;flex-shrink:0}
+.dist-row .bar{flex:1;height:8px;background:var(--panel2);border-radius:4px;overflow:hidden;min-width:0}
+.dist-row .bar-fill{height:100%;border-radius:4px;transition:width .5s}
+.dist-row .count{width:40px;text-align:right;font-variant-numeric:tabular-nums;color:var(--ink);font-weight:600;flex-shrink:0}
+
+table{width:100%;border-collapse:collapse}
+th,td{padding:8px 10px;text-align:left;font-size:12px}
+th{color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.04em;border-bottom:1px solid var(--border)}
+td{border-bottom:1px solid var(--border);font-variant-numeric:tabular-nums}
+tr:last-child td{border-bottom:0}
+td.name{color:var(--ink)}
+td.bar-cell{width:40%}
+td.num{text-align:right;font-weight:600}
+.mini-bar{height:6px;background:var(--panel2);border-radius:3px;overflow:hidden}
+.mini-bar .fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--accent2),var(--accent3))}
+
+.feed{max-height:360px;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.feed-item{display:grid;grid-template-columns:140px 1fr auto;gap:12px;padding:10px 12px;border-bottom:1px solid var(--border);font-size:12px;align-items:center}
+.feed-item:last-child{border-bottom:0}
+.feed-item .time{color:var(--dim);font-variant-numeric:tabular-nums}
+.feed-item .path{font-weight:500;color:var(--ink);word-break:break-all}
+.feed-item .ref{color:var(--muted);font-size:11px;margin-top:2px;word-break:break-all}
+.feed-item .tags{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}
+.tag{font-size:10px;padding:2px 6px;border-radius:4px;background:var(--panel2);border:1px solid var(--border);color:var(--muted);font-weight:500;white-space:nowrap}
+.tag.browser{background:rgba(88,166,255,.1);border-color:rgba(88,166,255,.3);color:var(--pv)}
+.tag.os{background:rgba(255,165,0,.1);border-color:rgba(255,165,0,.3);color:#ffa500}
+.tag.device{background:rgba(126,231,135,.1);border-color:rgba(126,231,135,.3);color:var(--uv)}
+.tag.ctry{background:rgba(163,113,247,.1);border-color:rgba(163,113,247,.3);color:var(--accent3)}
+
+.loading{text-align:center;padding:60px 20px;color:var(--muted)}
+.error{background:rgba(248,81,73,.1);border:1px solid rgba(248,81,73,.3);color:var(--danger);padding:14px;border-radius:10px}
+.empty{color:var(--dim);text-align:center;padding:30px;font-size:12px}
+
+.section-head{display:flex;justify-content:space-between;align-items:center;margin:28px 0 12px}
+.section-head h2{font-size:15px;font-weight:600;margin:0}
+
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:#3a424b}
+
+@media(max-width:700px){
+  .shell{padding:14px}
+  header{flex-direction:column;align-items:flex-start;gap:12px}
+  h1{font-size:18px}
+  .actions{width:100%;justify-content:space-between}
+  .card{padding:14px}
+  .kpi{padding:12px}
+  .kpi .value{font-size:22px}
+  .section-head{margin:20px 0 10px}
+  .section-head h2{font-size:14px}
+  .chart-wrap{height:180px}
+  .feed-item{grid-template-columns:1fr;gap:6px;padding:12px}
+  .feed-item .time{font-size:10px}
+  .feed-item .tags{justify-content:flex-start}
+  table{font-size:11px}
+  th,td{padding:6px 8px}
+}
+@media(max-width:380px){
+  .shell{padding:10px}
+  .kpi .value{font-size:20px}
+}
+</style>
+</head>
+<body>
+<div class="shell">
+  <header>
+    <div>
+      <h1>📊 访问统计仪表盘</h1>
+      <div class="sub">实时监控网站访问数据</div>
+    </div>
+    <div class="actions">
+      <button class="btn" onclick="loadData()">立即刷新</button>
+      <a class="back" href="/">← 返回首页</a>
+    </div>
+  </header>
+
+  <div id="root"></div>
+</div>
+
+<script>
+const $ = sel => document.querySelector(sel);
+const ROOT = $("#root");
+
+const LABELS = {
+  chrome:"Chrome",safari:"Safari",edge:"Edge",firefox:"Firefox",opera:"Opera",other:"其他",
+  windows:"Windows",mac:"macOS",android:"Android",ios:"iOS",
+  desktop:"桌面",mobile:"移动",tablet:"平板",
+  zh:"中文",en:"英文",
+  CN:"🇨🇳 中国",US:"🇺🇸 美国",JP:"🇯🇵 日本",KR:"🇰🇷 韩国",DE:"🇩🇪 德国",GB:"🇬🇧 英国",FR:"🇫🇷 法国",TW:"🇹🇼 台湾",HK:"🇭🇰 香港",SG:"🇸🇬 新加坡",
+};
+function label(k){return LABELS[k]||k}
+function fmtNum(n){return (n||0).toLocaleString('zh-CN')}
+function fmtTime(ts){try{const d=new Date(ts);return d.toLocaleString('zh-CN',{hour12:false})}catch(e){return ts}}
+
+async function loadData(){
+  ROOT.innerHTML = '<div class="loading">加载统计数据...</div>';
+  try{
+    const r = await fetch('/__stats__',{cache:'no-store',headers:{'Cache-Control':'no-cache'}});
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    const d = await r.json();
+    render(d);
+  }catch(e){
+    ROOT.innerHTML = `<div class="error">加载失败：${e.message}<br><br>边缘节点可能尚未部署最新代码，请等待 1-2 分钟后重试。</div>`;
+  }
+}
+
+function render(d){
+  const s = d.summary || {};
+  const maxPV = Math.max(...(d.daily||[]).map(x=>x.pv),1);
+
+  let h = `<div class="grid kpi-grid">`;
+  h += kpiCard('总访问量 (PV)',fmtNum(s.pv),'累计页面浏览','pv');
+  h += kpiCard('独立访客 (UV)',fmtNum(s.uv),'累计去重访客','uv');
+  h += kpiCard('今日 PV',fmtNum(s.pvToday),d.today||'','pv');
+  h += kpiCard('今日 UV',fmtNum(s.uvToday),d.today||'','uv');
+  h += kpiCard('日均访问',fmtNum(s.dailyAvg),'近 14 天平均','accent');
+  h += `</div>`;
+
+  if(d.lastVisit){
+    h += `<div style="margin-top:12px;color:var(--dim);font-size:11px;text-align:right">最后记录时间：${fmtTime(d.lastVisit)}</div>`;
+  }
+
+  h += `<div class="section-head"><h2>📈 近 14 天访问趋势</h2></div>`;
+  h += `<div class="card"><div class="chart-wrap">${renderChart(d.daily||[])}</div>
+        <div style="display:flex;gap:16px;margin-top:10px;font-size:11px;color:var(--muted)">
+          <span><span style="display:inline-block;width:10px;height:10px;background:var(--pv);border-radius:2px;margin-right:4px;vertical-align:middle"></span>PV (页面浏览)</span>
+          <span><span style="display:inline-block;width:10px;height:10px;background:var(--uv);border-radius:2px;margin-right:4px;vertical-align:middle"></span>UV (独立访客)</span>
+        </div>
+        </div>`;
+
+  h += `<div class="section-head"><h2>⏰ 24 小时访问分布</h2></div>`;
+  h += `<div class="card"><div class="chart-wrap">${renderHourly(d.hourly||[])}</div></div>`;
+
+  if(d.sessions){
+    h += `<div class="section-head"><h2>📊 会话统计</h2></div>`;
+    h += `<div class="grid kpi-grid">`;
+    h += kpiCard('总会话数',fmtNum(d.sessions.total),'独立会话','uv');
+    h += kpiCard('平均浏览深度',d.sessions.avgDepth+' 页/会话','每次访问页数','accent');
+    h += `</div>`;
+  }
+
+  h += `<div class="section-head"><h2>💻 技术栈分布</h2></div>`;
+  h += `<div class="grid dist-grid">`;
+  h += distCard('浏览器',d.browsers);
+  h += distCard('操作系统',d.os);
+  h += distCard('设备类型',d.devices);
+  h += distCard('语言',d.languages);
+  h += `</div>`;
+
+  h += `<div class="section-head"><h2>🌍 地区分布</h2></div>`;
+  h += `<div class="card">${distList(d.countries,true)}</div>`;
+
+  h += `<div class="section-head"><h2>📄 热门页面 & 来源</h2></div>`;
+  h += `<div class="grid dist-grid">`;
+  h += tableCard('Top 10 页面',d.topPaths,'name','次');
+  h += tableCard('Top 10 来源',d.topReferrers,'name','次');
+  h += `</div>`;
+
+  h += `<div class="section-head"><h2>⚡ 实时访客流</h2></div>`;
+  h += `<div class="card feed">${renderFeed(d.recent||[])}</div>`;
+
+  ROOT.innerHTML = h;
+}
+
+function kpiCard(label,value,sub,cls){
+  return `<div class="card kpi">
+    <div class="label">${label}</div>
+    <div class="value ${cls||''}">${value}</div>
+    <div class="sub">${sub}</div>
+  </div>`;
+}
+
+function renderChart(daily){
+  if(!daily.length) return '<div class="empty">暂无数据</div>';
+  const W=100,H=100,pad=8;
+  const maxPV=Math.max(...daily.map(d=>Math.max(d.pv,d.uv)),1);
+  const barW=(W-pad*2)/daily.length*0.35;
+  const gap=(W-pad*2)/daily.length;
+  let svg='';
+  svg += `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">`;
+  svg += `<line x1="${pad}" y1="${H-pad}" x2="${W-pad}" y2="${H-pad}" stroke="#262d35" stroke-width="0.3"/>`;
+  svg += `<line x1="${pad}" y1="${pad}" x2="${pad}" y2="${H-pad}" stroke="#262d35" stroke-width="0.3"/>`;
+
+  daily.forEach((d,i)=>{
+    const x=pad+i*gap+gap/2;
+    const pvH=((H-pad*2)*(d.pv/maxPV));
+    const uvH=((H-pad*2)*(d.uv/maxPV));
+    const pvY=H-pad-pvH;
+    const uvY=H-pad-uvH;
+    svg += `<rect x="${x-barW}" y="${pvY}" width="${barW}" height="${pvH}" fill="var(--pv)" opacity="0.85">
+      <title>${d.date} PV: ${d.pv}</title></rect>`;
+    svg += `<rect x="${x+0.5}" y="${uvY}" width="${barW}" height="${uvH}" fill="var(--uv)" opacity="0.85">
+      <title>${d.date} UV: ${d.uv}</title></rect>`;
+  });
+  svg += `</svg>`;
+
+  let labels = '<div style="display:flex;justify-content:space-between;margin-top:4px;font-size:9px;color:var(--dim)">';
+  const step = Math.max(1, Math.floor(daily.length/7));
+  daily.forEach((d,i)=>{
+    if(i%step===0) labels += `<span>${d.date.slice(5)}</span>`;
+  });
+  labels += '</div>';
+  return svg + labels;
+}
+
+function renderHourly(hourly){
+  if(!hourly || !hourly.length) return '<div class="empty">暂无数据</div>';
+  var maxPV = 0;
+  for(var i=0;i<hourly.length;i++){ if(hourly[i].pv>maxPV) maxPV=hourly[i].pv; }
+  if(maxPV===0) maxPV=1;
+  var W=100,H=60,pad=6;
+  var barW=(W-pad*2)/hourly.length*0.7;
+  var gap=(W-pad*2)/hourly.length;
+  var svg='';
+  svg += '<svg viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none">';
+  svg += '<line x1="' + pad + '" y1="' + (H-pad) + '" x2="' + (W-pad) + '" y2="' + (H-pad) + '" stroke="#262d35" stroke-width="0.3"/>';
+  for(var hi=0;hi<hourly.length;hi++){
+    var x=pad+hi*gap+gap/2;
+    var pvH=((H-pad*2)*(hourly[hi].pv/maxPV));
+    var pvY=(H-pad-pvH);
+    svg += '<rect x="' + (x-barW/2) + '" y="' + pvY + '" width="' + barW + '" height="' + pvH + '" fill="var(--accent2)" opacity="0.85"><title>' + hourly[hi].hour + ':00 - ' + hourly[hi].pv + ' 次</title></rect>';
+  }
+  svg += '</svg>';
+  var labels = '<div style="display:flex;justify-content:space-between;margin-top:4px;font-size:8px;color:var(--dim)">';
+  for(var li=0;li<24;li+=3){ labels += '<span>' + li + ':00</span>'; }
+  labels += '</div>';
+  return svg + labels;
+}
+
+function distCard(title,items){
+  return `<div class="card">
+    <h3 class="panel-title"><span class="icon"></span>${title}</h3>
+    ${distList(items)}
+  </div>`;
+}
+
+function distList(items,withLabels){
+  if(!items||!items.length) return '<div class="empty">暂无数据</div>';
+  const max=Math.max(...items.map(i=>i.count),1);
+  let h='<div class="dist-list">';
+  items.forEach(it=>{
+    const pct=(it.count/max*100).toFixed(0);
+    const name=withLabels?label(it.name):it.name;
+    h += `<div class="dist-row">
+      <div class="name" style="${withLabels?'width:120px':''}">${name}</div>
+      <div class="bar"><div class="bar-fill" style="width:${pct}%;background:linear-gradient(90deg,var(--accent2),var(--accent3))"></div></div>
+      <div class="count">${fmtNum(it.count)}</div>
+    </div>`;
+  });
+  h += '</div>';
+  return h;
+}
+
+function tableCard(title,items,nameKey,unit){
+  return `<div class="card">
+    <h3 class="panel-title"><span class="icon"></span>${title}</h3>
+    ${table(items,nameKey,unit)}
+  </div>`;
+}
+
+function table(items,nameKey,unit){
+  if(!items||!items.length) return '<div class="empty">暂无数据</div>';
+  const max=Math.max(...items.map(i=>i.count),1);
+  let h=`<table><thead><tr><th>${nameKey==='name'?'名称':'来源'}</th><th style="width:40%">占比</th><th class="num">数量</th></tr></thead><tbody>`;
+  items.forEach(it=>{
+    const pct=(it.count/max*100).toFixed(0);
+    h += `<tr><td class="name">${it.name||'(未知)'}</td><td class="bar-cell"><div class="mini-bar"><div class="fill" style="width:${pct}%"></div></div></td><td class="num">${fmtNum(it.count)} ${unit}</td></tr>`;
+  });
+  h += '</tbody></table>';
+  return h;
+}
+
+function renderFeed(items){
+  if(!items||!items.length) return '<div class="empty">暂无实时访客</div>';
+  let h='';
+  items.forEach(it=>{
+    h += `<div class="feed-item">
+      <div class="time">${fmtTime(it.ts)}</div>
+      <div>
+        <div class="path">${it.path||'/'}</div>
+        <div class="ref">${it.ref||'(直接访问)'}</div>
+      </div>
+      <div class="tags">
+        <span class="tag browser">${label(it.br)}</span>
+        <span class="tag os">${label(it.os)}</span>
+        <span class="tag device">${label(it.dev)}</span>
+        <span class="tag ctry">${label(it.ctry)}</span>
+      </div>
+    </div>`;
+  });
+  return h;
+}
+
+loadData();
+</script>
+</body>
+</html>
