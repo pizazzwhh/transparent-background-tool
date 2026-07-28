@@ -70,6 +70,8 @@
     html[dir="rtl"] .toggle input:checked:after{transform:translateX(-18px)}
     html[dir="rtl"] .toggle input:after{left:auto;right:3px}
     html[dir="rtl"] .adLabel{text-align:left}
+    .toolList{padding:8px 10px}.toolLink{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:11px;text-decoration:none;color:var(--ink);transition:.15s}.toolLink:hover{background:var(--accent2)}.toolLink .toolIcon{font-size:18px;flex:none;width:28px;text-align:center}.toolLink .toolName{font-weight:700;font-size:13px;flex:1}.toolLink .toolDesc{font-size:11px;color:var(--muted)}
+    .toolsShowcase{max-width:1380px;margin:24px auto 0;padding:0 16px}.toolsShowcase h2{font-size:clamp(20px,2.5vw,28px);text-align:center;margin:0 0 20px;letter-spacing:-.02em}.toolsGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}.toolCard{display:flex;align-items:center;gap:14px;padding:18px 20px;background:var(--card);border:1px solid #ffffff;border-radius:18px;box-shadow:0 4px 20px #163d2b08;text-decoration:none;color:var(--ink);transition:.18s}.toolCard:hover{transform:translateY(-2px);box-shadow:0 12px 36px #163d2b12;border-color:var(--accent2)}.tcIcon{font-size:28px;flex:none;width:48px;height:48px;display:grid;place-items:center;background:var(--accent2);border-radius:14px}.tcBody{display:flex;flex-direction:column;gap:3px;min-width:0}.tcBody strong{font-size:15px}.tcBody span{font-size:12px;color:var(--muted);line-height:1.4}
   </style>
 </head>
 <body>
@@ -91,7 +93,21 @@
         <div class="canvasWrap" id="wrap"><canvas id="canvas"></canvas><div class="empty" id="empty"><div class="bubble">✦</div><strong data-i18n="emptyTitle">把图片放进来试试</strong><div data-i18n="emptyHint">也可以直接粘贴剪贴板中的图片</div></div></div>
       </section>
     </div>
-  </section><aside class="adRail" aria-label="更多工具"><div class="ad adTall"><div class="adLabel" data-i18n="adLabel">更多工具</div><div class="adArt"><div class="adIcon">✦</div><strong data-i18n="adTitle">更多图片工具<br>即将上线</strong><p data-i18n="adDesc">压缩、裁剪、格式转换<br>都在浏览器本地完成</p><span class="adCta" data-i18n="adCta">敬请期待</span></div></div><div class="ad adWide"><div class="adLabel" data-i18n="adLabel">更多工具</div><div class="adArt"><div class="adIcon">✦</div><strong data-i18n="adTitleWide">更多图片工具即将上线</strong><p data-i18n="adDescWide">压缩、裁剪与格式转换</p><span class="adCta" data-i18n="adCta">敬请期待</span></div></div><div class="adNote" data-i18n="adNote">未来广告位已预留，不影响当前使用</div></aside></div>
+  </section><aside class="adRail" aria-label="更多工具"><div class="ad adTall"><div class="adLabel">图片工具箱</div><div class="toolList"><a href="/compress.html" class="toolLink"><span class="toolIcon">📦</span><span class="toolName">图片压缩</span><span class="toolDesc">减小体积</span></a><a href="/convert.html" class="toolLink"><span class="toolIcon">🔄</span><span class="toolName">格式转换</span><span class="toolDesc">PNG/JPG/WebP</span></a><a href="/crop.html" class="toolLink"><span class="toolIcon">✂️</span><span class="toolName">裁剪缩放</span><span class="toolDesc">改尺寸</span></a><a href="/idphoto.html" class="toolLink"><span class="toolIcon">🪪</span><span class="toolName">证件照换底</span><span class="toolDesc">蓝/白/红底</span></a><a href="/watermark.html" class="toolLink"><span class="toolIcon">💧</span><span class="toolName">加水印</span><span class="toolDesc">文字/图片</span></a><a href="/bgcolor.html" class="toolLink"><span class="toolIcon">🎨</span><span class="toolName">换背景色</span><span class="toolDesc">透明图加底色</span></a><a href="/splice.html" class="toolLink"><span class="toolIcon">🧩</span><span class="toolName">图片拼接</span><span class="toolDesc">横向/纵向</span></a><a href="/img2pdf.html" class="toolLink"><span class="toolIcon">📄</span><span class="toolName">转PDF</span><span class="toolDesc">多图转PDF</span></a><a href="/filter.html" class="toolLink"><span class="toolIcon">🌈</span><span class="toolName">滤镜调色</span><span class="toolDesc">亮度/对比度</span></a></div></div><div class="ad adWide"><div class="adLabel">图片工具箱</div><div class="adArt"><div class="adIcon">✦</div><strong>10+ 图片工具<br>全部免费</strong><p>压缩、转换、裁剪、拼接<br>都在浏览器本地完成</p><a href="/compress.html" class="adCta">开始使用 →</a></div></div><div class="adNote">全部工具 · 本地处理 · 免费无水印</div></aside></div>
+  <section class="toolsShowcase">
+    <h2>图片工具箱 — 全部免费 · 浏览器本地处理</h2>
+    <div class="toolsGrid">
+      <a href="/compress.html" class="toolCard"><div class="tcIcon">📦</div><div class="tcBody"><strong>图片压缩</strong><span>智能压缩PNG/JPG/WebP，减小文件体积</span></div></a>
+      <a href="/convert.html" class="toolCard"><div class="tcIcon">🔄</div><div class="tcBody"><strong>格式转换</strong><span>PNG/JPG/WebP/BMP 互转</span></div></a>
+      <a href="/crop.html" class="toolCard"><div class="tcIcon">✂️</div><div class="tcBody"><strong>裁剪缩放</strong><span>自由裁剪、改尺寸、预设比例</span></div></a>
+      <a href="/idphoto.html" class="toolCard"><div class="tcIcon">🪪</div><div class="tcBody"><strong>证件照换底色</strong><span>蓝底/白底/红底一键替换</span></div></a>
+      <a href="/watermark.html" class="toolCard"><div class="tcIcon">💧</div><div class="tcBody"><strong>图片加水印</strong><span>文字/图片水印，支持平铺</span></div></a>
+      <a href="/bgcolor.html" class="toolCard"><div class="tcIcon">🎨</div><div class="tcBody"><strong>透明图换背景色</strong><span>给透明PNG添加纯色或渐变底色</span></div></a>
+      <a href="/splice.html" class="toolCard"><div class="tcIcon">🧩</div><div class="tcBody"><strong>图片拼接</strong><span>多图横向/纵向拼成长图</span></div></a>
+      <a href="/img2pdf.html" class="toolCard"><div class="tcIcon">📄</div><div class="tcBody"><strong>图片转PDF</strong><span>多张图片合并为PDF文档</span></div></a>
+      <a href="/filter.html" class="toolCard"><div class="tcIcon">🌈</div><div class="tcBody"><strong>滤镜调色</strong><span>亮度/对比度/饱和度/复古滤镜</span></div></a>
+    </div>
+  </section>
 </main>
 <script>
 const $=s=>document.querySelector(s), file=$('#file'),drop=$('#drop'),canvas=$('#canvas'),ctx=canvas.getContext('2d',{willReadFrequently:true}),empty=$('#empty'),wrap=$('#wrap');

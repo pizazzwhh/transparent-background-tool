@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>图片加水印 - 在线免费批量添加文字/图片水印 | 透白</title>
+<meta name="description" content="透白图片加水印工具，纯前端本地处理，支持文字水印与图片水印，九宫格定位与平铺模式，可调字体大小、颜色、透明度与旋转角度，实时预览，一键下载，图片不上传服务器。" />
+<meta name="keywords" content="图片加水印,在线水印,文字水印,批量加水印,add watermark,image watermark" />
+<link rel="canonical" href="https://example.com/watermark.html" />
+<meta property="og:title" content="图片加水印 - 在线免费批量添加文字/图片水印 | 透白" />
+<meta property="og:description" content="纯前端本地添加图片水印，支持文字/图片水印、九宫格定位、平铺旋转，图片不上传服务器。" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://example.com/watermark.html" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "透白图片加水印",
+  "url": "https://example.com/watermark.html",
+  "description": "在线免费图片加水印工具，支持文字水印与图片水印、九宫格定位与平铺模式，纯前端本地处理。",
+  "applicationCategory": "MultimediaApplication",
+  "operatingSystem": "All",
+  "browserRequirements": "支持Canvas的现代浏览器",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CNY" }
+}
+</script>
+<style>
+:root{
+  --ink:#18201d;--muted:#69736f;--paper:#f5f3ec;--card:#fffef9;--line:#d9ddd8;
+  --accent:#087f5b;--accent2:#c7f1df;--shadow:0 24px 70px #163d2b14;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:Inter,"PingFang SC","Microsoft YaHei",sans-serif;
+  color:var(--ink);background:radial-gradient(circle at 10% 0,#dff6e9 0,transparent 32rem),var(--paper);
+  min-height:100vh;line-height:1.6;-webkit-font-smoothing:antialiased;
+}
+header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 32px;max-width:1200px;margin:0 auto;flex-wrap:wrap;gap:12px;
+}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-weight:700;font-size:20px}
+.mark{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:32px;height:32px;border-radius:9px;background:var(--accent);color:#fff;font-size:16px;font-weight:800;
+}
+.toolnav{display:flex;gap:6px;flex-wrap:wrap}
+.toolnav a{
+  text-decoration:none;color:var(--muted);font-size:13px;padding:7px 12px;border-radius:8px;
+  transition:.15s;background:transparent;
+}
+.toolnav a:hover{background:var(--accent2);color:var(--accent)}
+main{max-width:1200px;margin:0 auto;padding:8px 24px 48px}
+.hero{text-align:center;padding:36px 0 28px}
+.hero h1{font-size:34px;font-weight:800;letter-spacing:-0.5px;margin-bottom:10px}
+.hero p{color:var(--muted);font-size:16px;max-width:620px;margin:0 auto}
+.badge{
+  display:inline-flex;align-items:center;gap:6px;background:var(--accent2);color:var(--accent);
+  padding:6px 14px;border-radius:999px;font-size:13px;font-weight:600;margin-top:16px;
+}
+.badge::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.toolCard{
+  background:var(--card);border:1px solid var(--line);border-radius:18px;
+  box-shadow:var(--shadow);padding:28px;margin-top:16px;
+}
+.dropzone{
+  border:2px dashed var(--line);border-radius:14px;padding:46px 24px;text-align:center;
+  cursor:pointer;transition:.2s;background:var(--paper);
+}
+.dropzone:hover,.dropzone.drag{border-color:var(--accent);background:var(--accent2)}
+.dropzone .icon{font-size:40px;margin-bottom:8px}
+.dropzone p{color:var(--muted);font-size:14px}
+.dropzone strong{color:var(--accent)}
+.workarea{display:none;grid-template-columns:1fr 1fr;gap:24px;margin-top:24px}
+@media(max-width:760px){.workarea{grid-template-columns:1fr}}
+.panel{background:var(--paper);border-radius:12px;padding:18px}
+.panel h3{font-size:15px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.previewBox{background:#fff;border-radius:10px;overflow:hidden;border:1px solid var(--line);min-height:200px;display:flex;align-items:center;justify-content:center}
+.previewBox canvas{max-width:100%;height:auto;display:block}
+.controls{display:flex;flex-direction:column;gap:16px}
+.controlGroup label{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:8px;font-weight:600}
+.controlGroup label span{color:var(--accent)}
+.tabRow{display:flex;gap:6px;background:var(--card);padding:4px;border-radius:10px;border:1px solid var(--line)}
+.tabRow button{
+  flex:1;padding:8px;border:none;border-radius:7px;background:transparent;font-size:13px;
+  font-weight:600;cursor:pointer;color:var(--muted);transition:.15s;
+}
+.tabRow button.active{background:var(--ink);color:#fff}
+input[type=text]{
+  width:100%;padding:9px 12px;border:1px solid var(--line);border-radius:8px;font-size:14px;
+  font-family:inherit;background:var(--card);color:var(--ink);
+}
+input[type=text]:focus{outline:none;border-color:var(--accent)}
+input[type=range]{
+  -webkit-appearance:none;width:100%;height:5px;background:var(--line);border-radius:5px;outline:none;
+}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--accent);cursor:pointer;
+}
+input[type=range]::-moz-range-thumb{
+  width:18px;height:18px;border:none;border-radius:50%;background:var(--accent);cursor:pointer;
+}
+input[type=color]{
+  width:54px;height:38px;border:1px solid var(--line);border-radius:8px;cursor:pointer;background:none;
+}
+.inline{display:flex;align-items:center;gap:12px}
+.inline input[type=range]{flex:1}
+/* 九宫格选择器 */
+.grid9{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;max-width:180px;margin:0 auto}
+.grid9 button{
+  aspect-ratio:1;border:1.5px solid var(--line);background:var(--card);border-radius:7px;cursor:pointer;
+  transition:.15s;display:flex;align-items:center;justify-content:center;
+}
+.grid9 button:hover{border-color:var(--accent)}
+.grid9 button.active{background:var(--accent2);border-color:var(--accent)}
+.grid9 button .dot{width:8px;height:8px;border-radius:50%;background:var(--muted)}
+.grid9 button.active .dot{background:var(--accent)}
+/* 复选框样式 */
+.checkboxRow{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--ink);font-weight:600;cursor:pointer}
+.checkboxRow input{width:18px;height:18px;accent-color:var(--accent);cursor:pointer}
+.wmUpload{
+  border:1.5px dashed var(--line);border-radius:8px;padding:16px;text-align:center;cursor:pointer;
+  font-size:13px;color:var(--muted);transition:.15s;background:var(--card);
+}
+.wmUpload:hover{border-color:var(--accent);color:var(--accent)}
+.wmPreview{margin-top:8px;max-width:100px;max-height:60px;border-radius:6px;border:1px solid var(--line)}
+.btnRow{display:flex;gap:12px;margin-top:8px;flex-wrap:wrap}
+.btn{
+  padding:11px 22px;border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;transition:.15s;
+  display:inline-flex;align-items:center;gap:7px;text-decoration:none;
+}
+.primary{background:var(--ink);color:#fff}
+.primary:hover{background:var(--accent)}
+.secondary{background:#e9ece8;color:var(--ink)}
+.secondary:hover{background:var(--line)}
+.relatedTools{margin-top:40px;text-align:center}
+.relatedTools h2{font-size:20px;margin-bottom:18px}
+.toolGrid{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.toolGrid a{
+  text-decoration:none;color:var(--ink);background:var(--card);border:1px solid var(--line);
+  padding:10px 18px;border-radius:10px;font-size:13px;font-weight:500;transition:.15s;
+}
+.toolGrid a:hover{border-color:var(--accent);color:var(--accent);background:var(--accent2)}
+footer{text-align:center;padding:24px;color:var(--muted);font-size:12px}
+</style>
+</head>
+<body>
+<header>
+  <a href="/" class="brand"><span class="mark">透</span><span>透白</span></a>
+  <nav class="toolnav">
+    <a href="/compress.html">压缩</a><a href="/convert.html">转换</a><a href="/crop.html">裁剪</a>
+    <a href="/idphoto.html">证件照</a><a href="/watermark.html">水印</a><a href="/bgcolor.html">换底色</a>
+    <a href="/splice.html">拼接</a><a href="/img2pdf.html">转PDF</a><a href="/filter.html">滤镜</a>
+  </nav>
+</header>
+<main>
+  <section class="hero">
+    <h1>图片加水印</h1>
+    <p>上传图片，添加文字或图片水印，支持九宫格定位与平铺模式，自由调节字体、颜色、透明度与旋转角度。</p>
+    <div class="badge">仅在浏览器本地处理 · 图片不会上传到服务器</div>
+  </section>
+
+  <section class="toolCard">
+    <div class="dropzone" id="dropzone">
+      <div class="icon">📁</div>
+      <p>点击上传、拖拽到此处或 <strong>Ctrl+V 粘贴</strong> 图片</p>
+      <p style="margin-top:6px;font-size:12px">支持 JPG / PNG / WEBP</p>
+      <input type="file" id="fileInput" accept="image/*" hidden />
+    </div>
+
+    <div class="workarea" id="workarea">
+      <div class="panel">
+        <h3>👁 实时预览</h3>
+        <div class="previewBox"><canvas id="preview"></canvas></div>
+      </div>
+      <div class="panel">
+        <h3>⚙️ 水印设置</h3>
+        <div class="controls">
+          <!-- 水印类型切换 -->
+          <div class="controlGroup">
+            <label>水印类型</label>
+            <div class="tabRow" id="typeTabs">
+              <button data-type="text" class="active">文字水印</button>
+              <button data-type="image">图片水印</button>
+            </div>
+          </div>
+
+          <!-- 文字水印配置 -->
+          <div id="textConfig">
+            <div class="controlGroup">
+              <label>水印文字</label>
+              <input type="text" id="wmText" value="© 透白" maxlength="50" />
+            </div>
+            <div class="controlGroup">
+              <label>字体大小 <span id="sizeVal">32</span>px</label>
+              <input type="range" id="fontSize" min="12" max="72" value="32" />
+            </div>
+            <div class="inline">
+              <div class="controlGroup" style="flex:1">
+                <label>颜色</label>
+                <input type="color" id="textColor" value="#ffffff" />
+              </div>
+              <div class="controlGroup" style="flex:1">
+                <label>透明度 <span id="opacityVal">0.5</span></label>
+                <input type="range" id="opacity" min="0" max="1" step="0.05" value="0.5" />
+              </div>
+            </div>
+          </div>
+
+          <!-- 图片水印配置 -->
+          <div id="imageConfig" style="display:none">
+            <div class="controlGroup">
+              <label>水印图片</label>
+              <div class="wmUpload" id="wmUpload">点击上传水印图片（PNG最佳）<input type="file" id="wmFile" accept="image/*" hidden /></div>
+              <img class="wmPreview" id="wmPreview" style="display:none" />
+            </div>
+            <div class="controlGroup">
+              <label>水印大小 <span id="wmSizeVal">100</span>px</label>
+              <input type="range" id="wmSize" min="30" max="300" value="100" />
+            </div>
+            <div class="controlGroup">
+              <label>透明度 <span id="wmOpacityVal">0.8</span></label>
+              <input type="range" id="wmOpacity" min="0" max="1" step="0.05" value="0.8" />
+            </div>
+          </div>
+
+          <!-- 平铺模式 -->
+          <label class="checkboxRow">
+            <input type="checkbox" id="tileMode" /> 平铺模式（水印铺满整张图）
+          </label>
+          <div class="controlGroup" id="rotateGroup" style="display:none">
+            <label>旋转角度 <span id="rotateVal">-30</span>°</label>
+            <input type="range" id="rotate" min="-45" max="45" value="-30" />
+          </div>
+
+          <!-- 九宫格位置（非平铺模式时显示） -->
+          <div class="controlGroup" id="positionGroup">
+            <label>水印位置</label>
+            <div class="grid9" id="grid9">
+              <button data-pos="tl" class="active"><span class="dot"></span></button>
+              <button data-pos="tc"><span class="dot"></span></button>
+              <button data-pos="tr"><span class="dot"></span></button>
+              <button data-pos="ml"><span class="dot"></span></button>
+              <button data-pos="mc"><span class="dot"></span></button>
+              <button data-pos="mr"><span class="dot"></span></button>
+              <button data-pos="bl"><span class="dot"></span></button>
+              <button data-pos="bc"><span class="dot"></span></button>
+              <button data-pos="br"><span class="dot"></span></button>
+            </div>
+          </div>
+
+          <div class="btnRow">
+            <button class="btn primary" id="downloadBtn">⬇ 下载图片</button>
+            <button class="btn secondary" id="resetBtn">重新上传</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="relatedTools">
+    <h2>更多图片工具</h2>
+    <div class="toolGrid">
+      <a href="/compress.html">图片压缩</a><a href="/convert.html">格式转换</a><a href="/crop.html">裁剪缩放</a>
+      <a href="/idphoto.html">证件照换底色</a><a href="/watermark.html">加水印</a><a href="/bgcolor.html">换背景色</a>
+      <a href="/splice.html">图片拼接</a><a href="/img2pdf.html">转PDF</a><a href="/filter.html">滤镜调色</a>
+    </div>
+  </section>
+</main>
+<footer>透白工具 · 所有处理均在浏览器本地完成，图片不会离开您的设备</footer>
+
+<script>
+(function(){
+  // ============ DOM 元素 ============
+  const dropzone = document.getElementById('dropzone');
+  const fileInput = document.getElementById('fileInput');
+  const workarea = document.getElementById('workarea');
+  const preview = document.getElementById('preview');
+  const ctx = preview.getContext('2d');
+  const typeTabs = document.getElementById('typeTabs');
+  const textConfig = document.getElementById('textConfig');
+  const imageConfig = document.getElementById('imageConfig');
+  const wmText = document.getElementById('wmText');
+  const fontSize = document.getElementById('fontSize');
+  const sizeVal = document.getElementById('sizeVal');
+  const textColor = document.getElementById('textColor');
+  const opacity = document.getElementById('opacity');
+  const opacityVal = document.getElementById('opacityVal');
+  const wmUpload = document.getElementById('wmUpload');
+  const wmFile = document.getElementById('wmFile');
+  const wmPreview = document.getElementById('wmPreview');
+  const wmSize = document.getElementById('wmSize');
+  const wmSizeVal = document.getElementById('wmSizeVal');
+  const wmOpacity = document.getElementById('wmOpacity');
+  const wmOpacityVal = document.getElementById('wmOpacityVal');
+  const tileMode = document.getElementById('tileMode');
+  const rotateGroup = document.getElementById('rotateGroup');
+  const rotate = document.getElementById('rotate');
+  const rotateVal = document.getElementById('rotateVal');
+  const positionGroup = document.getElementById('positionGroup');
+  const grid9 = document.getElementById('grid9');
+  const downloadBtn = document.getElementById('downloadBtn');
+  const resetBtn = document.getElementById('resetBtn');
+
+  // ============ 状态变量 ============
+  let sourceImage = null;   // 原始图片
+  let wmType = 'text';      // 水印类型：text / image
+  let wmImage = null;       // 水印图片对象
+  let position = 'tl';      // 九宫格位置
+
+  // ============ 加载主图 ============
+  function loadFile(file){
+    if(!file || !file.type.startsWith('image/')) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+      const img = new Image();
+      img.onload = () => { sourceImage = img; showWorkarea(); render(); };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  // ============ 加载水印图片 ============
+  function loadWmFile(file){
+    if(!file || !file.type.startsWith('image/')) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+      const img = new Image();
+      img.onload = () => { wmImage = img; wmPreview.src = e.target.result; wmPreview.style.display = 'block'; render(); };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  // ============ 显示工作区 ============
+  function showWorkarea(){
+    dropzone.style.display = 'none';
+    workarea.style.display = 'grid';
+  }
+
+  // ============ 根据九宫格位置计算水印坐标 ============
+  function getPosition(w, h, wmW, wmH, pos, padding){
+    padding = padding || 20;
+    let x, y;
+    // 水平方向：左/中/右
+    if(pos[0] === 't' || pos[0] === 'm' || pos[0] === 'b'){
+      const v = pos[1]; // l / c / r
+      if(v === 'l') x = padding;
+      else if(v === 'c') x = (w - wmW) / 2;
+      else x = w - wmW - padding;
+      // 垂直方向
+      if(pos[0] === 't') y = padding;
+      else if(pos[0] === 'm') y = (h - wmH) / 2;
+      else y = h - wmH - padding;
+    }
+    return { x, y };
+  }
+
+  // ============ 渲染：绘制水印 ============
+  function render(){
+    if(!sourceImage) return;
+
+    // 限制最大尺寸
+    const maxW = 1200;
+    let w = sourceImage.width, h = sourceImage.height;
+    if(w > maxW){ h = Math.round(h * maxW / w); w = maxW; }
+    preview.width = w; preview.height = h;
+
+    // 先绘制原图
+    ctx.drawImage(sourceImage, 0, 0, w, h);
+
+    if(wmType === 'text'){
+      drawTextWatermark(w, h);
+    } else {
+      drawImageWatermark(w, h);
+    }
+  }
+
+  // ============ 绘制文字水印 ============
+  function drawTextWatermark(w, h){
+    const text = wmText.value || '水印';
+    const size = parseInt(fontSize.value);
+    const color = textColor.value;
+    const op = parseFloat(opacity.value);
+    const isTile = tileMode.checked;
+    const angle = parseInt(rotate.value);
+
+    ctx.save();
+    ctx.globalAlpha = op;
+    ctx.fillStyle = color;
+    ctx.font = 'bold ' + size + 'px Inter, "PingFang SC", "Microsoft YaHei", sans-serif';
+    ctx.textBaseline = 'middle';
+
+    if(isTile){
+      // 平铺模式：旋转画布后循环绘制
+      const textW = ctx.measureText(text).width;
+      const stepX = textW + size * 2;  // 水平间距
+      const stepY = size * 2.5;         // 垂直间距
+      // 以画布中心为旋转中心
+      ctx.translate(w / 2, h / 2);
+      ctx.rotate(angle * Math.PI / 180);
+      // 扩大绘制范围，保证旋转后仍铺满
+      const diag = Math.sqrt(w * w + h * h);
+      const cols = Math.ceil(diag / stepX) + 2;
+      const rows = Math.ceil(diag / stepY) + 2;
+      for(let row = -rows; row <= rows; row++){
+        for(let col = -cols; col <= cols; col++){
+          ctx.fillText(text, col * stepX, row * stepY);
+        }
+      }
+    } else {
+      // 单个水印：按九宫格定位
+      const textW = ctx.measureText(text).width;
+      const padding = 20;
+      const pos = getPosition(w, h, textW, size, position, padding);
+      ctx.fillText(text, pos.x, pos.y + size / 2);
+    }
+    ctx.restore();
+  }
+
+  // ============ 绘制图片水印 ============
+  function drawImageWatermark(w, h){
+    if(!wmImage) return;
+    const targetSize = parseInt(wmSize.value);
+    const op = parseFloat(wmOpacity.value);
+    const isTile = tileMode.checked;
+    const angle = parseInt(rotate.value);
+
+    // 按目标尺寸等比缩放水印图片
+    const scale = targetSize / Math.max(wmImage.width, wmImage.height);
+    const wmW = Math.max(1, Math.round(wmImage.width * scale));
+    const wmH = Math.max(1, Math.round(wmImage.height * scale));
+
+    ctx.save();
+    ctx.globalAlpha = op;
+
+    if(isTile){
+      // 平铺模式：旋转后循环绘制图片水印
+      const stepX = wmW + wmW * 0.5;
+      const stepY = wmH + wmH * 0.5;
+      ctx.translate(w / 2, h / 2);
+      ctx.rotate(angle * Math.PI / 180);
+      const diag = Math.sqrt(w * w + h * h);
+      const cols = Math.ceil(diag / stepX) + 2;
+      const rows = Math.ceil(diag / stepY) + 2;
+      for(let row = -rows; row <= rows; row++){
+        for(let col = -cols; col <= cols; col++){
+          ctx.drawImage(wmImage, col * stepX - wmW / 2, row * stepY - wmH / 2, wmW, wmH);
+        }
+      }
+    } else {
+      // 单个水印：按九宫格定位
+      const padding = 20;
+      const pos = getPosition(w, h, wmW, wmH, position, padding);
+      ctx.drawImage(wmImage, pos.x, pos.y, wmW, wmH);
+    }
+    ctx.restore();
+  }
+
+  // ============ 事件：主图上传 ============
+  dropzone.addEventListener('click', () => fileInput.click());
+  fileInput.addEventListener('change', e => { if(e.target.files[0]) loadFile(e.target.files[0]); });
+  dropzone.addEventListener('dragover', e => { e.preventDefault(); dropzone.classList.add('drag'); });
+  dropzone.addEventListener('dragleave', () => dropzone.classList.remove('drag'));
+  dropzone.addEventListener('drop', e => {
+    e.preventDefault(); dropzone.classList.remove('drag');
+    if(e.dataTransfer.files[0]) loadFile(e.dataTransfer.files[0]);
+  });
+  document.addEventListener('paste', e => {
+    const items = e.clipboardData.items;
+    for(const item of items){
+      if(item.type.startsWith('image/')){ loadFile(item.getAsFile()); break; }
+    }
+  });
+
+  // ============ 事件：水印图片上传 ============
+  wmUpload.addEventListener('click', () => wmFile.click());
+  wmFile.addEventListener('change', e => { if(e.target.files[0]) loadWmFile(e.target.files[0]); });
+
+  // ============ 事件：水印类型切换 ============
+  typeTabs.addEventListener('click', e => {
+    const btn = e.target.closest('button');
+    if(!btn) return;
+    typeTabs.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    wmType = btn.dataset.type;
+    textConfig.style.display = wmType === 'text' ? 'block' : 'none';
+    imageConfig.style.display = wmType === 'image' ? 'block' : 'none';
+    render();
+  });
+
+  // ============ 事件：文字水印配置 ============
+  wmText.addEventListener('input', render);
+  fontSize.addEventListener('input', () => { sizeVal.textContent = fontSize.value; render(); });
+  textColor.addEventListener('input', render);
+  opacity.addEventListener('input', () => { opacityVal.textContent = opacity.value; render(); });
+
+  // ============ 事件：图片水印配置 ============
+  wmSize.addEventListener('input', () => { wmSizeVal.textContent = wmSize.value; render(); });
+  wmOpacity.addEventListener('input', () => { wmOpacityVal.textContent = wmOpacity.value; render(); });
+
+  // ============ 事件：平铺模式 ============
+  tileMode.addEventListener('change', () => {
+    if(tileMode.checked){
+      rotateGroup.style.display = 'block';
+      positionGroup.style.display = 'none';
+    } else {
+      rotateGroup.style.display = 'none';
+      positionGroup.style.display = 'block';
+    }
+    render();
+  });
+  rotate.addEventListener('input', () => { rotateVal.textContent = rotate.value; render(); });
+
+  // ============ 事件：九宫格位置 ============
+  grid9.addEventListener('click', e => {
+    const btn = e.target.closest('button');
+    if(!btn) return;
+    grid9.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    position = btn.dataset.pos;
+    render();
+  });
+
+  // ============ 事件：下载 ============
+  downloadBtn.addEventListener('click', () => {
+    const link = document.createElement('a');
+    link.download = '加水印_' + Date.now() + '.png';
+    link.href = preview.toDataURL('image/png');
+    link.click();
+  });
+
+  // ============ 事件：重新上传 ============
+  resetBtn.addEventListener('click', () => {
+    sourceImage = null; wmImage = null;
+    workarea.style.display = 'none';
+    dropzone.style.display = 'block';
+    fileInput.value = ''; wmFile.value = '';
+    wmPreview.style.display = 'none';
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>图片转PDF - 在线免费将JPG/PNG转为PDF | 透白</title>
+  <meta name="description" content="免费在线图片转PDF工具，支持JPG、PNG、WebP转PDF，多张图片合并为一个PDF文件。可选A4、Letter或原始尺寸页面，可调边距与图片位置。纯浏览器本地处理，不上传服务器，保护隐私。" />
+  <meta name="keywords" content="图片转PDF,JPG转PDF,PNG转PDF,image to pdf,在线图片转PDF,多图转PDF" />
+  <meta name="author" content="透白" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+  <meta name="googlebot" content="index,follow" />
+  <meta name="bingbot" content="index,follow" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/favicon.svg" />
+  <link rel="canonical" href="https://imagec.xin/img2pdf.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="透白" />
+  <meta property="og:title" content="图片转PDF - 在线免费将JPG/PNG转为PDF | 透白" />
+  <meta property="og:description" content="免费在线图片转PDF工具，支持多张图片合并为PDF。可选A4、Letter或原始尺寸。纯浏览器本地处理，不上传服务器。" />
+  <meta property="og:url" content="https://imagec.xin/img2pdf.html" />
+  <meta property="og:image" content="https://imagec.xin/og-image.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="图片转PDF - 在线免费将JPG/PNG转为PDF | 透白" />
+  <meta name="twitter:description" content="免费在线图片转PDF工具，支持多张图片合并为PDF。纯浏览器本地处理，不上传服务器。" />
+  <meta name="twitter:image" content="https://imagec.xin/og-image.jpg" />
+  <meta name="theme-color" content="#f5f3ec" />
+  <meta name="application-name" content="透白" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"图片转PDF工具","alternateName":"透白","url":"https://imagec.xin/img2pdf.html","image":"https://imagec.xin/og-image.jpg","applicationCategory":"MultimediaApplication","operatingSystem":"Any","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"在线图片转PDF工具，支持JPG、PNG、WebP转PDF，多张图片合并为一个PDF文件。可选A4、Letter或原始尺寸页面，可调边距与图片位置。所有处理在浏览器本地完成，不上传服务器。","inLanguage":"zh-CN","featureList":["JPG/PNG/WebP转PDF","多图合并PDF","A4/Letter/原始尺寸","可调边距","图片位置选择","拖拽排序","本地处理不上传"],"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.8","ratingCount":"1"}}</script>
+  <!-- jsPDF 库（CDN引入） -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    :root{--ink:#18201d;--muted:#69736f;--paper:#f5f3ec;--card:#fffef9;--line:#d9ddd8;--accent:#087f5b;--accent2:#c7f1df;--shadow:0 24px 70px #163d2b14}
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;color:var(--ink);background:radial-gradient(circle at 10% 0,#dff6e9 0,transparent 32rem),var(--paper);font:15px/1.6 Inter,"PingFang SC","Microsoft YaHei",sans-serif}
+    .shell{width:min(1120px,calc(100% - 32px));margin:auto;padding:24px 0 48px}
+    header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:22px;flex-wrap:wrap}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:19px;text-decoration:none;color:var(--ink)}
+    .mark{width:34px;height:34px;border-radius:11px;background:var(--ink);display:grid;place-items:center;color:white;font-family:Georgia;font-size:20px}
+    .toolnav{display:flex;gap:4px;flex-wrap:wrap}
+    .toolnav a{padding:7px 12px;border-radius:9px;text-decoration:none;color:var(--muted);font-size:13px;font-weight:600;transition:.15s}
+    .toolnav a:hover{background:var(--accent2);color:var(--accent)}
+    .toolnav a.active{background:var(--ink);color:white}
+    .panel{background:#fffef9cc;border:1px solid #ffffff;box-shadow:var(--shadow);backdrop-filter:blur(12px);border-radius:24px;overflow:hidden}
+    .hero{padding:30px 34px 24px;border-bottom:1px solid var(--line)}
+    h1{font-size:clamp(26px,3.5vw,38px);line-height:1.12;letter-spacing:-.03em;margin:0 0 10px}
+    .hero p{margin:0;color:var(--muted);font-size:15px}
+    .safeBadge{display:inline-flex;align-items:center;gap:8px;margin-top:15px;padding:8px 12px;border:1px solid #a7ddc6;border-radius:10px;background:#eaf9f1;color:#086344;font-weight:700;font-size:12px}
+    .safeBadge:before{content:"●";color:var(--accent)}
+    .workspace{display:grid;grid-template-columns:320px 1fr;min-height:540px}
+    .controls{padding:24px;border-right:1px solid var(--line);background:#fbfaf5}
+    .drop{min-height:130px;border:1.5px dashed #8fa69a;border-radius:16px;padding:20px 16px;text-align:center;cursor:pointer;transition:.2s;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px}
+    .drop:hover,.drop.over{border-color:var(--accent);background:#f0fbf5;transform:translateY(-1px)}
+    .drop svg{width:32px;height:32px;color:var(--accent)}
+    .drop strong{display:block;font-size:15px}
+    .drop small{display:block;color:var(--muted);font-size:12px;line-height:1.4}
+    input[type=file]{display:none}
+    .group{margin-top:20px}
+    .labelrow{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+    .labelrow label{font-weight:700;font-size:14px}
+    .value{font-variant-numeric:tabular-nums;color:var(--accent);font-weight:700;background:var(--accent2);padding:2px 8px;border-radius:99px;font-size:13px}
+    input[type=range]{width:100%;accent-color:var(--accent)}
+    .hint{font-size:12px;color:var(--muted);margin-top:5px}
+    .seg{display:flex;background:#e9ece8;border-radius:10px;padding:3px;gap:2px}
+    .seg button{flex:1;padding:8px 10px;background:transparent;border-radius:7px;color:var(--muted);font-size:13px;font-weight:600}
+    .seg button.active{background:white;color:var(--ink);box-shadow:0 2px 6px #0001}
+    select{width:100%;padding:9px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);font:inherit;font-size:14px;font-weight:600;cursor:pointer}
+    select:focus{outline:none;border-color:var(--accent)}
+    .actions{display:grid;gap:10px;margin-top:24px}
+    button{border:0;border-radius:11px;padding:11px 14px;font:inherit;font-weight:700;cursor:pointer;transition:.15s}
+    button:active{transform:scale(.98)}
+    .primary{background:var(--ink);color:white}
+    .primary:hover{background:var(--accent)}
+    .secondary{background:#e9ece8;color:var(--ink)}
+    button:disabled{opacity:.4;cursor:not-allowed}
+    .stage{padding:24px;min-width:0}
+    .stagebar{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+    .meta{color:var(--muted);font-size:13px}
+    .previewArea{border-radius:16px;border:1px solid var(--line);background:#fbfaf5;min-height:340px;max-height:560px;overflow-y:auto;padding:16px}
+    .empty{text-align:center;color:var(--muted);padding:80px 20px}
+    .empty .bubble{width:64px;height:64px;border-radius:20px;background:#e7f5ed;margin:0 auto 12px;display:grid;place-items:center;font-size:28px}
+    /* 缩略图列表 */
+    .thumbList{display:flex;flex-direction:column;gap:8px}
+    .thumb{display:flex;align-items:center;gap:10px;padding:10px;background:#fff;border:1px solid var(--line);border-radius:10px;cursor:grab;transition:.15s}
+    .thumb:hover{border-color:var(--accent)}
+    .thumb.dragging{opacity:.4}
+    .thumb img{width:48px;height:48px;object-fit:cover;border-radius:6px;flex:none;background:#f0f0ed}
+    .thumb .info{flex:1;min-width:0}
+    .thumb .name{font-size:13px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .thumb .dim{font-size:11px;color:var(--muted)}
+    .thumb .del{border:none;background:none;color:var(--muted);cursor:pointer;font-size:18px;padding:4px 8px;border-radius:6px;line-height:1}
+    .thumb .del:hover{background:#ffe0e0;color:#c00}
+    .thumb .idx{width:22px;height:22px;border-radius:50%;background:var(--accent2);color:var(--accent);display:grid;place-items:center;font-size:11px;font-weight:800;flex:none}
+    .thumbList::-webkit-scrollbar{width:6px}
+    .thumbList::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
+    /* 相关工具 */
+    .relatedTools{margin-top:36px}
+    .relatedTools h2{font-size:18px;margin:0 0 14px}
+    .toolGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+    .toolGrid a{display:block;padding:14px 16px;background:var(--card);border:1px solid var(--line);border-radius:12px;text-decoration:none;color:var(--ink);font-weight:600;font-size:14px;transition:.15s}
+    .toolGrid a:hover{border-color:var(--accent);background:#f0fbf5;transform:translateY(-1px)}
+    @media(max-width:800px){.workspace{grid-template-columns:1fr}.controls{border-right:0;border-bottom:1px solid var(--line)}.toolnav{order:3;width:100%;overflow-x:auto;flex-wrap:nowrap;padding-bottom:4px}.toolnav a{white-space:nowrap}.hero{padding:24px 20px}.stage{padding:16px}.controls{padding:18px}}
+  </style>
+</head>
+<body>
+<main class="shell">
+  <header>
+    <a href="/" class="brand"><span class="mark">透</span><span>透白</span></a>
+    <nav class="toolnav">
+      <a href="/compress.html">压缩</a><a href="/convert.html">转换</a><a href="/crop.html">裁剪</a><a href="/idphoto.html">证件照</a><a href="/watermark.html">水印</a><a href="/bgcolor.html">换底色</a><a href="/splice.html">拼接</a><a href="/img2pdf.html" class="active">转PDF</a><a href="/filter.html">滤镜</a>
+    </nav>
+  </header>
+
+  <section class="panel">
+    <div class="hero">
+      <h1>图片转 PDF</h1>
+      <p>将多张图片合并为一个 PDF 文件，支持 A4、Letter 或原始尺寸页面，可调边距与图片位置。所有处理在浏览器本地完成。</p>
+      <div class="safeBadge">仅在浏览器本地处理 · 图片不会上传到服务器</div>
+    </div>
+    <div class="workspace">
+      <aside class="controls">
+        <label class="drop" id="drop" for="file">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M5 14v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4"/></svg>
+          <strong>点击选择或拖入多张图片</strong>
+          <small>支持 PNG、JPG、WebP<br>也可直接粘贴图片</small>
+        </label>
+        <input id="file" type="file" accept="image/png,image/jpeg,image/webp" multiple />
+
+        <div class="group">
+          <div class="labelrow"><label for="pageSize">页面大小</label></div>
+          <select id="pageSize">
+            <option value="a4">A4 (210 × 297mm)</option>
+            <option value="letter">Letter (8.5 × 11in)</option>
+            <option value="original">原始尺寸（按图片大小）</option>
+          </select>
+        </div>
+
+        <div class="group">
+          <div class="labelrow"><label for="margin">边距</label><span class="value" id="marginV">10mm</span></div>
+          <input id="margin" type="range" min="0" max="50" value="10">
+          <div class="hint">原始尺寸模式下边距无效</div>
+        </div>
+
+        <div class="group">
+          <div class="labelrow"><label>图片位置</label></div>
+          <div class="seg" id="posSeg">
+            <button class="active" data-pos="center">居中</button>
+            <button data-pos="topleft">左上角</button>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="primary" id="generate" disabled>生成并下载 PDF</button>
+          <button class="secondary" id="clear" disabled>清空全部</button>
+        </div>
+      </aside>
+
+      <section class="stage">
+        <div class="stagebar">
+          <div class="meta" id="meta">等待图片</div>
+        </div>
+        <div class="previewArea" id="previewArea">
+          <div class="empty" id="empty">
+            <div class="bubble">📄</div>
+            <strong>把图片放进来转成 PDF</strong>
+            <div>支持多张图片，可拖拽排序</div>
+          </div>
+          <div class="thumbList" id="thumbList"></div>
+        </div>
+      </section>
+    </div>
+  </section>
+
+  <section class="relatedTools">
+    <h2>更多图片工具</h2>
+    <div class="toolGrid">
+      <a href="/compress.html">图片压缩</a>
+      <a href="/convert.html">格式转换</a>
+      <a href="/crop.html">裁剪缩放</a>
+      <a href="/idphoto.html">证件照换底色</a>
+      <a href="/watermark.html">加水印</a>
+      <a href="/bgcolor.html">换背景色</a>
+      <a href="/splice.html">图片拼接</a>
+      <a href="/img2pdf.html">转PDF</a>
+      <a href="/filter.html">滤镜调色</a>
+    </div>
+  </section>
+</main>
+
+<script>
+const $ = s => document.querySelector(s);
+const file = $('#file'), drop = $('#drop'), thumbList = $('#thumbList'), empty = $('#empty');
+
+let images = [];        // 图片列表 {img, name, w, h}
+let position = 'center';// 图片位置
+let dragIndex = null;   // 拖拽排序索引
+
+const { jsPDF } = window.jspdf;
+
+/* ===== 加载文件 ===== */
+function loadFiles(files) {
+  const list = [...files].filter(f => f.type.startsWith('image/'));
+  if (!list.length) return;
+  list.forEach(f => {
+    const img = new Image();
+    const url = URL.createObjectURL(f);
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      images.push({ img, name: f.name.replace(/\.[^.]+$/, ''), w: img.naturalWidth, h: img.naturalHeight });
+      renderList();
+    };
+    img.src = url;
+  });
+}
+
+/* ===== 渲染缩略图列表 ===== */
+function renderList() {
+  thumbList.innerHTML = '';
+  const has = images.length > 0;
+  $('#generate').disabled = !has;
+  $('#clear').disabled = !has;
+  empty.style.display = has ? 'none' : 'block';
+  $('#meta').textContent = has ? `${images.length} 张图片` : '等待图片';
+
+  images.forEach((item, i) => {
+    const div = document.createElement('div');
+    div.className = 'thumb';
+    div.draggable = true;
+    div.ondragstart = e => { dragIndex = i; div.classList.add('dragging'); };
+    div.ondragend = () => div.classList.remove('dragging');
+    div.ondragover = e => e.preventDefault();
+    div.ondrop = e => {
+      e.preventDefault();
+      div.classList.remove('dragging');
+      if (dragIndex !== null && dragIndex !== i) {
+        const [moved] = images.splice(dragIndex, 1);
+        images.splice(i, 0, moved);
+        renderList();
+      }
+      dragIndex = null;
+    };
+    div.innerHTML = `
+      <span class="idx">${i + 1}</span>
+      <img src="${item.img.src}" alt="">
+      <div class="info">
+        <div class="name">${item.name}</div>
+        <div class="dim">${item.w} × ${item.h}px · 第 ${i + 1} 页</div>
+      </div>
+      <button class="del" title="删除">×</button>
+    `;
+    div.querySelector('.del').onclick = () => {
+      images.splice(i, 1);
+      renderList();
+    };
+    thumbList.appendChild(div);
+  });
+}
+
+/* ===== 计算单页参数 {pw, ph, ix, iy, iw, ih}（单位 pt） ===== */
+function computePage(item) {
+  const pageSize = $('#pageSize').value;
+  const margin = +$('#margin').value;
+  const mPt = margin * 2.83465; // mm 转 pt
+  // 1px = 0.75pt（96dpi）
+  const imgWPt = item.w * 0.75;
+  const imgHPt = item.h * 0.75;
+
+  if (pageSize === 'original') {
+    // 原始尺寸：页面等于图片尺寸
+    return { pw: imgWPt, ph: imgHPt, ix: 0, iy: 0, iw: imgWPt, ih: imgHPt };
+  }
+
+  // A4 = 595.28 × 841.89 pt，Letter = 612 × 792 pt
+  const dims = pageSize === 'a4' ? [595.28, 841.89] : [612, 792];
+  const pw = dims[0], ph = dims[1];
+  const availW = pw - 2 * mPt;
+  const availH = ph - 2 * mPt;
+  // 等比缩放以适应可用区域
+  const scale = Math.min(availW / imgWPt, availH / imgHPt, 1);
+  const iw = imgWPt * scale;
+  const ih = imgHPt * scale;
+  let ix, iy;
+  if (position === 'center') {
+    ix = (pw - iw) / 2;
+    iy = (ph - ih) / 2;
+  } else {
+    ix = mPt;
+    iy = mPt;
+  }
+  return { pw, ph, ix, iy, iw, ih };
+}
+
+/* ===== 将图片转为 JPEG dataURL（白底合成，兼容 PDF） ===== */
+function imageToDataURL(item) {
+  const c = document.createElement('canvas');
+  c.width = item.w;
+  c.height = item.h;
+  const cx = c.getContext('2d');
+  // 填充白色背景以处理透明 PNG
+  cx.fillStyle = '#ffffff';
+  cx.fillRect(0, 0, c.width, c.height);
+  cx.drawImage(item.img, 0, 0);
+  return c.toDataURL('image/jpeg', 0.92);
+}
+
+/* ===== 生成 PDF ===== */
+function generatePDF() {
+  if (!images.length) return;
+  const btn = $('#generate');
+  btn.disabled = true;
+  btn.textContent = '正在生成...';
+
+  // 用 setTimeout 让 UI 先更新
+  setTimeout(() => {
+    try {
+      // 第一页参数决定 PDF 初始尺寸
+      const first = computePage(images[0]);
+      const pdf = new jsPDF({ unit: 'pt', format: [first.pw, first.ph], orientation: first.pw > first.ph ? 'l' : 'p' });
+      pdf.addImage(imageToDataURL(images[0]), 'JPEG', first.ix, first.iy, first.iw, first.ih);
+
+      // 后续页面
+      for (let i = 1; i < images.length; i++) {
+        const p = computePage(images[i]);
+        pdf.addPage([p.pw, p.ph], p.pw > p.ph ? 'l' : 'p');
+        pdf.addImage(imageToDataURL(images[i]), 'JPEG', p.ix, p.iy, p.iw, p.ih);
+      }
+
+      pdf.save('images.pdf');
+    } catch (err) {
+      alert('生成 PDF 失败：' + err.message);
+    } finally {
+      btn.disabled = false;
+      btn.textContent = '生成并下载 PDF';
+    }
+  }, 50);
+}
+
+/* ===== 文件输入与拖放 ===== */
+file.onchange = e => { if (e.target.files.length) loadFiles(e.target.files); file.value = ''; };
+['dragenter', 'dragover'].forEach(x => drop.addEventListener(x, e => { e.preventDefault(); drop.classList.add('over'); }));
+['dragleave', 'drop'].forEach(x => drop.addEventListener(x, e => { e.preventDefault(); drop.classList.remove('over'); }));
+drop.addEventListener('drop', e => { if (e.dataTransfer.files.length) loadFiles(e.dataTransfer.files); });
+
+/* 粘贴图片 */
+document.addEventListener('paste', e => {
+  const items = [...e.clipboardData.items].filter(x => x.type.startsWith('image/'));
+  if (items.length) loadFiles(items.map(x => x.getAsFile()));
+});
+
+/* 边距滑块 */
+$('#margin').addEventListener('input', e => { $('#marginV').textContent = e.target.value + 'mm'; });
+
+/* 图片位置切换 */
+$('#posSeg').addEventListener('click', e => {
+  const btn = e.target.closest('button');
+  if (!btn) return;
+  position = btn.dataset.pos;
+  $('#posSeg').querySelectorAll('button').forEach(b => b.classList.toggle('active', b === btn));
+});
+
+/* 清空 */
+$('#clear').onclick = () => { images = []; renderList(); };
+
+/* 生成 PDF */
+$('#generate').onclick = generatePDF;
+</script>
+</body>
+</html>

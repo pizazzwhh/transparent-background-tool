@@ -1,0 +1,507 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>图片裁剪缩放工具 - 在线裁剪/改尺寸 | 透白</title>
+  <meta name="description" content="免费在线图片裁剪缩放工具，支持在画布上拖拽选择裁剪区域，或输入目标宽高缩放图片。提供 1920x1080、1280x720、800x800、500x500 等预设尺寸。所有处理在浏览器本地完成，图片不上传服务器，保护隐私。" />
+  <meta name="keywords" content="图片裁剪,在线裁剪图片,图片改尺寸,resize image,crop image,图片缩放,调整图片大小" />
+  <meta name="author" content="透白" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+  <meta name="googlebot" content="index,follow" />
+  <meta name="bingbot" content="index,follow" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/favicon.svg" />
+  <link rel="canonical" href="https://imagec.xin/crop.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="透白" />
+  <meta property="og:title" content="图片裁剪缩放工具 - 在线裁剪/改尺寸 | 透白" />
+  <meta property="og:description" content="免费在线图片裁剪缩放工具，支持拖拽裁剪、输入尺寸缩放、预设尺寸快捷选择。浏览器本地处理，不上传服务器。" />
+  <meta property="og:url" content="https://imagec.xin/crop.html" />
+  <meta property="og:image" content="https://imagec.xin/og-image.jpg" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="图片裁剪缩放工具 - 在线裁剪/改尺寸 | 透白" />
+  <meta name="twitter:description" content="免费在线图片裁剪缩放工具，浏览器本地处理，不上传服务器。" />
+  <meta name="twitter:image" content="https://imagec.xin/og-image.jpg" />
+  <meta name="theme-color" content="#f5f3ec" />
+  <meta name="application-name" content="透白" />
+  <meta name="apple-mobile-web-app-title" content="透白" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"图片裁剪缩放工具","alternateName":"透白","url":"https://imagec.xin/crop.html","image":"https://imagec.xin/og-image.jpg","applicationCategory":"MultimediaApplication","operatingSystem":"Any","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"在线免费图片裁剪缩放工具，支持拖拽选择裁剪区域、输入目标宽高缩放、预设尺寸快捷选择。所有处理在浏览器本地完成，图片不上传服务器。","inLanguage":"zh-CN","featureList":["画布拖拽选择裁剪区域","输入目标宽高缩放","锁定宽高比","预设尺寸快捷按钮","1920x1080/1280x720/800x800/500x500","浏览器本地处理不上传"],"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.8","ratingCount":"1"},"screenshot":"https://imagec.xin/og-image.jpg"}</script>
+  <style>
+    /* ===== 设计系统变量 ===== */
+    :root{--ink:#18201d;--muted:#69736f;--paper:#f5f3ec;--card:#fffef9;--line:#d9ddd8;--accent:#087f5b;--accent2:#c7f1df;--shadow:0 24px 70px #163d2b14}
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;color:var(--ink);background:radial-gradient(circle at 10% 0,#dff6e9 0,transparent 32rem),var(--paper);font:15px/1.5 Inter,"PingFang SC","Microsoft YaHei",sans-serif}
+    a{color:inherit;text-decoration:none}
+    .shell{width:min(1180px,calc(100% - 32px));margin:auto;padding:24px 0 48px}
+
+    /* ===== Header ===== */
+    header{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;gap:16px;flex-wrap:wrap}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:800;font-size:20px}
+    .mark{width:38px;height:38px;border-radius:12px;background:var(--ink);display:grid;place-items:center;color:white;font-family:Georgia;font-size:23px;flex:none}
+    .toolnav{display:flex;gap:4px;flex-wrap:wrap}
+    .toolnav a{padding:7px 12px;border-radius:9px;font-size:13px;font-weight:600;color:var(--muted);transition:.18s;white-space:nowrap}
+    .toolnav a:hover{background:#e9ece8;color:var(--ink)}
+    .toolnav a.active{background:var(--accent2);color:var(--accent)}
+
+    /* ===== 主面板卡片 ===== */
+    .panel{background:var(--card);border:1px solid #ffffff;box-shadow:var(--shadow);border-radius:28px;overflow:hidden}
+    .hero{padding:32px 36px 24px;border-bottom:1px solid var(--line)}
+    h1{font-size:clamp(26px,3.6vw,44px);line-height:1.1;letter-spacing:-.03em;margin:0 0 10px}
+    .hero p{margin:0;color:var(--muted);font-size:15px;max-width:680px}
+    .safeBadge{display:inline-flex;align-items:center;gap:8px;margin-top:16px;padding:8px 12px;border:1px solid #a7ddc6;border-radius:11px;background:#eaf9f1;color:#086344;font-weight:700;font-size:12.5px}
+    .safeBadge svg{width:16px;height:16px;flex:none}
+
+    /* ===== 工作区布局 ===== */
+    .workspace{display:grid;grid-template-columns:320px 1fr;min-height:560px}
+    .controls{padding:24px;border-right:1px solid var(--line);background:#fbfaf5}
+    .stage{padding:24px;min-width:0}
+
+    /* ===== 上传拖放区 ===== */
+    .drop{min-height:150px;border:1.5px dashed #8fa69a;border-radius:18px;padding:22px 16px;text-align:center;cursor:pointer;transition:.2s;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px}
+    .drop:hover,.drop.over{border-color:var(--accent);background:#f0fbf5;transform:translateY(-1px);box-shadow:0 8px 24px #087f5b12}
+    .drop svg{width:34px;height:34px;margin-bottom:4px;color:var(--accent);flex:none}
+    .drop strong{display:block;font-size:15px}
+    .drop small{display:block;color:var(--muted);line-height:1.4;font-size:12px}
+    input[type=file]{display:none}
+
+    /* ===== 控件组 ===== */
+    .group{margin-top:22px}
+    .labelrow{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+    .labelrow label{font-weight:700;font-size:14px}
+    .value{font-variant-numeric:tabular-nums;color:var(--accent);font-weight:750;background:var(--accent2);padding:2px 9px;border-radius:99px;font-size:13px}
+    .hint{font-size:12px;color:var(--muted);margin-top:5px}
+
+    /* ===== 模式切换 ===== */
+    .seg{display:flex;background:#e9ece8;border-radius:11px;padding:3px;gap:2px}
+    .seg button{flex:1;padding:9px 10px;background:transparent;border-radius:8px;color:var(--muted);font-size:13px;font-weight:650}
+    .seg button.active{background:white;color:var(--ink);box-shadow:0 2px 8px #0001}
+
+    /* ===== 输入框 ===== */
+    .dimRow{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;margin-top:10px}
+    .dimRow input{width:100%;border:1px solid var(--line);background:#fff;color:var(--ink);padding:9px 11px;border-radius:10px;font:inherit;font-size:14px;text-align:center}
+    .dimRow input:focus{outline:none;border-color:var(--accent)}
+    .dimRow .link{width:24px;height:24px;border-radius:7px;background:var(--accent2);display:grid;place-items:center;cursor:pointer;color:var(--accent);font-size:14px;font-weight:800;transition:.18s;user-select:none}
+    .dimRow .link.locked{background:var(--accent);color:white}
+
+    /* ===== 预设尺寸按钮 ===== */
+    .presetGrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+    .presetBtn{padding:10px 8px;border:1.5px solid var(--line);border-radius:11px;background:#fff;cursor:pointer;text-align:center;transition:.18s;font-weight:700;font-size:13px}
+    .presetBtn:hover{border-color:var(--accent);background:#f0fbf5}
+
+    /* ===== 开关 ===== */
+    .toggle{display:flex;align-items:center;justify-content:space-between;margin-top:18px;font-weight:650;font-size:14px}
+    .toggle input{width:40px;height:22px;appearance:none;background:#cbd1cd;border-radius:99px;position:relative;transition:.2s;flex-shrink:0}
+    .toggle input:after{content:"";position:absolute;width:16px;height:16px;left:3px;top:3px;background:white;border-radius:50%;transition:.2s;box-shadow:0 1px 4px #0003}
+    .toggle input:checked{background:var(--accent)}
+    .toggle input:checked:after{transform:translateX(18px)}
+
+    /* ===== 按钮 ===== */
+    .actions{display:grid;gap:10px;margin-top:26px}
+    button{border:0;border-radius:13px;padding:12px 14px;font:inherit;font-weight:750;cursor:pointer;transition:.18s}
+    button:active{transform:scale(.98)}
+    .primary{background:var(--ink);color:white}
+    .primary:hover{background:var(--accent)}
+    .secondary{background:#e9ece8;color:var(--ink)}
+    button:disabled{opacity:.4;cursor:not-allowed}
+
+    /* ===== 预览舞台 ===== */
+    .stagebar{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;gap:10px;flex-wrap:wrap}
+    .meta{color:var(--muted);font-size:13px}
+    .canvasWrap{height:480px;border-radius:20px;overflow:hidden;border:1px solid var(--line);display:grid;place-items:center;position:relative;background-color:#fff;background-image:linear-gradient(45deg,#e7e9e7 25%,transparent 25%),linear-gradient(-45deg,#e7e9e7 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#e7e9e7 75%),linear-gradient(-45deg,transparent 75%,#e7e9e7 75%);background-size:24px 24px;background-position:0 0,0 12px,12px -12px,-12px 0}
+    .canvasWrap canvas{max-width:100%;max-height:100%;display:none;cursor:crosshair;touch-action:none}
+    .empty{text-align:center;color:var(--muted);padding:20px}
+    .empty .bubble{width:72px;height:72px;border-radius:22px;background:#e7f5ed;margin:0 auto 14px;display:grid;place-items:center;font-size:32px}
+    .cropHint{margin-top:10px;font-size:12px;color:var(--muted);text-align:center;display:none}
+    .cropHint.show{display:block}
+
+    /* ===== 相关工具 ===== */
+    .relatedTools{margin-top:36px}
+    .relatedTools h2{font-size:18px;margin:0 0 14px}
+    .toolGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
+    .toolGrid a{display:block;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:var(--card);font-weight:650;font-size:14px;transition:.18s;text-align:center}
+    .toolGrid a:hover{border-color:var(--accent);background:#f0fbf5;transform:translateY(-2px);box-shadow:0 6px 18px #087f5b10}
+
+    /* ===== 响应式 ===== */
+    @media(max-width:800px){.workspace{grid-template-columns:1fr}.controls{border-right:0;border-bottom:1px solid var(--line)}.hero{padding:26px 22px}.stage{padding:18px}.canvasWrap{height:360px}.toolnav{order:3;width:100%}}
+    @media(max-width:480px){.presetGrid{grid-template-columns:1fr}.shell{padding:16px 0 32px}.panel{border-radius:20px}}
+  </style>
+</head>
+<body>
+<main class="shell">
+  <!-- ===== Header ===== -->
+  <header>
+    <a href="/" class="brand"><span class="mark">透</span><span>透白</span></a>
+    <nav class="toolnav">
+      <a href="/compress.html">压缩</a>
+      <a href="/convert.html">转换</a>
+      <a href="/crop.html" class="active">裁剪</a>
+      <a href="/idphoto.html">证件照</a>
+      <a href="/watermark.html">水印</a>
+      <a href="/bgcolor.html">换底色</a>
+      <a href="/splice.html">拼接</a>
+      <a href="/img2pdf.html">转PDF</a>
+      <a href="/filter.html">滤镜</a>
+    </nav>
+  </header>
+
+  <!-- ===== 主面板 ===== -->
+  <section class="panel">
+    <div class="hero">
+      <h1>图片裁剪缩放工具</h1>
+      <p>在线裁剪或缩放图片，支持在画布上拖拽选择裁剪区域、输入目标宽高缩放、一键套用常用预设尺寸。</p>
+      <div class="safeBadge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3 5 6v5c0 4.6 2.8 8.2 7 10 4.2-1.8 7-5.4 7-10V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg>
+        <span>仅在浏览器本地处理 · 图片不会上传到服务器</span>
+      </div>
+    </div>
+    <div class="workspace">
+      <!-- ===== 左侧控制区 ===== -->
+      <aside class="controls">
+        <label class="drop" id="drop" for="file">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M5 14v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4"/></svg>
+          <strong>点击选择或拖入图片</strong>
+          <small>支持 PNG、JPG、WebP<br>也可直接粘贴图片</small>
+        </label>
+        <input id="file" type="file" accept="image/png,image/jpeg,image/webp" />
+
+        <!-- 模式切换 -->
+        <div class="group">
+          <div class="labelrow"><label>操作模式</label></div>
+          <div class="seg" id="modeSeg">
+            <button type="button" class="active" data-mode="crop">裁剪</button>
+            <button type="button" data-mode="resize">缩放</button>
+          </div>
+        </div>
+
+        <!-- 裁剪模式控件 -->
+        <div id="cropControls">
+          <div class="hint" style="margin-top:14px">在右侧画布上按住鼠标拖拽，选择要保留的裁剪区域。</div>
+          <div class="group">
+            <div class="labelrow"><label>裁剪区域</label><span class="value" id="cropInfo">未选择</span></div>
+            <div class="hint">拖拽选择后可下载裁剪结果</div>
+          </div>
+          <button class="secondary" id="clearCrop" style="width:100%;margin-top:8px" disabled>清除选区</button>
+        </div>
+
+        <!-- 缩放模式控件 -->
+        <div id="resizeControls" style="display:none">
+          <div class="group">
+            <div class="labelrow"><label>目标尺寸</label></div>
+            <div class="dimRow">
+              <input id="rw" type="number" min="1" placeholder="宽" value="1920">
+              <div class="link locked" id="lockBtn" title="锁定宽高比">⬌</div>
+              <input id="rh" type="number" min="1" placeholder="高" value="1080">
+            </div>
+            <label class="toggle" style="margin-top:14px"><span>锁定宽高比</span><input type="checkbox" id="lockRatio" checked></label>
+          </div>
+
+          <!-- 预设尺寸 -->
+          <div class="group">
+            <div class="labelrow"><label>预设尺寸</label></div>
+            <div class="presetGrid" id="presetGrid">
+              <div class="presetBtn" data-w="1920" data-h="1080">1920 × 1080<small style="display:block;color:var(--muted);font-weight:500;font-size:11px">Full HD</small></div>
+              <div class="presetBtn" data-w="1280" data-h="720">1280 × 720<small style="display:block;color:var(--muted);font-weight:500;font-size:11px">HD</small></div>
+              <div class="presetBtn" data-w="800" data-h="800">800 × 800<small style="display:block;color:var(--muted);font-weight:500;font-size:11px">正方形</small></div>
+              <div class="presetBtn" data-w="500" data-h="500">500 × 500<small style="display:block;color:var(--muted);font-weight:500;font-size:11px">缩略图</small></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="primary" id="download" disabled>下载结果图片</button>
+        </div>
+      </aside>
+
+      <!-- ===== 右侧预览区 ===== -->
+      <section class="stage">
+        <div class="stagebar">
+          <div class="meta" id="meta">等待图片</div>
+        </div>
+        <div class="canvasWrap" id="wrap">
+          <canvas id="canvas"></canvas>
+          <div class="empty" id="empty">
+            <div class="bubble">✦</div>
+            <strong>把图片放进来试试</strong>
+            <div>也可以直接粘贴剪贴板中的图片</div>
+          </div>
+        </div>
+        <div class="cropHint" id="cropHint">提示：在图片上按住鼠标拖拽即可选择裁剪区域</div>
+      </section>
+    </div>
+  </section>
+
+  <!-- ===== 相关工具 ===== -->
+  <section class="relatedTools">
+    <h2>更多图片工具</h2>
+    <div class="toolGrid">
+      <a href="/compress.html">图片压缩</a>
+      <a href="/convert.html">格式转换</a>
+      <a href="/crop.html">裁剪缩放</a>
+      <a href="/idphoto.html">证件照换底色</a>
+      <a href="/watermark.html">加水印</a>
+      <a href="/bgcolor.html">换背景色</a>
+      <a href="/splice.html">图片拼接</a>
+      <a href="/img2pdf.html">转PDF</a>
+      <a href="/filter.html">滤镜调色</a>
+    </div>
+  </section>
+</main>
+
+<script>
+/* ===== 工具函数 ===== */
+const $=s=>document.querySelector(s);
+const file=$('#file'),drop=$('#drop'),canvas=$('#canvas'),ctx=canvas.getContext('2d'),empty=$('#empty');
+
+/* ===== 状态变量 ===== */
+let sourceImg=null;       // 原始图片对象
+let origName='image';     // 原始文件名（不含扩展名）
+let mode='crop';          // 当前模式：crop / resize
+let lockRatio=true;       // 是否锁定宽高比
+
+/* ===== 裁剪选区状态 ===== */
+let selRect=null;         // 选区 {x,y,w,h}（基于画布坐标）
+let isDragging=false;     // 是否正在拖拽
+let dragStart=null;       // 拖拽起点 {x,y}
+
+/* ===== 显示缩放比例（画布显示尺寸 vs 实际像素） ===== */
+let dispScale=1;
+
+/* ===== 加载图片 ===== */
+function load(blob,filename){
+  if(!blob||!blob.type.startsWith('image/'))return;
+  origName=(filename||'image').replace(/\.[^.]+$/,'');
+  const img=new Image();
+  const url=URL.createObjectURL(blob);
+  img.onload=()=>{
+    URL.revokeObjectURL(url);
+    sourceImg=img;
+    empty.style.display='none';
+    canvas.style.display='block';
+    $('#download').disabled=false;
+    // 设置画布为图片原始尺寸
+    canvas.width=img.naturalWidth;
+    canvas.height=img.naturalHeight;
+    // 计算显示缩放比例（适配预览容器）
+    fitCanvasDisplay();
+    $('#meta').textContent=`${img.naturalWidth} × ${img.naturalHeight}px`;
+    // 重置选区
+    selRect=null;
+    $('#cropInfo').textContent='未选择';
+    $('#clearCrop').disabled=true;
+    drawCanvas();
+  };
+  img.src=url;
+}
+
+/* ===== 适配画布显示尺寸 ===== */
+function fitCanvasDisplay(){
+  if(!sourceImg)return;
+  const wrap=$('#wrap');
+  const maxW=wrap.clientWidth-4;
+  const maxH=wrap.clientHeight-4;
+  const ow=sourceImg.naturalWidth,oh=sourceImg.naturalHeight;
+  const s=Math.min(maxW/ow,maxH/oh,1);
+  dispScale=s;
+  canvas.style.width=(ow*s)+'px';
+  canvas.style.height=(oh*s)+'px';
+}
+
+/* ===== 绘制画布（图片 + 选区叠加） ===== */
+function drawCanvas(){
+  if(!sourceImg)return;
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.drawImage(sourceImg,0,0);
+  // 绘制裁剪选区
+  if(mode==='crop'&&selRect){
+    // 选区外区域变暗
+    ctx.fillStyle='rgba(0,0,0,0.5)';
+    // 上、下、左、右四块遮罩
+    ctx.fillRect(0,0,canvas.width,selRect.y); // 上
+    ctx.fillRect(0,selRect.y+selRect.h,canvas.width,canvas.height-selRect.y-selRect.h); // 下
+    ctx.fillRect(0,selRect.y,selRect.x,selRect.h); // 左
+    ctx.fillRect(selRect.x+selRect.w,selRect.y,canvas.width-selRect.x-selRect.w,selRect.h); // 右
+    // 选区边框
+    ctx.strokeStyle='#087f5b';
+    ctx.lineWidth=Math.max(2,canvas.width/400);
+    ctx.strokeRect(selRect.x,selRect.y,selRect.w,selRect.h);
+    // 三分线辅助
+    ctx.strokeStyle='rgba(255,255,255,0.4)';
+    ctx.lineWidth=1;
+    for(let i=1;i<3;i++){
+      ctx.beginPath();ctx.moveTo(selRect.x+selRect.w*i/3,selRect.y);ctx.lineTo(selRect.x+selRect.w*i/3,selRect.y+selRect.h);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(selRect.x,selRect.y+selRect.h*i/3);ctx.lineTo(selRect.x+selRect.w,selRect.y+selRect.h*i/3);ctx.stroke();
+    }
+  }
+}
+
+/* ===== 将鼠标事件坐标转换为画布像素坐标 ===== */
+function getCanvasPos(e){
+  const rect=canvas.getBoundingClientRect();
+  const cx=(e.touches?e.touches[0].clientX:e.clientX)-rect.left;
+  const cy=(e.touches?e.touches[0].clientY:e.clientY)-rect.top;
+  return {x:cx/dispScale,y:cy/dispScale};
+}
+
+/* ===== 裁剪选区鼠标事件 ===== */
+function onDown(e){
+  if(mode!=='crop'||!sourceImg)return;
+  e.preventDefault();
+  isDragging=true;
+  dragStart=getCanvasPos(e);
+  selRect={x:dragStart.x,y:dragStart.y,w:0,h:0};
+}
+function onMove(e){
+  if(!isDragging)return;
+  e.preventDefault();
+  const p=getCanvasPos(e);
+  // 计算选区（处理反向拖拽）
+  const x=Math.min(dragStart.x,p.x);
+  const y=Math.min(dragStart.y,p.y);
+  const w=Math.abs(p.x-dragStart.x);
+  const h=Math.abs(p.y-dragStart.y);
+  // 限制在画布范围内
+  selRect={
+    x:Math.max(0,x),
+    y:Math.max(0,y),
+    w:Math.min(w,canvas.width-x),
+    h:Math.min(h,canvas.height-y)
+  };
+  drawCanvas();
+  $('#cropInfo').textContent=`${Math.round(selRect.w)} × ${Math.round(selRect.h)}`;
+}
+function onUp(){
+  if(!isDragging)return;
+  isDragging=false;
+  if(selRect&&selRect.w>5&&selRect.h>5){
+    $('#cropInfo').textContent=`${Math.round(selRect.w)} × ${Math.round(selRect.h)}`;
+    $('#clearCrop').disabled=false;
+  }else{
+    selRect=null;
+    $('#cropInfo').textContent='未选择';
+    $('#clearCrop').disabled=true;
+    drawCanvas();
+  }
+}
+
+/* ===== 事件绑定：鼠标 ===== */
+canvas.addEventListener('mousedown',onDown);
+canvas.addEventListener('mousemove',onMove);
+window.addEventListener('mouseup',onUp);
+/* ===== 事件绑定：触摸 ===== */
+canvas.addEventListener('touchstart',onDown,{passive:false});
+canvas.addEventListener('touchmove',onMove,{passive:false});
+window.addEventListener('touchend',onUp);
+
+/* ===== 文件上传事件 ===== */
+file.onchange=e=>{if(e.target.files[0])load(e.target.files[0],e.target.files[0].name);};
+['dragenter','dragover'].forEach(x=>drop.addEventListener(x,e=>{e.preventDefault();drop.classList.add('over');}));
+['dragleave','drop'].forEach(x=>drop.addEventListener(x,e=>{e.preventDefault();drop.classList.remove('over');}));
+drop.addEventListener('drop',e=>{if(e.dataTransfer.files[0])load(e.dataTransfer.files[0],e.dataTransfer.files[0].name);});
+// 粘贴支持
+document.addEventListener('paste',e=>{
+  const item=[...e.clipboardData.items].find(x=>x.type.startsWith('image/'));
+  if(item)load(item.getAsFile(),'pasted-image.png');
+});
+
+/* ===== 模式切换 ===== */
+document.querySelectorAll('#modeSeg button').forEach(btn=>{
+  btn.onclick=()=>{
+    mode=btn.dataset.mode;
+    document.querySelectorAll('#modeSeg button').forEach(b=>b.classList.toggle('active',b===btn));
+    $('#cropControls').style.display=mode==='crop'?'block':'none';
+    $('#resizeControls').style.display=mode==='resize'?'block':'none';
+    $('#cropHint').classList.toggle('show',mode==='crop'&&sourceImg);
+    // 切换到缩放模式时清除选区
+    if(mode==='resize'){selRect=null;}
+    drawCanvas();
+    // 缩放模式初始化宽高为原图尺寸
+    if(mode==='resize'&&sourceImg){
+      $('#rw').value=sourceImg.naturalWidth;
+      $('#rh').value=sourceImg.naturalHeight;
+    }
+  };
+});
+
+/* ===== 清除选区 ===== */
+$('#clearCrop').onclick=()=>{
+  selRect=null;
+  $('#cropInfo').textContent='未选择';
+  $('#clearCrop').disabled=true;
+  drawCanvas();
+};
+
+/* ===== 缩放模式：宽高联动 ===== */
+function onResizeInput(which){
+  if(!lockRatio||!sourceImg)return;
+  const ow=sourceImg.naturalWidth,oh=sourceImg.naturalHeight;
+  const ratio=ow/oh;
+  if(which==='w'){
+    const w=Math.max(1,+$('#rw').value||1);
+    $('#rh').value=Math.round(w/ratio);
+  }else{
+    const h=Math.max(1,+$('#rh').value||1);
+    $('#rw').value=Math.round(h*ratio);
+  }
+}
+$('#rw').addEventListener('input',()=>onResizeInput('w'));
+$('#rh').addEventListener('input',()=>onResizeInput('h'));
+
+/* ===== 锁定宽高比开关 ===== */
+function updateLockUI(){
+  $('#lockBtn').classList.toggle('locked',lockRatio);
+  $('#lockRatio').checked=lockRatio;
+}
+$('#lockBtn').onclick=()=>{lockRatio=!lockRatio;updateLockUI();};
+$('#lockRatio').onchange=()=>{lockRatio=$('#lockRatio').checked;updateLockUI();};
+
+/* ===== 预设尺寸 ===== */
+document.querySelectorAll('#presetGrid .presetBtn').forEach(btn=>{
+  btn.onclick=()=>{
+    $('#rw').value=btn.dataset.w;
+    $('#rh').value=btn.dataset.h;
+    // 预设尺寸不强制锁比，但更新显示
+  };
+});
+
+/* ===== 下载 ===== */
+$('#download').onclick=()=>{
+  if(!sourceImg)return;
+  let outW,outH,sx,sy,sw,sh;
+  if(mode==='crop'){
+    // 裁剪模式：必须有有效选区
+    if(!selRect||selRect.w<1||selRect.h<1){alert('请先在画布上拖拽选择裁剪区域');return;}
+    sx=selRect.x;sy=selRect.y;sw=selRect.w;sh=selRect.h;
+    outW=Math.round(sw);outH=Math.round(sh);
+  }else{
+    // 缩放模式：按目标宽高缩放整张图
+    sx=0;sy=0;sw=sourceImg.naturalWidth;sh=sourceImg.naturalHeight;
+    outW=Math.max(1,+$('#rw').value||sw);
+    outH=Math.max(1,+$('#rh').value||sh);
+  }
+  // 创建输出画布
+  const cv=document.createElement('canvas');
+  cv.width=outW;cv.height=outH;
+  const cx=cv.getContext('2d');
+  // 高质量缩放
+  cx.imageSmoothingEnabled=true;
+  cx.imageSmoothingQuality='high';
+  cx.drawImage(sourceImg,sx,sy,sw,sh,0,0,outW,outH);
+  // 输出 PNG（无损保持质量）
+  cv.toBlob(blob=>{
+    const a=document.createElement('a');
+    a.href=URL.createObjectURL(blob);
+    a.download=`${origName}-${mode==='crop'?'cropped':'resized'}.png`;
+    a.click();
+    setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+  },'image/png');
+};
+
+/* ===== 窗口尺寸变化时重新适配画布显示 ===== */
+window.addEventListener('resize',()=>{
+  if(sourceImg){fitCanvasDisplay();}
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>图片滤镜调色 - 在线免费调整图片色彩 | 透白</title>
+  <meta name="description" content="免费在线图片滤镜调色工具，支持调整亮度、对比度、饱和度，提供灰度、反色、复古、暖色、冷色、高对比度、柔焦等预设滤镜。实时预览，一键下载。纯浏览器本地处理，不上传服务器，保护隐私。" />
+  <meta name="keywords" content="图片滤镜,在线调色,图片调整亮度,对比度调整,饱和度,灰度图,反色,复古滤镜,image filter" />
+  <meta name="author" content="透白" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+  <meta name="googlebot" content="index,follow" />
+  <meta name="bingbot" content="index,follow" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/favicon.svg" />
+  <link rel="canonical" href="https://imagec.xin/filter.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="透白" />
+  <meta property="og:title" content="图片滤镜调色 - 在线免费调整图片色彩 | 透白" />
+  <meta property="og:description" content="免费在线图片滤镜调色工具，支持亮度、对比度、饱和度调整及多种预设滤镜。纯浏览器本地处理，不上传服务器。" />
+  <meta property="og:url" content="https://imagec.xin/filter.html" />
+  <meta property="og:image" content="https://imagec.xin/og-image.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="图片滤镜调色 - 在线免费调整图片色彩 | 透白" />
+  <meta name="twitter:description" content="免费在线图片滤镜调色工具，支持多种预设滤镜。纯浏览器本地处理，不上传服务器。" />
+  <meta name="twitter:image" content="https://imagec.xin/og-image.jpg" />
+  <meta name="theme-color" content="#f5f3ec" />
+  <meta name="application-name" content="透白" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"图片滤镜调色工具","alternateName":"透白","url":"https://imagec.xin/filter.html","image":"https://imagec.xin/og-image.jpg","applicationCategory":"MultimediaApplication","operatingSystem":"Any","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"在线图片滤镜调色工具，支持亮度、对比度、饱和度调整，提供灰度、反色、复古、暖色、冷色、高对比度、柔焦等预设滤镜。实时预览，一键下载。所有处理在浏览器本地完成，不上传服务器。","inLanguage":"zh-CN","featureList":["亮度调整","对比度调整","饱和度调整","灰度滤镜","反色滤镜","复古滤镜","暖色/冷色滤镜","柔焦滤镜","实时预览","本地处理不上传"],"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.8","ratingCount":"1"}}</script>
+  <style>
+    :root{--ink:#18201d;--muted:#69736f;--paper:#f5f3ec;--card:#fffef9;--line:#d9ddd8;--accent:#087f5b;--accent2:#c7f1df;--shadow:0 24px 70px #163d2b14}
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;color:var(--ink);background:radial-gradient(circle at 10% 0,#dff6e9 0,transparent 32rem),var(--paper);font:15px/1.6 Inter,"PingFang SC","Microsoft YaHei",sans-serif}
+    .shell{width:min(1120px,calc(100% - 32px));margin:auto;padding:24px 0 48px}
+    header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:22px;flex-wrap:wrap}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:19px;text-decoration:none;color:var(--ink)}
+    .mark{width:34px;height:34px;border-radius:11px;background:var(--ink);display:grid;place-items:center;color:white;font-family:Georgia;font-size:20px}
+    .toolnav{display:flex;gap:4px;flex-wrap:wrap}
+    .toolnav a{padding:7px 12px;border-radius:9px;text-decoration:none;color:var(--muted);font-size:13px;font-weight:600;transition:.15s}
+    .toolnav a:hover{background:var(--accent2);color:var(--accent)}
+    .toolnav a.active{background:var(--ink);color:white}
+    .panel{background:#fffef9cc;border:1px solid #ffffff;box-shadow:var(--shadow);backdrop-filter:blur(12px);border-radius:24px;overflow:hidden}
+    .hero{padding:30px 34px 24px;border-bottom:1px solid var(--line)}
+    h1{font-size:clamp(26px,3.5vw,38px);line-height:1.12;letter-spacing:-.03em;margin:0 0 10px}
+    .hero p{margin:0;color:var(--muted);font-size:15px}
+    .safeBadge{display:inline-flex;align-items:center;gap:8px;margin-top:15px;padding:8px 12px;border:1px solid #a7ddc6;border-radius:10px;background:#eaf9f1;color:#086344;font-weight:700;font-size:12px}
+    .safeBadge:before{content:"●";color:var(--accent)}
+    .workspace{display:grid;grid-template-columns:320px 1fr;min-height:540px}
+    .controls{padding:24px;border-right:1px solid var(--line);background:#fbfaf5}
+    .drop{min-height:130px;border:1.5px dashed #8fa69a;border-radius:16px;padding:20px 16px;text-align:center;cursor:pointer;transition:.2s;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px}
+    .drop:hover,.drop.over{border-color:var(--accent);background:#f0fbf5;transform:translateY(-1px)}
+    .drop svg{width:32px;height:32px;color:var(--accent)}
+    .drop strong{display:block;font-size:15px}
+    .drop small{display:block;color:var(--muted);font-size:12px;line-height:1.4}
+    input[type=file]{display:none}
+    .group{margin-top:20px}
+    .labelrow{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+    .labelrow label{font-weight:700;font-size:14px}
+    .value{font-variant-numeric:tabular-nums;color:var(--accent);font-weight:700;background:var(--accent2);padding:2px 8px;border-radius:99px;font-size:13px}
+    input[type=range]{width:100%;accent-color:var(--accent)}
+    .hint{font-size:12px;color:var(--muted);margin-top:5px}
+    .actions{display:grid;gap:10px;margin-top:24px}
+    button{border:0;border-radius:11px;padding:11px 14px;font:inherit;font-weight:700;cursor:pointer;transition:.15s}
+    button:active{transform:scale(.98)}
+    .primary{background:var(--ink);color:white}
+    .primary:hover{background:var(--accent)}
+    .secondary{background:#e9ece8;color:var(--ink)}
+    button:disabled{opacity:.4;cursor:not-allowed}
+    .stage{padding:24px;min-width:0}
+    .stagebar{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+    .meta{color:var(--muted);font-size:13px}
+    .canvasWrap{border-radius:16px;overflow:auto;border:1px solid var(--line);background-color:#fff;background-image:linear-gradient(45deg,#e7e9e7 25%,transparent 25%),linear-gradient(-45deg,#e7e9e7 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#e7e9e7 75%),linear-gradient(-45deg,transparent 75%,#e7e9e7 75%);background-size:24px 24px;background-position:0 0,0 12px,12px -12px,-12px 0;min-height:340px;max-height:560px;display:grid;place-items:center;padding:16px}
+    .canvasWrap canvas{max-width:100%;max-height:520px;display:none}
+    .empty{text-align:center;color:var(--muted)}
+    .empty .bubble{width:64px;height:64px;border-radius:20px;background:#e7f5ed;margin:0 auto 12px;display:grid;place-items:center;font-size:28px}
+    /* 预设滤镜按钮 */
+    .presetGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:8px}
+    .presetGrid button{padding:10px 4px;font-size:12px;background:#fff;border:1px solid var(--line);color:var(--ink)}
+    .presetGrid button:hover{border-color:var(--accent);background:#f0fbf5}
+    .presetGrid button.active{background:var(--accent);color:white;border-color:var(--accent)}
+    /* 相关工具 */
+    .relatedTools{margin-top:36px}
+    .relatedTools h2{font-size:18px;margin:0 0 14px}
+    .toolGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+    .toolGrid a{display:block;padding:14px 16px;background:var(--card);border:1px solid var(--line);border-radius:12px;text-decoration:none;color:var(--ink);font-weight:600;font-size:14px;transition:.15s}
+    .toolGrid a:hover{border-color:var(--accent);background:#f0fbf5;transform:translateY(-1px)}
+    @media(max-width:800px){.workspace{grid-template-columns:1fr}.controls{border-right:0;border-bottom:1px solid var(--line)}.toolnav{order:3;width:100%;overflow-x:auto;flex-wrap:nowrap;padding-bottom:4px}.toolnav a{white-space:nowrap}.hero{padding:24px 20px}.stage{padding:16px}.controls{padding:18px}}
+    @media(max-width:480px){.presetGrid{grid-template-columns:repeat(3,1fr)}}
+  </style>
+</head>
+<body>
+<main class="shell">
+  <header>
+    <a href="/" class="brand"><span class="mark">透</span><span>透白</span></a>
+    <nav class="toolnav">
+      <a href="/compress.html">压缩</a><a href="/convert.html">转换</a><a href="/crop.html">裁剪</a><a href="/idphoto.html">证件照</a><a href="/watermark.html">水印</a><a href="/bgcolor.html">换底色</a><a href="/splice.html">拼接</a><a href="/img2pdf.html">转PDF</a><a href="/filter.html" class="active">滤镜</a>
+    </nav>
+  </header>
+
+  <section class="panel">
+    <div class="hero">
+      <h1>图片滤镜调色</h1>
+      <p>调整图片亮度、对比度、饱和度，或一键应用预设滤镜。实时预览，所有处理在浏览器本地完成。</p>
+      <div class="safeBadge">仅在浏览器本地处理 · 图片不会上传到服务器</div>
+    </div>
+    <div class="workspace">
+      <aside class="controls">
+        <label class="drop" id="drop" for="file">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M5 14v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4"/></svg>
+          <strong>点击选择或拖入图片</strong>
+          <small>支持 PNG、JPG、WebP<br>也可直接粘贴图片</small>
+        </label>
+        <input id="file" type="file" accept="image/png,image/jpeg,image/webp" />
+
+        <div class="group">
+          <div class="labelrow"><label>预设滤镜</label></div>
+          <div class="presetGrid" id="presetGrid">
+            <button class="active" data-preset="original">原图</button>
+            <button data-preset="grayscale">灰度</button>
+            <button data-preset="invert">反色</button>
+            <button data-preset="sepia">复古</button>
+            <button data-preset="warm">暖色</button>
+            <button data-preset="cold">冷色</button>
+            <button data-preset="highcontrast">高对比</button>
+            <button data-preset="softfocus">柔焦</button>
+          </div>
+        </div>
+
+        <div class="group">
+          <div class="labelrow"><label for="brightness">亮度</label><span class="value" id="brightnessV">0</span></div>
+          <input id="brightness" type="range" min="-100" max="100" value="0">
+        </div>
+
+        <div class="group">
+          <div class="labelrow"><label for="contrast">对比度</label><span class="value" id="contrastV">0</span></div>
+          <input id="contrast" type="range" min="-100" max="100" value="0">
+        </div>
+
+        <div class="group">
+          <div class="labelrow"><label for="saturate">饱和度</label><span class="value" id="saturateV">0</span></div>
+          <input id="saturate" type="range" min="-100" max="100" value="0">
+        </div>
+
+        <div class="actions">
+          <button class="primary" id="download" disabled>下载图片</button>
+          <button class="secondary" id="reset" disabled>重置</button>
+        </div>
+      </aside>
+
+      <section class="stage">
+        <div class="stagebar">
+          <div class="meta" id="meta">等待图片</div>
+        </div>
+        <div class="canvasWrap" id="wrap">
+          <canvas id="canvas"></canvas>
+          <div class="empty" id="empty">
+            <div class="bubble">🎨</div>
+            <strong>把图片放进来调色</strong>
+            <div>也可以直接粘贴剪贴板中的图片</div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </section>
+
+  <section class="relatedTools">
+    <h2>更多图片工具</h2>
+    <div class="toolGrid">
+      <a href="/compress.html">图片压缩</a>
+      <a href="/convert.html">格式转换</a>
+      <a href="/crop.html">裁剪缩放</a>
+      <a href="/idphoto.html">证件照换底色</a>
+      <a href="/watermark.html">加水印</a>
+      <a href="/bgcolor.html">换背景色</a>
+      <a href="/splice.html">图片拼接</a>
+      <a href="/img2pdf.html">转PDF</a>
+      <a href="/filter.html">滤镜调色</a>
+    </div>
+  </section>
+</main>
+
+<script>
+const $ = s => document.querySelector(s);
+const file = $('#file'), drop = $('#drop'), canvas = $('#canvas'), ctx = canvas.getContext('2d');
+const empty = $('#empty');
+
+let source = null;       // 原始图片
+let name = 'image';      // 文件名（无扩展名）
+let currentPreset = 'original';
+
+// 滤镜参数集合
+const filters = { brightness: 0, contrast: 0, saturate: 0, sepia: 0, grayscale: 0, invert: 0, hueRotate: 0, blur: 0 };
+
+// 预设滤镜配置：组合多个 CSS filter 值
+const presets = {
+  original:    { brightness: 0,  contrast: 0,   saturate: 0,   sepia: 0,   grayscale: 0,   invert: 0,   hueRotate: 0,   blur: 0 },
+  grayscale:   { brightness: 0,  contrast: 0,   saturate: 0,   sepia: 0,   grayscale: 100, invert: 0,   hueRotate: 0,   blur: 0 },
+  invert:      { brightness: 0,  contrast: 0,   saturate: 0,   sepia: 0,   grayscale: 0,   invert: 100, hueRotate: 0,   blur: 0 },
+  sepia:       { brightness: 0,  contrast: 0,   saturate: 0,   sepia: 100, grayscale: 0,   invert: 0,   hueRotate: 0,   blur: 0 },
+  warm:        { brightness: 5,  contrast: 5,   saturate: 20,  sepia: 30,  grayscale: 0,   invert: 0,   hueRotate: -15, blur: 0 },
+  cold:        { brightness: 0,  contrast: 5,   saturate: 10,  sepia: 0,   grayscale: 0,   invert: 0,   hueRotate: 180, blur: 0 },
+  highcontrast:{ brightness: 0,  contrast: 50,  saturate: 20,  sepia: 0,   grayscale: 0,   invert: 0,   hueRotate: 0,   blur: 0 },
+  softfocus:   { brightness: 10, contrast: -15, saturate: -10, sepia: 10,  grayscale: 0,   invert: 0,   hueRotate: 0,   blur: 1 }
+};
+
+/* ===== 加载图片 ===== */
+function load(blob, filename = 'image.png') {
+  if (!blob || !blob.type.startsWith('image/')) return;
+  const img = new Image();
+  const url = URL.createObjectURL(blob);
+  img.onload = () => {
+    URL.revokeObjectURL(url);
+    source = img;
+    name = filename.replace(/\.[^.]+$/, '');
+    canvas.width = img.naturalWidth;
+    canvas.height = img.naturalHeight;
+    empty.style.display = 'none';
+    canvas.style.display = 'block';
+    $('#download').disabled = $('#reset').disabled = false;
+    $('#meta').textContent = `${img.naturalWidth} × ${img.naturalHeight}px`;
+    render();
+  };
+  img.src = url;
+}
+
+/* ===== 构建 CSS filter 字符串 ===== */
+function buildFilter() {
+  // brightness/contrast/saturate 以 100% 为基准，偏移值直接叠加百分比
+  const b = 100 + filters.brightness;
+  const c = 100 + filters.contrast;
+  const s = 100 + filters.saturate;
+  return `brightness(${b}%) contrast(${c}%) saturate(${s}%) sepia(${filters.sepia}%) grayscale(${filters.grayscale}%) invert(${filters.invert}%) hue-rotate(${filters.hueRotate}deg) blur(${filters.blur}px)`;
+}
+
+/* ===== 渲染预览 ===== */
+function render() {
+  if (!source) return;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.filter = buildFilter();
+  ctx.drawImage(source, 0, 0);
+  ctx.filter = 'none';
+}
+
+/* ===== 应用预设滤镜 ===== */
+function applyPreset(preset) {
+  const p = presets[preset];
+  if (!p) return;
+  currentPreset = preset;
+  Object.keys(p).forEach(k => filters[k] = p[k]);
+  // 同步滑块显示
+  $('#brightness').value = filters.brightness;
+  $('#contrast').value = filters.contrast;
+  $('#saturate').value = filters.saturate;
+  $('#brightnessV').textContent = filters.brightness;
+  $('#contrastV').textContent = filters.contrast;
+  $('#saturateV').textContent = filters.saturate;
+  render();
+}
+
+/* ===== 文件输入与拖放 ===== */
+file.onchange = e => { if (e.target.files[0]) load(e.target.files[0], e.target.files[0].name); };
+['dragenter', 'dragover'].forEach(x => drop.addEventListener(x, e => { e.preventDefault(); drop.classList.add('over'); }));
+['dragleave', 'drop'].forEach(x => drop.addEventListener(x, e => { e.preventDefault(); drop.classList.remove('over'); }));
+drop.addEventListener('drop', e => { if (e.dataTransfer.files[0]) load(e.dataTransfer.files[0], e.dataTransfer.files[0].name); });
+
+/* 粘贴图片 */
+document.addEventListener('paste', e => {
+  const item = [...e.clipboardData.items].find(x => x.type.startsWith('image/'));
+  if (item) load(item.getAsFile(), 'pasted-image.png');
+});
+
+/* 滑块调整：手动调整后取消预设选中状态 */
+['brightness', 'contrast', 'saturate'].forEach(id => {
+  $('#' + id).addEventListener('input', e => {
+    filters[id] = +e.target.value;
+    $('#' + id + 'V').textContent = e.target.value;
+    // 手动调整意味着不再是纯预设
+    document.querySelectorAll('#presetGrid button').forEach(b => b.classList.remove('active'));
+    render();
+  });
+});
+
+/* 预设按钮 */
+$('#presetGrid').addEventListener('click', e => {
+  const btn = e.target.closest('button');
+  if (!btn) return;
+  document.querySelectorAll('#presetGrid button').forEach(b => b.classList.toggle('active', b === btn));
+  applyPreset(btn.dataset.preset);
+});
+
+/* 重置 */
+$('#reset').onclick = () => {
+  applyPreset('original');
+  document.querySelectorAll('#presetGrid button').forEach(b => b.classList.toggle('active', b.dataset.preset === 'original'));
+};
+
+/* 下载 */
+$('#download').onclick = () => {
+  if (!source) return;
+  canvas.toBlob(blob => {
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = name + '-filtered.png';
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  }, 'image/png');
+};
+</script>
+</body>
+</html>

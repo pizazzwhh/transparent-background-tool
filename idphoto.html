@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>证件照换底色 - 在线免费换照片背景色 | 透白</title>
+<meta name="description" content="透白证件照换底色工具，纯前端本地处理，支持蓝底换白底、白底换蓝底、红底证件照制作。自由调节容差与边缘柔化，实时预览，一键下载，图片不上传服务器。" />
+<meta name="keywords" content="证件照换底色,蓝底换白底,白底换蓝底,红底证件照,ID photo background,证件照背景色" />
+<link rel="canonical" href="https://example.com/idphoto.html" />
+<meta property="og:title" content="证件照换底色 - 在线免费换照片背景色 | 透白" />
+<meta property="og:description" content="纯前端本地处理证件照换底色，支持蓝/白/红/浅蓝预设与自定义颜色，图片不上传服务器。" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://example.com/idphoto.html" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "透白证件照换底色",
+  "url": "https://example.com/idphoto.html",
+  "description": "在线免费证件照换底色工具，纯前端本地处理，支持蓝底换白底、白底换蓝底、红底证件照制作。",
+  "applicationCategory": "MultimediaApplication",
+  "operatingSystem": "All",
+  "browserRequirements": "支持Canvas的现代浏览器",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CNY" }
+}
+</script>
+<style>
+:root{
+  --ink:#18201d;--muted:#69736f;--paper:#f5f3ec;--card:#fffef9;--line:#d9ddd8;
+  --accent:#087f5b;--accent2:#c7f1df;--shadow:0 24px 70px #163d2b14;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:Inter,"PingFang SC","Microsoft YaHei",sans-serif;
+  color:var(--ink);background:radial-gradient(circle at 10% 0,#dff6e9 0,transparent 32rem),var(--paper);
+  min-height:100vh;line-height:1.6;-webkit-font-smoothing:antialiased;
+}
+header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 32px;max-width:1200px;margin:0 auto;flex-wrap:wrap;gap:12px;
+}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-weight:700;font-size:20px}
+.mark{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:32px;height:32px;border-radius:9px;background:var(--accent);color:#fff;font-size:16px;font-weight:800;
+}
+.toolnav{display:flex;gap:6px;flex-wrap:wrap}
+.toolnav a{
+  text-decoration:none;color:var(--muted);font-size:13px;padding:7px 12px;border-radius:8px;
+  transition:.15s;background:transparent;
+}
+.toolnav a:hover{background:var(--accent2);color:var(--accent)}
+main{max-width:1200px;margin:0 auto;padding:8px 24px 48px}
+.hero{text-align:center;padding:36px 0 28px}
+.hero h1{font-size:34px;font-weight:800;letter-spacing:-0.5px;margin-bottom:10px}
+.hero p{color:var(--muted);font-size:16px;max-width:620px;margin:0 auto}
+.badge{
+  display:inline-flex;align-items:center;gap:6px;background:var(--accent2);color:var(--accent);
+  padding:6px 14px;border-radius:999px;font-size:13px;font-weight:600;margin-top:16px;
+}
+.badge::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.toolCard{
+  background:var(--card);border:1px solid var(--line);border-radius:18px;
+  box-shadow:var(--shadow);padding:28px;margin-top:16px;
+}
+.dropzone{
+  border:2px dashed var(--line);border-radius:14px;padding:46px 24px;text-align:center;
+  cursor:pointer;transition:.2s;background:var(--paper);
+}
+.dropzone:hover,.dropzone.drag{border-color:var(--accent);background:var(--accent2)}
+.dropzone .icon{font-size:40px;margin-bottom:8px}
+.dropzone p{color:var(--muted);font-size:14px}
+.dropzone strong{color:var(--accent)}
+.workarea{display:none;grid-template-columns:1fr 1fr;gap:24px;margin-top:24px}
+@media(max-width:760px){.workarea{grid-template-columns:1fr}}
+.panel{background:var(--paper);border-radius:12px;padding:18px}
+.panel h3{font-size:15px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.previewBox{background:#fff;border-radius:10px;overflow:hidden;border:1px solid var(--line);min-height:200px;display:flex;align-items:center;justify-content:center}
+.previewBox canvas{max-width:100%;height:auto;display:block}
+.controls{display:flex;flex-direction:column;gap:18px}
+.controlGroup label{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:8px;font-weight:600}
+.controlGroup label span{color:var(--accent)}
+.presetColors{display:flex;flex-wrap:wrap;gap:10px}
+.presetColors button{
+  width:46px;height:46px;border-radius:10px;border:2px solid var(--line);cursor:pointer;
+  transition:.15s;position:relative;
+}
+.presetColors button.active{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent2)}
+.presetColors button::after{
+  content:attr(data-name);position:absolute;bottom:-22px;left:50%;transform:translateX(-50%);
+  font-size:11px;color:var(--muted);white-space:nowrap;
+}
+.colorRow{display:flex;align-items:center;gap:12px;margin-top:30px}
+.colorRow input[type=color]{
+  width:54px;height:38px;border:1px solid var(--line);border-radius:8px;cursor:pointer;background:none;
+}
+.colorRow code{font-size:13px;color:var(--muted)}
+input[type=range]{
+  -webkit-appearance:none;width:100%;height:5px;background:var(--line);border-radius:5px;outline:none;
+}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--accent);cursor:pointer;
+}
+input[type=range]::-moz-range-thumb{
+  width:18px;height:18px;border:none;border-radius:50%;background:var(--accent);cursor:pointer;
+}
+.btnRow{display:flex;gap:12px;margin-top:22px;flex-wrap:wrap}
+.btn{
+  padding:11px 22px;border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;transition:.15s;
+  display:inline-flex;align-items:center;gap:7px;text-decoration:none;
+}
+.primary{background:var(--ink);color:#fff}
+.primary:hover{background:var(--accent)}
+.secondary{background:#e9ece8;color:var(--ink)}
+.secondary:hover{background:var(--line)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.sampleInfo{font-size:12px;color:var(--muted);margin-top:6px;background:var(--card);padding:8px 12px;border-radius:8px;border:1px solid var(--line)}
+.sampleInfo b{color:var(--ink)}
+.relatedTools{margin-top:40px;text-align:center}
+.relatedTools h2{font-size:20px;margin-bottom:18px}
+.toolGrid{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.toolGrid a{
+  text-decoration:none;color:var(--ink);background:var(--card);border:1px solid var(--line);
+  padding:10px 18px;border-radius:10px;font-size:13px;font-weight:500;transition:.15s;
+}
+.toolGrid a:hover{border-color:var(--accent);color:var(--accent);background:var(--accent2)}
+footer{text-align:center;padding:24px;color:var(--muted);font-size:12px}
+</style>
+</head>
+<body>
+<header>
+  <a href="/" class="brand"><span class="mark">透</span><span>透白</span></a>
+  <nav class="toolnav">
+    <a href="/compress.html">压缩</a><a href="/convert.html">转换</a><a href="/crop.html">裁剪</a>
+    <a href="/idphoto.html">证件照</a><a href="/watermark.html">水印</a><a href="/bgcolor.html">换底色</a>
+    <a href="/splice.html">拼接</a><a href="/img2pdf.html">转PDF</a><a href="/filter.html">滤镜</a>
+  </nav>
+</header>
+<main>
+  <section class="hero">
+    <h1>证件照换底色</h1>
+    <p>上传证件照，一键将蓝底换白底、白底换红底，自由调节容差与边缘柔化，获得干净利落的换底效果。</p>
+    <div class="badge">仅在浏览器本地处理 · 图片不会上传到服务器</div>
+  </section>
+
+  <section class="toolCard">
+    <div class="dropzone" id="dropzone">
+      <div class="icon">📁</div>
+      <p>点击上传、拖拽到此处或 <strong>Ctrl+V 粘贴</strong> 证件照图片</p>
+      <p style="margin-top:6px;font-size:12px">支持 JPG / PNG / WEBP · 建议使用纯色背景证件照</p>
+      <input type="file" id="fileInput" accept="image/*" hidden />
+    </div>
+
+    <div class="workarea" id="workarea">
+      <div class="panel">
+        <h3>🎨 预览效果</h3>
+        <div class="previewBox"><canvas id="preview"></canvas></div>
+        <div class="sampleInfo" id="sampleInfo"></div>
+      </div>
+      <div class="panel">
+        <h3>⚙️ 换底设置</h3>
+        <div class="controls">
+          <div class="controlGroup">
+            <label>预设底色</label>
+            <div class="presetColors" id="presetColors">
+              <button data-color="#FFFFFF" data-name="白色" style="background:#FFFFFF" class="active"></button>
+              <button data-color="#438EDB" data-name="蓝色" style="background:#438EDB"></button>
+              <button data-color="#D9001B" data-name="红色" style="background:#D9001B"></button>
+              <button data-color="#B4D4FF" data-name="浅蓝" style="background:#B4D4FF"></button>
+            </div>
+            <div class="colorRow">
+              <input type="color" id="customColor" value="#FFFFFF" />
+              <code id="colorCode">#FFFFFF</code>
+            </div>
+          </div>
+          <div class="controlGroup">
+            <label>容差 <span id="tolVal">30</span></label>
+            <input type="range" id="tolerance" min="10" max="80" value="30" />
+          </div>
+          <div class="controlGroup">
+            <label>边缘柔化 <span id="featherVal">10</span></label>
+            <input type="range" id="feather" min="0" max="30" value="10" />
+          </div>
+          <div class="btnRow">
+            <button class="btn primary" id="downloadBtn">⬇ 下载图片</button>
+            <button class="btn secondary" id="resetBtn">重新上传</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="relatedTools">
+    <h2>更多图片工具</h2>
+    <div class="toolGrid">
+      <a href="/compress.html">图片压缩</a><a href="/convert.html">格式转换</a><a href="/crop.html">裁剪缩放</a>
+      <a href="/idphoto.html">证件照换底色</a><a href="/watermark.html">加水印</a><a href="/bgcolor.html">换背景色</a>
+      <a href="/splice.html">图片拼接</a><a href="/img2pdf.html">转PDF</a><a href="/filter.html">滤镜调色</a>
+    </div>
+  </section>
+</main>
+<footer>透白工具 · 所有处理均在浏览器本地完成，图片不会离开您的设备</footer>
+
+<script>
+(function(){
+  // ============ DOM 元素 ============
+  const dropzone = document.getElementById('dropzone');
+  const fileInput = document.getElementById('fileInput');
+  const workarea = document.getElementById('workarea');
+  const preview = document.getElementById('preview');
+  const ctx = preview.getContext('2d', { willReadFrequently: true });
+  const sampleInfo = document.getElementById('sampleInfo');
+  const presetColors = document.getElementById('presetColors');
+  const customColor = document.getElementById('customColor');
+  const colorCode = document.getElementById('colorCode');
+  const tolerance = document.getElementById('tolerance');
+  const tolVal = document.getElementById('tolVal');
+  const feather = document.getElementById('feather');
+  const featherVal = document.getElementById('featherVal');
+  const downloadBtn = document.getElementById('downloadBtn');
+  const resetBtn = document.getElementById('resetBtn');
+
+  // ============ 状态变量 ============
+  let sourceImage = null;       // 原始图片对象
+  let originalBg = null;        // 采样得到的原底色 {r,g,b}
+  let currentColor = '#FFFFFF'; // 当前选中的新底色
+
+  // ============ 工具函数：hex 转 rgb ============
+  function hexToRgb(hex){
+    const m = hex.replace('#','');
+    return {
+      r: parseInt(m.substring(0,2),16),
+      g: parseInt(m.substring(2,4),16),
+      b: parseInt(m.substring(4,6),16)
+    };
+  }
+
+  // ============ 工具函数：rgb 转 hex ============
+  function rgbToHex(r,g,b){
+    const h = v => v.toString(16).padStart(2,'0');
+    return '#' + h(r) + h(g) + h(b);
+  }
+
+  // ============ 加载图片文件 ============
+  function loadFile(file){
+    if(!file || !file.type.startsWith('image/')) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+      const img = new Image();
+      img.onload = () => {
+        sourceImage = img;
+        // 采样原底色（四个角的平均色）
+        originalBg = sampleBackgroundColor(img);
+        showWorkarea();
+        render();
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  // ============ 采样原底色：取图片四角各一小块区域的平均色 ============
+  function sampleBackgroundColor(img){
+    // 用小尺寸canvas采样，提高性能
+    const sw = Math.min(100, img.width);
+    const sh = Math.min(100, img.height);
+    const sc = document.createElement('canvas');
+    sc.width = sw; sc.height = sh;
+    const sctx = sc.getContext('2d');
+    sctx.drawImage(img, 0, 0, sw, sh);
+    const data = sctx.getImageData(0,0,sw,sh).data;
+
+    // 采样四角各 8x8 区域
+    const corner = 8;
+    let r=0,g=0,b=0,count=0;
+    const corners = [
+      [0,0],[sw-corner,0],[0,sh-corner],[sw-corner,sh-corner]
+    ];
+    for(const [cx,cy] of corners){
+      for(let y=cy;y<cy+corner;y++){
+        for(let x=cx;x<cx+corner;x++){
+          const idx = (y*sw+x)*4;
+          r += data[idx]; g += data[idx+1]; b += data[idx+2]; count++;
+        }
+      }
+    }
+    r = Math.round(r/count); g = Math.round(g/count); b = Math.round(b/count);
+    return { r, g, b };
+  }
+
+  // ============ 显示工作区 ============
+  function showWorkarea(){
+    dropzone.style.display = 'none';
+    workarea.style.display = 'grid';
+  }
+
+  // ============ 渲染：执行换底处理 ============
+  function render(){
+    if(!sourceImage || !originalBg) return;
+
+    // 限制最大尺寸，保证性能
+    const maxW = 1000;
+    let w = sourceImage.width, h = sourceImage.height;
+    if(w > maxW){ h = Math.round(h * maxW / w); w = maxW; }
+    preview.width = w; preview.height = h;
+    ctx.drawImage(sourceImage, 0, 0, w, h);
+
+    const imageData = ctx.getImageData(0, 0, w, h);
+    const data = imageData.data;
+
+    const newRgb = hexToRgb(currentColor);
+    const tol = parseInt(tolerance.value);
+    const fea = parseInt(feather.value);
+    const oR = originalBg.r, oG = originalBg.g, oB = originalBg.b;
+    const nR = newRgb.r, nG = newRgb.g, nB = newRgb.b;
+
+    // 遍历每个像素，根据与原底色的距离决定替换或混合
+    for(let i = 0; i < data.length; i += 4){
+      const r = data[i], g = data[i+1], b = data[i+2];
+      // 颜色欧氏距离
+      const dist = Math.sqrt((r-oR)*(r-oR) + (g-oG)*(g-oG) + (b-oB)*(b-oB));
+
+      if(dist <= tol){
+        // 完全在容差范围内：直接替换为新底色
+        data[i] = nR; data[i+1] = nG; data[i+2] = nB;
+      } else if(dist <= tol + fea && fea > 0){
+        // 边缘柔化区：按比例混合新底色与原像素
+        const ratio = (dist - tol) / fea; // 0=全新色, 1=全原色
+        data[i]   = Math.round(nR * (1-ratio) + r * ratio);
+        data[i+1] = Math.round(nG * (1-ratio) + g * ratio);
+        data[i+2] = Math.round(nB * (1-ratio) + b * ratio);
+      }
+    }
+    ctx.putImageData(imageData, 0, 0);
+
+    // 显示采样信息
+    sampleInfo.innerHTML = '🔍 自动检测原底色：<b style="display:inline-block;width:14px;height:14px;border-radius:3px;vertical-align:middle;margin:0 4px;background:' +
+      rgbToHex(oR,oG,oB) + ';border:1px solid #ccc"></b><b>' + rgbToHex(oR,oG,oB).toUpperCase() +
+      '</b> &nbsp;|&nbsp; 新底色：<b style="display:inline-block;width:14px;height:14px;border-radius:3px;vertical-align:middle;margin:0 4px;background:' +
+      currentColor + ';border:1px solid #ccc"></b><b>' + currentColor.toUpperCase() + '</b>';
+  }
+
+  // ============ 事件：点击上传 ============
+  dropzone.addEventListener('click', () => fileInput.click());
+  fileInput.addEventListener('change', e => { if(e.target.files[0]) loadFile(e.target.files[0]); });
+
+  // ============ 事件：拖拽上传 ============
+  dropzone.addEventListener('dragover', e => { e.preventDefault(); dropzone.classList.add('drag'); });
+  dropzone.addEventListener('dragleave', () => dropzone.classList.remove('drag'));
+  dropzone.addEventListener('drop', e => {
+    e.preventDefault(); dropzone.classList.remove('drag');
+    if(e.dataTransfer.files[0]) loadFile(e.dataTransfer.files[0]);
+  });
+
+  // ============ 事件：粘贴上传 ============
+  document.addEventListener('paste', e => {
+    const items = e.clipboardData.items;
+    for(const item of items){
+      if(item.type.startsWith('image/')){
+        loadFile(item.getAsFile());
+        break;
+      }
+    }
+  });
+
+  // ============ 事件：预设底色选择 ============
+  presetColors.addEventListener('click', e => {
+    const btn = e.target.closest('button');
+    if(!btn) return;
+    presetColors.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentColor = btn.dataset.color;
+    customColor.value = currentColor;
+    colorCode.textContent = currentColor.toUpperCase();
+    render();
+  });
+
+  // ============ 事件：自定义颜色 ============
+  customColor.addEventListener('input', e => {
+    currentColor = e.target.value;
+    colorCode.textContent = currentColor.toUpperCase();
+    presetColors.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+    render();
+  });
+
+  // ============ 事件：容差滑块 ============
+  tolerance.addEventListener('input', () => { tolVal.textContent = tolerance.value; render(); });
+
+  // ============ 事件：边缘柔化滑块 ============
+  feather.addEventListener('input', () => { featherVal.textContent = feather.value; render(); });
+
+  // ============ 事件：下载 ============
+  downloadBtn.addEventListener('click', () => {
+    const link = document.createElement('a');
+    link.download = '证件照_' + currentColor.replace('#','') + '.png';
+    link.href = preview.toDataURL('image/png');
+    link.click();
+  });
+
+  // ============ 事件：重新上传 ============
+  resetBtn.addEventListener('click', () => {
+    sourceImage = null; originalBg = null;
+    workarea.style.display = 'none';
+    dropzone.style.display = 'block';
+    fileInput.value = '';
+  });
+})();
+</script>
+</body>
+</html>

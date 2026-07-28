@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>图片格式转换 - PNG/JPG/WebP/BMP互转 | 透白</title>
+  <meta name="description" content="免费在线图片格式转换工具，支持 PNG、JPG、WebP、BMP 互转。JPG/WebP 可调质量，显示转换前后大小对比。所有处理在浏览器本地完成，图片不上传服务器，保护隐私。" />
+  <meta name="keywords" content="图片格式转换,PNG转JPG,JPG转PNG,WebP转换,图片转换格式,convert image format" />
+  <meta name="author" content="透白" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+  <meta name="googlebot" content="index,follow" />
+  <meta name="bingbot" content="index,follow" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/favicon.svg" />
+  <link rel="canonical" href="https://imagec.xin/convert.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="透白" />
+  <meta property="og:title" content="图片格式转换 - PNG/JPG/WebP/BMP互转 | 透白" />
+  <meta property="og:description" content="免费在线图片格式转换工具，支持 PNG、JPG、WebP、BMP 互转。浏览器本地处理，不上传服务器。" />
+  <meta property="og:url" content="https://imagec.xin/convert.html" />
+  <meta property="og:image" content="https://imagec.xin/og-image.jpg" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="图片格式转换 - PNG/JPG/WebP/BMP互转 | 透白" />
+  <meta name="twitter:description" content="免费在线图片格式转换工具，浏览器本地处理，不上传服务器。" />
+  <meta name="twitter:image" content="https://imagec.xin/og-image.jpg" />
+  <meta name="theme-color" content="#f5f3ec" />
+  <meta name="application-name" content="透白" />
+  <meta name="apple-mobile-web-app-title" content="透白" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"图片格式转换工具","alternateName":"透白","url":"https://imagec.xin/convert.html","image":"https://imagec.xin/og-image.jpg","applicationCategory":"MultimediaApplication","operatingSystem":"Any","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"在线免费图片格式转换工具，支持 PNG、JPG、WebP、BMP 互转。JPG/WebP 可调质量。所有处理在浏览器本地完成，图片不上传服务器。","inLanguage":"zh-CN","featureList":["PNG/JPG/WebP/BMP 互转","JPG/WebP 质量可调","转换前后大小对比","JPG 自动白色填充背景","浏览器本地处理不上传"],"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.8","ratingCount":"1"},"screenshot":"https://imagec.xin/og-image.jpg"}</script>
+  <style>
+    /* ===== 设计系统变量 ===== */
+    :root{--ink:#18201d;--muted:#69736f;--paper:#f5f3ec;--card:#fffef9;--line:#d9ddd8;--accent:#087f5b;--accent2:#c7f1df;--shadow:0 24px 70px #163d2b14}
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;color:var(--ink);background:radial-gradient(circle at 10% 0,#dff6e9 0,transparent 32rem),var(--paper);font:15px/1.5 Inter,"PingFang SC","Microsoft YaHei",sans-serif}
+    a{color:inherit;text-decoration:none}
+    .shell{width:min(1180px,calc(100% - 32px));margin:auto;padding:24px 0 48px}
+
+    /* ===== Header ===== */
+    header{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;gap:16px;flex-wrap:wrap}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:800;font-size:20px}
+    .mark{width:38px;height:38px;border-radius:12px;background:var(--ink);display:grid;place-items:center;color:white;font-family:Georgia;font-size:23px;flex:none}
+    .toolnav{display:flex;gap:4px;flex-wrap:wrap}
+    .toolnav a{padding:7px 12px;border-radius:9px;font-size:13px;font-weight:600;color:var(--muted);transition:.18s;white-space:nowrap}
+    .toolnav a:hover{background:#e9ece8;color:var(--ink)}
+    .toolnav a.active{background:var(--accent2);color:var(--accent)}
+
+    /* ===== 主面板卡片 ===== */
+    .panel{background:var(--card);border:1px solid #ffffff;box-shadow:var(--shadow);border-radius:28px;overflow:hidden}
+    .hero{padding:32px 36px 24px;border-bottom:1px solid var(--line)}
+    h1{font-size:clamp(26px,3.6vw,44px);line-height:1.1;letter-spacing:-.03em;margin:0 0 10px}
+    .hero p{margin:0;color:var(--muted);font-size:15px;max-width:680px}
+    .safeBadge{display:inline-flex;align-items:center;gap:8px;margin-top:16px;padding:8px 12px;border:1px solid #a7ddc6;border-radius:11px;background:#eaf9f1;color:#086344;font-weight:700;font-size:12.5px}
+    .safeBadge svg{width:16px;height:16px;flex:none}
+
+    /* ===== 工作区布局 ===== */
+    .workspace{display:grid;grid-template-columns:320px 1fr;min-height:560px}
+    .controls{padding:24px;border-right:1px solid var(--line);background:#fbfaf5}
+    .stage{padding:24px;min-width:0}
+
+    /* ===== 上传拖放区 ===== */
+    .drop{min-height:150px;border:1.5px dashed #8fa69a;border-radius:18px;padding:22px 16px;text-align:center;cursor:pointer;transition:.2s;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px}
+    .drop:hover,.drop.over{border-color:var(--accent);background:#f0fbf5;transform:translateY(-1px);box-shadow:0 8px 24px #087f5b12}
+    .drop svg{width:34px;height:34px;margin-bottom:4px;color:var(--accent);flex:none}
+    .drop strong{display:block;font-size:15px}
+    .drop small{display:block;color:var(--muted);line-height:1.4;font-size:12px}
+    input[type=file]{display:none}
+
+    /* ===== 控件组 ===== */
+    .group{margin-top:22px}
+    .labelrow{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+    .labelrow label{font-weight:700;font-size:14px}
+    .value{font-variant-numeric:tabular-nums;color:var(--accent);font-weight:750;background:var(--accent2);padding:2px 9px;border-radius:99px;font-size:13px}
+    input[type=range]{width:100%;accent-color:var(--accent)}
+    .hint{font-size:12px;color:var(--muted);margin-top:5px}
+
+    /* ===== 格式选择按钮组 ===== */
+    .fmtGrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .fmtBtn{padding:14px 10px;border:1.5px solid var(--line);border-radius:13px;background:#fff;cursor:pointer;text-align:center;transition:.18s;font-weight:700;font-size:14px}
+    .fmtBtn:hover{border-color:var(--accent);background:#f0fbf5}
+    .fmtBtn.active{border-color:var(--accent);background:var(--accent2);color:var(--accent)}
+    .fmtBtn small{display:block;font-weight:500;color:var(--muted);font-size:11px;margin-top:2px}
+
+    /* ===== 按钮 ===== */
+    .actions{display:grid;gap:10px;margin-top:26px}
+    button{border:0;border-radius:13px;padding:12px 14px;font:inherit;font-weight:750;cursor:pointer;transition:.18s}
+    button:active{transform:scale(.98)}
+    .primary{background:var(--ink);color:white}
+    .primary:hover{background:var(--accent)}
+    .secondary{background:#e9ece8;color:var(--ink)}
+    button:disabled{opacity:.4;cursor:not-allowed}
+
+    /* ===== 提示条 ===== */
+    .notice{margin-top:16px;padding:11px 13px;border-radius:11px;background:#fff4e0;border:1px solid #f0d8a8;color:#8a5a10;font-size:12.5px;font-weight:600;line-height:1.5}
+    .notice b{font-weight:800}
+
+    /* ===== 预览舞台 ===== */
+    .stagebar{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;gap:10px;flex-wrap:wrap}
+    .meta{color:var(--muted);font-size:13px}
+    .canvasWrap{height:440px;border-radius:20px;overflow:hidden;border:1px solid var(--line);display:grid;place-items:center;position:relative;background-color:#fff;background-image:linear-gradient(45deg,#e7e9e7 25%,transparent 25%),linear-gradient(-45deg,#e7e9e7 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#e7e9e7 75%),linear-gradient(-45deg,transparent 75%,#e7e9e7 75%);background-size:24px 24px;background-position:0 0,0 12px,12px -12px,-12px 0}
+    .canvasWrap img{max-width:100%;max-height:100%;width:auto;height:auto;display:none}
+    .empty{text-align:center;color:var(--muted);padding:20px}
+    .empty .bubble{width:72px;height:72px;border-radius:22px;background:#e7f5ed;margin:0 auto 14px;display:grid;place-items:center;font-size:32px}
+
+    /* ===== 大小对比统计 ===== */
+    .stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+    .statBox{background:#fbfaf5;border:1px solid var(--line);border-radius:14px;padding:14px}
+    .statBox .statLabel{font-size:12px;color:var(--muted);font-weight:600}
+    .statBox .statVal{font-size:20px;font-weight:800;margin-top:3px;font-variant-numeric:tabular-nums}
+    .statBox.saved{background:#eaf9f1;border-color:#a7ddc6}
+    .statBox.saved .statVal{color:var(--accent)}
+
+    /* ===== 相关工具 ===== */
+    .relatedTools{margin-top:36px}
+    .relatedTools h2{font-size:18px;margin:0 0 14px}
+    .toolGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
+    .toolGrid a{display:block;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:var(--card);font-weight:650;font-size:14px;transition:.18s;text-align:center}
+    .toolGrid a:hover{border-color:var(--accent);background:#f0fbf5;transform:translateY(-2px);box-shadow:0 6px 18px #087f5b10}
+
+    /* ===== 响应式 ===== */
+    @media(max-width:800px){.workspace{grid-template-columns:1fr}.controls{border-right:0;border-bottom:1px solid var(--line)}.hero{padding:26px 22px}.stage{padding:18px}.canvasWrap{height:340px}.toolnav{order:3;width:100%}}
+    @media(max-width:480px){.stats{grid-template-columns:1fr}.shell{padding:16px 0 32px}.panel{border-radius:20px}}
+  </style>
+</head>
+<body>
+<main class="shell">
+  <!-- ===== Header ===== -->
+  <header>
+    <a href="/" class="brand"><span class="mark">透</span><span>透白</span></a>
+    <nav class="toolnav">
+      <a href="/compress.html">压缩</a>
+      <a href="/convert.html" class="active">转换</a>
+      <a href="/crop.html">裁剪</a>
+      <a href="/idphoto.html">证件照</a>
+      <a href="/watermark.html">水印</a>
+      <a href="/bgcolor.html">换底色</a>
+      <a href="/splice.html">拼接</a>
+      <a href="/img2pdf.html">转PDF</a>
+      <a href="/filter.html">滤镜</a>
+    </nav>
+  </header>
+
+  <!-- ===== 主面板 ===== -->
+  <section class="panel">
+    <div class="hero">
+      <h1>图片格式转换</h1>
+      <p>在线免费转换图片格式，支持 PNG、JPG、WebP、BMP 互转。JPG/WebP 可调质量，实时预览转换效果与文件大小。</p>
+      <div class="safeBadge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3 5 6v5c0 4.6 2.8 8.2 7 10 4.2-1.8 7-5.4 7-10V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg>
+        <span>仅在浏览器本地处理 · 图片不会上传到服务器</span>
+      </div>
+    </div>
+    <div class="workspace">
+      <!-- ===== 左侧控制区 ===== -->
+      <aside class="controls">
+        <label class="drop" id="drop" for="file">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M5 14v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4"/></svg>
+          <strong>点击选择或拖入图片</strong>
+          <small>支持 PNG、JPG、WebP、BMP<br>也可直接粘贴图片</small>
+        </label>
+        <input id="file" type="file" accept="image/png,image/jpeg,image/webp,image/bmp" />
+
+        <!-- 目标格式选择 -->
+        <div class="group">
+          <div class="labelrow"><label>目标格式</label></div>
+          <div class="fmtGrid" id="fmtGrid">
+            <div class="fmtBtn active" data-fmt="png">PNG<small>无损 · 支持透明</small></div>
+            <div class="fmtBtn" data-fmt="jpeg">JPG<small>有损 · 体积小</small></div>
+            <div class="fmtBtn" data-fmt="webp">WebP<small>现代格式 · 高压缩</small></div>
+            <div class="fmtBtn" data-fmt="bmp">BMP<small>无损 · 不压缩</small></div>
+          </div>
+        </div>
+
+        <!-- 质量滑块（仅 JPG/WebP） -->
+        <div class="group" id="qualityGroup">
+          <div class="labelrow"><label for="quality">质量</label><span class="value" id="qualityV">85</span></div>
+          <input id="quality" type="range" min="1" max="100" value="85">
+          <div class="hint">仅 JPG / WebP 有效，数值越低体积越小</div>
+        </div>
+
+        <!-- 提示 -->
+        <div class="notice" id="jpgNotice" style="display:none">
+          <b>注意：</b>转 JPG 时不支持透明背景，透明区域会自动用白色填充。
+        </div>
+
+        <div class="actions">
+          <button class="primary" id="download" disabled>下载转换后图片</button>
+        </div>
+      </aside>
+
+      <!-- ===== 右侧预览区 ===== -->
+      <section class="stage">
+        <div class="stagebar">
+          <div class="meta" id="meta">等待图片</div>
+        </div>
+        <div class="canvasWrap" id="wrap">
+          <img id="preview" alt="转换预览">
+          <div class="empty" id="empty">
+            <div class="bubble">✦</div>
+            <strong>把图片放进来试试</strong>
+            <div>也可以直接粘贴剪贴板中的图片</div>
+          </div>
+        </div>
+        <!-- 大小对比 -->
+        <div class="stats" id="stats" style="display:none">
+          <div class="statBox">
+            <div class="statLabel">原始大小</div>
+            <div class="statVal" id="origSize">—</div>
+          </div>
+          <div class="statBox saved">
+            <div class="statLabel">转换后大小</div>
+            <div class="statVal" id="newSize">—</div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </section>
+
+  <!-- ===== 相关工具 ===== -->
+  <section class="relatedTools">
+    <h2>更多图片工具</h2>
+    <div class="toolGrid">
+      <a href="/compress.html">图片压缩</a>
+      <a href="/convert.html">格式转换</a>
+      <a href="/crop.html">裁剪缩放</a>
+      <a href="/idphoto.html">证件照换底色</a>
+      <a href="/watermark.html">加水印</a>
+      <a href="/bgcolor.html">换背景色</a>
+      <a href="/splice.html">图片拼接</a>
+      <a href="/img2pdf.html">转PDF</a>
+      <a href="/filter.html">滤镜调色</a>
+    </div>
+  </section>
+</main>
+
+<script>
+/* ===== 工具函数 ===== */
+const $=s=>document.querySelector(s);
+const file=$('#file'),drop=$('#drop'),preview=$('#preview'),empty=$('#empty');
+
+/* ===== 状态变量 ===== */
+let sourceImg=null;       // 原始图片对象
+let origName='image';     // 原始文件名（不含扩展名）
+let origBlob=null;        // 原始文件 Blob
+let targetFmt='png';      // 目标格式：png / jpeg / webp / bmp
+let convertTimer=null;    // 防抖计时器
+
+/* ===== 格式化文件大小 ===== */
+function fmtSize(bytes){
+  if(bytes<1024)return bytes+' B';
+  if(bytes<1024*1024)return (bytes/1024).toFixed(1)+' KB';
+  return (bytes/1024/1024).toFixed(2)+' MB';
+}
+
+/* ===== BMP 编码器（Canvas.toBlob 不支持 BMP，需手动实现） ===== */
+function encodeBMP(canvas){
+  const ctx=canvas.getContext('2d');
+  const w=canvas.width,h=canvas.height;
+  const imageData=ctx.getImageData(0,0,w,h);
+  const data=imageData.data; // RGBA
+  // BMP 行需 4 字节对齐
+  const rowSize=Math.floor((24*w+31)/32)*4;
+  const pixelDataSize=rowSize*h;
+  const fileSize=54+pixelDataSize;
+  const buf=new ArrayBuffer(fileSize);
+  const view=new DataView(buf);
+  // ===== BMP 文件头（14 字节） =====
+  view.setUint8(0,0x42); // 'B'
+  view.setUint8(1,0x4D); // 'M'
+  view.setUint32(2,fileSize,true); // 文件大小
+  view.setUint32(6,0,true); // 保留
+  view.setUint32(10,54,true); // 像素数据偏移
+  // ===== DIB 头 BITMAPINFOHEADER（40 字节） =====
+  view.setUint32(14,40,true); // 头大小
+  view.setInt32(18,w,true); // 宽
+  view.setInt32(22,h,true); // 高（正数=底部向上）
+  view.setUint16(26,1,true); // 颜色平面数
+  view.setUint16(28,24,true); // 每像素位数
+  view.setUint32(30,0,true); // 压缩方式（0=BI_RGB 不压缩）
+  view.setUint32(34,pixelDataSize,true); // 像素数据大小
+  view.setInt32(38,2835,true); // 水平分辨率（72 DPI → 像素/米）
+  view.setInt32(42,2835,true); // 垂直分辨率
+  view.setUint32(46,0,true); // 调色板颜色数
+  view.setUint32(50,0,true); // 重要颜色数
+  // ===== 像素数据（BMP 从下到上、BGR 顺序、每行 4 字节对齐） =====
+  for(let y=0;y<h;y++){
+    const srcRow=(h-1-y)*w*4; // BMP 从底部开始
+    const dstRow=y*rowSize;
+    for(let x=0;x<w;x++){
+      const si=srcRow+x*4;
+      const di=dstRow+x*3;
+      view.setUint8(54+di,data[si+2]); // B
+      view.setUint8(54+di+1,data[si+1]); // G
+      view.setUint8(54+di+2,data[si]); // R
+    }
+  }
+  return new Blob([buf],{type:'image/bmp'});
+}
+
+/* ===== 加载图片 ===== */
+function load(blob,filename){
+  if(!blob||!blob.type.startsWith('image/'))return;
+  origBlob=blob;
+  origName=(filename||'image').replace(/\.[^.]+$/,'');
+  const img=new Image();
+  const url=URL.createObjectURL(blob);
+  img.onload=()=>{
+    URL.revokeObjectURL(url);
+    sourceImg=img;
+    empty.style.display='none';
+    preview.style.display='block';
+    $('#download').disabled=false;
+    $('#meta').textContent=`${img.naturalWidth} × ${img.naturalHeight}px · ${fmtSize(blob.size)}`;
+    schedule();
+  };
+  img.src=url;
+}
+
+/* ===== 执行格式转换 ===== */
+function convert(){
+  if(!sourceImg)return;
+  const w=sourceImg.naturalWidth,h=sourceImg.naturalHeight;
+  // 创建画布并绘制原图
+  const cv=document.createElement('canvas');
+  cv.width=w;cv.height=h;
+  const cx=cv.getContext('2d');
+  // JPG 不支持透明，用白色填充背景
+  if(targetFmt==='jpeg'){cx.fillStyle='#ffffff';cx.fillRect(0,0,w,h);}
+  cx.drawImage(sourceImg,0,0,w,h);
+
+  const finish=blob=>{
+    if(!blob)return;
+    const oldUrl=preview.src;
+    if(oldUrl&&oldUrl.startsWith('blob:'))URL.revokeObjectURL(oldUrl);
+    preview.src=URL.createObjectURL(blob);
+    // 大小对比
+    $('#origSize').textContent=fmtSize(origBlob.size);
+    $('#newSize').textContent=fmtSize(blob.size);
+    $('#stats').style.display='grid';
+    $('#meta').textContent=`${w} × ${h}px · ${fmtSize(blob.size)}`;
+    convert._blob=blob;
+  };
+
+  if(targetFmt==='bmp'){
+    // BMP 用手动编码器
+    finish(encodeBMP(cv));
+  }else{
+    const mime=targetFmt==='png'?'image/png':targetFmt==='webp'?'image/webp':'image/jpeg';
+    const quality=+$('#quality').value/100;
+    cv.toBlob(finish,mime,targetFmt==='png'?undefined:quality);
+  }
+}
+
+/* ===== 防抖 ===== */
+function schedule(){
+  clearTimeout(convertTimer);
+  convertTimer=setTimeout(convert,120);
+}
+
+/* ===== 事件绑定 ===== */
+file.onchange=e=>{if(e.target.files[0])load(e.target.files[0],e.target.files[0].name);};
+['dragenter','dragover'].forEach(x=>drop.addEventListener(x,e=>{e.preventDefault();drop.classList.add('over');}));
+['dragleave','drop'].forEach(x=>drop.addEventListener(x,e=>{e.preventDefault();drop.classList.remove('over');}));
+drop.addEventListener('drop',e=>{if(e.dataTransfer.files[0])load(e.dataTransfer.files[0],e.dataTransfer.files[0].name);});
+// 粘贴支持
+document.addEventListener('paste',e=>{
+  const item=[...e.clipboardData.items].find(x=>x.type.startsWith('image/'));
+  if(item)load(item.getAsFile(),'pasted-image.png');
+});
+
+// 格式选择
+document.querySelectorAll('#fmtGrid .fmtBtn').forEach(btn=>{
+  btn.onclick=()=>{
+    targetFmt=btn.dataset.fmt;
+    document.querySelectorAll('#fmtGrid .fmtBtn').forEach(b=>b.classList.toggle('active',b===btn));
+    // 质量滑块仅在 JPG/WebP 时显示
+    $('#qualityGroup').style.display=(targetFmt==='jpeg'||targetFmt==='webp')?'block':'none';
+    // JPG 透明提示
+    $('#jpgNotice').style.display=targetFmt==='jpeg'?'block':'none';
+    schedule();
+  };
+});
+
+// 质量滑块
+$('#quality').addEventListener('input',e=>{$('#qualityV').textContent=e.target.value;schedule();});
+
+// 下载
+$('#download').onclick=()=>{
+  if(!convert._blob)return;
+  const ext=targetFmt==='png'?'png':targetFmt==='jpeg'?'jpg':targetFmt==='webp'?'webp':'bmp';
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(convert._blob);
+  a.download=`${origName}-converted.${ext}`;
+  a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+};
+</script>
+</body>
+</html>
