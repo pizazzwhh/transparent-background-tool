@@ -5,7 +5,7 @@ const KEY = '14b64bc84c834057a1d7a7e55d3a4c2b';
 const KEY_LOCATION = 'https://imagec.xin/14b64bc84c834057a1d7a7e55d3a4c2b.txt';
 const HOST = 'imagec.xin';
 
-// 推送所有语言版本的URL
+// 推送所有语言版本的URL + 工具页面
 const urls = [
   'https://imagec.xin/',
   'https://imagec.xin/?lang=zh',
@@ -23,6 +23,20 @@ const urls = [
   'https://imagec.xin/?lang=th',
   'https://imagec.xin/sitemap.xml',
   'https://imagec.xin/robots.txt',
+  'https://imagec.xin/whitebg.html',
+  'https://imagec.xin/compress.html',
+  'https://imagec.xin/convert.html',
+  'https://imagec.xin/crop.html',
+  'https://imagec.xin/idphoto.html',
+  'https://imagec.xin/watermark.html',
+  'https://imagec.xin/bgcolor.html',
+  'https://imagec.xin/splice.html',
+  'https://imagec.xin/img2pdf.html',
+  'https://imagec.xin/filter.html',
+  'https://imagec.xin/blog/white-to-transparent-guide.html',
+  'https://imagec.xin/blog/remove-white-background-guide.html',
+  'https://imagec.xin/blog/ecommerce-white-background.html',
+  'https://imagec.xin/blog/ecommerce-white-background-guide.html',
 ];
 
 const body = JSON.stringify({

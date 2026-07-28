@@ -52,6 +52,26 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://imagec.xin/blog/ecommerce-white-background-guide.html"/>
     <xhtml:link rel="alternate" hreflang="zh-CN" href="https://imagec.xin/blog/ecommerce-white-background.html"/>
   </url>
+  <url>
+    <loc>https://imagec.xin/whitebg.html</loc>
+    <lastmod>2026-07-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://imagec.xin/whitebg.html?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://imagec.xin/whitebg.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://imagec.xin/whitebg.html?lang=ja"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://imagec.xin/whitebg.html?lang=ko"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://imagec.xin/whitebg.html?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://imagec.xin/whitebg.html?lang=fr"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://imagec.xin/whitebg.html?lang=de"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://imagec.xin/whitebg.html?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://imagec.xin/whitebg.html?lang=pt"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://imagec.xin/whitebg.html?lang=ar"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://imagec.xin/whitebg.html?lang=vi"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://imagec.xin/whitebg.html?lang=id"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://imagec.xin/whitebg.html?lang=th"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://imagec.xin/whitebg.html"/>
+  </url>
   <url><loc>https://imagec.xin/compress.html</loc><lastmod>2026-07-29</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
   <url><loc>https://imagec.xin/convert.html</loc><lastmod>2026-07-29</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
   <url><loc>https://imagec.xin/crop.html</loc><lastmod>2026-07-29</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
