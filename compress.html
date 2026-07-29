@@ -160,6 +160,21 @@
     html[dir="rtl"] .toggle input:after{left:auto;right:3px}
     html[dir="rtl"] .adLabel{text-align:left}
 
+    /* ===== 参数提示工具 ===== */
+    .tooltip{position:relative;display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:var(--line);color:var(--muted);font-size:11px;font-weight:700;margin-left:6px;cursor:help;flex:none;transition:.18s}
+    .tooltip:hover{background:var(--accent);color:white}
+    .tooltip .tip{position:absolute;left:50%;bottom:calc(100% + 8px);transform:translateX(-50%) scale(.95);width:260px;padding:10px 12px;background:var(--ink);color:#fff;font-size:12px;font-weight:500;line-height:1.5;border-radius:10px;opacity:0;pointer-events:none;transition:.2s;z-index:100;text-align:left}
+    .tooltip:hover .tip{opacity:1;transform:translateX(-50%) scale(1)}
+    .tooltip .tip::after{content:"";position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:var(--ink)}
+    html[dir="rtl"] .tooltip{margin-left:0;margin-right:6px}
+    html[dir="rtl"] .tooltip .tip{text-align:right}
+
+    /* ===== 计算中状态 ===== */
+    .computing{opacity:.7;pointer-events:none}
+    .computing .canvasWrap{position:relative}
+    .computing .canvasWrap::after{content:"";position:absolute;inset:0;display:grid;place-items:center;background:#ffffffbb;font-weight:700;color:var(--accent);font-size:16px;backdrop-filter:blur(4px)}
+    .computing .canvasWrap::before{content:"⏳ 压缩计算中…";position:absolute;z-index:2;top:50%;left:50%;transform:translate(-50%,-50%);font-weight:700;color:var(--accent);font-size:16px;white-space:nowrap}
+
     /* ===== 响应式 ===== */
     @media(max-width:800px){.workspace{grid-template-columns:1fr}.controls{border-right:0;border-bottom:1px solid var(--line)}.hero{padding:26px 22px}.stage{padding:18px}.canvasWrap{height:340px}.toolnav{order:3;width:100%}}
     @media(max-width:480px){.stats{grid-template-columns:1fr}.shell{padding:16px 0 32px}.panel{border-radius:20px}}
@@ -209,26 +224,42 @@
 
         <!-- 输出格式 -->
         <div class="group">
-          <div class="labelrow"><label data-i18n="format">输出格式</label></div>
+          <div class="labelrow">
+            <label data-i18n="format">输出格式</label>
+            <span class="tooltip">?
+              <span class="tip" data-i18n="formatTip">选择压缩后的图片格式。<br>• 保持原格式：与原图相同<br>• WebP：同等画质下体积最小，强烈推荐<br>• PNG：无损但体积大，不支持质量调节<br>• JPG：适合照片，可调节质量</span>
+            </span>
+          </div>
           <select id="format">
             <option value="auto" data-i18n="fmtAuto">保持原格式</option>
-            <option value="webp" data-i18n="fmtWebp">转 WebP（更小体积）</option>
+            <option value="webp" data-i18n="fmtWebp">转 WebP（推荐，体积更小）</option>
             <option value="png" data-i18n="fmtPng">PNG</option>
             <option value="jpeg" data-i18n="fmtJpeg">JPG</option>
           </select>
-          <div class="hint" data-i18n="formatHint">WebP 通常比 JPG/PNG 体积更小</div>
+          <div class="hint" data-i18n="formatHint">WebP 通常比 JPG/PNG 体积小 25%~35%</div>
         </div>
 
         <!-- 质量滑块 -->
         <div class="group">
-          <div class="labelrow"><label for="quality" data-i18n="quality">压缩质量</label><span class="value" id="qualityV">75</span></div>
+          <div class="labelrow">
+            <label for="quality" data-i18n="quality">压缩质量</label>
+            <span class="tooltip">?
+              <span class="tip" data-i18n="qualityTip">仅对 JPG 和 WebP 有效。<br>• 80~90：画质好，适合展示<br>• 60~75：平衡选择，推荐<br>• 30~50：体积最小，适合缩略图<br>• PNG 不支持质量调节</span>
+            </span>
+            <span class="value" id="qualityV">75</span>
+          </div>
           <input id="quality" type="range" min="1" max="100" value="75">
           <div class="hint" data-i18n="qualityHint">数值越低体积越小，画质越低</div>
         </div>
 
         <!-- 宽度缩放 -->
         <div class="group">
-          <div class="labelrow"><label data-i18n="scale">宽度缩放</label></div>
+          <div class="labelrow">
+            <label data-i18n="scale">宽度缩放</label>
+            <span class="tooltip">?
+              <span class="tip" data-i18n="scaleTip">按宽度比例缩小整张图片。<br>• 按百分比：原图宽度的百分之几<br>• 按像素：压缩后的最大宽度（px）<br>• 高度会自动按比例调整，不会变形<br>• 例如 50% 表示宽高都减半，体积约为 1/4</span>
+            </span>
+          </div>
           <div class="seg" id="scaleMode">
             <button type="button" class="active" data-mode="percent" data-i18n="byPercent">按百分比</button>
             <button type="button" data-mode="pixel" data-i18n="byPixel">按像素</button>
@@ -237,7 +268,7 @@
             <input id="scalePercent" type="number" min="1" max="100" value="100" style="display:block">
             <input id="scalePixel" type="number" min="1" value="1920" style="display:none">
           </div>
-          <div class="hint" data-i18n="scaleHint">缩小宽度可显著减小体积</div>
+          <div class="hint" data-i18n="scaleHint">缩小宽度可显著减小体积（50% = 体积约 1/4）</div>
         </div>
 
         <div class="actions">
@@ -331,16 +362,16 @@ const SEO={
 
 /* ===== UI messages per language ===== */
 const messages={
-zh:{brand:'透白',toolWhitebg:'去白底',toolCompress:'压缩',toolConvert:'转换',toolCrop:'裁剪',toolIdphoto:'证件照',toolWatermark:'水印',toolBgcolor:'换底色',toolSplice:'拼接',toolImg2pdf:'转PDF',toolFilter:'滤镜',title:'图片压缩工具',subtitle:'在线免费压缩 PNG / JPG / WebP 图片，质量滑块实时预览效果，可选转 WebP 获得更佳压缩率，支持按百分比或像素宽度缩放。',privacy:'仅在浏览器本地处理 · 图片不会上传到服务器',upload:'点击选择或拖入图片',formats:'支持 PNG、JPG、WebP<br>也可直接粘贴图片',format:'输出格式',fmtAuto:'保持原格式',fmtWebp:'转 WebP（更小体积）',fmtPng:'PNG',fmtJpeg:'JPG',formatHint:'WebP 通常比 JPG/PNG 体积更小',quality:'压缩质量',qualityHint:'数值越低体积越小，画质越低',scale:'宽度缩放',byPercent:'按百分比',byPixel:'按像素',scaleHint:'缩小宽度可显著减小体积',download:'下载压缩后图片',reset:'恢复默认',waiting:'等待图片',emptyTitle:'把图片放进来试试',emptyHint:'也可以直接粘贴剪贴板中的图片',origSize:'原始大小',compSize:'压缩后大小',moreTools:'更多图片工具',rcCompress:'图片压缩',rcConvert:'格式转换',rcCrop:'裁剪缩放',rcIdphoto:'证件照换底色',rcWatermark:'加水印',rcBgcolor:'换背景色',rcSplice:'图片拼接',rcImg2pdf:'转PDF',rcFilter:'滤镜调色'},
-en:{brand:'ClearWhite',toolWhitebg:'Remove White',toolCompress:'Compress',toolConvert:'Convert',toolCrop:'Crop',toolIdphoto:'ID Photo',toolWatermark:'Watermark',toolBgcolor:'BG Color',toolSplice:'Splice',toolImg2pdf:'to PDF',toolFilter:'Filters',title:'Image Compressor',subtitle:'Free online image compression for PNG/JPG/WebP with real-time quality preview. Optionally convert to WebP for better compression. Scale by percentage or pixel width.',privacy:'Processed locally in your browser · Images are never uploaded',upload:'Choose or drop an image',formats:'PNG, JPG, and WebP supported<br>You can also paste an image',format:'Output format',fmtAuto:'Keep original',fmtWebp:'Convert to WebP (smaller)',fmtPng:'PNG',fmtJpeg:'JPG',formatHint:'WebP is usually smaller than JPG/PNG',quality:'Compression quality',qualityHint:'Lower values = smaller file, lower quality',scale:'Width scaling',byPercent:'By percent',byPixel:'By pixels',scaleHint:'Reducing width significantly reduces file size',download:'Download compressed image',reset:'Reset defaults',waiting:'Waiting for image',emptyTitle:'Drop an image here',emptyHint:'Or paste an image from your clipboard',origSize:'Original size',compSize:'Compressed size',moreTools:'More image tools',rcCompress:'Compress',rcConvert:'Convert Format',rcCrop:'Crop & Resize',rcIdphoto:'ID Photo BG',rcWatermark:'Watermark',rcBgcolor:'BG Color',rcSplice:'Splice',rcImg2pdf:'To PDF',rcFilter:'Filters'},
-ja:{brand:'クリアホワイト',toolWhitebg:'白抜き',toolCompress:'圧縮',toolConvert:'変換',toolCrop:'切り抜き',toolIdphoto:'証明写真',toolWatermark:'透かし',toolBgcolor:'背景色',toolSplice:'結合',toolImg2pdf:'PDF変換',toolFilter:'フィルタ',title:'画像圧縮ツール',subtitle:'PNG・JPG・WebP画像をオンラインで無料圧縮。品質スライダーでリアルタイムプレビュー、WebP変換でより高圧縮、パーセントまたはピクセル幅でスケーリング可能。',privacy:'ブラウザ内でローカル処理 · 画像はサーバーにアップロードされません',upload:'クリックして選択または画像をドロップ',formats:'PNG、JPG、WebP対応<br>画像の貼り付けも可能',format:'出力形式',fmtAuto:'元の形式を維持',fmtWebp:'WebPに変換（より小サイズ）',fmtPng:'PNG',fmtJpeg:'JPG',formatHint:'WebPは通常JPG/PNGより小さくなります',quality:'圧縮品質',qualityHint:'値が低いほどファイルは小さく、品質は低下',scale:'幅スケーリング',byPercent:'パーセントで',byPixel:'ピクセルで',scaleHint:'幅を小さくするとファイルサイズが大幅に削減',download:'圧縮後の画像をダウンロード',reset:'デフォルトに戻す',waiting:'画像待ち',emptyTitle:'画像をドロップしてください',emptyHint:'クリップボードから画像を貼り付けも可能',origSize:'元のサイズ',compSize:'圧縮後サイズ',moreTools:'その他の画像ツール',rcCompress:'画像圧縮',rcConvert:'形式変換',rcCrop:'切り抜き・サイズ変更',rcIdphoto:'証明写真背景',rcWatermark:'透かし',rcBgcolor:'背景色',rcSplice:'画像結合',rcImg2pdf:'PDF変換',rcFilter:'フィルタ調整'},
-ko:{brand:'클리어화이트',toolWhitebg:'흰배경제거',toolCompress:'압축',toolConvert:'변환',toolCrop:'자르기',toolIdphoto:'증명사진',toolWatermark:'워터마크',toolBgcolor:'배경색',toolSplice:'이어붙이기',toolImg2pdf:'PDF변환',toolFilter:'필터',title:'이미지 압축 도구',subtitle:'PNG/JPG/WebP 이미지를 온라인에서 무료로 압축. 품질 슬라이더로 실시간 미리보기, 더 나은 압축률을 위한 WebP 변환, 비율 또는 픽셀 너비로 크기 조절.',privacy:'브라우저에서 로컬 처리 · 이미지가 서버에 업로드되지 않습니다',upload:'클릭하여 선택하거나 이미지를 드롭',formats:'PNG, JPG, WebP 지원<br>이미지 붙여넣기도 가능',format:'출력 형식',fmtAuto:'원본 형식 유지',fmtWebp:'WebP로 변환 (더 작음)',fmtPng:'PNG',fmtJpeg:'JPG',formatHint:'WebP는 보통 JPG/PNG보다 작습니다',quality:'압축 품질',qualityHint:'값이 낮을수록 파일은 작고 품질은 낮아집니다',scale:'너비 크기 조절',byPercent:'비율로',byPixel:'픽셀로',scaleHint:'너비를 줄이면 파일 크기가 크게 줄어듭니다',download:'압축된 이미지 다운로드',reset:'기본값으로 재설정',waiting:'이미지 대기 중',emptyTitle:'이미지를 드롭하세요',emptyHint:'클립보드에서 이미지를 붙여넣을 수도 있습니다',origSize:'원본 크기',compSize:'압축 후 크기',moreTools:'더 많은 이미지 도구',rcCompress:'이미지 압축',rcConvert:'형식 변환',rcCrop:'자르기 및 크기 조절',rcIdphoto:'증명사진 배경',rcWatermark:'워터마크',rcBgcolor:'배경색',rcSplice:'이미지 이어붙이기',rcImg2pdf:'PDF 변환',rcFilter:'필터 보정'},
-es:{brand:'ClearWhite',toolWhitebg:'Quitar Blanco',toolCompress:'Comprimir',toolConvert:'Convertir',toolCrop:'Recortar',toolIdphoto:'Foto ID',toolWatermark:'Marca',toolBgcolor:'Color Fondo',toolSplice:'Unir',toolImg2pdf:'a PDF',toolFilter:'Filtros',title:'Compresor de Imágenes',subtitle:'Compresión de imágenes online gratuita para PNG/JPG/WebP con vista previa de calidad en tiempo real. Opcionalmente convierte a WebP para mejor compresión. Escala por porcentaje o ancho en píxeles.',privacy:'Procesado localmente en tu navegador · Las imágenes nunca se suben',upload:'Elige o suelta una imagen',formats:'PNG, JPG y WebP soportados<br>También puedes pegar una imagen',format:'Formato de salida',fmtAuto:'Mantener original',fmtWebp:'Convertir a WebP (más pequeño)',fmtPng:'PNG',fmtJpeg:'JPG',formatHint:'WebP suele ser más pequeño que JPG/PNG',quality:'Calidad de compresión',qualityHint:'Valores más bajos = archivo más pequeño, menor calidad',scale:'Escalado de ancho',byPercent:'Por porcentaje',byPixel:'Por píxeles',scaleHint:'Reducir el ancho reduce significativamente el tamaño',download:'Descargar imagen comprimida',reset:'Restablecer valores',waiting:'Esperando imagen',emptyTitle:'Suelta una imagen aquí',emptyHint:'O pega una imagen del portapapeles',origSize:'Tamaño original',compSize:'Tamaño comprimido',moreTools:'Más herramientas de imagen',rcCompress:'Comprimir',rcConvert:'Convertir Formato',rcCrop:'Recortar y Redimensionar',rcIdphoto:'Fondo Foto ID',rcWatermark:'Marca de agua',rcBgcolor:'Color Fondo',rcSplice:'Unir Imágenes',rcImg2pdf:'A PDF',rcFilter:'Filtros'},
-fr:{brand:'ClearWhite',toolWhitebg:'Supprimer Blanc',toolCompress:'Compresser',toolConvert:'Convertir',toolCrop:'Recadrer',toolIdphoto:'Photo ID',toolWatermark:'Filigrane',toolBgcolor:'Couleur Fond',toolSplice:'Assembler',toolImg2pdf:'vers PDF',toolFilter:'Filtres',title:'Compresseur d\'Images',subtitle:'Compression d\'images en ligne gratuite pour PNG/JPG/WebP avec aperçu qualité en temps réel. Conversion optionnelle en WebP pour une meilleure compression. Mise à l\'échelle par pourcentage ou largeur en pixels.',privacy:'Traitement local dans votre navigateur · Les images ne sont jamais téléchargées',upload:'Choisir ou déposer une image',formats:'PNG, JPG et WebP pris en charge<br>Vous pouvez aussi coller une image',format:'Format de sortie',fmtAuto:'Conserver l\'original',fmtWebp:'Convertir en WebP (plus petit)',fmtPng:'PNG',fmtJpeg:'JPG',formatHint:'WebP est généralement plus petit que JPG/PNG',quality:'Qualité de compression',qualityHint:'Valeurs plus basses = fichier plus petit, qualité inférieure',scale:'Mise à l\'échelle',byPercent:'Par pourcentage',byPixel:'Par pixels',scaleHint:'Réduire la largeur réduit considérablement la taille',download:'Télécharger l\'image compressée',reset:'Réinitialiser',waiting:'En attente d\'image',emptyTitle:'Déposez une image ici',emptyHint:'Ou collez une image depuis le presse-papiers',origSize:'Taille originale',compSize:'Taille compressée',moreTools:'Plus d\'outils d\'image',rcCompress:'Compresser',rcConvert:'Convertir Format',rcCrop:'Recadrer et Redimensionner',rcIdphoto:'Fond Photo ID',rcWatermark:'Filigrane',rcBgcolor:'Couleur Fond',rcSplice:'Assembler Images',rcImg2pdf:'Vers PDF',rcFilter:'Filtres'},
-de:{brand:'ClearWhite',toolWhitebg:'Weiß entfernen',toolCompress:'Komprimieren',toolConvert:'Konvertieren',toolCrop:'Zuschneiden',toolIdphoto:'Ausweisfoto',toolWatermark:'Wasserzeichen',toolBgcolor:'Hintergrundfarbe',toolSplice:'Zusammenfügen',toolImg2pdf:'zu PDF',toolFilter:'Filter',title:'Bildkompressor',subtitle:'Kostenlose Online-Bildkompression für PNG/JPG/WebP mit Echtzeit-Qualitätsvorschau. Optional WebP-Konvertierung für bessere Kompression. Skalierung nach Prozent oder Pixelbreite.',privacy:'Lokal in Ihrem Browser verarbeitet · Bilder werden nie hochgeladen',upload:'Bild auswählen oder ablegen',formats:'PNG, JPG und WebP unterstützt<br>Sie können auch ein Bild einfügen',format:'Ausgabeformat',fmtAuto:'Original beibehalten',fmtWebp:'In WebP konvertieren (kleiner)',fmtPng:'PNG',fmtJpeg:'JPG',formatHint:'WebP ist meist kleiner als JPG/PNG',quality:'Kompressionsqualität',qualityHint:'Niedrigere Werte = kleinere Datei, niedrigere Qualität',scale:'Breitenskalierung',byPercent:'Nach Prozent',byPixel:'Nach Pixeln',scaleHint:'Breite reduzieren verringert die Dateigröße deutlich',download:'Komprimiertes Bild herunterladen',reset:'Zurücksetzen',waiting:'Warte auf Bild',emptyTitle:'Bild hier ablegen',emptyHint:'Oder fügen Sie ein Bild aus der Zwischenablage ein',origSize:'Originalgröße',compSize:'Komprimierte Größe',moreTools:'Weitere Bildwerkzeuge',rcCompress:'Komprimieren',rcConvert:'Format konvertieren',rcCrop:'Zuschneiden & Skalieren',rcIdphoto:'Ausweisfoto-Hintergrund',rcWatermark:'Wasserzeichen',rcBgcolor:'Hintergrundfarbe',rcSplice:'Bilder zusammenfügen',rcImg2pdf:'Zu PDF',rcFilter:'Filter'},
-ru:{brand:'ClearWhite',toolWhitebg:'Удалить белый',toolCompress:'Сжать',toolConvert:'Конвертировать',toolCrop:'Обрезать',toolIdphoto:'Фото для документов',toolWatermark:'Водяной знак',toolBgcolor:'Цвет фона',toolSplice:'Склеить',toolImg2pdf:'В PDF',toolFilter:'Фильтры',title:'Сжатие Изображений',subtitle:'Бесплатное онлайн-сжатие PNG/JPG/WebP с предпросмотром качества в реальном времени. Опциональная конвертация в WebP для лучшего сжатия. Масштабирование по процентам или ширине в пикселях.',privacy:'Обработка локально в браузере · Изображения не загружаются',upload:'Выберите или перетащите изображение',formats:'Поддерживаются PNG, JPG, WebP<br>Также можно вставить изображение',format:'Формат вывода',fmtAuto:'Сохранить исходный',fmtWebp:'Конвертировать в WebP (меньше)',fmtPng:'PNG',fmtJpeg:'JPG',formatHint:'WebP обычно меньше, чем JPG/PNG',quality:'Качество сжатия',qualityHint:'Ниже значения = меньше файл, ниже качество',scale:'Масштабирование ширины',byPercent:'По процентам',byPixel:'По пикселям',scaleHint:'Уменьшение ширины значительно уменьшает размер',download:'Скачать сжатое изображение',reset:'Сбросить настройки',waiting:'Ожидание изображения',emptyTitle:'Перетащите изображение сюда',emptyHint:'Или вставьте из буфера обмена',origSize:'Исходный размер',compSize:'Сжатый размер',moreTools:'Больше инструментов',rcCompress:'Сжать',rcConvert:'Конвертировать',rcCrop:'Обрезать и изменить',rcIdphoto:'Фон документов',rcWatermark:'Водяной знак',rcBgcolor:'Цвет фона',rcSplice:'Склеить изображения',rcImg2pdf:'В PDF',rcFilter:'Фильтры'},
-pt:{brand:'ClearWhite',toolWhitebg:'Remover Branco',toolCompress:'Comprimir',toolConvert:'Converter',toolCrop:'Cortar',toolIdphoto:'Foto ID',toolWatermark:'Marca',toolBgcolor:'Cor Fundo',toolSplice:'Unir',toolImg2pdf:'para PDF',toolFilter:'Filtros',title:'Compressor de Imagens',subtitle:'Compressão de imagens online gratuita para PNG/JPG/WebP com pré-visualização de qualidade em tempo real. Conversão opcional para WebP para melhor compressão. Dimensionamento por percentagem ou largura em pixels.',privacy:'Processado localmente no navegador · As imagens nunca são enviadas',upload:'Escolha ou solte uma imagem',formats:'PNG, JPG e WebP suportados<br>Você também pode colar uma imagem',format:'Formato de saída',fmtAuto:'Manter original',fmtWebp:'Converter para WebP (menor)',fmtPng:'PNG',fmtJpeg:'JPG',formatHint:'WebP é geralmente menor que JPG/PNG',quality:'Qualidade da compressão',qualityHint:'Valores mais baixos = ficheiro menor, menor qualidade',scale:'Dimensionamento da largura',byPercent:'Por percentagem',byPixel:'Por pixels',scaleHint:'Reduzir a largura reduz significativamente o tamanho',download:'Baixar imagem comprimida',reset:'Restaurar predefinições',waiting:'Aguardando imagem',emptyTitle:'Solte uma imagem aqui',emptyHint:'Ou cole uma imagem da área de transferência',origSize:'Tamanho original',compSize:'Tamanho comprimido',moreTools:'Mais ferramentas de imagem',rcCompress:'Comprimir',rcConvert:'Converter Formato',rcCrop:'Cortar e Redimensionar',rcIdphoto:'Fundo Foto ID',rcWatermark:'Marca d\'água',rcBgcolor:'Cor Fundo',rcSplice:'Unir Imagens',rcImg2pdf:'Para PDF',rcFilter:'Filtros'},
-ar:{brand:'كلير وايت',toolWhitebg:'إزالة الأبيض',toolCompress:'ضغط',toolConvert:'تحويل',toolCrop:'اقتصاص',toolIdphoto:'صورة هوية',toolWatermark:'علامة مائية',toolBgcolor:'لون الخلفية',toolSplice:'دمج',toolImg2pdf:'إلى PDF',toolFilter:'مرشحات',title:'ضاغط الصور',subtitle:'ضغط صور مجاني عبر الإنترنت لـ PNG/JPG/WebP مع معاينة جودة فورية. خيار تحويل إلى WebP لضغط أفضل. تغيير الحجم بنسبة مئوية أو عرض بالبكسل.',privacy:'تتم المعالجة محلياً في متصفحك · لا يتم رفع الصور أبداً',upload:'اختر أو أسقط صورة',formats:'يدعم PNG و JPG و WebP<br>يمكنك أيضاً لصق صورة',format:'تنسيق الإخراج',fmtAuto:'الحفاظ على الأصلي',fmtWebp:'تحويل إلى WebP (أصغر)',fmtPng:'PNG',fmtJpeg:'JPG',formatHint:'WebP عادةً ما يكون أصغر من JPG/PNG',quality:'جودة الضغط',qualityHint:'قيم أقل = ملف أصغر، جودة أقل',scale:'تغيير حجم العرض',byPercent:'بنسبة مئوية',byPixel:'بالبكسل',scaleHint:'تقليل العرض يقلل الحجم بشكل كبير',download:'تنزيل الصورة المضغوطة',reset:'إعادة التعيين',waiting:'في انتظار صورة',emptyTitle:'أسقط صورة هنا',emptyHint:'أو الصق صورة من الحافظة',origSize:'الحجم الأصلي',compSize:'الحجم المضغوط',moreTools:'المزيد من أدوات الصور',rcCompress:'ضغط',rcConvert:'تحويل التنسيق',rcCrop:'اقتصاص وتغيير الحجم',rcIdphoto:'خلفية صورة هوية',rcWatermark:'علامة مائية',rcBgcolor:'لون الخلفية',rcSplice:'دمج الصور',rcImg2pdf:'إلى PDF',rcFilter:'مرشحات'},
+zh:{brand:'透白',toolWhitebg:'去白底',toolCompress:'压缩',toolConvert:'转换',toolCrop:'裁剪',toolIdphoto:'证件照',toolWatermark:'水印',toolBgcolor:'换底色',toolSplice:'拼接',toolImg2pdf:'转PDF',toolFilter:'滤镜',title:'图片压缩工具',subtitle:'在线免费压缩 PNG / JPG / WebP 图片，质量滑块实时预览效果，可选转 WebP 获得更佳压缩率，支持按百分比或像素宽度缩放。',privacy:'仅在浏览器本地处理 · 图片不会上传到服务器',upload:'点击选择或拖入图片',formats:'支持 PNG、JPG、WebP<br>也可直接粘贴图片',format:'输出格式',fmtAuto:'保持原格式',fmtWebp:'转 WebP（推荐，体积更小）',fmtPng:'PNG',fmtJpeg:'JPG',formatHint:'WebP 通常比 JPG/PNG 体积小 25%~35%',formatTip:'选择压缩后的图片格式。<br>• 保持原格式：与原图相同<br>• WebP：同等画质下体积最小，强烈推荐<br>• PNG：无损但体积大，不支持质量调节<br>• JPG：适合照片，可调节质量',quality:'压缩质量',qualityHint:'数值越低体积越小，画质越低',qualityTip:'仅对 JPG 和 WebP 有效。<br>• 80~90：画质好，适合展示<br>• 60~75：平衡选择，推荐<br>• 30~50：体积最小，适合缩略图<br>• PNG 不支持质量调节',scale:'宽度缩放',byPercent:'按百分比',byPixel:'按像素',scaleHint:'缩小宽度可显著减小体积（50% = 体积约 1/4）',scaleTip:'按宽度比例缩小整张图片。<br>• 按百分比：原图宽度的百分之几<br>• 按像素：压缩后的最大宽度（px）<br>• 高度会自动按比例调整，不会变形<br>• 例如 50% 表示宽高都减半，体积约为 1/4',download:'下载压缩后图片',reset:'恢复默认',waiting:'等待图片',emptyTitle:'把图片放进来试试',emptyHint:'也可以直接粘贴剪贴板中的图片',origSize:'原始大小',compSize:'压缩后大小',keepOriginal:'未改变尺寸和格式，已保持原图（原图已是最优）',autoRevert:'压缩后体积未减小，已自动使用原图。建议转 WebP 格式或缩小尺寸。',saved:'压缩率',savedPrefix:'节省',increased:'体积增加',noChange:'体积无变化',moreTools:'更多图片工具',rcCompress:'图片压缩',rcConvert:'格式转换',rcCrop:'裁剪缩放',rcIdphoto:'证件照换底色',rcWatermark:'加水印',rcBgcolor:'换背景色',rcSplice:'图片拼接',rcImg2pdf:'转PDF',rcFilter:'滤镜调色'},
+en:{brand:'ClearWhite',toolWhitebg:'Remove White',toolCompress:'Compress',toolConvert:'Convert',toolCrop:'Crop',toolIdphoto:'ID Photo',toolWatermark:'Watermark',toolBgcolor:'BG Color',toolSplice:'Splice',toolImg2pdf:'to PDF',toolFilter:'Filters',title:'Image Compressor',subtitle:'Free online image compression for PNG/JPG/WebP with real-time quality preview. Optionally convert to WebP for better compression. Scale by percentage or pixel width.',privacy:'Processed locally in your browser · Images are never uploaded',upload:'Choose or drop an image',formats:'PNG, JPG, and WebP supported<br>You can also paste an image',format:'Output format',fmtAuto:'Keep original',fmtWebp:'Convert to WebP (recommended)',fmtPng:'PNG',fmtJpeg:'JPG',formatHint:'WebP is typically 25%~35% smaller than JPG/PNG',formatTip:'Choose the output format.<br>• Keep original: same as source<br>• WebP: smallest size at same quality, highly recommended<br>• PNG: lossless but large, quality setting has no effect<br>• JPG: good for photos, quality adjustable',quality:'Compression quality',qualityHint:'Lower values = smaller file, lower quality',qualityTip:'Only affects JPG and WebP.<br>• 80~90: good quality for display<br>• 60~75: balanced, recommended<br>• 30~50: smallest size, good for thumbnails<br>• PNG does not support quality adjustment',scale:'Width scaling',byPercent:'By percent',byPixel:'By pixels',scaleHint:'Reducing width significantly reduces file size (50% ≈ 1/4 volume)',scaleTip:'Scale the entire image by width.<br>• By percent: percentage of original width<br>• By pixel: maximum width in pixels<br>• Height adjusts automatically, no distortion<br>• 50% means half width & height, ~1/4 file size',download:'Download compressed image',reset:'Reset defaults',waiting:'Waiting for image',emptyTitle:'Drop an image here',emptyHint:'Or paste an image from your clipboard',origSize:'Original size',compSize:'Compressed size',keepOriginal:'No resize or format change. Original kept (already optimal).',autoRevert:'Compressed size not reduced. Original used automatically. Try WebP or scale down.',saved:'Saved',savedPrefix:'saved',increased:'Size increased by',noChange:'No change in size',moreTools:'More image tools',rcCompress:'Compress',rcConvert:'Convert Format',rcCrop:'Crop & Resize',rcIdphoto:'ID Photo BG',rcWatermark:'Watermark',rcBgcolor:'BG Color',rcSplice:'Splice',rcImg2pdf:'To PDF',rcFilter:'Filters'},
+ja:{brand:'クリアホワイト',toolWhitebg:'白抜き',toolCompress:'圧縮',toolConvert:'変換',toolCrop:'切り抜き',toolIdphoto:'証明写真',toolWatermark:'透かし',toolBgcolor:'背景色',toolSplice:'結合',toolImg2pdf:'PDF変換',toolFilter:'フィルタ',title:'画像圧縮ツール',subtitle:'PNG・JPG・WebP画像をオンラインで無料圧縮。品質スライダーでリアルタイムプレビュー、WebP変換でより高圧縮、パーセントまたはピクセル幅でスケーリング可能。',privacy:'ブラウザ内でローカル処理 · 画像はサーバーにアップロードされません',upload:'クリックして選択または画像をドロップ',formats:'PNG、JPG、WebP対応<br>画像の貼り付けも可能',format:'出力形式',fmtAuto:'元の形式を維持',fmtWebp:'WebPに変換（推奨）',fmtPng:'PNG',fmtJpeg:'JPG',formatHint:'WebPは通常JPG/PNGより25%~35%小さい',formatTip:'出力形式を選択。<br>• 元の形式を維持：元と同じ<br>• WebP：同じ画質で最小、強く推奨<br>• PNG：可逆圧縮だが大きい、品質調整不可<br>• JPG：写真に適し、品質調整可能',quality:'圧縮品質',qualityHint:'値が低いほどファイルは小さく、品質は低下',qualityTip:'JPGとWebPのみ有効。<br>• 80~90：表示用に画質良好<br>• 60~75：バランス型、推奨<br>• 30~50：最小サイズ、サムネイル向き<br>• PNGは品質調整非対応',scale:'幅スケーリング',byPercent:'パーセントで',byPixel:'ピクセルで',scaleHint:'幅を小さくするとファイルサイズが大幅に削減（50%≈1/4）',scaleTip:'幅に応じて全体を縮小。<br>• パーセント：元の幅の割合<br>• ピクセル：圧縮後の最大幅（px）<br>• 高さは自動調整、歪みなし<br>• 50%は幅・高さ半分、サイズ約1/4',download:'圧縮後の画像をダウンロード',reset:'デフォルトに戻す',waiting:'画像待ち',emptyTitle:'画像をドロップしてください',emptyHint:'クリップボードから画像を貼り付けも可能',origSize:'元のサイズ',compSize:'圧縮後サイズ',keepOriginal:'サイズ・形式変更なし。元画像を保持（最適済み）。',autoRevert:'圧縮後のサイズが減少しませんでした。元画像を自動使用。WebP変換や縮小を試してください。',saved:'圧縮率',savedPrefix:'削減',increased:'サイズ増加',noChange:'サイズ変化なし',moreTools:'その他の画像ツール',rcCompress:'画像圧縮',rcConvert:'形式変換',rcCrop:'切り抜き・サイズ変更',rcIdphoto:'証明写真背景',rcWatermark:'透かし',rcBgcolor:'背景色',rcSplice:'画像結合',rcImg2pdf:'PDF変換',rcFilter:'フィルタ調整'},
+ko:{brand:'클리어화이트',toolWhitebg:'흰배경제거',toolCompress:'압축',toolConvert:'변환',toolCrop:'자르기',toolIdphoto:'증명사진',toolWatermark:'워터마크',toolBgcolor:'배경색',toolSplice:'이어붙이기',toolImg2pdf:'PDF변환',toolFilter:'필터',title:'이미지 압축 도구',subtitle:'PNG/JPG/WebP 이미지를 온라인에서 무로 압축. 품질 슬라이더로 실시간 미리보기, 더 나은 압축률을 위한 WebP 변환, 비율 또는 픽셀 너비로 크기 조절.',privacy:'브라우저에서 로컬 처리 · 이미지가 서버에 업로드되지 않습니다',upload:'클릭하여 선택하거나 이미지를 드롭',formats:'PNG, JPG, WebP 지원<br>이미지 붙여넣기도 가능',format:'출력 형식',fmtAuto:'원본 형식 유지',fmtWebp:'WebP로 변환 (추천)',fmtPng:'PNG',fmtJpeg:'JPG',formatHint:'WebP는 보통 JPG/PNG보다 25%~35% 작습니다',formatTip:'출력 형식을 선택하세요.<br>• 원본 형식 유지: 원본과 동일<br>• WebP: 동일 화질에서 가장 작음, 강력 추천<br>• PNG: 무손실지만 큼, 품질 조절 불가<br>• JPG: 사진에 적합, 품질 조절 가능',quality:'압축 품질',qualityHint:'값이 낮을수록 파일은 작고 품질은 낮아집니다',qualityTip:'JPG와 WebP에만 적용.<br>• 80~90: 표시용 화질 양호<br>• 60~75: 균형형, 추천<br>• 30~50: 최소 크기, 썸네일용<br>• PNG는 품질 조절 미지원',scale:'너비 크기 조절',byPercent:'비율로',byPixel:'픽셀로',scaleHint:'너비를 줄이면 파일 크기가 크게 줄어듭니다 (50%≈1/4)',scaleTip:'너비 기준으로 전체 축소.<br>• 비율로: 원본 너비의 백분율<br>• 픽셀로: 압축 후 최대 너비(px)<br>• 높이는 자동 조절, 왜곡 없음<br>• 50%는 너비·높이 절반, 크기 약 1/4',download:'압축된 이미지 다운로드',reset:'기본값으로 재설정',waiting:'이미지 대기 중',emptyTitle:'이미지를 드롭하세요',emptyHint:'클립보드에서 이미지를 붙여넣을 수도 있습니다',origSize:'원본 크기',compSize:'압축 후 크기',keepOriginal:'크기·형식 변경 없음. 원본 유지(이미 최적).',autoRevert:'압축 후 크기가 줄지 않았습니다. 원본 자동 사용. WebP 변환이나 축소를 시도하세요.',saved:'압축률',savedPrefix:'절약',increased:'크기 증가',noChange:'크기 변화 없음',moreTools:'더 많은 이미지 도구',rcCompress:'이미지 압축',rcConvert:'형식 변환',rcCrop:'자르기 및 크기 조절',rcIdphoto:'증명사진 배경',rcWatermark:'워터마크',rcBgcolor:'배경색',rcSplice:'이미지 이어붙이기',rcImg2pdf:'PDF 변환',rcFilter:'필터 보정'},
+es:{brand:'ClearWhite',toolWhitebg:'Quitar Blanco',toolCompress:'Comprimir',toolConvert:'Convertir',toolCrop:'Recortar',toolIdphoto:'Foto ID',toolWatermark:'Marca',toolBgcolor:'Color Fondo',toolSplice:'Unir',toolImg2pdf:'a PDF',toolFilter:'Filtros',title:'Compresor de Imágenes',subtitle:'Compresión de imágenes online gratuita para PNG/JPG/WebP con vista previa de calidad en tiempo real. Opcionalmente convierte a WebP para mejor compresión. Escala por porcentaje o ancho en píxeles.',privacy:'Procesado localmente en tu navegador · Las imágenes nunca se suben',upload:'Elige o suelta una imagen',formats:'PNG, JPG y WebP soportados<br>También puedes pegar una imagen',format:'Formato de salida',fmtAuto:'Mantener original',fmtWebp:'Convertir a WebP (recomendado)',fmtPng:'PNG',fmtJpeg:'JPG',formatHint:'WebP suele ser un 25%~35% más pequeño que JPG/PNG',formatTip:'Elige el formato de salida.<br>• Mantener original: igual que el origen<br>• WebP: menor tamaño con igual calidad, muy recomendado<br>• PNG: sin pérdida pero grande, la calidad no ajustable<br>• JPG: ideal para fotos, calidad ajustable',quality:'Calidad de compresión',qualityHint:'Valores más bajos = archivo más pequeño, menor calidad',qualityTip:'Solo afecta a JPG y WebP.<br>• 80~90: buena calidad para mostrar<br>• 60~75: equilibrado, recomendado<br>• 30~50: tamaño mínimo, para miniaturas<br>• PNG no permite ajustar calidad',scale:'Escalado de ancho',byPercent:'Por porcentaje',byPixel:'Por píxeles',scaleHint:'Reducir el ancho reduce significativamente el tamaño (50%≈1/4)',scaleTip:'Escala toda la imagen por el ancho.<br>• Por porcentaje: porcentaje del ancho original<br>• Por píxeles: ancho máximo en píxeles<br>• La altura se ajusta automáticamente, sin deformar<br>• 50% significa mitad de ancho y alto, ~1/4 del tamaño',download:'Descargar imagen comprimida',reset:'Restablecer valores',waiting:'Esperando imagen',emptyTitle:'Suelta una imagen aquí',emptyHint:'O pega una imagen del portapapeles',origSize:'Tamaño original',compSize:'Tamaño comprimido',keepOriginal:'Sin cambio de tamaño ni formato. Original conservado (ya óptimo).',autoRevert:'El tamaño no se redujo tras compresión. Se usó el original automáticamente. Prueba WebP o reducir escala.',saved:'Ahorro',savedPrefix:'ahorrado',increased:'Tamaño aumentado en',noChange:'Sin cambio de tamaño',moreTools:'Más herramientas de imagen',rcCompress:'Comprimir',rcConvert:'Convertir Formato',rcCrop:'Recortar y Redimensionar',rcIdphoto:'Fondo Foto ID',rcWatermark:'Marca de agua',rcBgcolor:'Color Fondo',rcSplice:'Unir Imágenes',rcImg2pdf:'A PDF',rcFilter:'Filtros'},
+fr:{brand:'ClearWhite',toolWhitebg:'Supprimer Blanc',toolCompress:'Compresser',toolConvert:'Convertir',toolCrop:'Recadrer',toolIdphoto:'Photo ID',toolWatermark:'Filigrane',toolBgcolor:'Couleur Fond',toolSplice:'Assembler',toolImg2pdf:'vers PDF',toolFilter:'Filtres',title:'Compresseur d\'Images',subtitle:'Compression d\'images en ligne gratuite pour PNG/JPG/WebP avec aperçu qualité en temps réel. Conversion optionnelle en WebP pour une meilleure compression. Mise à l\'échelle par pourcentage ou largeur en pixels.',privacy:'Traitement local dans votre navigateur · Les images ne sont jamais téléchargées',upload:'Choisir ou déposer une image',formats:'PNG, JPG et WebP pris en charge<br>Vous pouvez aussi coller une image',format:'Format de sortie',fmtAuto:'Conserver l\'original',fmtWebp:'Convertir en WebP (recommandé)',fmtPng:'PNG',fmtJpeg:'JPG',formatHint:'WebP est généralement 25%~35% plus petit que JPG/PNG',formatTip:'Choisissez le format de sortie.<br>• Conserver l\'original: identique à la source<br>• WebP: plus petit à qualité égale, fortement recommandé<br>• PNG: sans perte mais volumineux, qualité non réglable<br>• JPG: idéal pour les photos, qualité réglable',quality:'Qualité de compression',qualityHint:'Valeurs plus basses = fichier plus petit, qualité inférieure',qualityTip:'Concerne uniquement JPG et WebP.<br>• 80~90: bonne qualité pour l\'affichage<br>• 60~75: équilibré, recommandé<br>• 30~50: taille minimale, pour vignettes<br>• PNG ne permet pas de régler la qualité',scale:'Mise à l\'échelle',byPercent:'Par pourcentage',byPixel:'Par pixels',scaleHint:'Réduire la largeur réduit considérablement la taille (50%≈1/4)',scaleTip:'Met à l\'échelle l\'image entière selon la largeur.<br>• Par pourcentage: pourcentage de la largeur originale<br>• Par pixels: largeur maximale en pixels<br>• La hauteur s\'ajuste automatiquement, sans déformation<br>• 50% signifie moitié largeur et hauteur, ~1/4 de la taille',download:'Télécharger l\'image compressée',reset:'Réinitialiser',waiting:'En attente d\'image',emptyTitle:'Déposez une image ici',emptyHint:'Ou collez une image depuis le presse-papiers',origSize:'Taille originale',compSize:'Taille compressée',keepOriginal:'Aucun changement de taille/format. Original conservé (déjà optimal).',autoRevert:'Taille non réduite après compression. Original utilisé automatiquement. Essayez WebP ou réduisez l\'échelle.',saved:'Compression',savedPrefix:'économisé',increased:'Taille augmentée de',noChange:'Aucun changement de taille',moreTools:'Plus d\'outils d\'image',rcCompress:'Compresser',rcConvert:'Convertir Format',rcCrop:'Recadrer et Redimensionner',rcIdphoto:'Fond Photo ID',rcWatermark:'Filigrane',rcBgcolor:'Couleur Fond',rcSplice:'Assembler Images',rcImg2pdf:'Vers PDF',rcFilter:'Filtres'},
+de:{brand:'ClearWhite',toolWhitebg:'Weiß entfernen',toolCompress:'Komprimieren',toolConvert:'Konvertieren',toolCrop:'Zuschneiden',toolIdphoto:'Ausweisfoto',toolWatermark:'Wasserzeichen',toolBgcolor:'Hintergrundfarbe',toolSplice:'Zusammenfügen',toolImg2pdf:'zu PDF',toolFilter:'Filter',title:'Bildkompressor',subtitle:'Kostenlose Online-Bildkompression für PNG/JPG/WebP mit Echtzeit-Qualitätsvorschau. Optional WebP-Konvertierung für bessere Kompression. Skalierung nach Prozent oder Pixelbreite.',privacy:'Lokal in Ihrem Browser verarbeitet · Bilder werden nie hochgeladen',upload:'Bild auswählen oder ablegen',formats:'PNG, JPG und WebP unterstützt<br>Sie können auch ein Bild einfügen',format:'Ausgabeformat',fmtAuto:'Original beibehalten',fmtWebp:'In WebP konvertieren (empfohlen)',fmtPng:'PNG',fmtJpeg:'JPG',formatHint:'WebP ist meist 25%~35% kleiner als JPG/PNG',formatTip:'Wählen Sie das Ausgabeformat.<br>• Original beibehalten: wie Quelle<br>• WebP: kleinste Größe bei gleicher Qualität, stark empfohlen<br>• PNG: verlustfrei aber groß, Qualität nicht einstellbar<br>• JPG: gut für Fotos, Qualität einstellbar',quality:'Kompressionsqualität',qualityHint:'Niedrigere Werte = kleinere Datei, niedrigere Qualität',qualityTip:'Betrifft nur JPG und WebP.<br>• 80~90: gute Qualität zur Anzeige<br>• 60~75: ausgewogen, empfohlen<br>• 30~50: kleinste Größe, für Vorschaubilder<br>• PNG unterstützt keine Qualitätseinstellung',scale:'Breitenskalierung',byPercent:'Nach Prozent',byPixel:'Nach Pixeln',scaleHint:'Breite reduzieren verringert die Dateigröße deutlich (50%≈1/4)',scaleTip:'Skaliert das gesamte Bild nach Breite.<br>• Nach Prozent: Prozentsatz der Originalbreite<br>• Nach Pixeln: maximale Breite in Pixeln<br>• Höhe passt sich automatisch an, keine Verzerrung<br>• 50% bedeutet halbe Breite und Höhe, ~1/4 Dateigröße',download:'Komprimiertes Bild herunterladen',reset:'Zurücksetzen',waiting:'Warte auf Bild',emptyTitle:'Bild hier ablegen',emptyHint:'Oder fügen Sie ein Bild aus der Zwischenablage ein',origSize:'Originalgröße',compSize:'Komprimierte Größe',keepOriginal:'Keine Größen- oder Formatänderung. Original beibehalten (bereits optimal).',autoRevert:'Größe nach Kompression nicht reduziert. Original automatisch verwendet. Versuchen Sie WebP oder verkleinern Sie die Skalierung.',saved:'Kompression',savedPrefix:'gespart',increased:'Größe erhöht um',noChange:'Keine Größenänderung',moreTools:'Weitere Bildwerkzeuge',rcCompress:'Komprimieren',rcConvert:'Format konvertieren',rcCrop:'Zuschneiden & Skalieren',rcIdphoto:'Ausweisfoto-Hintergrund',rcWatermark:'Wasserzeichen',rcBgcolor:'Hintergrundfarbe',rcSplice:'Bilder zusammenfügen',rcImg2pdf:'Zu PDF',rcFilter:'Filter'},
+ru:{brand:'ClearWhite',toolWhitebg:'Удалить белый',toolCompress:'Сжать',toolConvert:'Конвертировать',toolCrop:'Обрезать',toolIdphoto:'Фото для документов',toolWatermark:'Водяной знак',toolBgcolor:'Цвет фона',toolSplice:'Склеить',toolImg2pdf:'В PDF',toolFilter:'Фильтры',title:'Сжатие Изображений',subtitle:'Бесплатное онлайн-сжатие PNG/JPG/WebP с предпросмотром качества в реальном времени. Опциональная конвертация в WebP для лучшего сжатия. Масштабирование по процентам или ширине в пикселях.',privacy:'Обработка локально в браузере · Изображения не загружаются',upload:'Выберите или перетащите изображение',formats:'Поддерживаются PNG, JPG, WebP<br>Также можно вставить изображение',format:'Формат вывода',fmtAuto:'Сохранить исходный',fmtWebp:'Конвертировать в WebP (рекомендуется)',fmtPng:'PNG',fmtJpeg:'JPG',formatHint:'WebP обычно на 25%~35% меньше, чем JPG/PNG',formatTip:'Выберите формат вывода.<br>• Сохранить исходный: как в оригинале<br>• WebP: наименьший размер при том же качестве, настоятельно рекомендуется<br>• PNG: без потерь, но большой, качество не регулируется<br>• JPG: подходит для фото, качество регулируется',quality:'Качество сжатия',qualityHint:'Ниже значения = меньше файл, ниже качество',qualityTip:'Влияет только на JPG и WebP.<br>• 80~90: хорошее качество для отображения<br>• 60~75: сбалансировано, рекомендуется<br>• 30~50: минимальный размер, для миниатюр<br>• PNG не поддерживает регулировку качества',scale:'Масштабирование ширины',byPercent:'По процентам',byPixel:'По пикселям',scaleHint:'Уменьшение ширины значительно уменьшает размер (50%≈1/4)',scaleTip:'Масштабирует всё изображение по ширине.<br>• По процентам: процент от исходной ширины<br>• По пикселям: максимальная ширина в пикселях<br>• Высота подстраивается автоматически, без искажений<br>• 50% означает половину ширины и высоты, ~1/4 размера файла',download:'Скачать сжатое изображение',reset:'Сбросить настройки',waiting:'Ожидание изображения',emptyTitle:'Перетащите изображение сюда',emptyHint:'Или вставьте из буфера обмена',origSize:'Исходный размер',compSize:'Сжатый размер',keepOriginal:'Без изменения размера или формата. Оригинал сохранён (уже оптимален).',autoRevert:'Размер после сжатия не уменьшился. Автоматически использован оригинал. Попробуйте WebP или уменьшите масштаб.',saved:'Сжатие',savedPrefix:'сэкономлено',increased:'Размер увеличен на',noChange:'Без изменений размера',moreTools:'Больше инструментов',rcCompress:'Сжать',rcConvert:'Конвертировать',rcCrop:'Обрезать и изменить',rcIdphoto:'Фон документов',rcWatermark:'Водяной знак',rcBgcolor:'Цвет фона',rcSplice:'Склеить изображения',rcImg2pdf:'В PDF',rcFilter:'Фильтры'},
+pt:{brand:'ClearWhite',toolWhitebg:'Remover Branco',toolCompress:'Comprimir',toolConvert:'Converter',toolCrop:'Cortar',toolIdphoto:'Foto ID',toolWatermark:'Marca',toolBgcolor:'Cor Fundo',toolSplice:'Unir',toolImg2pdf:'para PDF',toolFilter:'Filtros',title:'Compressor de Imagens',subtitle:'Compressão de imagens online gratuita para PNG/JPG/WebP com pré-visualização de qualidade em tempo real. Conversão opcional para WebP para melhor compressão. Dimensionamento por percentagem ou largura em pixels.',privacy:'Processado localmente no navegador · As imagens nunca são enviadas',upload:'Escolha ou solte uma imagem',formats:'PNG, JPG e WebP suportados<br>Você também pode colar uma imagem',format:'Formato de saída',fmtAuto:'Manter original',fmtWebp:'Converter para WebP (recomendado)',fmtPng:'PNG',fmtJpeg:'JPG',formatHint:'WebP é geralmente 25%~35% menor que JPG/PNG',formatTip:'Escolha o formato de saída.<br>• Manter original: igual à origem<br>• WebP: menor tamanho com mesma qualidade, muito recomendado<br>• PNG: sem perdas mas grande, qualidade não ajustável<br>• JPG: ideal para fotos, qualidade ajustável',quality:'Qualidade da compressão',qualityHint:'Valores mais baixos = ficheiro menor, menor qualidade',qualityTip:'Afeta apenas JPG e WebP.<br>• 80~90: boa qualidade para exibição<br>• 60~75: equilibrado, recomendado<br>• 30~50: tamanho mínimo, para miniaturas<br>• PNG não permite ajustar qualidade',scale:'Dimensionamento da largura',byPercent:'Por percentagem',byPixel:'Por pixels',scaleHint:'Reduzir a largura reduz significativamente o tamanho (50%≈1/4)',scaleTip:'Dimensiona toda a imagem pela largura.<br>• Por percentagem: percentagem da largura original<br>• Por pixels: largura máxima em pixels<br>• A altura ajusta-se automaticamente, sem deformação<br>• 50% significa metade da largura e altura, ~1/4 do tamanho',download:'Baixar imagem comprimida',reset:'Restaurar predefinições',waiting:'Aguardando imagem',emptyTitle:'Solte uma imagem aqui',emptyHint:'Ou cole uma imagem da área de transferência',origSize:'Tamanho original',compSize:'Tamanho comprimido',keepOriginal:'Sem alteração de tamanho ou formato. Original conservado (já ótimo).',autoRevert:'Tamanho não reduzido após compressão. Original usado automaticamente. Experimente WebP ou reduza a escala.',saved:'Compressão',savedPrefix:'economizado',increased:'Tamanho aumentado em',noChange:'Sem alteração de tamanho',moreTools:'Mais ferramentas de imagem',rcCompress:'Comprimir',rcConvert:'Converter Formato',rcCrop:'Cortar e Redimensionar',rcIdphoto:'Fundo Foto ID',rcWatermark:'Marca d\'água',rcBgcolor:'Cor Fundo',rcSplice:'Unir Imagens',rcImg2pdf:'Para PDF',rcFilter:'Filtros'},
+ar:{brand:'كلير وايت',toolWhitebg:'إزالة الأبيض',toolCompress:'ضغط',toolConvert:'تحويل',toolCrop:'اقتصاص',toolIdphoto:'صورة هوية',toolWatermark:'علامة مائية',toolBgcolor:'لون الخلفية',toolSplice:'دمج',toolImg2pdf:'إلى PDF',toolFilter:'مرشحات',title:'ضاغط الصور',subtitle:'ضغط صور مجاني عبر الإنترنت لـ PNG/JPG/WebP مع معاينة جودة فورية. خيار تحويل إلى WebP لضغط أفضل. تغيير الحجم بنسبة مئوية أو عرض بالبكسل.',privacy:'تتم المعالجة محلياً في متصفحك · لا يتم رفع الصور أبداً',upload:'اختر أو أسقط صورة',formats:'يدعم PNG و JPG و WebP<br>يمكنك أيضاً لصق صورة',format:'تنسيق الإخراج',fmtAuto:'الحفاظ على الأصلي',fmtWebp:'تحويل إلى WebP (موصى به)',fmtPng:'PNG',fmtJpeg:'JPG',formatHint:'WebP عادةً ما يكون أصغر من JPG/PNG بنسبة 25%~35%',formatTip:'اختر تنسيق الإخراج.<br>• الحفاظ على الأصلي: كالصورة الأصلية<br>• WebP: أصغر حجم بنفس الجودة، موصى به بشدة<br>• PNG: بدون فقدان لكن كبير، الجودة غير قابلة للضبط<br>• JPG: مثالي للصور، الجودة قابلة للضبط',quality:'جودة الضغط',qualityHint:'قيم أقل = ملف أصغر، جودة أقل',qualityTip:'يؤثر فقط على JPG و WebP.<br>• 80~90: جودة جيدة للعرض<br>• 60~75: متوازن، موصى به<br>• 30~50: أصغر حجم، للصور المصغرة<br>• PNG لا يدعم ضبط الجودة',scale:'تغيير حجم العرض',byPercent:'بنسبة مئوية',byPixel:'بالبكسل',scaleHint:'تقليل العرض يقلل الحجم بشكل كبير (50%≈1/4)',scaleTip:'يقلص الصورة بالكامل حسب العرض.<br>• بنسبة مئوية: نسبة من العرض الأصلي<br>• بالبكسل: أقصى عرض بالبكسل<br>• الارتفاع يتكيف تلقائياً، بدون تشويه<br>• 50% تعني نصف العرض والارتفاع، الحجم ~1/4',download:'تنزيل الصورة المضغوطة',reset:'إعادة التعيين',waiting:'في انتظار صورة',emptyTitle:'أسقط صورة هنا',emptyHint:'أو الصق صورة من الحافظة',origSize:'الحجم الأصلي',compSize:'الحجم المضغوط',keepOriginal:'لا تغيير في الحجم أو التنسيق. تم الاحتفاظ بالأصلي (مثالي بالفعل).',autoRevert:'لم يتم تقليل الحجم بعد الضغط. تم استخدام الأصلي تلقائياً. جرّب WebP أو قلّص الحجم.',saved:'نسبة الضغط',savedPrefix:'تم توفير',increased:'زيادة الحجم بمقدار',noChange:'لا تغيير في الحجم',moreTools:'المزيد من أدوات الصور',rcCompress:'ضغط',rcConvert:'تحويل التنسيق',rcCrop:'اقتصاص وتغيير الحجم',rcIdphoto:'خلفية صورة هوية',rcWatermark:'علامة مائية',rcBgcolor:'لون الخلفية',rcSplice:'دمج الصور',rcImg2pdf:'إلى PDF',rcFilter:'مرشحات'},
 vi:{brand:'ClearWhite',toolWhitebg:'Xóa trắng',toolCompress:'Nén',toolConvert:'Chuyển đổi',toolCrop:'Cắt',toolIdphoto:'Ảnh ID',toolWatermark:'Watermark',toolBgcolor:'Màu nền',toolSplice:'Ghép',toolImg2pdf:'sang PDF',toolFilter:'Bộ lọc',title:'Công Cụ Nén Ảnh',subtitle:'Nén ảnh trực tuyến miễn phí PNG/JPG/WebP với xem trước chất lượng thời gian thực. Tùy chọn chuyển sang WebP để nén tốt hơn. Thay đổi kích thước theo tỷ lệ phần trăm hoặc chiều rộng pixel.',privacy:'Xử lý cục bộ trong trình duyệt · Không bao giờ tải ảnh lên',upload:'Chọn hoặc thả hình ảnh',formats:'Hỗ trợ PNG, JPG và WebP<br>Bạn cũng có thể dán hình ảnh',format:'Định dạng đầu ra',fmtAuto:'Giữ nguyên',fmtWebp:'Chuyển sang WebP (nhỏ hơn)',fmtPng:'PNG',fmtJpeg:'JPG',formatHint:'WebP thường nhỏ hơn JPG/PNG',quality:'Chất lượng nén',qualityHint:'Giá trị thấp hơn = tệp nhỏ hơn, chất lượng thấp hơn',scale:'Thay đổi chiều rộng',byPercent:'Theo tỷ lệ %',byPixel:'Theo pixel',scaleHint:'Giảm chiều rộng làm giảm đáng kể kích thước',download:'Tải xuống ảnh đã nén',reset:'Đặt lại mặc định',waiting:'Đang chờ hình ảnh',emptyTitle:'Thả hình ảnh vào đây',emptyHint:'Hoặc dán hình ảnh từ khay nhớ tạm',origSize:'Kích thước gốc',compSize:'Kích thước đã nén',moreTools:'Thêm công cụ hình ảnh',rcCompress:'Nén ảnh',rcConvert:'Chuyển định dạng',rcCrop:'Cắt và thay đổi',rcIdphoto:'Nền ảnh ID',rcWatermark:'Watermark',rcBgcolor:'Màu nền',rcSplice:'Ghép ảnh',rcImg2pdf:'Sang PDF',rcFilter:'Bộ lọc'},
 id:{brand:'ClearWhite',toolWhitebg:'Hapus Putih',toolCompress:'Kompres',toolConvert:'Konversi',toolCrop:'Potong',toolIdphoto:'Foto ID',toolWatermark:'Watermark',toolBgcolor:'Warna BG',toolSplice:'Gabung',toolImg2pdf:'ke PDF',toolFilter:'Filter',title:'Kompresor Gambar',subtitle:'Kompresi gambar online gratis untuk PNG/JPG/WebP dengan pratinjau kualitas real-time. Opsional konversi ke WebP untuk kompresi lebih baik. Penskalaan berdasarkan persentase atau lebar piksel.',privacy:'Diproses secara lokal di browser · Gambar tidak pernah diunggah',upload:'Pilih atau jatuhkan gambar',formats:'Mendukung PNG, JPG, dan WebP<br>Anda juga bisa menempel gambar',format:'Format keluaran',fmtAuto:'Pertahankan asli',fmtWebp:'Konversi ke WebP (lebih kecil)',fmtPng:'PNG',fmtJpeg:'JPG',formatHint:'WebP biasanya lebih kecil dari JPG/PNG',quality:'Kualitas kompresi',qualityHint:'Nilai lebih rendah = file lebih kecil, kualitas lebih rendah',scale:'Penskalaan lebar',byPercent:'Berdasarkan %',byPixel:'Berdasarkan piksel',scaleHint:'Mengurangi lebar mengurangi ukuran secara signifikan',download:'Unduh gambar terkompresi',reset:'Setel ulang',waiting:'Menunggu gambar',emptyTitle:'Jatuhkan gambar di sini',emptyHint:'Atau tempel gambar dari papan klip',origSize:'Ukuran asli',compSize:'Ukuran terkompresi',moreTools:'Alat gambar lainnya',rcCompress:'Kompres',rcConvert:'Konversi Format',rcCrop:'Potong & Skala',rcIdphoto:'Latar Foto ID',rcWatermark:'Watermark',rcBgcolor:'Warna Latar',rcSplice:'Gabung Gambar',rcImg2pdf:'Ke PDF',rcFilter:'Filter'},
 th:{brand:'ClearWhite',toolWhitebg:'ลบพื้นขาว',toolCompress:'บีบอัด',toolConvert:'แปลง',toolCrop:'ครอป',toolIdphoto:'รูปบัตร',toolWatermark:'ลายน้ำ',toolBgcolor:'สีพื้นหลัง',toolSplice:'ต่อรูป',toolImg2pdf:'เป็น PDF',toolFilter:'ฟิลเตอร์',title:'เครื่องมือบีบอัดรูปภาพ',subtitle:'บีบอัดรูปภาพออนไลน์ฟรี PNG/JPG/WebP พรีวิวคุณภาพแบบเรียลไทม์ เลือกแปลงเป็น WebP เพื่อการบีบอัดที่ดีขึ้น ปรับขนาดตามเปอร์เซ็นต์หรือความกว้างพิกเซล',privacy:'ประมวลผลในเบราว์เซอร์เครื่อง · ไม่อัปโหลดรูปภาพ',upload:'คลิกเลือกหรือลากรูปมาวาง',formats:'รองรับ PNG, JPG และ WebP<br>ยังสามารถวางรูปจากคลิปบอร์ด',format:'รูปแบบเอาต์พุต',fmtAuto:'ใช้รูปแบบเดิม',fmtWebp:'แปลงเป็น WebP (ขนาดเล็กกว่า)',fmtPng:'PNG',fmtJpeg:'JPG',formatHint:'WebP มักจะเล็กกว่า JPG/PNG',quality:'คุณภาพการบีบอัด',qualityHint:'ค่าต่ำกว่า = ไฟล์เล็กกว่า คุณภาพต่ำกว่า',scale:'ปรับขนาดความกว้าง',byPercent:'ตามเปอร์เซ็นต์',byPixel:'ตามพิกเซล',scaleHint:'ลดความกว้างช่วยลดขนาดไฟล์ได้มาก',download:'ดาวน์โหลดรูปที่บีบอัดแล้ว',reset:'รีเซ็ตค่าเริ่มต้น',waiting:'รอรูปภาพ',emptyTitle:'ลากรูปมาวางที่นี่',emptyHint:'หรือวางรูปจากคลิปบอร์ด',origSize:'ขนาดเดิม',compSize:'ขนาดบีบอัดแล้ว',moreTools:'เครื่องมือรูปภาพเพิ่มเติม',rcCompress:'บีบอัด',rcConvert:'แปลงรูปแบบ',rcCrop:'ครอปและปรับขนาด',rcIdphoto:'พื้นหลังรูปบัตร',rcWatermark:'ลายน้ำ',rcBgcolor:'สีพื้นหลัง',rcSplice:'ต่อรูปภาพ',rcImg2pdf:'เป็น PDF',rcFilter:'ฟิลเตอร์'}
@@ -445,12 +476,20 @@ let origName='image';     // 原始文件名（不含扩展名）
 let origBlob=null;        // 原始文件 Blob（用于大小对比）
 let scaleMode='percent';  // 缩放模式：percent / pixel
 let compressTimer=null;   // 防抖计时器
+let compressId=0;         // 压缩调用版本号，防止竞态
 
 /* ===== 格式化文件大小 ===== */
 function fmtSize(bytes){
   if(bytes<1024)return bytes+' B';
   if(bytes<1024*1024)return (bytes/1024).toFixed(1)+' KB';
   return (bytes/1024/1024).toFixed(2)+' MB';
+}
+
+/* ===== 从 MIME 获取扩展名 ===== */
+function extFromMime(mime){
+  if(mime==='image/png')return 'png';
+  if(mime==='image/webp')return 'webp';
+  return 'jpg';
 }
 
 /* ===== 根据原始格式决定输出 MIME ===== */
@@ -501,53 +540,102 @@ function load(blob,filename){
 
 /* ===== 执行压缩并预览 ===== */
 function compress(){
-  if(!sourceImg)return;
-  const mime=getOutputMime();
-  const quality=+$('#quality').value/100;
-  const tw=getTargetWidth();
-  const ow=sourceImg.naturalWidth,oh=sourceImg.naturalHeight;
-  // 按宽度等比缩放
-  const th=Math.round(oh*tw/ow);
+  if(!sourceImg || !origBlob) return;
+
+  const id = ++compressId;
+  document.body.classList.add('computing');
+
+  const mime = getOutputMime();
+  const quality = +$('#quality').value / 100;
+  const tw = getTargetWidth();
+  const ow = sourceImg.naturalWidth, oh = sourceImg.naturalHeight;
+  const th = Math.round(oh * tw / ow);
+
+  const isResized = tw < ow || th < oh;
+  const isFormatChanged = origBlob.type !== mime;
+  const msg = messages[language] || messages.zh;
+
+  // 如果没有缩小尺寸且格式没变，直接使用原图（canvas 重绘通常不会更小，尤其是 PNG）
+  if(!isResized && !isFormatChanged){
+    if(id !== compressId) return;
+    const oldUrl = preview.src;
+    if(oldUrl && oldUrl.startsWith('blob:')) URL.revokeObjectURL(oldUrl);
+    preview.src = URL.createObjectURL(origBlob);
+
+    $('#origSize').textContent = fmtSize(origBlob.size);
+    $('#compSize').textContent = fmtSize(origBlob.size);
+    $('#ratio').style.display = 'block';
+    $('#ratio').innerHTML = `<span style="color:var(--muted)">${msg.keepOriginal || '未改变尺寸和格式，已保持原图'}</span>`;
+    $('#stats').style.display = 'grid';
+    $('#meta').textContent = `${ow} × ${oh}px · ${fmtSize(origBlob.size)}`;
+
+    compress._blob = origBlob;
+    compress._ext = extFromMime(origBlob.type);
+
+    document.body.classList.remove('computing');
+    return;
+  }
+
   // 创建画布并绘制
-  const cv=document.createElement('canvas');
-  cv.width=tw;cv.height=th;
-  const cx=cv.getContext('2d');
-  // JPG 不支持透明，用白色填充背景
-  if(mime==='image/jpeg'){cx.fillStyle='#ffffff';cx.fillRect(0,0,tw,th);}
-  cx.drawImage(sourceImg,0,0,tw,th);
-  // 输出 Blob
-  cv.toBlob(blob=>{
-    if(!blob)return;
-    // 预览
-    const oldUrl=preview.src;
-    if(oldUrl&&oldUrl.startsWith('blob:'))URL.revokeObjectURL(oldUrl);
-    preview.src=URL.createObjectURL(blob);
-    // 大小对比
-    $('#origSize').textContent=fmtSize(origBlob.size);
-    $('#compSize').textContent=fmtSize(blob.size);
-    const diff=origBlob.size-blob.size;
-    const pct=origBlob.size>0?Math.round(diff/origBlob.size*100):0;
-    const r=$('#ratio');
-    r.style.display='block';
-    if(diff>0){
-      r.innerHTML=`压缩率 <span class="pos">${pct}%</span> · 节省 ${fmtSize(diff)}`;
-    }else if(diff<0){
-      r.innerHTML=`<span style="color:#c44">体积反而增加 ${fmtSize(-diff)}，建议调低质量或转 WebP</span>`;
-    }else{
-      r.innerHTML=`体积无变化`;
+  const cv = document.createElement('canvas');
+  cv.width = tw; cv.height = th;
+  const cx = cv.getContext('2d');
+  if(mime === 'image/jpeg'){ cx.fillStyle = '#ffffff'; cx.fillRect(0, 0, tw, th); }
+  cx.drawImage(sourceImg, 0, 0, tw, th);
+
+  // 只有 JPEG 和 WebP 支持 quality 参数；PNG 不支持
+  const useQuality = (mime === 'image/jpeg' || mime === 'image/webp') ? quality : undefined;
+
+  cv.toBlob(blob => {
+    document.body.classList.remove('computing');
+    if(!blob || id !== compressId) return;
+
+    let finalBlob = blob;
+    let finalExt = extFromMime(mime);
+    let usedOriginal = false;
+
+    // 如果压缩后比原图大，且格式没变，自动回退到原图
+    if(origBlob && blob.size > origBlob.size && !isFormatChanged){
+      finalBlob = origBlob;
+      finalExt = extFromMime(origBlob.type);
+      usedOriginal = true;
     }
-    $('#stats').style.display='grid';
-    $('#meta').textContent=`${tw} × ${th}px · ${fmtSize(blob.size)}`;
-    // 暂存用于下载
-    compress._blob=blob;
-    compress._ext=mime==='image/png'?'png':mime==='image/webp'?'webp':'jpg';
-  },mime,mime==='image/png'?undefined:quality);
+
+    const oldUrl = preview.src;
+    if(oldUrl && oldUrl.startsWith('blob:')) URL.revokeObjectURL(oldUrl);
+    preview.src = URL.createObjectURL(finalBlob);
+
+    $('#origSize').textContent = fmtSize(origBlob.size);
+    $('#compSize').textContent = fmtSize(finalBlob.size);
+    const diff = origBlob.size - finalBlob.size;
+    const pct = origBlob.size > 0 ? Math.round(diff / origBlob.size * 100) : 0;
+    const r = $('#ratio');
+    r.style.display = 'block';
+
+    if(usedOriginal){
+      r.innerHTML = `<span style="color:var(--muted)">${msg.autoRevert || '压缩后体积未减小，已自动使用原图。建议转 WebP 格式或缩小尺寸。'}</span>`;
+    }else if(diff > 0){
+      r.innerHTML = `${msg.saved || '压缩率'} <span class="pos">${pct}%</span> · ${msg.savedPrefix || '节省'} ${fmtSize(diff)}`;
+    }else if(diff < 0){
+      r.innerHTML = `<span style="color:#c44">${msg.increased || '体积增加'} ${fmtSize(-diff)}</span>`;
+    }else{
+      r.innerHTML = msg.noChange || '体积无变化';
+    }
+
+    $('#stats').style.display = 'grid';
+    const finalW = usedOriginal ? ow : tw;
+    const finalH = usedOriginal ? oh : th;
+    $('#meta').textContent = `${finalW} × ${finalH}px · ${fmtSize(finalBlob.size)}`;
+
+    compress._blob = finalBlob;
+    compress._ext = finalExt;
+  }, mime, useQuality);
 }
 
 /* ===== 防抖 ===== */
 function schedule(){
   clearTimeout(compressTimer);
-  compressTimer=setTimeout(compress,120);
+  compressTimer = setTimeout(compress, 80);
 }
 
 /* ===== 事件绑定 ===== */
