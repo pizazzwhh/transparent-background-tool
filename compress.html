@@ -568,10 +568,12 @@ function applyScale(){
 async function quantizePngChunked(imageData,levels){
   const{data,width,height}=imageData;
   const out=new Uint8ClampedArray(data.length);
-  const rgbBits=levels.rgb;
-  const aBits=levels.a;
-  const rgbMask=0xFF<<(8-rgbBits);
-  const aMask=0xFF<<(8-aBits);
+  const rgbShift=8-levels.rgb;
+  const aShift=8-levels.a;
+  const rgbMask=(0xFF<<rgbShift)&0xFF;
+  const aMask=(0xFF<<aShift)&0xFF;
+  const rgbFill=rgbShift>0?((1<<rgbShift)>>>1):0;
+  const aFill=aShift>0?((1<<aShift)>>>1):0;
   const totalPixels=data.length/4;
   const chunkSize=Math.max(20000,Math.floor(totalPixels/8));
   let offset=0;
@@ -580,10 +582,10 @@ async function quantizePngChunked(imageData,levels){
       const end=Math.min(offset+chunkSize,totalPixels);
       for(let i=offset;i<end;i++){
         const idx=i*4;
-        out[idx]=(data[idx]&rgbMask)|(rgbMask>>>rgbBits);
-        out[idx+1]=(data[idx+1]&rgbMask)|(rgbMask>>>rgbBits);
-        out[idx+2]=(data[idx+2]&rgbMask)|(rgbMask>>>rgbBits);
-        out[idx+3]=(data[idx+3]&aMask)|(aMask>>>aBits);
+        out[idx]=(data[idx]&rgbMask)|rgbFill;
+        out[idx+1]=(data[idx+1]&rgbMask)|rgbFill;
+        out[idx+2]=(data[idx+2]&rgbMask)|rgbFill;
+        out[idx+3]=(data[idx+3]&aMask)|aFill;
       }
       offset=end;
       if(offset<totalPixels){
