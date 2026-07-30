@@ -446,6 +446,7 @@ const LANG_NAMES={zh:'中文',en:'English',ja:'日本語',ko:'한국어',es:'Esp
 
 let state={
   img:null,
+  imgType:null,
   originalCanvas:null,
   canvas:null,
   originalBlob:null,
@@ -521,6 +522,7 @@ function onFileSelected(file){
     const img=new Image();
     img.onload=()=>{
       state.img=img;
+      state.imgType=file.type;
       state.originalSize=file.size;
       state.originalBlob=file;
       const canvas=document.createElement('canvas');
@@ -641,8 +643,8 @@ async function doCompress(){
   $('#wrap').setAttribute('data-loading',t('waiting'));
   try{
     let result;
-    const isPng=state.img&&state.img.type==='image/png';
-    const isWebp=state.img&&state.img.type==='image/webp';
+    const isPng=state.imgType==='image/png';
+    const isWebp=state.imgType==='image/webp';
     if(isPng){
       const cr=await compressPng(canvas,quality);
       if(cr)result={blob:cr.blob,method:cr.method,ext:'png'};
