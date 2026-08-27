@@ -18,7 +18,8 @@ const mimeTypes = {
 };
 
 const LOG_KEY = "visits_log";
-const LOG_LIMIT = 500;
+const LOG_LIMIT = 2000;
+const PV_TOTAL_KEY = "pv_total";
 
 function todayStr() {
   const d = new Date();
@@ -52,10 +53,10 @@ function getStatsFromLog() {
 
     return Promise.all([
       ek.get("last_visit"),
-      ek.get("uv_" + today + "_today")
+      ek.get(PV_TOTAL_KEY)
     ]).then(function(results) {
       var lastVisit = results[0];
-      var uvTodayKey = results[1];
+      var pvTotal = parseInt(results[1] || "0", 10) || 0;
 
       var uvs = [];
       var uvsToday = [];
@@ -97,7 +98,7 @@ function getStatsFromLog() {
       result.today = today;
       result.lastVisit = lastVisit;
       result.summary = {
-        pv: log.length,
+        pv: Math.max(pvTotal, log.length),
         uv: uvs.length,
         pvToday: byDate[today] ? byDate[today].pv : 0,
         uvToday: uvsToday.length,
@@ -247,7 +248,7 @@ export default {
         const cookies = request.headers.get("cookie") || "";
         var sid = null;
         var isNew = true;
-        var sm = cookies.match(/(?:^|;)\\s*__sid__=([^;]+)/);
+        var sm = cookies.match(/(?:^|;)\s*__sid__=([^;]+)/);
         if (sm) { sid = decodeURIComponent(sm[1]); isNew = false; }
         if (!sid) {
           sid = Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
@@ -271,11 +272,13 @@ export default {
         });
         if (log.length > LOG_LIMIT) log = log.slice(0, LOG_LIMIT);
 
+        var pvTotalStr = await ek.get(PV_TOTAL_KEY);
+        var pvTotalNum = parseInt(pvTotalStr || "0", 10) || 0;
+        pvTotalNum++;
+
         await ek.put(LOG_KEY, JSON.stringify(log));
+        await ek.put(PV_TOTAL_KEY, String(pvTotalNum));
         await ek.put("last_visit", now);
-        if (isNew) {
-          await ek.put("uv_" + today + "_" + sid.slice(0, 8), "1");
-        }
 
         const response = new Response("ok", {
           headers: {
