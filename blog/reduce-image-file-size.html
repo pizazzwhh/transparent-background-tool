@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>How to Reduce Image File Size: 7 Proven Methods to Shrink Images 2026 | imagec</title>
+  <meta name="description" content="7 proven ways to reduce image file size in 2026. Lossy vs lossless, batch processing, web performance, email limits, and a comparison of imagec, Squoosh, TinyPNG, ImageMagick, and more." />
+  <meta name="keywords" content="reduce image file size, shrink image, make image smaller, reduce photo size, compress image, image optimizer" />
+  <meta name="author" content="imagec" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="canonical" href="https://imagec.xin/blog/reduce-image-file-size.html" />
+  <link rel="alternate" hreflang="en" href="https://imagec.xin/blog/reduce-image-file-size.html" />
+  <link rel="alternate" hreflang="x-default" href="https://imagec.xin/blog/reduce-image-file-size.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="imagec" />
+  <meta property="og:title" content="How to Reduce Image File Size: 7 Proven Methods to Shrink Images 2026" />
+  <meta property="og:description" content="7 proven ways to reduce image file size — lossy vs lossless, batch processing, web performance, and FAQ." />
+  <meta property="og:url" content="https://imagec.xin/blog/reduce-image-file-size.html" />
+  <meta property="og:image" content="https://imagec.xin/og-image.jpg" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="How to Reduce Image File Size: 7 Proven Methods 2026" />
+  <meta name="twitter:description" content="Lossy vs lossless, batch processing, web performance, email limits, and FAQ." />
+  <meta name="twitter:image" content="https://imagec.xin/og-image.jpg" />
+  <meta name="msvalidate.01" content="453AC1968127586FA6335E55E3C3449F" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "How to Reduce Image File Size: 7 Proven Methods to Shrink Images 2026",
+    "description": "7 proven ways to reduce image file size. Lossy vs lossless, batch processing, web performance, email limits, and tool comparison.",
+    "author": { "@type": "Organization", "name": "imagec" },
+    "publisher": { "@type": "Organization", "name": "imagec", "logo": { "@type": "ImageObject", "url": "https://imagec.xin/favicon.svg" } },
+    "datePublished": "2026-09-19",
+    "dateModified": "2026-09-19",
+    "image": "https://imagec.xin/og-image.jpg",
+    "mainEntityOfPage": "https://imagec.xin/blog/reduce-image-file-size.html",
+    "articleSection": "Tutorial",
+    "wordCount": "2400",
+    "keywords": "reduce image file size, shrink image, make image smaller, reduce photo size, compress image"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I reduce image file size without losing quality?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Truly lossless methods (resizing to display dimensions, stripping metadata, switching to a more efficient format like WebP lossless) can shrink files 20-40% with zero quality loss. For bigger savings, you'll need lossy compression — but at quality 80-85 on JPEG or palette quantization on PNG, the loss is essentially invisible. Use imagec.xin/compress or Squoosh to find the slider position where you can't see the difference."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the difference between lossy and lossless image compression?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Lossless compression re-encodes the same pixel data more efficiently (e.g. PNG's deflate, WebP lossless) — no quality is lost, but savings are 10-40%. Lossy compression discards pixel information the eye can barely perceive (JPEG's DCT, WebP lossy, PNG palette quantization) — savings are 50-90% with near-imperceptible quality loss. Lossy is irreversible: once you save lossy, you cannot recover the original."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why do my photos blow past email attachment limits?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Most modern phone cameras shoot at 12-50 megapixels with minimal JPEG compression — a single photo can be 5-15 MB. Email systems cap attachments at 25 MB total (Gmail, Outlook) or less for corporate Exchange. Resize images to 1920px max width and JPEG q80 before attaching — each photo drops to ~300-600 KB and you can fit dozens in one email."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does reducing image file size improve my website SEO?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, indirectly. Google's Core Web Vitals measure Largest Contentful Paint (LCP), Cumulative Layout Shift (CLS), and Interaction to Next Paint (INP). Heavy images are the #1 cause of slow LCP. Cutting image payload from 2 MB to 200 KB can move LCP from 4s to 1.5s, which often lifts search rankings — especially on mobile."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I batch reduce the size of 100 images at once?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use a command-line tool. With ImageMagick: `magick mogrify -resize 1920x -quality 80 -strip -path out/ *.jpg`. With jpegoptim: `jpegoptim --max=80 *.jpg`. For PNG, `pngquant --quality=65-85 --force --ext .png *.png`. For non-technical users, Photoshop Actions or the imagec.xin/compress browser tool (single-file workflow) work well."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    :root{--ink:#1A1A1A;--ink-soft:#3A3A38;--muted:#8A8378;--paper:#F5F1EA;--card:#FBF8F2;--line:#D9D2C5;--line-soft:#E8E2D6;--accent:#1F3A2E;--accent2:#E8EDE6;--serif:Georgia,"Source Han Serif SC","Noto Serif SC","Songti SC","STSong","宋体",serif;--sans:-apple-system,BlinkMacSystemFont,"Inter","PingFang SC","Microsoft YaHei",sans-serif;--shadow:0 1px 0 rgba(26,26,26,.04)}
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;color:var(--ink);background:radial-gradient(circle at 10% 0,#dff6e9 0,transparent 32rem),var(--paper);font:16px/1.7 Inter,"Helvetica Neue",Arial,sans-serif}
+    .shell{max-width:860px;margin:auto;padding:32px 24px 64px}
+    header{display:flex;align-items:center;gap:12px;margin-bottom:32px;padding-bottom:24px;border-bottom:1px solid var(--line)}
+    .backLink{color:var(--accent);text-decoration:none;font-weight:600;font-size:14px}
+    .backLink:hover{text-decoration:underline}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px;margin-left:auto}
+    .mark{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;color:white;font-family:Georgia;font-size:18px}
+    article{background:var(--card);border:1px solid #ffffff;box-shadow:var(--shadow);border-radius:24px;padding:40px}
+    h1{font-size:clamp(26px,3.5vw,38px);line-height:1.2;letter-spacing:-.03em;margin:0 0 12px;max-width:700px}
+    .meta{color:var(--muted);font-size:14px;margin-bottom:32px;display:flex;gap:16px;flex-wrap:wrap}
+    h2{font-size:24px;margin:40px 0 16px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+    h3{font-size:19px;margin:28px 0 12px;color:var(--ink)}
+    h4{font-size:16px;margin:20px 0 8px;color:var(--ink-soft)}
+    p{margin:14px 0;color:#2a3330}
+    ul,ol{margin:14px 0;padding-left:24px}
+    li{margin:8px 0}
+    .toc{background:#f0fbf5;border-radius:16px;padding:24px 28px;margin:28px 0}
+    .toc h3{margin:0 0 12px;color:var(--accent);font-size:16px}
+    .toc ol{margin:0;padding-left:20px}
+    .toc a{color:var(--ink);text-decoration:none}
+    .toc a:hover{color:var(--accent)}
+    .compareTable{width:100%;border-collapse:collapse;margin:20px 0;font-size:14px}
+    .compareTable th,.compareTable td{border:1px solid var(--line);padding:12px 14px;text-align:left}
+    .compareTable th{background:#f6f7f5;font-weight:700}
+    .compareTable tr:nth-child(even){background:#fbfaf5}
+    .pros{color:#087f5b}
+    .cons{color:#c92a2a}
+    .tipBox{background:#fff4e6;border-left:4px solid #f59f00;border-radius:0 12px 12px 0;padding:16px 20px;margin:20px 0}
+    .tipBox strong{color:#d9480f}
+    .ctaBox{background:linear-gradient(135deg,#e4f6ec,#fbf4d7);border-radius:20px;padding:32px;text-align:center;margin:40px 0}
+    .ctaBox h3{margin:0 0 8px;font-size:22px}
+    .ctaBox p{margin:0 0 20px;color:var(--muted)}
+    .ctaBtn{display:inline-block;background:var(--ink);color:white;padding:12px 28px;border-radius:12px;font-weight:700;text-decoration:none;transition:.18s}
+    .ctaBtn:hover{background:var(--accent);transform:translateY(-1px)}
+    code{background:#e9ece8;padding:2px 6px;border-radius:6px;font-size:13px;font-family:Consolas,monospace}
+    pre{background:#1f2622;color:#e8efe9;padding:14px 18px;border-radius:12px;overflow:auto;font-size:13px;font-family:Consolas,monospace}
+    pre code{background:transparent;color:inherit;padding:0}
+    .footer{margin-top:48px;padding-top:24px;border-top:1px solid var(--line);color:var(--muted);font-size:13px;text-align:center}
+    .footer a{color:var(--accent);text-decoration:none}
+    .footer a:hover{text-decoration:underline}
+    @media(max-width:600px){
+      article{padding:24px 20px}
+      .shell{padding:16px 12px 40px}
+      h1{font-size:24px}
+    }
+  </style>
+</head>
+<body>
+<main class="shell">
+  <header>
+    <a href="https://imagec.xin/" class="backLink">← Back to imagec</a>
+    <div class="brand"><span class="mark"><svg viewBox="0 0 64 64" width="22" height="22" aria-hidden="true"><rect x="12" y="12" width="34" height="34" rx="3" fill="none" stroke="#1A1A1A" stroke-width="3.2"/><rect x="30" y="30" width="22" height="22" rx="3" fill="#1F3A2E"/></svg></span><span>imagec</span></div>
+  </header>
+
+  <article>
+    <h1>How to Reduce Image File Size: 7 Proven Methods to Shrink Images 2026</h1>
+    <div class="meta">
+      <span>📅 September 19, 2026</span>
+      <span>⏱ 10 min read</span>
+      <span>🏷 Tutorial / Image Optimization</span>
+    </div>
+
+    <p>A modern phone photo is 5-15 MB. A Figma export can hit 8 MB. A 4K screenshot clocks in at 4 MB. Meanwhile: Gmail blocks attachments over 25 MB, your CMS rejects anything above 2 MB, your WordPress site slows to a crawl, and Google's Core Web Vitals punish you for every kilobyte above the fold.</p>
+    <p>The fix isn't mysterious. Reducing image file size comes down to <strong>seven proven methods</strong>, applied in the right order. This guide walks through each one — from the simplest browser drag-and-drop to command-line batch pipelines — and explains when to use lossy vs lossless, why web performance matters, and how to compress 100 images at once.</p>
+
+    <div class="toc">
+      <h3>📖 Table of Contents</h3>
+      <ol>
+        <li><a href="#why">Why Image File Size Matters</a></li>
+        <li><a href="#lossy-lossless">Lossy vs Lossless: The Core Trade-off</a></li>
+        <li><a href="#method1">Method 1: Resize to Display Dimensions</a></li>
+        <li><a href="#method2">Method 2: Strip Metadata</a></li>
+        <li><a href="#method3">Method 3: Pick the Right Format</a></li>
+        <li><a href="#method4">Method 4: Lossy Compression (JPEG Quality)</a></li>
+        <li><a href="#method5">Method 5: Lossless Re-encoding</a></li>
+        <li><a href="#method6">Method 6: Browser-Based Tools (imagec)</a></li>
+        <li><a href="#method7">Method 7: Command-Line Batch</a></li>
+        <li><a href="#compare">Method Comparison Table</a></li>
+        <li><a href="#web">Web Performance &amp; SEO</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#summary">Summary</a></li>
+      </ol>
+    </div>
+
+    <h2 id="why">1. Why Image File Size Matters</h2>
+    <p>File size isn't pedantic — it has real, measurable consequences across every channel:</p>
+    <ul>
+      <li><strong>Web performance:</strong> Every extra 100 KB adds ~1 second on a 3G connection and ~150 ms on cable. Mobile users bounce after 3 seconds.</li>
+      <li><strong>SEO:</strong> Google's Largest Contentful Paint (LCP) metric directly correlates with image payload. A 4 MB hero image is a top-3 cause of poor LCP.</li>
+      <li><strong>Email:</strong> Gmail caps attachments at 25 MB total. Outlook.com at 20 MB. A single raw phone photo can blow the limit.</li>
+      <li><strong>Form uploads:</strong> Visa portals, scholarship applications, job sites, and marketplaces routinely cap at 100 KB-2 MB.</li>
+      <li><strong>Storage:</strong> Cloud drives (iCloud, Google Drive, Dropbox) bill by the gigabyte. Bulk-compressing photos can save tens of GB.</li>
+      <li><strong>Mobile data:</strong> A 5 MB image burns a measurable chunk of a 1 GB cellular plan. Email-friendly 300 KB versions cost almost nothing.</li>
+    </ul>
+
+    <h2 id="lossy-lossless">2. Lossy vs Lossless: The Core Trade-off</h2>
+    <p>Every compression method falls into one of two buckets:</p>
+    <table class="compareTable">
+      <thead><tr><th>Aspect</th><th>Lossless</th><th>Lossy</th></tr></thead>
+      <tbody>
+        <tr><td>Quality</td><td>Identical to original</td><td>Slight to moderate loss</td></tr>
+        <tr><td>Typical savings</td><td>10-40%</td><td>50-90%</td></tr>
+        <tr><td>Reversible</td><td>Yes</td><td>No</td></tr>
+        <tr><td>Best format</td><td>PNG, WebP lossless, FLAC-style</td><td>JPEG, WebP lossy, AVIF</td></tr>
+        <tr><td>Best content</td><td>Graphics, screenshots, text, archival masters</td><td>Photos for web, social, email</td></tr>
+      </tbody>
+    </table>
+    <p>The professional workflow: <strong>keep a lossless master, export lossy versions</strong>. Never overwrite your master with a lossy export — you can't recover the discarded pixels later.</p>
+
+    <div class="tipBox">
+      <strong>💡 Rule of thumb:</strong> If the image will be <em>archived or re-edited</em>, keep it lossless. If it will only be <em>displayed once on a screen</em>, use lossy at quality 80-85 — the loss is invisible.
+    </div>
+
+    <h2 id="method1">3. Method 1: Resize to Display Dimensions</h2>
+    <p>The single biggest waste in image file size is shipping more pixels than the display shows. A phone hero photo at 4032×3024 is 12 MP — but the average phone screen renders it at ~400px wide. That's a 10x over-supply of pixels.</p>
+    <p>Resize to the largest dimension you'll actually display:</p>
+    <ul>
+      <li><strong>Blog hero image:</strong> 1600px wide</li>
+      <li><strong>Product photo:</strong> 1000-1200px</li>
+      <li><strong>Instagram feed:</strong> 1080×1080</li>
+      <li><strong>Email inline:</strong> 600px wide</li>
+      <li><strong>Thumbnail:</strong> 300-400px</li>
+    </ul>
+    <p>Use the <a href="https://imagec.xin/crop.html" target="_blank" rel="noopener">imagec crop &amp; resize tool</a> for a visual approach, or ImageMagick on the command line:</p>
+    <pre><code>magick input.jpg -resize 1600x output.jpg</code></pre>
+    <p>Resizing a 12 MB photo down to 1600px typically drops the file to ~1.5 MB <em>before</em> any compression — that's 87% gone with zero quality loss at the display size.</p>
+
+    <h2 id="method2">4. Method 2: Strip Metadata</h2>
+    <p>JPEG and PNG files carry embedded metadata — EXIF camera data, ICC color profiles, GPS coordinates, Photoshop editing history. This adds 10-50 KB per file, occasionally more.</p>
+    <p>Strip it with ImageMagick:</p>
+    <pre><code>magick input.jpg -strip output.jpg</code></pre>
+    <p>Or with <code>jpegoptim</code>:</p>
+    <pre><code>jpegoptim --strip-all input.jpg</code></pre>
+    <p>For privacy reasons (GPS especially), stripping metadata is essential before publishing photos online. Most online tools including <a href="https://imagec.xin/compress.html" target="_blank" rel="noopener">imagec.xin/compress</a> strip metadata by default.</p>
+    <div class="tipBox">
+      <strong>⚠️ Note:</strong> If your photo relies on an ICC color profile for accuracy (commercial product photography, print), preserve the profile — the ~10 KB cost is worth the color fidelity.
+    </div>
+
+    <h2 id="method3">5. Method 3: Pick the Right Format</h2>
+    <p>Different formats compress different content types dramatically differently:</p>
+    <table class="compareTable">
+      <thead><tr><th>Content</th><th>Best format</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td>Photos (people, nature)</td><td>JPEG q80 or WebP lossy</td><td>DCT compression tuned for gradients</td></tr>
+        <tr><td>Screenshots, UI, text</td><td>PNG-8 or WebP lossless</td><td>Sharp edges, flat color areas</td></tr>
+        <tr><td>Graphics with transparency</td><td>PNG or WebP lossless</td><td>Alpha channel needs lossless</td></tr>
+        <tr><td>Line art, logos</td><td>SVG (vector) — or PNG-8</td><td>Vector scales infinitely; PNG-8 if raster required</td></tr>
+        <tr><td>Modern web delivery</td><td>WebP or AVIF</td><td>25-50% smaller than JPEG/PNG at equal quality</td></tr>
+      </tbody>
+    </table>
+    <p>The same source photo saved as JPEG q85 might be 800 KB; as PNG-24 it would be 4 MB; as WebP lossy it would be 550 KB. Choose the format the content wants, not the format your camera defaulted to.</p>
+
+    <h2 id="method4">6. Method 4: Lossy Compression (JPEG Quality)</h2>
+    <p>JPEG quality (q) is the single biggest lever on photo file size. The scale is 1-100, but the perceptual curve isn't linear — most savings happen between q90 and q70:</p>
+    <table class="compareTable">
+      <thead><tr><th>Quality</th><th>File size (1600px photo)</th><th>Visible loss</th></tr></thead>
+      <tbody>
+        <tr><td>q100</td><td>~1.8 MB</td><td>None</td></tr>
+        <tr><td>q90</td><td>~900 KB</td><td>None</td></tr>
+        <tr><td>q85</td><td>~650 KB</td><td>Imperceptible</td></tr>
+        <tr><td>q80</td><td>~480 KB</td><td>Barely visible on most content</td></tr>
+        <tr><td>q70</td><td>~300 KB</td><td>Slight artifacts in flat areas</td></tr>
+        <tr><td>q60</td><td>~200 KB</td><td>Visible blocking</td></tr>
+        <tr><td>q50</td><td>~150 KB</td><td>Clearly degraded</td></tr>
+      </tbody>
+    </table>
+    <p>The sweet spot for web delivery is <strong>q80-85</strong> — invisible-quality loss with files 4-6x smaller than q100.</p>
+    <p>For PNG, the equivalent is <strong>palette quantization</strong>: drop from 16.7M colors to 256 (PNG-8). Use pngquant or the <a href="https://imagec.xin/compress.html" target="_blank" rel="noopener">imagec compressor</a>.</p>
+
+    <h2 id="method5">7. Method 5: Lossless Re-encoding</h2>
+    <p>If you can't tolerate any quality loss (logos, screenshots, archival masters), lossless re-encoding squeezes out inefficiency without touching pixels:</p>
+    <ul>
+      <li><strong>PNG:</strong> Use <code>oxipng -o max</code> or <code>optipng -o7</code> — tries every filter and zlib strategy. Typical savings: 15-30%.</li>
+      <li><strong>JPEG:</strong> Use <code>jpegtran -copy none -optimize</code> or <code>jpegoptim --strip-all</code> (no quality loss, just metadata + Huffman re-optimization). Savings: 5-15%.</li>
+      <li><strong>WebP lossless:</strong> Switch from PNG to WebP lossless — typically 20-25% smaller at identical pixel quality.</li>
+    </ul>
+    <pre><code># Lossless PNG optimization
+oxipng -o max --strip safe *.png
+
+# Lossless JPEG re-optimization
+jpegoptim --strip-all --all-progressive *.jpg</code></pre>
+
+    <h2 id="method6">8. Method 6: Browser-Based Tools (imagec)</h2>
+    <p>For one-off files and non-technical users, the easiest path is <a href="https://imagec.xin/compress.html" target="_blank" rel="noopener">imagec.xin/compress</a>. It runs entirely in your browser using WebAssembly, which means:</p>
+    <ul>
+      <li class="pros"><strong>Privacy:</strong> your images never leave your device — critical for sensitive documents, ID scans, client work</li>
+      <li class="pros"><strong>Free</strong>, no sign-up, no daily limits, no watermark</li>
+      <li class="pros"><strong>Quality slider</strong> with live preview — find the exact balance of size vs quality</li>
+      <li class="pros"><strong>Mobile-friendly</strong> — same experience on phone</li>
+      <li class="pros"><strong>Works offline</strong> after first load</li>
+    </ul>
+    <h3>Step-by-step</h3>
+    <ol>
+      <li>Open <a href="https://imagec.xin/compress.html" target="_blank" rel="noopener">imagec.xin/compress</a></li>
+      <li>Drag in your image (JPEG, PNG, or WebP)</li>
+      <li>Move the quality slider down while watching the preview at 100% zoom</li>
+      <li>Stop when you can no longer see a difference — usually q75-85 for photos</li>
+      <li>Click <strong>Download</strong></li>
+    </ol>
+    <p>For a single photo, this drops a 5 MB phone JPEG to ~400 KB in 10 seconds.</p>
+
+    <h2 id="method7">9. Method 7: Command-Line Batch</h2>
+    <p>When you have hundreds of images — a photo archive, a CMS migration, a product catalog — the browser is too slow. The command line handles batches in seconds.</p>
+
+    <h3>ImageMagick (all formats)</h3>
+    <pre><code># Resize, strip metadata, q80, save to out/ subfolder
+magick mogrify -resize 1920x -strip -quality 80 -path out/ *.jpg</code></pre>
+
+    <h3>jpegoptim (JPEG only)</h3>
+    <pre><code># Cap file size at 500 KB each
+jpegoptim --size=500k *.jpg
+
+# Or cap quality at 80
+jpegoptim --max=80 *.jpg</code></pre>
+
+    <h3>pngquant (PNG only)</h3>
+    <pre><code># Lossy palette quantization, q65-85 range
+pngquant --quality=65-85 --force --ext .png *.png</code></pre>
+
+    <h3>oxipng (lossless PNG)</h3>
+    <pre><code># Maximum effort lossless
+oxipng -o max --strip safe *.png</code></pre>
+
+    <div class="tipBox">
+      <strong>💡 Pro tip:</strong> Combine methods for the smallest files: <code>magick mogrify -resize 1920x -strip -quality 82 *.jpg</code> first, then run a lossless re-optimization pass: <code>jpegoptim --all-progressive out/*.jpg</code>. The progressive JPEG re-encoding typically shaves another 5-10%.
+    </div>
+
+    <h2 id="compare">10. Method Comparison Table</h2>
+    <table class="compareTable">
+      <thead><tr><th>Method</th><th>Savings</th><th>Quality loss</th><th>Best for</th><th>Batch</th></tr></thead>
+      <tbody>
+        <tr><td>Resize to display</td><td>50-90%</td><td>None at display size</td><td>Universal first step</td><td>✅</td></tr>
+        <tr><td>Strip metadata</td><td>5-15%</td><td>None</td><td>Privacy, every workflow</td><td>✅</td></tr>
+        <tr><td>Format switch</td><td>20-50%</td><td>None</td><td>JPEG→WebP, PNG→WebP</td><td>✅</td></tr>
+        <tr><td>JPEG quality q85</td><td>50-70%</td><td>Imperceptible</td><td>Photos for web</td><td>✅</td></tr>
+        <tr><td>Lossless re-encode</td><td>10-30%</td><td>None</td><td>Archival, logos</td><td>✅</td></tr>
+        <tr><td>Browser compressor</td><td>50-90%</td><td>Adjustable</td><td>Single files, non-technical</td><td>Soon</td></tr>
+        <tr><td>Command-line batch</td><td>50-90%</td><td>Adjustable</td><td>100+ files, automation</td><td>✅</td></tr>
+      </tbody>
+    </table>
+
+    <h2 id="web">11. Web Performance &amp; SEO</h2>
+    <p>For websites, image file size isn't just an aesthetic concern — it directly affects search rankings and conversion:</p>
+    <ul>
+      <li><strong>LCP (Largest Contentful Paint):</strong> The hero image is usually the LCP element. Cutting it from 2 MB to 200 KB moves LCP from 4s to 1.5s on cable, 8s to 3s on 3G.</li>
+      <li><strong>Mobile-first indexing:</strong> Google indexes the mobile version of your site. Heavy images hurt mobile users most.</li>
+      <li><strong>Conversion:</strong> Walmart found that every 1-second improvement in page load lifted conversions by 2%. Image weight is the #1 lever on load time.</li>
+      <li><strong>Bounce rate:</strong> 53% of mobile users abandon sites that take more than 3 seconds to load.</li>
+    </ul>
+    <p>The professional web workflow: resize to display width, convert to WebP/AVIF (with JPEG fallback), strip metadata, ship via CDN with <code>loading="lazy"</code> on below-the-fold images. This typically cuts payload 80% versus raw uploads.</p>
+
+    <div class="ctaBox">
+      <h3>Reduce Image Size Free &amp; Private</h3>
+      <p>No uploads, no sign-up, runs in your browser.</p>
+      <a href="https://imagec.xin/compress.html" class="ctaBtn" target="_blank" rel="noopener">Open Image Compressor →</a>
+    </div>
+
+    <h2 id="faq">12. Frequently Asked Questions</h2>
+
+    <p><strong>Q: How do I reduce image file size without losing quality?</strong><br>
+    A: Truly lossless methods — resizing to display dimensions, stripping metadata, switching to a more efficient format like WebP lossless — can shrink files 20-40% with zero quality loss. For bigger savings you'll need lossy compression, but at quality 80-85 on JPEG or palette quantization on PNG, the loss is essentially invisible. Use <a href="https://imagec.xin/compress.html" target="_blank" rel="noopener">imagec.xin/compress</a> or Squoosh to find the slider position where you can't see the difference.</p>
+
+    <p><strong>Q: What is the difference between lossy and lossless image compression?</strong><br>
+    A: Lossless re-encodes the same pixel data more efficiently (PNG's deflate, WebP lossless) — no quality loss, savings 10-40%. Lossy discards pixel information the eye can barely perceive (JPEG's DCT, WebP lossy, PNG palette quantization) — savings 50-90% with near-imperceptible loss. Lossy is irreversible: keep a lossless master and export lossy versions from it.</p>
+
+    <p><strong>Q: Why do my photos blow past email attachment limits?</strong><br>
+    A: Modern phone cameras shoot at 12-50 megapixels with minimal JPEG compression — a single photo can be 5-15 MB. Email systems cap attachments at 25 MB total (Gmail, Outlook) or less for corporate Exchange. Resize to 1920px max width and JPEG q80 before attaching — each photo drops to ~300-600 KB and you can fit dozens in one email.</p>
+
+    <p><strong>Q: Does reducing image file size improve my website SEO?</strong><br>
+    A: Yes, indirectly. Google's Core Web Vitals measure LCP, CLS, and INP. Heavy images are the #1 cause of slow LCP. Cutting image payload from 2 MB to 200 KB can move LCP from 4s to 1.5s, which often lifts search rankings — especially on mobile.</p>
+
+    <p><strong>Q: How do I batch reduce the size of 100 images at once?</strong><br>
+    A: Use a command-line tool. With ImageMagick: <code>magick mogrify -resize 1920x -quality 80 -strip -path out/ *.jpg</code>. With jpegoptim: <code>jpegoptim --max=80 *.jpg</code>. For PNG: <code>pngquant --quality=65-85 --force --ext .png *.png</code>. For non-technical users, Photoshop Actions or the <a href="https://imagec.xin/compress.html" target="_blank" rel="noopener">imagec.xin/compress</a> browser tool (single-file workflow) work well.</p>
+
+    <h2 id="summary">13. Summary</h2>
+    <p>The seven methods, applied in order, will reduce almost any image to a fraction of its original size:</p>
+    <ol>
+      <li>Resize to display dimensions</li>
+      <li>Strip metadata</li>
+      <li>Pick the right format (JPEG for photos, PNG/WebP lossless for graphics)</li>
+      <li>Apply lossy compression (q80-85)</li>
+      <li>Run a lossless re-encode pass</li>
+      <li>Use a browser tool like <a href="https://imagec.xin/compress.html" target="_blank" rel="noopener">imagec</a> for one-offs</li>
+      <li>Batch with ImageMagick for 100+ files</li>
+    </ol>
+    <p>A 12 MB phone photo becomes a 400 KB web-ready JPEG. A 6 MB Figma export becomes a 250 KB PNG-8. A 4 MB screenshot becomes a 180 KB WebP. Same pixels at the display size, a fraction of the bytes.</p>
+
+    <div class="ctaBox">
+      <h3>Shrink Your Images Now</h3>
+      <p>Free, private, runs in your browser. Drop in a file, get a smaller one in seconds.</p>
+      <a href="https://imagec.xin/compress.html" class="ctaBtn" target="_blank" rel="noopener">Go to imagec Compressor →</a>
+    </div>
+
+    <footer class="footer">
+      © 2026 imagec — Free, private, browser-based image tools. <a href="https://imagec.xin/">Back to homepage</a>
+    </footer>
+  </article>
+</main>
+
+<script>
+  (function() {
+    var p = encodeURIComponent(location.pathname + location.search);
+    var u = '/__track__?t=' + Date.now() + '&p=' + p;
+    try { var img = new Image(); img.alt = ''; img.style.position = 'absolute'; img.style.width = '0'; img.style.height = '0'; img.src = u; document.body.appendChild(img); } catch(e) {}
+    try { if (navigator.sendBeacon) navigator.sendBeacon(u); } catch(e2) {}
+  })();
+</script>
+</body>
+</html>
