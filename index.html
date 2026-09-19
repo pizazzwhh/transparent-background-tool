@@ -136,6 +136,20 @@
     .toolnav a:hover{color:var(--accent)}
     .toolnav a::after{content:"·";position:absolute;right:-12px;color:var(--line)}
     .toolnav a:last-child::after{display:none}
+    /* ===== Blog section ===== */
+    .blogSection{margin-top:40px;padding:28px 0 8px;border-top:1px solid var(--line)}
+    .blogHead{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px}
+    .blogLabel{font:600 12px/1 var(--sans);letter-spacing:.24em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:12px}
+    .blogLabel::before{content:"";width:28px;height:1px;background:var(--accent)}
+    .blogGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:0;border-top:1px solid var(--ink)}
+    .blogCard{display:flex;flex-direction:column;gap:10px;padding:22px 4px 22px 0;text-decoration:none;color:var(--ink);border-bottom:1px solid var(--line);transition:background .2s,padding .2s}
+    .blogCard:nth-child(odd){padding-right:26px;border-right:1px solid var(--line)}
+    .blogCard:nth-child(even){padding-left:26px}
+    .blogCard:hover{background:var(--card)}
+    .blogCard-title{font:700 17px/1.35 var(--serif);color:var(--ink);margin:0;letter-spacing:-.005em;transition:color .2s}
+    .blogCard:hover .blogCard-title{color:var(--accent)}
+    .blogCard-desc{margin:0;font:13px/1.55 var(--sans);color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+    .blogCard-tag{display:inline-block;font:600 10px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);padding:3px 7px;border-radius:2px;align-self:flex-start}
     /* ===== Footer ===== */
     .siteFooter{text-align:center;padding:34px 0 14px;color:var(--muted);font:12px/1.6 var(--sans);letter-spacing:.02em}
     .siteFooter a{color:var(--muted);text-decoration:none;transition:color .15s;border-bottom:1px solid transparent}
@@ -220,6 +234,44 @@
     <a href="/img2pdf.html">转PDF</a>
     <a href="/filter.html">滤镜调色</a>
   </nav>
+
+  <section class="blogSection">
+    <div class="blogHead">
+      <span class="blogLabel" data-i18n="blogLabel">博客指南</span>
+    </div>
+    <div class="blogGrid">
+      <a class="blogCard" href="/blog/compress-png-to-100kb.html">
+        <span class="blogCard-tag">压缩</span>
+        <h3 class="blogCard-title">How to Compress PNG to 100KB or Less: 6 Free Methods</h3>
+        <p class="blogCard-desc">Learn 6 free methods to compress PNG images to 100KB or below, with comparison of online tools, desktop apps, and command-line options.</p>
+      </a>
+      <a class="blogCard" href="/blog/reduce-image-file-size.html">
+        <span class="blogCard-tag">压缩</span>
+        <h3 class="blogCard-title">How to Reduce Image File Size: 7 Proven Methods</h3>
+        <p class="blogCard-desc">7 proven methods to shrink image file size — lossy vs lossless compression, batch processing, and best practices for web performance.</p>
+      </a>
+      <a class="blogCard" href="/blog/transparent-png-maker.html">
+        <span class="blogCard-tag">去白底</span>
+        <h3 class="blogCard-title">Transparent PNG Maker: Create Transparent Background Images</h3>
+        <p class="blogCard-desc">What is a transparent PNG, use cases for logos and product photos, and how to create one with browser-based tools.</p>
+      </a>
+      <a class="blogCard" href="/blog/webp-to-png-converter.html">
+        <span class="blogCard-tag">格式转换</span>
+        <h3 class="blogCard-title">WebP to PNG Converter: Convert WebP to PNG Online Free</h3>
+        <p class="blogCard-desc">Why WebP exists, when you need PNG instead, 3 methods to convert, and why browser-based conversion is the best choice.</p>
+      </a>
+      <a class="blogCard" href="/blog/image-resizer-for-social-media.html">
+        <span class="blogCard-tag">裁剪</span>
+        <h3 class="blogCard-title">Image Resizer for Social Media: Exact Sizes for All Platforms</h3>
+        <p class="blogCard-desc">Exact image dimensions for Instagram, Facebook, Twitter, and more — with aspect ratios, batch resizing, and file size limits.</p>
+      </a>
+      <a class="blogCard" href="/blog/photo-watermark-ideas.html">
+        <span class="blogCard-tag">水印</span>
+        <h3 class="blogCard-title">10 Photo Watermark Ideas to Protect Your Images</h3>
+        <p class="blogCard-desc">Why watermark your photos, 10 creative watermark designs, batch watermarking tips, and best practices for image protection.</p>
+      </a>
+    </div>
+  </section>
 </main>
 <div class="sponsorBar" style="text-align:center;padding:20px;margin:0 auto;max-width:680px;">
   <p style="color:var(--muted);font-size:13px;margin:0 0 10px" data-i18n="sponsorText">All tools are free. If imagec saved you time, consider buying us a coffee ☕</p>
