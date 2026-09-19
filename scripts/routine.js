@@ -1,3 +1,4 @@
+// imagec routine — ESA edge function with stats tracking + multi-path assets
 const NS = "stats_counter";
 
 const mimeTypes = {
