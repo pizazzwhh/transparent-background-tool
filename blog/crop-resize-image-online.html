@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>How to Crop and Resize Images Online: Complete Guide 2026 | imagec</title>
+  <meta name="description" content="Complete 2026 guide to cropping and resizing images online. Compare imagec, Photoshop, GIMP, Canva, and mobile apps. Aspect ratios, social media sizes, DPI for print, and an FAQ." />
+  <meta name="keywords" content="crop image online, resize image, image cropper, photo resizer, crop image to specific size, batch crop images" />
+  <meta name="author" content="imagec" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="canonical" href="https://imagec.xin/blog/crop-resize-image-online.html" />
+  <link rel="alternate" hreflang="en" href="https://imagec.xin/blog/crop-resize-image-online.html" />
+  <link rel="alternate" hreflang="zh-CN" href="https://imagec.xin/blog/crop-resize-image-guide.html" />
+  <link rel="alternate" hreflang="x-default" href="https://imagec.xin/blog/crop-resize-image-online.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="imagec" />
+  <meta property="og:title" content="How to Crop and Resize Images Online: Complete Guide 2026" />
+  <meta property="og:description" content="Compare imagec, Photoshop, GIMP, Canva, and mobile apps for cropping and resizing. Aspect ratios, social media sizes, print DPI, and FAQ." />
+  <meta property="og:url" content="https://imagec.xin/blog/crop-resize-image-online.html" />
+  <meta property="og:image" content="https://imagec.xin/og-image.jpg" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="How to Crop and Resize Images Online: Complete Guide" />
+  <meta name="twitter:description" content="Aspect ratios, social media sizes, print DPI, and a tool comparison with FAQ." />
+  <meta name="twitter:image" content="https://imagec.xin/og-image.jpg" />
+  <meta name="msvalidate.01" content="453AC1968127586FA6335E55E3C3449F" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "How to Crop and Resize Images Online: Complete Guide 2026",
+    "description": "Compare imagec, Photoshop, GIMP, Canva, and mobile apps for cropping and resizing images. Aspect ratios, social media sizes, print DPI, and an FAQ.",
+    "author": { "@type": "Organization", "name": "imagec" },
+    "publisher": { "@type": "Organization", "name": "imagec", "logo": { "@type": "ImageObject", "url": "https://imagec.xin/favicon.svg" } },
+    "datePublished": "2026-09-19",
+    "dateModified": "2026-09-19",
+    "image": "https://imagec.xin/og-image.jpg",
+    "mainEntityOfPage": "https://imagec.xin/blog/crop-resize-image-online.html",
+    "articleSection": "Tutorial",
+    "wordCount": "3300",
+    "keywords": "crop image online, resize image, image cropper, photo resizer, crop image to specific size, batch crop images"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I crop an image to an exact size like 600x600 pixels?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use imagec.xin/crop — select 'Custom' aspect ratio, enter 600 for both width and height, position the crop frame, and export. Photoshop users can use the Crop tool with width/height fields set to 600 px. For batch work, ImageMagick's `magick input.jpg -resize 600x600^ -gravity center -extent 600x600 output.jpg` does it in one line."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the difference between cropping and resizing?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Cropping removes parts of the image — you cut out a region and discard the rest. The remaining pixels keep their original resolution. Resizing scales the entire image up or down — all pixels are still there but interpolated to a new dimension. Cropping changes composition; resizing changes dimensions."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What DPI should I use for printing?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Standard photo print uses 300 DPI. A 4x6 inch print needs 1200x1800 pixels. For magazines and high-quality prints use 300 DPI; for posters viewed at a distance, 150-200 DPI is acceptable. Screens display at 72-96 DPI, but always export at the pixel dimensions you need and let the printer driver handle DPI."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I crop an image without losing quality?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Cropping itself doesn't reduce quality — you keep the original pixel data of the cropped region. However, if you crop a small region and then enlarge it, you'll see pixelation because you're spreading few pixels across more space. Always start with the highest-resolution original available, and avoid cropping tiny regions only to scale them up."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the best aspect ratio for social media?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Instagram feed square is 1:1 (1080x1080), Instagram portrait is 4:5 (1080x1350), Instagram Stories and Reels are 9:16 (1080x1920). Facebook feed is 1.91:1 (1200x630). Twitter/X post image is 16:9 (1600x900). LinkedIn shared image is 1.91:1 (1200x627). Always export at these pixel dimensions for crispness."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I batch crop multiple images to the same size?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. With ImageMagick: `magick mogrify -resize 1200x1200^ -gravity center -extent 1200x1200 -path out/ *.jpg`. In Photoshop, record an Action with the Crop tool and use File → Scripts → Image Processor. GIMP users can install the BIMP plugin. Canva Pro offers bulk create, and imagec.xin/crop supports quick batch workflows in your browser."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    :root{--ink:#1A1A1A;--ink-soft:#3A3A38;--muted:#8A8378;--paper:#F5F1EA;--card:#FBF8F2;--line:#D9D2C5;--line-soft:#E8E2D6;--accent:#1F3A2E;--accent2:#E8EDE6;--serif:Georgia,"Source Han Serif SC","Noto Serif SC","Songti SC","STSong","宋体",serif;--sans:-apple-system,BlinkMacSystemFont,"Inter","PingFang SC","Microsoft YaHei",sans-serif;--shadow:0 1px 0 rgba(26,26,26,.04)}
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;color:var(--ink);background:radial-gradient(circle at 10% 0,#dff6e9 0,transparent 32rem),var(--paper);font:16px/1.7 Inter,"Helvetica Neue",Arial,sans-serif}
+    .shell{max-width:860px;margin:auto;padding:32px 24px 64px}
+    header{display:flex;align-items:center;gap:12px;margin-bottom:32px;padding-bottom:24px;border-bottom:1px solid var(--line)}
+    .backLink{color:var(--accent);text-decoration:none;font-weight:600;font-size:14px}
+    .backLink:hover{text-decoration:underline}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px;margin-left:auto}
+    .mark{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;color:white;font-family:Georgia;font-size:18px}
+    article{background:var(--card);border:1px solid #ffffff;box-shadow:var(--shadow);border-radius:24px;padding:40px}
+    h1{font-size:clamp(26px,3.5vw,38px);line-height:1.2;letter-spacing:-.03em;margin:0 0 12px;max-width:700px}
+    .meta{color:var(--muted);font-size:14px;margin-bottom:32px;display:flex;gap:16px;flex-wrap:wrap}
+    h2{font-size:24px;margin:40px 0 16px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+    h3{font-size:19px;margin:28px 0 12px;color:var(--ink)}
+    h4{font-size:16px;margin:20px 0 8px;color:var(--ink-soft)}
+    p{margin:14px 0;color:#2a3330}
+    ul,ol{margin:14px 0;padding-left:24px}
+    li{margin:8px 0}
+    .toc{background:#f0fbf5;border-radius:16px;padding:24px 28px;margin:28px 0}
+    .toc h3{margin:0 0 12px;color:var(--accent);font-size:16px}
+    .toc ol{margin:0;padding-left:20px}
+    .toc a{color:var(--ink);text-decoration:none}
+    .toc a:hover{color:var(--accent)}
+    .compareTable{width:100%;border-collapse:collapse;margin:20px 0;font-size:14px}
+    .compareTable th,.compareTable td{border:1px solid var(--line);padding:12px 14px;text-align:left}
+    .compareTable th{background:#f6f7f5;font-weight:700}
+    .compareTable tr:nth-child(even){background:#fbfaf5}
+    .pros{color:#087f5b}
+    .cons{color:#c92a2a}
+    .tipBox{background:#fff4e6;border-left:4px solid #f59f00;border-radius:0 12px 12px 0;padding:16px 20px;margin:20px 0}
+    .tipBox strong{color:#d9480f}
+    .ctaBox{background:linear-gradient(135deg,#e4f6ec,#fbf4d7);border-radius:20px;padding:32px;text-align:center;margin:40px 0}
+    .ctaBox h3{margin:0 0 8px;font-size:22px}
+    .ctaBox p{margin:0 0 20px;color:var(--muted)}
+    .ctaBtn{display:inline-block;background:var(--ink);color:white;padding:12px 28px;border-radius:12px;font-weight:700;text-decoration:none;transition:.18s}
+    .ctaBtn:hover{background:var(--accent);transform:translateY(-1px)}
+    code{background:#e9ece8;padding:2px 6px;border-radius:6px;font-size:13px;font-family:Consolas,monospace}
+    pre{background:#1f2622;color:#e8efe9;padding:14px 18px;border-radius:12px;overflow:auto;font-size:13px;font-family:Consolas,monospace}
+    pre code{background:transparent;color:inherit;padding:0}
+    .footer{margin-top:48px;padding-top:24px;border-top:1px solid var(--line);color:var(--muted);font-size:13px;text-align:center}
+    .footer a{color:var(--accent);text-decoration:none}
+    .footer a:hover{text-decoration:underline}
+    @media(max-width:600px){
+      article{padding:24px 20px}
+      .shell{padding:16px 12px 40px}
+      h1{font-size:24px}
+    }
+  </style>
+</head>
+<body>
+<main class="shell">
+  <header>
+    <a href="https://imagec.xin/" class="backLink">← Back to imagec</a>
+    <div class="brand"><span class="mark"><svg viewBox="0 0 64 64" width="22" height="22" aria-hidden="true"><rect x="12" y="12" width="34" height="34" rx="3" fill="none" stroke="#1A1A1A" stroke-width="3.2"/><rect x="30" y="30" width="22" height="22" rx="3" fill="#1F3A2E"/></svg></span><span>imagec</span></div>
+  </header>
+
+  <article>
+    <h1>How to Crop and Resize Images Online: Complete Guide 2026</h1>
+    <div class="meta">
+      <span>📅 September 19, 2026</span>
+      <span>⏱ 12 min read</span>
+      <span>🏷 Tutorial / Image Editing</span>
+    </div>
+
+    <p>Cropping and resizing are the two most-performed image edits on earth. Whether you're fitting a profile photo, prepping a thumbnail, adjusting a banner for Instagram, or producing a 4×6 print, you're going to need a reliable crop and resize tool — and the wrong one will cost you time, quality, or both.</p>
+    <p>This complete 2026 guide walks through <strong>5 free methods</strong> for cropping and resizing images, includes a comparison table, covers every common aspect ratio and social media size, explains DPI for print, and answers the most-asked questions. By the end you'll know exactly which tool fits your workflow.</p>
+
+    <div class="toc">
+      <h3>📖 Table of Contents</h3>
+      <ol>
+        <li><a href="#concepts">Cropping vs Resizing: What's the Difference?</a></li>
+        <li><a href="#aspect">Aspect Ratios and Common Sizes</a></li>
+        <li><a href="#social">Social Media Image Sizes (2026)</a></li>
+        <li><a href="#print">Print Sizes and DPI Explained</a></li>
+        <li><a href="#method1">Method 1: imagec (Easiest &amp; Private)</a></li>
+        <li><a href="#method2">Method 2: Photoshop (Pro Desktop)</a></li>
+        <li><a href="#method3">Method 3: GIMP (Free Desktop)</a></li>
+        <li><a href="#method4">Method 4: Canva (Design-Focused)</a></li>
+        <li><a href="#method5">Method 5: Mobile Apps (iOS &amp; Android)</a></li>
+        <li><a href="#method6">Method 6: Command-Line (Batch)</a></li>
+        <li><a href="#compare">Comparison Table</a></li>
+        <li><a href="#tips">7 Pro Tips for Clean Crops</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#summary">Final Verdict</a></li>
+      </ol>
+    </div>
+
+    <h2 id="concepts">1. Cropping vs Resizing: What's the Difference?</h2>
+    <p>These terms are often used interchangeably, but they do very different things:</p>
+    <ul>
+      <li><strong>Cropping</strong> cuts out a region of the image and discards the rest. The remaining pixels keep their original resolution. Cropping changes <em>composition</em>.</li>
+      <li><strong>Resizing</strong> scales the entire image up or down. Every pixel is still there but interpolated to a new dimension. Resizing changes <em>dimensions</em>.</li>
+      <li><strong>Canvas size</strong> (a third, related operation) changes the document's frame without scaling or cropping the image — useful for adding borders or letterboxing.</li>
+    </ul>
+    <p>Most real-world tasks combine the two: you crop to fix composition, then resize to fit a target. A good tool handles both in one workflow.</p>
+
+    <h2 id="aspect">2. Aspect Ratios and Common Sizes</h2>
+    <p>An aspect ratio is the width-to-height ratio of an image. Common ratios you'll encounter:</p>
+
+    <table class="compareTable">
+      <thead>
+        <tr><th>Aspect ratio</th><th>Example pixels</th><th>Typical use</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1:1 (square)</td><td>1080 × 1080</td><td>Instagram feed, profile photos</td></tr>
+        <tr><td>4:5 (portrait)</td><td>1080 × 1350</td><td>Instagram portrait</td></tr>
+        <tr><td>9:16 (vertical)</td><td>1080 × 1920</td><td>Stories, Reels, TikTok, Shorts</td></tr>
+        <tr><td>16:9 (widescreen)</td><td>1920 × 1080</td><td>YouTube thumbnails, video</td></tr>
+        <tr><td>4:3 (standard)</td><td>1024 × 768</td><td>Older monitors, slides</td></tr>
+        <tr><td>3:2 (DSLR)</td><td>3000 × 2000</td><td>Most cameras, 4×6 prints</td></tr>
+        <tr><td>1.91:1 (LinkedIn)</td><td>1200 × 627</td><td>LinkedIn/Facebook link share</td></tr>
+        <tr><td>A4 (1:1.414)</td><td>2480 × 3508 (300 DPI)</td><td>Documents, posters</td></tr>
+        <tr><td>US Letter (1:1.294)</td><td>2550 × 3300 (300 DPI)</td><td>North American documents</td></tr>
+      </tbody>
+    </table>
+
+    <h2 id="social">3. Social Media Image Sizes (2026)</h2>
+    <p>Platform sizes change every year. Here are the current recommended dimensions:</p>
+
+    <table class="compareTable">
+      <thead>
+        <tr><th>Platform</th><th>Placement</th><th>Dimensions (px)</th><th>Aspect ratio</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Instagram</td><td>Feed square</td><td>1080 × 1080</td><td>1:1</td></tr>
+        <tr><td>Instagram</td><td>Feed portrait</td><td>1080 × 1350</td><td>4:5</td></tr>
+        <tr><td>Instagram</td><td>Stories / Reels</td><td>1080 × 1920</td><td>9:16</td></tr>
+        <tr><td>Instagram</td><td>Profile photo</td><td>320 × 320</td><td>1:1</td></tr>
+        <tr><td>Facebook</td><td>Feed image</td><td>1200 × 630</td><td>1.91:1</td></tr>
+        <tr><td>Facebook</td><td>Cover photo</td><td>820 × 312</td><td>2.6:1</td></tr>
+        <tr><td>Twitter / X</td><td>Post image</td><td>1600 × 900</td><td>16:9</td></tr>
+        <tr><td>Twitter / X</td><td>Header</td><td>1500 × 500</td><td>3:1</td></tr>
+        <tr><td>LinkedIn</td><td>Shared image</td><td>1200 × 627</td><td>1.91:1</td></tr>
+        <tr><td>LinkedIn</td><td>Cover photo</td><td>1584 × 396</td><td>4:1</td></tr>
+        <tr><td>YouTube</td><td>Thumbnail</td><td>1280 × 720</td><td>16:9</td></tr>
+        <tr><td>YouTube</td><td>Channel art</td><td>2560 × 1440</td><td>16:9</td></tr>
+        <tr><td>TikTok</td><td>Video cover</td><td>1080 × 1920</td><td>9:16</td></tr>
+        <tr><td>Pinterest</td><td>Pin</td><td>1000 × 1500</td><td>2:3</td></tr>
+      </tbody>
+    </table>
+
+    <div class="tipBox">
+      <strong>💡 Pro tip:</strong> Always export at the recommended pixel dimensions — even though Instagram displays at 1080 px wide, exporting at 1080 px square means no re-compression by the platform. Avoid uploading files larger than the platform's max (Instagram compresses anything over ~30 MB aggressively).
+    </div>
+
+    <h2 id="print">4. Print Sizes and DPI Explained</h2>
+    <p>DPI (dots per inch) measures print density. More dots = sharper print, but requires more pixels. Standard print sizes:</p>
+
+    <table class="compareTable">
+      <thead>
+        <tr><th>Print size</th><th>Dimensions</th><th>Pixels @ 300 DPI</th><th>Typical use</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Wallet</td><td>2 × 3 in (51 × 76 mm)</td><td>600 × 900</td><td>Small photo prints</td></tr>
+        <tr><td>4R / 4×6</td><td>4 × 6 in (102 × 152 mm)</td><td>1200 × 1800</td><td>Standard photos</td></tr>
+        <tr><td>5R / 5×7</td><td>5 × 7 in (127 × 178 mm)</td><td>1500 × 2100</td><td>Enlarged photos</td></tr>
+        <tr><td>8×10</td><td>8 × 10 in (203 × 254 mm)</td><td>2400 × 3000</td><td>Framed portraits</td></tr>
+        <tr><td>A4</td><td>210 × 297 mm</td><td>2480 × 3508</td><td>Documents, posters</td></tr>
+        <tr><td>US Letter</td><td>8.5 × 11 in</td><td>2550 × 3300</td><td>Documents</td></tr>
+        <tr><td>A3</td><td>297 × 420 mm</td><td>3508 × 4961</td><td>Large posters</td></tr>
+        <tr><td>Business card (US)</td><td>3.5 × 2 in</td><td>1050 × 600</td><td>Business cards</td></tr>
+      </tbody>
+    </table>
+
+    <p>For most consumer prints, <strong>300 DPI</strong> is the standard. Posters viewed at a distance can use 150-200 DPI. Screens display at 72-96 DPI but always export at the pixel dimensions you need and let the printer driver handle DPI.</p>
+
+    <h2 id="method1">5. Method 1: imagec (Easiest &amp; Private)</h2>
+    <p><a href="https://imagec.xin/crop.html" target="_blank" rel="noopener">imagec.xin/crop</a> is a browser-based crop and resize tool. Everything runs locally — no upload, no sign-up, no watermark.</p>
+
+    <h3>✅ Pros</h3>
+    <ul>
+      <li class="pros"><strong>100% free</strong>, no limits, no watermark</li>
+      <li class="pros"><strong>Privacy-first</strong> — runs entirely in your browser</li>
+      <li class="pros"><strong>Aspect ratio presets</strong> — 1:1, 4:3, 16:9, 9:16, 4:5, A4, Letter, custom</li>
+      <li class="pros"><strong>Exact pixel resize</strong> — set width/height explicitly</li>
+      <li class="pros"><strong>Drag-and-drop</strong> visual crop frame with live preview</li>
+      <li class="pros"><strong>Mobile-friendly</strong> — works great on phone browsers</li>
+    </ul>
+
+    <h3>❌ Cons</h3>
+    <ul>
+      <li class="cons">No layer-based compositing (use Photoshop or GIMP for that)</li>
+      <li class="cons">Batch crop is on the roadmap but not yet released</li>
+    </ul>
+
+    <h3>How to crop an image with imagec</h3>
+    <ol>
+      <li>Open <a href="https://imagec.xin/crop.html" target="_blank" rel="noopener">imagec.xin/crop</a></li>
+      <li>Drag your image into the drop zone or click to browse</li>
+      <li>Choose an <strong>aspect ratio</strong> preset (e.g., 1:1 for Instagram) or pick <strong>Custom</strong> and enter width/height</li>
+      <li>Drag the crop frame to position — the preview shows the final result live</li>
+      <li>Optional: under <strong>Resize</strong>, set the output pixel dimensions (e.g., 1080 × 1080)</li>
+      <li>Choose output format — JPG, PNG, or WebP</li>
+      <li>Click <strong>Export</strong> to download</li>
+    </ol>
+
+    <h3>How to resize without cropping</h3>
+    <ol>
+      <li>Open the image in imagec.xin/crop</li>
+      <li>Skip the crop frame — leave it covering the full image</li>
+      <li>Under <strong>Resize</strong>, enter the target width (e.g., 800 px) — height scales proportionally</li>
+      <li>Choose format and export</li>
+    </ol>
+
+    <div class="tipBox">
+      <strong>💡 Pro tip:</strong> For an ID photo, first crop to the required aspect ratio (e.g., 2×2 inch = 1:1, or 35×45 mm = 7:9), then use the <a href="https://imagec.xin/idphoto.html" target="_blank" rel="noopener">ID photo tool</a> to set the correct background and pixel dimensions for printing.
+    </div>
+
+    <h2 id="method2">6. Method 2: Photoshop (Pro Desktop)</h2>
+    <p>Photoshop's Crop tool is the industry reference. It offers presets for every social platform, fine-grained pixel input, perspective crop, and non-destructive editing via layer masks.</p>
+
+    <h3>✅ Pros</h3>
+    <ul>
+      <li class="pros">Best crop tool on the market — presets, perspective, non-destructive</li>
+      <li class="pros">Image Processor script for batch resize</li>
+      <li class="pros">Pair with retouching, layers, masks</li>
+    </ul>
+
+    <h3>❌ Cons</h3>
+    <ul>
+      <li class="cons">Subscription cost</li>
+      <li class="cons">Heavy install</li>
+      <li class="cons">Overkill for casual users</li>
+    </ul>
+
+    <h3>How to crop in Photoshop</h3>
+    <ol>
+      <li>Open the image in Photoshop</li>
+      <li>Press <code>C</code> to select the Crop tool</li>
+      <li>In the top options bar, pick an aspect ratio preset or enter custom W/H values</li>
+      <li>Drag the crop frame — straighten with the ruler if needed</li>
+      <li>Press <strong>Enter</strong> to apply</li>
+      <li>Go to <strong>Image → Image Size</strong> to set exact pixel dimensions</li>
+      <li>Choose <strong>File → Export → Export As</strong> and pick JPG/PNG/WebP</li>
+    </ol>
+
+    <h3>Batch resize with Image Processor</h3>
+    <ol>
+      <li>Go to <strong>File → Scripts → Image Processor</strong></li>
+      <li>Select the source folder</li>
+      <li>Select the output folder</li>
+      <li>Set file type (JPG/PNG) and quality</li>
+      <li>Optionally specify resize: e.g., "Resize to Fit" with W=1200 H=1200</li>
+      <li>Click <strong>Run</strong></li>
+    </ol>
+
+    <h2 id="method3">7. Method 3: GIMP (Free Desktop)</h2>
+    <p>GIMP is the leading free image editor. Its crop and resize tools cover everything most users need.</p>
+
+    <h3>✅ Pros</h3>
+    <ul>
+      <li class="pros">Free and open-source</li>
+      <li class="pros">Runs on Windows, macOS, Linux</li>
+      <li class="pros">Full control over pixel dimensions and aspect ratio</li>
+      <li class="pros">Batch via BIMP plugin</li>
+    </ul>
+
+    <h3>❌ Cons</h3>
+    <ul>
+      <li class="cons">UI is less polished than Photoshop</li>
+      <li class="cons">No platform-specific social media presets</li>
+    </ul>
+
+    <h3>How to crop in GIMP</h3>
+    <ol>
+      <li>Open the image in GIMP</li>
+      <li>Press <code>Shift+C</code> for the Crop tool</li>
+      <li>In the tool options, check <strong>Fixed</strong> and pick "Aspect ratio"</li>
+      <li>Enter the ratio (e.g., 1:1, 16:9) or leave on "Free" for arbitrary crop</li>
+      <li>Drag the crop region</li>
+      <li>Press <strong>Enter</strong> to apply</li>
+      <li>Go to <strong>Image → Scale Image</strong> to set exact pixel dimensions</li>
+      <li>Use <strong>File → Export As</strong> to save</li>
+    </ol>
+
+    <h2 id="method4">8. Method 4: Canva (Design-Focused)</h2>
+    <p>Canva is a web-based design tool with thousands of templates pre-sized for every platform. If you're making social media graphics, banners, or marketing assets, Canva is excellent.</p>
+
+    <h3>✅ Pros</h3>
+    <ul>
+      <li class="pros">Pre-sized templates for every social platform</li>
+      <li class="pros">Browser-based — no install</li>
+      <li class="pros">Brand kit, fonts, stock photos</li>
+      <li class="pros">Free tier is generous</li>
+    </ul>
+
+    <h3>❌ Cons</h3>
+    <ul>
+      <li class="cons">Free tier has limited templates and assets</li>
+      <li class="cons">Pro features require subscription</li>
+      <li class="cons">Less precise than Photoshop for pixel-perfect crops</li>
+      <li class="cons">Some uploads go to Canva's servers</li>
+    </ul>
+
+    <h3>How to crop in Canva</h3>
+    <ol>
+      <li>Create a design using a preset size (e.g., "Instagram Post (Square)")</li>
+      <li>Upload your image and drag it onto the canvas</li>
+      <li>Double-click the image to enter crop mode</li>
+      <li>Drag the corners to adjust the crop</li>
+      <li>Click anywhere outside to apply</li>
+      <li>Download as JPG, PNG, or PDF</li>
+    </ol>
+
+    <h2 id="method5">9. Method 5: Mobile Apps (iOS &amp; Android)</h2>
+    <p>Both iOS Photos and Google Photos have built-in crop and resize. They're free, fast, and surprisingly capable.</p>
+
+    <h3>iOS Photos</h3>
+    <ol>
+      <li>Open the photo in <strong>Photos</strong></li>
+      <li>Tap <strong>Edit</strong></li>
+      <li>Tap the crop icon (bottom of screen)</li>
+      <li>Choose an aspect ratio preset or drag freely</li>
+      <li>Tap <strong>Done</strong> to save</li>
+    </ol>
+
+    <h3>Android Google Photos</h3>
+    <ol>
+      <li>Open the photo in <strong>Photos</strong></li>
+      <li>Tap <strong>Edit</strong></li>
+      <li>Tap <strong>Crop</strong></li>
+      <li>Pick an aspect ratio or drag freely</li>
+      <li>Tap <strong>Save</strong></li>
+    </ol>
+
+    <h3>✅ Pros</h3>
+    <ul>
+      <li class="pros">Built into your phone — no install</li>
+      <li class="pros">Free, no watermark</li>
+      <li class="pros">Aspect ratio presets for social</li>
+    </ul>
+
+    <h3>❌ Cons</h3>
+    <ul>
+      <li class="cons">No exact pixel resize</li>
+      <li class="cons">No batch</li>
+      <li class="cons">Limited output format options</li>
+    </ul>
+
+    <h2 id="method6">10. Method 6: Command-Line (Batch)</h2>
+    <p>For batch crops and resizes on hundreds or thousands of images, the command line is unbeatable.</p>
+
+    <h3>ImageMagick — single image crop and resize</h3>
+    <pre><code># Resize to 1080x1080 (keeps aspect, may letterbox)
+magick input.jpg -resize 1080x1080 output.jpg
+
+# Resize to fill 1080x1080 then center-crop (covers full square)
+magick input.jpg -resize 1080x1080^ -gravity center -extent 1080x1080 output.jpg
+
+# Crop a 600x600 region from top-left
+magick input.jpg -crop 600x600+0+0 output.jpg
+
+# Crop to 16:9 aspect ratio
+magick input.jpg -gravity center -crop 16:9 +repage output.jpg</code></pre>
+
+    <h3>ImageMagick — batch with mogrify</h3>
+    <pre><code># Batch resize all JPGs to max 1200px wide, save to out/
+magick mogrify -resize 1200x -path out/ *.jpg
+
+# Batch center-crop all to 1080x1080
+magick mogrify -resize 1080x1080^ -gravity center -extent 1080x1080 -path out/ *.jpg</code></pre>
+
+    <div class="tipBox">
+      <strong>💡 Pro tip:</strong> Use <code>-strip</code> to remove metadata and <code>-quality 85</code> for JPG compression in the same pass: <code>magick mogrify -resize 1200x -strip -quality 85 -path out/ *.jpg</code>.
+    </div>
+
+    <h2 id="compare">11. Comparison Table</h2>
+    <table class="compareTable">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>imagec</th>
+          <th>Photoshop</th>
+          <th>GIMP</th>
+          <th>Canva</th>
+          <th>Mobile</th>
+          <th>CLI</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Price</td><td>Free</td><td>$$$</td><td>Free</td><td>Free + paid</td><td>Free</td><td>Free</td></tr>
+        <tr><td>Install</td><td>None</td><td>Heavy</td><td>Medium</td><td>None</td><td>Built-in</td><td>Light</td></tr>
+        <tr><td>Privacy</td><td>✅ Local</td><td>✅ Local</td><td>✅ Local</td><td>⚠️ Upload</td><td>✅ Local</td><td>✅ Local</td></tr>
+        <tr><td>Aspect presets</td><td>✅</td><td>✅</td><td>Manual</td><td>✅</td><td>✅</td><td>Manual</td></tr>
+        <tr><td>Exact px resize</td><td>✅</td><td>✅</td><td>✅</td><td>⚠️</td><td>❌</td><td>✅</td></tr>
+        <tr><td>Batch</td><td>Roadmap</td><td>✅ Scripts</td><td>BIMP</td><td>Pro</td><td>❌</td><td>✅</td></tr>
+        <tr><td>Mobile UI</td><td>✅</td><td>❌</td><td>❌</td><td>✅</td><td>✅</td><td>❌</td></tr>
+        <tr><td>Design templates</td><td>❌</td><td>❌</td><td>❌</td><td>✅</td><td>❌</td><td>❌</td></tr>
+        <tr><td>Best for</td><td>Quick crops</td><td>Pros</td><td>Linux users</td><td>Marketing</td><td>Phone users</td><td>Devs</td></tr>
+      </tbody>
+    </table>
+
+    <h2 id="tips">12. 7 Pro Tips for Clean Crops</h2>
+
+    <h3>1. Crop to aspect ratio, then resize</h3>
+    <p>Always crop to the target aspect ratio first (e.g., 1:1 for Instagram), then resize to the final pixel dimensions. This avoids distortion — the image stays proportional.</p>
+
+    <h3>2. Use the rule of thirds</h3>
+    <p>Position your subject on one of the four intersections of the rule-of-thirds grid. It almost always produces a more dynamic composition than centering.</p>
+
+    <h3>3. Crop with the final display in mind</h3>
+    <p>A 9:16 vertical crop looks great on a phone but gets cropped to a 1:1 square on Instagram grid view. Account for both. The <a href="https://imagec.xin/crop.html" target="_blank" rel="noopener">imagec crop tool</a> lets you try multiple ratios quickly.</p>
+
+    <h3>4. Don't upscale</h3>
+    <p>If your source is 800 × 600, you cannot meaningfully "resize" it to 3000 × 2000 — upscaling just invents pixels and the result looks blurry. Start with the highest-resolution original you have.</p>
+
+    <h3>5. Avoid extreme crops</h3>
+    <p>Cropping a 12 MP image down to 5% of its area leaves you with a 600 × 400 result — usually too small for any use. If you find yourself doing this, consider reshooting or zooming in camera.</p>
+
+    <h3>6. Match print size to DPI</h3>
+    <p>For a 4×6 print at 300 DPI, you need 1200 × 1800 pixels. For an A4 poster at 300 DPI, you need 2480 × 3508. Always check both before exporting.</p>
+
+    <h3>7. Compress after resizing</h3>
+    <p>Once cropped and resized, run the result through <a href="https://imagec.xin/compress.html" target="_blank" rel="noopener">imagec.xin/compress</a> to remove the bytes you don't need. Smaller files load faster and upload without hitting form limits.</p>
+
+    <div class="ctaBox">
+      <h3>Crop &amp; Resize Images Free &amp; Private</h3>
+      <p>Visual crop frame, aspect ratio presets, exact pixel resize — all in your browser.</p>
+      <a href="https://imagec.xin/crop.html" class="ctaBtn" target="_blank" rel="noopener">Open Crop Tool →</a>
+    </div>
+
+    <h2 id="faq">13. Frequently Asked Questions</h2>
+
+    <p><strong>Q: How do I crop an image to an exact size like 600×600 pixels?</strong><br>
+    A: Use imagec.xin/crop — choose "Custom" aspect ratio, enter 600 for both width and height, position the crop frame, and export. In Photoshop, set the Crop tool's width/height fields to 600 px. For batch, ImageMagick does it in one line: <code>magick input.jpg -resize 600x600^ -gravity center -extent 600x600 output.jpg</code>.</p>
+
+    <p><strong>Q: What's the difference between cropping and resizing?</strong><br>
+    A: Cropping removes parts of the image — you cut a region and discard the rest; remaining pixels keep their original resolution. Resizing scales the entire image up or down, interpolating pixels to a new dimension. Cropping changes composition; resizing changes dimensions.</p>
+
+    <p><strong>Q: What DPI should I use for printing?</strong><br>
+    A: Standard photo print uses 300 DPI. A 4×6 print needs 1200×1800 pixels. Magazines and high-quality prints use 300 DPI; posters viewed at distance use 150-200 DPI. Always export at the pixel dimensions you need (width × DPI = required pixels) and let the printer driver handle density.</p>
+
+    <p><strong>Q: How do I crop an image without losing quality?</strong><br>
+    A: Cropping itself doesn't reduce quality — you keep the original pixel data of the cropped region. Quality loss only happens if you crop a small region and then enlarge it (because few pixels are spread across more space). Start with the highest-resolution original available, and avoid cropping tiny regions only to scale them up.</p>
+
+    <p><strong>Q: What's the best aspect ratio for social media?</strong><br>
+    A: Instagram feed square is 1:1 (1080×1080), Instagram portrait is 4:5 (1080×1350), Stories/Reels are 9:16 (1080×1920). Facebook feed image is 1.91:1 (1200×630). Twitter post image is 16:9 (1600×900). LinkedIn shared image is 1.91:1 (1200×627). Always export at these pixel dimensions for crispness.</p>
+
+    <p><strong>Q: Can I batch crop multiple images to the same size?</strong><br>
+    A: Yes. With ImageMagick: <code>magick mogrify -resize 1200x1200^ -gravity center -extent 1200x1200 -path out/ *.jpg</code>. In Photoshop, record an Action and run it through File → Scripts → Image Processor. GIMP users can install the BIMP plugin. Canva Pro offers bulk create, and imagec.xin/crop supports quick batch workflows.</p>
+
+    <p><strong>Q: What's the smallest file I can export for a web image?</strong><br>
+    A: After cropping to the right size, run the result through <a href="https://imagec.xin/compress.html" target="_blank" rel="noopener">imagec.xin/compress</a>. For photos, WebP at quality 75 usually beats JPG by 25-35%. For graphics, PNG-8 (256 colors) is smallest. A 1200×630 banner typically compresses to 80-150 KB.</p>
+
+    <h2 id="summary">14. Final Verdict</h2>
+    <p>Pick the right tool for the job:</p>
+    <ul>
+      <li><strong>Quick crop on any device?</strong> → <a href="https://imagec.xin/crop.html" target="_blank" rel="noopener">imagec.xin/crop</a> — free, private, browser-based</li>
+      <li><strong>Pro workflow with layers?</strong> → Photoshop is unmatched</li>
+      <li><strong>Free desktop on Linux?</strong> → GIMP covers everything</li>
+      <li><strong>Marketing &amp; social templates?</strong> → Canva wins for templates</li>
+      <li><strong>On your phone?</strong> → iOS Photos or Google Photos built-in</li>
+      <li><strong>Batch hundreds of files?</strong> → ImageMagick CLI</li>
+    </ul>
+    <p>For most crop-and-resize tasks — profile photos, social media posts, banners, ID photos, prints — <strong>imagec</strong> gives you professional output completely free, with zero uploads. Pair it with the <a href="https://imagec.xin/compress.html" target="_blank" rel="noopener">compress</a> and <a href="https://imagec.xin/convert.html" target="_blank" rel="noopener">convert</a> tools for the complete workflow.</p>
+
+    <div class="ctaBox">
+      <h3>Ready to Crop?</h3>
+      <p>Open your browser, drop in an image, crop and resize in seconds.</p>
+      <a href="https://imagec.xin/crop.html" class="ctaBtn" target="_blank" rel="noopener">Go to imagec Crop →</a>
+    </div>
+
+    <footer class="footer">
+      © 2026 imagec — Free, private, browser-based image tools. <a href="https://imagec.xin/">Back to homepage</a>
+    </footer>
+  </article>
+</main>
+
+<script>
+  (function() {
+    var p = encodeURIComponent(location.pathname + location.search);
+    var u = '/__track__?t=' + Date.now() + '&p=' + p;
+    try { var img = new Image(); img.alt = ''; img.style.position = 'absolute'; img.style.width = '0'; img.style.height = '0'; img.src = u; document.body.appendChild(img); } catch(e) {}
+    try { if (navigator.sendBeacon) navigator.sendBeacon(u); } catch(e2) {}
+  })();
+</script>
+</body>
+</html>

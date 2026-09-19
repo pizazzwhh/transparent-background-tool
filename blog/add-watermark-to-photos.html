@@ -1,0 +1,545 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>How to Add Watermark to Photos: 5 Methods to Protect Your Images 2026 | imagec</title>
+  <meta name="description" content="Protect your photos with watermarks. Compare imagec, Photoshop, Lightroom, mobile apps, and command-line tools. Text vs image watermarks, opacity, positioning, batch processing, and an FAQ." />
+  <meta name="keywords" content="add watermark to photo, watermark images, photo watermark, batch watermark, text watermark, image watermark online" />
+  <meta name="author" content="imagec" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="canonical" href="https://imagec.xin/blog/add-watermark-to-photos.html" />
+  <link rel="alternate" hreflang="en" href="https://imagec.xin/blog/add-watermark-to-photos.html" />
+  <link rel="alternate" hreflang="zh-CN" href="https://imagec.xin/blog/watermark-photos-guide.html" />
+  <link rel="alternate" hreflang="x-default" href="https://imagec.xin/blog/add-watermark-to-photos.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="imagec" />
+  <meta property="og:title" content="How to Add Watermark to Photos: 5 Methods to Protect Your Images" />
+  <meta property="og:description" content="Compare imagec, Photoshop, Lightroom, mobile apps, and CLI for adding watermarks. Text vs image, opacity, positioning, batch, and FAQ." />
+  <meta property="og:url" content="https://imagec.xin/blog/add-watermark-to-photos.html" />
+  <meta property="og:image" content="https://imagec.xin/og-image.jpg" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="How to Add Watermark to Photos: 5 Methods" />
+  <meta name="twitter:description" content="Text vs image, opacity, positioning, batch processing, best practices, and FAQ." />
+  <meta name="twitter:image" content="https://imagec.xin/og-image.jpg" />
+  <meta name="msvalidate.01" content="453AC1968127586FA6335E55E3C3449F" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "How to Add Watermark to Photos: 5 Methods to Protect Your Images in 2026",
+    "description": "Protect your photos with watermarks. Compare imagec, Photoshop, Lightroom, mobile apps, and command-line tools for text vs image watermarks, opacity, positioning, and batch processing.",
+    "author": { "@type": "Organization", "name": "imagec" },
+    "publisher": { "@type": "Organization", "name": "imagec", "logo": { "@type": "ImageObject", "url": "https://imagec.xin/favicon.svg" } },
+    "datePublished": "2026-09-19",
+    "dateModified": "2026-09-19",
+    "image": "https://imagec.xin/og-image.jpg",
+    "mainEntityOfPage": "https://imagec.xin/blog/add-watermark-to-photos.html",
+    "articleSection": "Tutorial",
+    "wordCount": "3250",
+    "keywords": "add watermark to photo, watermark images, photo watermark, batch watermark, text watermark, image watermark online"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Can a watermark be removed from a photo?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A visible watermark can be partially removed with AI inpainting tools (Content-Aware Fill in Photoshop, Lama Cleaner, Stable Diffusion) but the result usually leaves visible artifacts, especially when the watermark covers detailed areas. A well-placed watermark across the subject — not just the corner — is much harder to remove cleanly. The best protection combines a visible watermark with embedded metadata (IPTC, C2PA) for proof of ownership."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the best opacity for a photo watermark?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "For text watermarks, 30-50% opacity is the sweet spot — visible enough to identify the owner but not distracting. For tile/repeat watermarks that cover the whole image (most protective), 10-20% opacity works. For corner logo watermarks, 60-80% is fine. Always test on both light and dark images to ensure visibility."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What's better: text or image watermark?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Text watermarks (your name, URL, @handle) are easier to add, scale perfectly, and are instantly readable. Image watermarks (logo, signature) look more professional and reinforce brand identity but require a transparent PNG logo. Most professional workflows use a logo watermark for branded content and a text watermark for casual protection."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I batch watermark 100 photos at once?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use a command-line tool: with ImageMagick, `magick mogrify -gravity southeast -draw \"image Over 0,0 0,0 logo.png\" -path out/ *.jpg`. For non-technical users, Photoshop Actions + Image Processor script, Lightroom's Export with watermark preset, or imagec.xin/watermark in the browser all handle batches visually."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is there a free watermark tool that doesn't upload my photos?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. imagec.xin/watermark runs entirely in your browser using Canvas and WebAssembly — your photos never leave your device. Photoshop and GIMP also work locally. Many free online watermark tools upload your photos to remote servers, which is a privacy concern for sensitive or client work."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Where should I place a watermark on a photo?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Bottom-right is the most common corner position, but bottom-center is also popular for symmetrical compositions. For maximum protection, place a tiled or repeated watermark across the entire image at low opacity. Avoid placing watermarks only in a corner — they're trivially cropped out. Place watermarks over busy or detail-rich areas (faces, products) where removal would be most destructive."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    :root{--ink:#1A1A1A;--ink-soft:#3A3A38;--muted:#8A8378;--paper:#F5F1EA;--card:#FBF8F2;--line:#D9D2C5;--line-soft:#E8E2D6;--accent:#1F3A2E;--accent2:#E8EDE6;--serif:Georgia,"Source Han Serif SC","Noto Serif SC","Songti SC","STSong","宋体",serif;--sans:-apple-system,BlinkMacSystemFont,"Inter","PingFang SC","Microsoft YaHei",sans-serif;--shadow:0 1px 0 rgba(26,26,26,.04)}
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;color:var(--ink);background:radial-gradient(circle at 10% 0,#dff6e9 0,transparent 32rem),var(--paper);font:16px/1.7 Inter,"Helvetica Neue",Arial,sans-serif}
+    .shell{max-width:860px;margin:auto;padding:32px 24px 64px}
+    header{display:flex;align-items:center;gap:12px;margin-bottom:32px;padding-bottom:24px;border-bottom:1px solid var(--line)}
+    .backLink{color:var(--accent);text-decoration:none;font-weight:600;font-size:14px}
+    .backLink:hover{text-decoration:underline}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px;margin-left:auto}
+    .mark{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;color:white;font-family:Georgia;font-size:18px}
+    article{background:var(--card);border:1px solid #ffffff;box-shadow:var(--shadow);border-radius:24px;padding:40px}
+    h1{font-size:clamp(26px,3.5vw,38px);line-height:1.2;letter-spacing:-.03em;margin:0 0 12px;max-width:700px}
+    .meta{color:var(--muted);font-size:14px;margin-bottom:32px;display:flex;gap:16px;flex-wrap:wrap}
+    h2{font-size:24px;margin:40px 0 16px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+    h3{font-size:19px;margin:28px 0 12px;color:var(--ink)}
+    h4{font-size:16px;margin:20px 0 8px;color:var(--ink-soft)}
+    p{margin:14px 0;color:#2a3330}
+    ul,ol{margin:14px 0;padding-left:24px}
+    li{margin:8px 0}
+    .toc{background:#f0fbf5;border-radius:16px;padding:24px 28px;margin:28px 0}
+    .toc h3{margin:0 0 12px;color:var(--accent);font-size:16px}
+    .toc ol{margin:0;padding-left:20px}
+    .toc a{color:var(--ink);text-decoration:none}
+    .toc a:hover{color:var(--accent)}
+    .compareTable{width:100%;border-collapse:collapse;margin:20px 0;font-size:14px}
+    .compareTable th,.compareTable td{border:1px solid var(--line);padding:12px 14px;text-align:left}
+    .compareTable th{background:#f6f7f5;font-weight:700}
+    .compareTable tr:nth-child(even){background:#fbfaf5}
+    .pros{color:#087f5b}
+    .cons{color:#c92a2a}
+    .tipBox{background:#fff4e6;border-left:4px solid #f59f00;border-radius:0 12px 12px 0;padding:16px 20px;margin:20px 0}
+    .tipBox strong{color:#d9480f}
+    .ctaBox{background:linear-gradient(135deg,#e4f6ec,#fbf4d7);border-radius:20px;padding:32px;text-align:center;margin:40px 0}
+    .ctaBox h3{margin:0 0 8px;font-size:22px}
+    .ctaBox p{margin:0 0 20px;color:var(--muted)}
+    .ctaBtn{display:inline-block;background:var(--ink);color:white;padding:12px 28px;border-radius:12px;font-weight:700;text-decoration:none;transition:.18s}
+    .ctaBtn:hover{background:var(--accent);transform:translateY(-1px)}
+    code{background:#e9ece8;padding:2px 6px;border-radius:6px;font-size:13px;font-family:Consolas,monospace}
+    pre{background:#1f2622;color:#e8efe9;padding:14px 18px;border-radius:12px;overflow:auto;font-size:13px;font-family:Consolas,monospace}
+    pre code{background:transparent;color:inherit;padding:0}
+    .footer{margin-top:48px;padding-top:24px;border-top:1px solid var(--line);color:var(--muted);font-size:13px;text-align:center}
+    .footer a{color:var(--accent);text-decoration:none}
+    .footer a:hover{text-decoration:underline}
+    @media(max-width:600px){
+      article{padding:24px 20px}
+      .shell{padding:16px 12px 40px}
+      h1{font-size:24px}
+    }
+  </style>
+</head>
+<body>
+<main class="shell">
+  <header>
+    <a href="https://imagec.xin/" class="backLink">← Back to imagec</a>
+    <div class="brand"><span class="mark"><svg viewBox="0 0 64 64" width="22" height="22" aria-hidden="true"><rect x="12" y="12" width="34" height="34" rx="3" fill="none" stroke="#1A1A1A" stroke-width="3.2"/><rect x="30" y="30" width="22" height="22" rx="3" fill="#1F3A2E"/></svg></span><span>imagec</span></div>
+  </header>
+
+  <article>
+    <h1>How to Add Watermark to Photos: 5 Methods to Protect Your Images in 2026</h1>
+    <div class="meta">
+      <span>📅 September 19, 2026</span>
+      <span>⏱ 11 min read</span>
+      <span>🏷 Tutorial / Photo Protection</span>
+    </div>
+
+    <p>Photographers, illustrators, designers, and content creators lose billions every year to image theft. Once a photo hits the internet, it can be downloaded, cropped, reposted, and sold without permission. A watermark — visible proof of ownership stamped on the image — is the simplest, most effective defense.</p>
+    <p>This guide compares <strong>5 methods</strong> for adding watermarks to photos, covers text vs image watermarks, opacity, positioning, and batch processing best practices, and answers the most common questions. By the end you'll know exactly how to protect your work without ruining it.</p>
+
+    <div class="toc">
+      <h3>📖 Table of Contents</h3>
+      <ol>
+        <li><a href="#why">Why Watermark Your Photos?</a></li>
+        <li><a href="#text-vs-image">Text vs Image Watermarks</a></li>
+        <li><a href="#method1">Method 1: imagec (Easiest &amp; Private)</a></li>
+        <li><a href="#method2">Method 2: Photoshop (Pro Desktop)</a></li>
+        <li><a href="#method3">Method 3: Lightroom (Photographer Workflow)</a></li>
+        <li><a href="#method4">Method 4: Mobile Apps (iOS &amp; Android)</a></li>
+        <li><a href="#method5">Method 5: Command-Line (Batch)</a></li>
+        <li><a href="#compare">Comparison Table</a></li>
+        <li><a href="#best">Best Practices: Subtle but Unremovable</a></li>
+        <li><a href="#tips">7 Pro Tips for Effective Watermarks</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#summary">Final Verdict</a></li>
+      </ol>
+    </div>
+
+    <h2 id="why">1. Why Watermark Your Photos?</h2>
+    <ul>
+      <li><strong>Deter theft</strong> — a watermarked image is harder to pass off as someone else's work</li>
+      <li><strong>Brand recognition</strong> — every share carries your name, logo, or website</li>
+      <li><strong>Proof of ownership</strong> — in a DMCA takedown, the original with embedded watermark is your receipt</li>
+      <li><strong>Marketing</strong> — viewers who like the photo know where to find more of your work</li>
+      <li><strong>Client previews</strong> — send watermarked proofs to clients before final delivery to prevent unpaid use</li>
+      <li><strong>Stock and licensing</strong> — stock libraries require watermarked previews by default</li>
+    </ul>
+
+    <h2 id="text-vs-image">2. Text vs Image Watermarks</h2>
+    <p>There are two main types of watermarks. Each has its place:</p>
+
+    <table class="compareTable">
+      <thead>
+        <tr><th></th><th>Text watermark</th><th>Image watermark</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>What it is</td><td>Your name, URL, @handle, copyright line</td><td>Logo, signature, custom graphic (PNG with transparency)</td></tr>
+        <tr><td>Best for</td><td>Casual protection, social media, proofs</td><td>Brands, businesses, professional portfolios</td></tr>
+        <tr><td>Pros</td><td>Easy to add, scales perfectly, instantly readable</td><td>Looks professional, reinforces brand identity</td></tr>
+        <tr><td>Cons</td><td>Less distinctive — looks generic</td><td>Requires transparent PNG logo, can look cluttered if too big</td></tr>
+        <tr><td>Setup time</td><td>Seconds</td><td>Minutes (need to design or fetch a logo first)</td></tr>
+        <tr><td>Use both?</td><td colspan="2">Yes — many pros add a small logo watermark plus a tiny text line below it</td></tr>
+      </tbody>
+    </table>
+
+    <h2 id="method1">3. Method 1: imagec (Easiest &amp; Private)</h2>
+    <p><a href="https://imagec.xin/watermark.html" target="_blank" rel="noopener">imagec.xin/watermark</a> is a browser-based watermarking tool. It supports both text and image watermarks, runs entirely client-side, and is free.</p>
+
+    <h3>✅ Pros</h3>
+    <ul>
+      <li class="pros"><strong>100% free</strong>, no sign-up, no daily limit, no watermark on your watermark</li>
+      <li class="pros"><strong>Privacy-first</strong> — runs in your browser, no upload to any server</li>
+      <li class="pros"><strong>Both text &amp; image</strong> watermarks supported</li>
+      <li class="pros"><strong>9 position presets</strong> — corners, center, or tiled across whole image</li>
+      <li class="pros"><strong>Adjustable opacity, size, rotation, color</strong></li>
+      <li class="pros"><strong>Tile mode</strong> — repeats the watermark across the whole image for max protection</li>
+      <li class="pros"><strong>Live preview</strong> before applying</li>
+      <li class="pros"><strong>Mobile-friendly</strong> — works on phone browsers</li>
+    </ul>
+
+    <h3>❌ Cons</h3>
+    <ul>
+      <li class="cons">Batch processing is on the roadmap — single image per session for now</li>
+      <li class="cons">No metadata embedding (IPTC/C2PA) in current version</li>
+    </ul>
+
+    <h3>How to add a text watermark with imagec</h3>
+    <ol>
+      <li>Open <a href="https://imagec.xin/watermark.html" target="_blank" rel="noopener">imagec.xin/watermark</a></li>
+      <li>Drag your photo into the drop zone or click to browse</li>
+      <li>Choose <strong>Watermark type: Text</strong></li>
+      <li>Enter your text — e.g., <code>© 2026 Jane Doe</code> or <code>@janedoe.photo</code></li>
+      <li>Pick a <strong>position</strong> — bottom-right is classic, tiled is most protective</li>
+      <li>Set <strong>opacity</strong> (30-50% is the sweet spot for corner; 10-20% for tiled)</li>
+      <li>Set <strong>size</strong> — for corner placement, 4-8% of image width works well</li>
+      <li>Set <strong>color</strong> — white with shadow shows on any background; black is fine on light images</li>
+      <li>Optional: rotate 0°, 30°, or 45° for a diagonal tiled effect</li>
+      <li>Click <strong>Apply</strong> and download</li>
+    </ol>
+
+    <h3>How to add an image (logo) watermark</h3>
+    <ol>
+      <li>Open the tool and drop your photo</li>
+      <li>Choose <strong>Watermark type: Image</strong></li>
+      <li>Upload your logo as a PNG with transparency</li>
+      <li>Adjust opacity (60-80% for corner logos), size, and position</li>
+      <li>For tiled logos, switch to tile mode and lower opacity to 15%</li>
+      <li>Click <strong>Apply</strong> and download</li>
+    </ol>
+
+    <div class="tipBox">
+      <strong>💡 Pro tip:</strong> For best protection, use the tiled text mode with 15% opacity and a 30° rotation. It covers every part of the image, making it impossible to crop out, while staying subtle enough not to ruin the photo.
+    </div>
+
+    <h2 id="method2">4. Method 2: Photoshop (Pro Desktop)</h2>
+    <p>Photoshop gives you the most control over watermark design and is the standard for professional workflows. Combined with Actions, it handles batches too.</p>
+
+    <h3>✅ Pros</h3>
+    <ul>
+      <li class="pros">Maximum design control — text, vector logo, layered effects</li>
+      <li class="pros">Batch via Actions + Image Processor script</li>
+      <li class="pros">Smart Objects keep watermark editable</li>
+      <li class="pros">Layer styles: drop shadow, stroke, bevel for any background</li>
+    </ul>
+
+    <h3>❌ Cons</h3>
+    <ul>
+      <li class="cons">Subscription cost</li>
+      <li class="cons">Heavy install</li>
+      <li class="cons">Overkill for one-off watermarks</li>
+    </ul>
+
+    <h3>Single-image watermark in Photoshop</h3>
+    <ol>
+      <li>Open your photo in Photoshop</li>
+      <li>Press <code>T</code> for the Type tool</li>
+      <li>Type your watermark text in a corner</li>
+      <li>With the type layer selected, click <strong>Layer → Layer Style → Drop Shadow</strong> — angle 135°, distance 5-10, size 5-10</li>
+      <li>Set layer opacity to 30-50% in the Layers panel</li>
+      <li>Optional: convert to a Smart Object so you can scale without re-typing</li>
+      <li>Save as JPG or PNG via <strong>File → Export → Export As</strong></li>
+    </ol>
+
+    <h3>Batch watermark with Actions</h3>
+    <ol>
+      <li>Open one photo and start recording an Action (Window → Actions → New Action)</li>
+      <li>Add the text/logo watermark layer as above</li>
+      <li>Save as JPG via Export As</li>
+      <li>Close the file</li>
+      <li>Stop recording</li>
+      <li>Go to <strong>File → Scripts → Image Processor</strong></li>
+      <li>Select the source folder, output folder, and run your Action under "Run Action"</li>
+      <li>Click <strong>Run</strong> — every image in the folder gets watermarked automatically</li>
+    </ol>
+
+    <h2 id="method3">5. Method 3: Lightroom (Photographer Workflow)</h2>
+    <p>Adobe Lightroom has watermarking built into the Export dialog — perfect for photographers who already use Lightroom for cataloging.</p>
+
+    <h3>✅ Pros</h3>
+    <ul>
+      <li class="pros">Built into Lightroom — no extra plugin</li>
+      <li class="pros">Apply to entire selection at export</li>
+      <li class="pros">Save watermark presets for reuse</li>
+      <li class="pros">Edits and watermarks in one pass</li>
+    </ul>
+
+    <h3>❌ Cons</h3>
+    <ul>
+      <li class="cons">Requires Lightroom subscription</li>
+      <li class="cons">Less design control than Photoshop</li>
+      <li class="cons">Only at export — can't preview watermark on grid</li>
+    </ul>
+
+    <h3>How to watermark in Lightroom</h3>
+    <ol>
+      <li>Select your images in the Library or Grid view</li>
+      <li>Right-click → <strong>Export → Export…</strong></li>
+      <li>In the Export dialog, scroll to <strong>Watermarking</strong></li>
+      <li>Check <strong>Watermark</strong> and choose an existing preset or "Edit Watermarks"</li>
+      <li>In the watermark editor, choose <strong>Text</strong> or <strong>Graphic</strong> (for a logo PNG)</li>
+      <li>For text: type your text and use the controls for opacity, size, anchor, and inset</li>
+      <li>For graphic: upload your logo PNG and adjust size and anchor</li>
+      <li>Save the watermark as a preset (top-left dropdown → Save Current Settings as New Preset)</li>
+      <li>Click <strong>Export</strong> — every selected image gets watermarked and saved</li>
+    </ol>
+
+    <h2 id="method4">6. Method 4: Mobile Apps (iOS &amp; Android)</h2>
+    <p>For on-the-go watermarking, mobile apps are quick and convenient. Recommended apps: Watermark Photo, iWatermark, and PhotoMarks.</p>
+
+    <h3>✅ Pros</h3>
+    <ul>
+      <li class="pros">Watermark and share straight from your phone</li>
+      <li class="pros">Many include templates and QR code watermarks</li>
+      <li class="pros">Some apps support batch</li>
+    </ul>
+
+    <h3>❌ Cons</h3>
+    <ul>
+      <li class="cons">Most free versions add their own watermark to your image</li>
+      <li class="cons">Premium features cost US$5-15</li>
+      <li class="cons">Most apps upload to remote servers</li>
+      <li class="cons">Limited design control vs Photoshop</li>
+    </ul>
+
+    <h3>Typical app workflow</h3>
+    <ol>
+      <li>Install Watermark Photo or iWatermark</li>
+      <li>Import one or more photos</li>
+      <li>Choose a text or logo watermark</li>
+      <li>Adjust opacity, size, position</li>
+      <li>Export to camera roll or share directly</li>
+    </ol>
+
+    <div class="tipBox">
+      <strong>💡 Privacy tip:</strong> If your photos are sensitive (client work, NDA, children), prefer a tool that runs locally like imagec.xin/watermark or Photoshop. Many "free" mobile watermark apps upload to their servers in exchange for the free tier.
+    </div>
+
+    <h2 id="method5">7. Method 5: Command-Line (Batch)</h2>
+    <p>For automated batch processing of hundreds or thousands of images, the command line is unbeatable. ImageMagick is the standard tool.</p>
+
+    <h3>Single image — text watermark</h3>
+    <pre><code># Bottom-right text watermark, 30% opacity
+magick input.jpg \
+  -gravity southeast \
+  -fill "rgba(255,255,255,0.6)" \
+  -pointsize 36 \
+  -annotate +20+20 "© 2026 Jane Doe" \
+  output.jpg</code></pre>
+
+    <h3>Single image — logo watermark</h3>
+    <pre><code># Bottom-right logo watermark, 70% opacity
+magick input.jpg logo.png \
+  -gravity southeast -geometry +20+20 \
+  -compose dissolve -define compose:args=70 \
+  -composite \
+  output.jpg</code></pre>
+
+    <h3>Batch with mogrify — text watermark</h3>
+    <pre><code># Watermark every JPG in the folder
+magick mogrify \
+  -gravity southeast \
+  -fill "rgba(255,255,255,0.6)" \
+  -pointsize 36 \
+  -annotate +20+20 "© 2026 Jane Doe" \
+  -path watermarked/ \
+  *.jpg</code></pre>
+
+    <h3>Batch with mogrify — tiled logo</h3>
+    <pre><code># Tile logo across entire image at 15% opacity
+magick mogrify \
+  logo.png -compose dissolve -define compose:args=15 \
+  -tile -composite \
+  -path watermarked/ \
+  *.jpg</code></pre>
+
+    <div class="tipBox">
+      <strong>💡 Pro tip:</strong> Combine watermarking with resize, strip, and compress in one mogrify pass: <code>magick mogrify -resize 2048x -strip -quality 85 -gravity southeast -fill "rgba(255,255,255,0.6)" -pointsize 36 -annotate +20+20 "© 2026 Jane Doe" -path web/ *.jpg</code> — every image gets resized, compressed, and watermarked in one go.
+    </div>
+
+    <h2 id="compare">8. Comparison Table</h2>
+    <table class="compareTable">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>imagec</th>
+          <th>Photoshop</th>
+          <th>Lightroom</th>
+          <th>Mobile App</th>
+          <th>CLI</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Price</td><td>Free</td><td>$$$</td><td>$$</td><td>Free + premium</td><td>Free</td></tr>
+        <tr><td>Install</td><td>None</td><td>Heavy</td><td>Medium</td><td>Light</td><td>Light</td></tr>
+        <tr><td>Privacy</td><td>✅ Local</td><td>✅ Local</td><td>✅ Local</td><td>⚠️ Most upload</td><td>✅ Local</td></tr>
+        <tr><td>Text watermark</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+        <tr><td>Image (logo) watermark</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+        <tr><td>Tile / repeat mode</td><td>✅</td><td>Pattern fill</td><td>⚠️</td><td>⚠️</td><td>✅</td></tr>
+        <tr><td>Batch</td><td>Roadmap</td><td>✅ Actions</td><td>✅ Export</td><td>⚠️ Some</td><td>✅ Unlimited</td></tr>
+        <tr><td>Mobile UI</td><td>✅</td><td>❌</td><td>❌</td><td>✅</td><td>❌</td></tr>
+        <tr><td>Live preview</td><td>✅</td><td>✅</td><td>⚠️</td><td>✅</td><td>❌</td></tr>
+        <tr><td>Best for</td><td>Quick &amp; private</td><td>Design control</td><td>Photographers</td><td>On-the-go</td><td>Automation</td></tr>
+      </tbody>
+    </table>
+
+    <h2 id="best">9. Best Practices: Subtle but Unremovable</h2>
+    <p>A watermark should be visible enough to identify ownership but subtle enough not to ruin the image. The tension between those goals is the art of good watermarking. Here's the framework:</p>
+
+    <h3>The two failure modes</h3>
+    <ul>
+      <li><strong>Too subtle</strong> — invisible watermark is no protection at all; a thief just crops or ignores it</li>
+      <li><strong>Too aggressive</strong> — huge opaque watermarks across the subject look ugly and reduce shareability</li>
+    </ul>
+
+    <h3>The sweet spot</h3>
+    <ul>
+      <li>For corner placement: 30-50% opacity, 4-8% of image width</li>
+      <li>For tiled/repeated: 10-20% opacity, evenly spaced, optionally rotated 30°</li>
+      <li>Color: white with a thin shadow or outline — visible on both light and dark areas</li>
+      <li>Placement: over the subject's face, product, or most detailed area (where removal is most destructive)</li>
+      <li>Combine visible + invisible: visible watermark for deterrence, embedded IPTC metadata for proof of ownership</li>
+    </ul>
+
+    <h3>Layer multiple defenses</h3>
+    <ol>
+      <li>Visible watermark (imagec, Photoshop, etc.)</li>
+      <li>IPTC metadata (copyright field, creator, contact)</li>
+      <li>C2PA content credentials (newer standard, supported by major cameras and editing tools)</li>
+      <li>Reverse-image-search monitoring (Google Images, TinEye)</li>
+      <li>DMCA takedown process for confirmed theft</li>
+    </ol>
+
+    <h2 id="tips">10. 7 Pro Tips for Effective Watermarks</h2>
+
+    <h3>1. Place watermarks where removal hurts most</h3>
+    <p>A watermark over the subject's face or product is much harder to remove cleanly than one in an empty sky or corner. Cropping out a corner watermark is trivial; cropping one out of the subject ruins the photo.</p>
+
+    <h3>2. Use a tile pattern for sensitive work</h3>
+    <p>Tiled watermarks at 15% opacity cover the whole image. They're impossible to crop out and very hard to inpaint. Use them for client proofs and stock previews where deterrence is the priority.</p>
+
+    <h3>3. Keep the watermark design simple</h3>
+    <p>A simple wordmark ("© 2026 Jane Doe") or a clean logo at small size works best. Detailed logos with thin lines disappear when compressed for web. Use the <a href="https://imagec.xin/crop.html" target="_blank" rel="noopener">crop tool</a> to prepare a clean transparent PNG logo before uploading.</p>
+
+    <h3>4. Match opacity to background</h3>
+    <p>White watermarks disappear on light backgrounds. Add a drop shadow or thin outline so the watermark stays visible on any background. imagec and Photoshop both support shadow effects.</p>
+
+    <h3>5. Test on multiple image types</h3>
+    <p>What looks great on a landscape might disappear on a snow scene. Test your watermark preset on a portrait, a landscape, a flat-color graphic, and a low-contrast image before applying it to your whole catalog.</p>
+
+    <h3>6. Don't forget the metadata</h3>
+    <p>Embed your name, copyright, and contact in IPTC metadata too. Even if the visible watermark is removed, the metadata survives in many cases. Photoshop, Lightroom, and most photo apps support IPTC editing.</p>
+
+    <h3>7. Save an unwatermarked master</h3>
+    <p>Always keep an unwatermarked master copy of every image. Once a watermark is applied and the file is saved as JPG, it's baked in. You can't remove it cleanly later. Apply watermarks to copies, never to the master.</p>
+
+    <div class="ctaBox">
+      <h3>Watermark Your Photos Free &amp; Private</h3>
+      <p>Text or logo, corner or tiled, live preview — all in your browser. No uploads, no watermarks on your watermark.</p>
+      <a href="https://imagec.xin/watermark.html" class="ctaBtn" target="_blank" rel="noopener">Open Watermark Tool →</a>
+    </div>
+
+    <h2 id="faq">11. Frequently Asked Questions</h2>
+
+    <p><strong>Q: Can a watermark be removed from a photo?</strong><br>
+    A: A visible watermark can be partially removed with AI inpainting tools (Content-Aware Fill in Photoshop, Lama Cleaner, Stable Diffusion) but the result usually leaves visible artifacts, especially when the watermark covers detailed areas. A well-placed watermark across the subject — not just the corner — is much harder to remove cleanly. Combine a visible watermark with embedded IPTC metadata for proof of ownership.</p>
+
+    <p><strong>Q: What's the best opacity for a photo watermark?</strong><br>
+    A: For text watermarks in a corner, 30-50% opacity is the sweet spot — visible enough to identify the owner but not distracting. For tiled/repeat watermarks that cover the whole image (most protective), 10-20% opacity works. For corner logo watermarks, 60-80% is fine. Always test on both light and dark images to ensure visibility.</p>
+
+    <p><strong>Q: What's better: text or image watermark?</strong><br>
+    A: Text watermarks (your name, URL, @handle) are easier to add, scale perfectly, and are instantly readable. Image watermarks (logo, signature) look more professional and reinforce brand identity but require a transparent PNG logo. Most professional workflows use a logo watermark for branded content and a text watermark for casual protection.</p>
+
+    <p><strong>Q: How do I batch watermark 100 photos at once?</strong><br>
+    A: Use a command-line tool: with ImageMagick, <code>magick mogrify -gravity southeast -draw "image Over 0,0 0,0 logo.png" -path out/ *.jpg</code>. For non-technical users, Photoshop Actions + Image Processor script, Lightroom's Export with watermark preset, or imagec.xin/watermark in the browser all handle batches visually.</p>
+
+    <p><strong>Q: Is there a free watermark tool that doesn't upload my photos?</strong><br>
+    A: Yes. imagec.xin/watermark runs entirely in your browser using Canvas and WebAssembly — your photos never leave your device. Photoshop and GIMP also work locally. Many free online watermark tools upload your photos to remote servers, which is a privacy concern for sensitive or client work.</p>
+
+    <p><strong>Q: Where should I place a watermark on a photo?</strong><br>
+    A: Bottom-right is the most common corner position, but bottom-center is also popular for symmetrical compositions. For maximum protection, place a tiled or repeated watermark across the entire image at low opacity. Avoid placing watermarks only in a corner — they're trivially cropped out. Place watermarks over busy or detail-rich areas (faces, products) where removal is most destructive.</p>
+
+    <p><strong>Q: Should I watermark photos I post on social media?</strong><br>
+    A: It depends on your goal. For professional photographers protecting portfolio work, yes — a subtle corner watermark discourages theft while still looking shareable. For casual personal posts, watermarks are usually overkill. For client proofs or stock previews, always watermark. Most social platforms strip IPTC metadata on upload, so a visible watermark is your only persistent protection.</p>
+
+    <h2 id="summary">12. Final Verdict</h2>
+    <p>Pick the right tool for your situation:</p>
+    <ul>
+      <li><strong>Want free, fast, and private?</strong> → <a href="https://imagec.xin/watermark.html" target="_blank" rel="noopener">imagec.xin/watermark</a> is the best all-round choice</li>
+      <li><strong>Need maximum design control?</strong> → Photoshop with Actions for batches</li>
+      <li><strong>Photographer with a Lightroom catalog?</strong> → Lightroom's built-in watermark export</li>
+      <li><strong>On your phone?</strong> → Watermark Photo or iWatermark apps</li>
+      <li><strong>Automating hundreds of files?</strong> → ImageMagick CLI in a script</li>
+    </ul>
+    <p>For most watermarking needs — social media protection, client proofs, stock previews, brand consistency — <strong>imagec</strong> gives you professional-grade watermarks completely free, with zero uploads. Pair it with the <a href="https://imagec.xin/crop.html" target="_blank" rel="noopener">crop</a>, <a href="https://imagec.xin/compress.html" target="_blank" rel="noopener">compress</a>, and <a href="https://imagec.xin/convert.html" target="_blank" rel="noopener">convert</a> tools for the complete image-protection workflow.</p>
+
+    <div class="ctaBox">
+      <h3>Ready to Protect Your Photos?</h3>
+      <p>Open your browser, drop in an image, add a watermark in seconds.</p>
+      <a href="https://imagec.xin/watermark.html" class="ctaBtn" target="_blank" rel="noopener">Go to imagec Watermark →</a>
+    </div>
+
+    <footer class="footer">
+      © 2026 imagec — Free, private, browser-based image tools. <a href="https://imagec.xin/">Back to homepage</a>
+    </footer>
+  </article>
+</main>
+
+<script>
+  (function() {
+    var p = encodeURIComponent(location.pathname + location.search);
+    var u = '/__track__?t=' + Date.now() + '&p=' + p;
+    try { var img = new Image(); img.alt = ''; img.style.position = 'absolute'; img.style.width = '0'; img.style.height = '0'; img.src = u; document.body.appendChild(img); } catch(e) {}
+    try { if (navigator.sendBeacon) navigator.sendBeacon(u); } catch(e2) {}
+  })();
+</script>
+</body>
+</html>
