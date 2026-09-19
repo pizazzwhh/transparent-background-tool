@@ -1,87 +1,88 @@
-# 透白 - 图片白底转透明工具 (imagec)
+# imagec — Free Online Image Tools (10-in-1)
 
-> 浏览器本地移除图片白色背景，免费导出透明 PNG。支持 13 种语言，零上传，隐私安全。
+> 10 free browser-based image tools in one place. No uploads, no registration, no watermarks. All processing happens locally in your browser. Supports 13 languages.
 
-**在线使用：** [https://imagec.xin/](https://imagec.xin/)
-
----
-
-## ✨ 功能特点
-
-- **本地处理** - 图片仅在浏览器中处理，永不上传服务器，100% 保护隐私
-- **可调阈值** - 白色阈值 1-120 可调，适配不同亮度的白底
-- **边缘柔化** - 0-80 级边缘柔化，平滑主体边缘，减少白边与锯齿
-- **去除浅灰底** - 智能识别浅灰色背景，一并透明化
-- **拖拽上传** - 支持拖拽、点击选择、剪贴板粘贴
-- **多格式支持** - PNG / JPG / WebP 输入，透明 PNG 输出
-- **13 种语言** - 中英日韩西法德俄葡阿越印泰，面向全球用户
-- **响应式设计** - 桌面端、平板、手机完美适配
-- **零依赖安装** - 纯前端静态页面，下载即用
+**🌐 Live: [https://imagec.xin/](https://imagec.xin/)**
 
 ---
 
-## 🚀 快速开始
+## 🛠 10 Free Image Tools
 
-### 在线使用
+| Tool | What it does | Link |
+|---|---|---|
+| 🎨 **White BG → Transparent** | Remove white background, export transparent PNG | [/whitebg](https://imagec.xin/whitebg) |
+| 🗜️ **Image Compressor** | Compress PNG/JPG/WebP, reduce file size up to 80% | [/compress](https://imagec.xin/compress) |
+| 🔄 **Format Converter** | Convert between PNG, JPG, WebP, BMP, GIF | [/convert](https://imagec.xin/convert) |
+| ✂️ **Image Cropper** | Crop to any size or aspect ratio (16:9, 1:1, A4, social) | [/crop](https://imagec.xin/crop) |
+| 🪪 **ID Photo Maker** | Create passport/visa photos with correct sizes | [/idphoto](https://imagec.xin/idphoto) |
+| 💧 **Watermark Adder** | Add text or image watermark, batch processing | [/watermark](https://imagec.xin/watermark) |
+| 🎨 **Background Color Changer** | Change image background to any solid color | [/bgcolor](https://imagec.xin/bgcolor) |
+| 📎 **Image Splicer** | Combine multiple images vertically or horizontally | [/splice](https://imagec.xin/splice) |
+| 📄 **Image to PDF** | Convert images to PDF, multi-page support | [/img2pdf](https://imagec.xin/img2pdf) |
+| 🌈 **Image Filters** | Apply vintage, B&W, blur, sharpen and more | [/filter](https://imagec.xin/filter) |
 
-直接访问 [https://imagec.xin/](https://imagec.xin/) 即可使用，无需注册，无需登录。
+---
 
-### 本地运行
+## ✨ Why imagec?
+
+- **🔒 100% Private** — Images never leave your browser. No server uploads.
+- **🆓 Completely Free** — No registration, no watermarks, no limits.
+- **⚡ Instant** — Processing happens on your device. No upload wait time.
+- **🌍 13 Languages** — Chinese, English, Japanese, Korean, Spanish, French, German, Russian, Portuguese, Arabic, Vietnamese, Indonesian, Thai.
+- **📱 Works Everywhere** — Desktop, tablet, mobile. Any modern browser.
+- **🚫 No Tracking** — No analytics scripts, no ad networks, no third-party cookies.
+
+---
+
+## 🚀 Quick Start
+
+### Use Online (Recommended)
+
+Visit **[https://imagec.xin/](https://imagec.xin/)** — no installation needed.
+
+### Run Locally
 
 ```bash
-# 克隆仓库
 git clone https://github.com/pizazzwhh/transparent-background-tool.git
-
-# 进入目录
 cd transparent-background-tool
-
-# 直接用浏览器打开
-# 方式1：双击 index.html
-# 方式2：启动本地服务器
 python -m http.server 8080
-# 然后访问 http://localhost:8080
+# Open http://localhost:8080
 ```
 
 ---
 
-## 🎯 使用场景
+## 🎯 Use Cases
 
-| 场景 | 说明 |
+| Who | How they use imagec |
 |---|---|
-| **电商商品图** | 快速去除白底，制作透明背景主图 |
-| **Logo 处理** | 把白底 Logo 转为透明，方便放到各种设计中 |
-| **签名扫描** | 扫描手写签名，一键去白底，合成到文档 |
-| **UI 素材** | 从白底截图中提取图标和元素 |
-| **证件照片** | 白底证件照转透明，换背景色 |
-| **设计素材** | 快速处理素材图，节省抠图时间 |
+| 🛒 **E-commerce sellers** | Remove white backgrounds for product photos, compress images for faster page loads |
+| 📸 **Photographers** | Batch watermark photos, convert RAW previews to JPG |
+| 🎨 **Designers** | Extract logos from white backgrounds, convert formats, create design assets |
+| 📝 **Office workers** | Make ID photos at home, convert images to PDF for reports |
+| 📱 **Social media managers** | Crop to platform-specific sizes (Instagram 1:1, Facebook cover, Twitter header) |
+| 👨‍💻 **Developers** | Optimize images for web, convert to WebP, compress assets |
 
 ---
 
-## 🛠 技术原理
+## 📊 SEO Guides
 
-基于 Canvas 像素级处理：
+In-depth tutorials published on our blog:
 
-1. **阈值判断** - 遍历像素，计算每个像素与纯白的距离
-2. **色度过滤** - 可选"去除浅灰底"模式，结合饱和度判断，避免误伤浅彩色
-3. **边缘柔化** - 在阈值边界处做 alpha 渐变过渡，消除锯齿感
-4. **本地渲染** - 全部在客户端 GPU/CPU 完成，无需网络
-
-```
-透明度计算：
-  dist = 255 - min(R, G, B)         // 与纯白的距离
-  chroma = max(R, G, B) - min(R, G, B)  // 色彩饱和度
-  score = dist + chroma * 0.72      // 综合评分
-  alpha = smoothstep(threshold, threshold + softness, score)
-```
+- [How to Remove White Background from Image: 5 Best Methods](https://imagec.xin/blog/remove-white-background-guide.html)
+- [How to Compress PNG to 100KB or Less](https://imagec.xin/blog/compress-png-to-100kb.html)
+- [Image to PDF Converter: Complete Guide](https://imagec.xin/blog/image-to-pdf-converter.html)
+- [How to Crop and Resize Images Online](https://imagec.xin/blog/crop-resize-image-online.html)
+- [ID Photo Maker Online Free](https://imagec.xin/blog/id-photo-maker-online.html)
+- [How to Add Watermark to Photos](https://imagec.xin/blog/add-watermark-to-photos.html)
 
 ---
 
-## 🌍 支持的语言
+## 🌍 Supported Languages
 
-| 语言 | 代码 | 语言 | 代码 |
+| Language | Code | Language | Code |
 |---|---|---|---|
-| 简体中文 | `zh` | 日本語 | `ja` |
-| English | `en` | 한국어 | `ko` |
+| 简体中文 | `zh` | English | `en` |
+| 日本語 | `ja` | 한국어 | `ko` |
 | Español | `es` | Français | `fr` |
 | Deutsch | `de` | Русский | `ru` |
 | Português | `pt` | العربية | `ar` |
@@ -90,47 +91,39 @@ python -m http.server 8080
 
 ---
 
-## 📱 截图
+## 🔒 Privacy Promise
 
-![透白工具预览](https://imagec.xin/og-image.svg)
-
----
-
-## 🔒 隐私承诺
-
-- **不上传** - 图片数据不会离开你的设备
-- **不追踪** - 无第三方统计脚本（仅基础访问计数）
-- **无 Cookie** - 不设置任何追踪 Cookie
-- **开源** - 代码完全透明，可自行审计
+- **No uploads** — Image data stays on your device
+- **No tracking** — No analytics, no ad scripts
+- **No cookies** — No tracking cookies set
+- **Open source** — Code is fully auditable
 
 ---
 
-## 📝 更新日志
+## 🛠 Tech Stack
 
-### v1.0.0
-- 初始版本发布
-- 支持白底移除、阈值调节、边缘柔化
-- 13 种语言国际化
-- 响应式设计，移动端适配
-- 完整的 SEO 优化（OG、结构化数据、sitemap）
-
----
-
-## 📄 许可证
-
-MIT License
+- **Frontend**: Vanilla HTML5, CSS3, JavaScript (no frameworks)
+- **Processing**: Canvas API, Web Workers for performance
+- **Hosting**: Alibaba Cloud ESA (Edge Security Acceleration)
+- **Edge Functions**: Serverless routine for stats tracking
+- **Storage**: EdgeKV for anonymous visit counters
 
 ---
 
-## ⭐ 支持
+## 📄 License
 
-如果你觉得这个工具有用，欢迎：
-
-- 给仓库点个 Star ⭐
-- 分享给需要的朋友
-- 提交 Issue 或 PR 一起改进
-- 在 [Product Hunt](https://www.producthunt.com/) 上投票支持
+MIT License — free for personal and commercial use.
 
 ---
 
-**Made with ❤️ by 透白团队**
+## ⭐ Support
+
+If imagec saved you time, please:
+- ⭐ Star this repo
+- 🐛 Report bugs via [Issues](https://github.com/pizazzwhh/transparent-background-tool/issues)
+- 💬 Share with friends and colleagues
+- 🗳 Upvote on [Product Hunt](https://www.producthunt.com/)
+
+---
+
+**Made with ❤️ | [imagec.xin](https://imagec.xin/) | Every image, in frame.**
