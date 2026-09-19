@@ -296,21 +296,28 @@ export default {
     }
 
     if (pathname === "/" || pathname === "") pathname = "/index.html";
-    const assetPath = "assets" + pathname;
     let response;
-    try {
-      const content = await __ESA_ASSETS_GET__(assetPath);
-      if (content) {
-        const ext = pathname.split(".").pop().toLowerCase();
-        const contentType = mimeTypes[ext] || "application/octet-stream";
-        response = new Response(content, { headers: { "content-type": contentType } });
-      } else {
-        response = new Response("Not Found", { status: 404 });
-      }
-    } catch (e) {
-      response = new Response("Not Found", { status: 404 });
+    const ext = pathname.split(".").pop().toLowerCase();
+    const contentType = mimeTypes[ext] || "application/octet-stream";
+
+    // Try multiple asset path patterns (ESA may use different base paths)
+    const pathsToTry = [
+      "assets" + pathname,
+      pathname.slice(1),
+      pathname,
+    ];
+
+    for (const tryPath of pathsToTry) {
+      try {
+        const content = await __ESA_ASSETS_GET__(tryPath);
+        if (content) {
+          response = new Response(content, { headers: { "content-type": contentType } });
+          return response;
+        }
+      } catch (e) {}
     }
 
+    response = new Response("Not Found", { status: 404 });
     return response;
   },
 };
