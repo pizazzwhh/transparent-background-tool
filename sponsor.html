@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>赞助兑换 | imagec</title>
+<meta name="description" content="imagec 赞助兑换。图片工具保持免费。IMAGEC-COFFEE 兑换码会把赞助包记在这台设备上。" />
+<meta name="robots" content="index,follow" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="canonical" href="https://imagec.xin/sponsor.html" />
+<meta property="og:title" content="赞助兑换 | imagec" />
+<meta property="og:url" content="https://imagec.xin/sponsor.html" />
+<meta property="og:image" content="https://imagec.xin/og-image.jpg" />
+<link rel="stylesheet" href="/site.css" />
+</head>
+<body class="tool" data-title-i18n="sponsorPageTitle">
+<main class="shell">
+  <header class="topbar"><a class="brand" href="/"><span class="mark"><svg viewBox="0 0 64 64" width="26" height="26" aria-hidden="true"><rect x="2" y="2" width="60" height="60" rx="6" fill="#FAFAF9"/><path fill="#1C1917" fill-rule="evenodd" d="M8 2h48a6 6 0 0 1 6 6v48a6 6 0 0 1-6 6H8a6 6 0 0 1-6-6V8a6 6 0 0 1 6-6zm5 5h38a1 1 0 0 1 1 1v38a1 1 0 0 1-1 1H13a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1z"/><rect x="36" y="36" width="26" height="26" rx="6" fill="#2563EB"/></svg></span><span class="brand-name">imagec</span></a><div class="topbar-right"><a class="searchBtn" href="/?focus=search" aria-label="搜索工具" data-chrome-aria="searchTools"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></a><select class="langSelect" id="langSelect"></select></div></header>
+
+  <section class="panel sponsorSheet">
+    <div class="hero">
+      <h1 data-i18n="sponsorPageTitle">赞助兑换</h1>
+      <p data-i18n="sponsorPageLead">图片工具仍然免费，不需要兑换码。这里只把赞助包记在这台设备上。</p>
+    </div>
+    <form id="redeemForm" class="sponsorForm" autocomplete="off">
+      <label for="sponsorCode" data-i18n="sponsorCodeLabel">兑换码</label>
+      <input id="sponsorCode" name="code" type="text" maxlength="64" spellcheck="false" autocapitalize="characters" placeholder="IMAGEC-COFFEE-…" aria-describedby="sponsorError" />
+      <p id="sponsorError" class="sponsorError" role="alert" hidden></p>
+      <div class="sponsorActions">
+        <button type="submit" class="secondary" data-i18n="sponsorSubmit">兑换</button>
+      </div>
+    </form>
+    <div id="sponsorSuccess" class="sponsorSuccess" hidden>
+      <p data-i18n="sponsorSuccess">已记下赞助包。刷新后仍然有效。清除本机存储后会消失。</p>
+      <p class="sponsorNote" data-i18n="sponsorSuccessDetail">证件照换底会出现尺寸预设，滤镜调色会出现 6 个额外预设。</p>
+      <p class="sponsorActions">
+        <a href="/idphoto.html" data-i18n="toolIdphoto2">证件照换底</a>
+        <span aria-hidden="true">·</span>
+        <a href="/filter.html" data-i18n="toolFilter2">滤镜调色</a>
+      </p>
+    </div>
+    <p class="sponsorActions sponsorAlways">
+      <a href="https://afdian.com/a/imagec" target="_blank" rel="noopener noreferrer" data-i18n="sponsorBecome">成为赞助者</a>
+      <span aria-hidden="true">·</span>
+      <a href="/sponsors.html" data-i18n="wallTitle">赞助者</a>
+    </p>
+    <div hidden>
+      <span data-i18n="sponsorErrEmpty" data-reason-src="empty">请输入兑换码。</span>
+      <span data-i18n="sponsorErrInvalid" data-reason-src="invalid">兑换码不正确。</span>
+      <span data-i18n="sponsorErrLatiao" data-reason-src="latiao">这个兑换码不能兑换赞助包。赞助包只接受 IMAGEC-COFFEE 兑换码。</span>
+      <span data-i18n="sponsorErrStorage" data-reason-src="storage">无法记在这台设备上。请允许浏览器的本地存储后再试。</span>
+    </div>
+  </section>
+</main>
+<footer class="siteFooter"><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer" id="icp">ICP备案号申请中</a></footer>
+<script src="/sponsor.js"></script>
+<script>
+imagecSponsor.bootLang();
+(function () {
+  var form = document.getElementById("redeemForm");
+  var input = document.getElementById("sponsorCode");
+  var error = document.getElementById("sponsorError");
+  var success = document.getElementById("sponsorSuccess");
+  var lastReason = "";
+
+  function reasonText(reason) {
+    var src = document.querySelector('[data-reason-src="' + reason + '"]');
+    return src ? src.textContent : "";
+  }
+
+  function showError(reason) {
+    lastReason = reason;
+    success.hidden = true;
+    form.hidden = false;
+    error.hidden = false;
+    error.textContent = reasonText(reason);
+    input.setAttribute("aria-invalid", "true");
+  }
+
+  function showSuccess() {
+    lastReason = "";
+    error.hidden = true;
+    error.textContent = "";
+    input.removeAttribute("aria-invalid");
+    form.hidden = true;
+    success.hidden = false;
+  }
+
+  window.imagecSponsorOnLang = function () {
+    if (lastReason) showError(lastReason);
+  };
+
+  if (imagecSponsor.isUnlocked()) showSuccess();
+
+  input.addEventListener("input", function () {
+    if (!lastReason) return;
+    lastReason = "";
+    error.hidden = true;
+    error.textContent = "";
+    input.removeAttribute("aria-invalid");
+  });
+
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+    var result = imagecSponsor.redeem(input.value);
+    if (!result.ok) {
+      showError(result.reason);
+      input.focus();
+      return;
+    }
+    showSuccess();
+  });
+})();
+</script>
+<script src="/chrome.js"></script>
+</body>
+</html>

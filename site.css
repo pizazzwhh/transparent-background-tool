@@ -735,3 +735,37 @@ html[dir="rtl"] .toggle input:after { left: auto; right: 3px; }
 html[dir="rtl"] .toggle input:checked:after { transform: translateX(-18px); }
 html[dir="rtl"] body.home .searchWrap svg { left: auto; right: 12px; }
 html[dir="rtl"] body.home .searchInput { padding: 10px 36px 10px 12px; }
+
+/* ===== Sponsor redeem (quiet, secondary) ===== */
+.sponsorSheet { max-width: 560px; }
+.sponsorForm, .sponsorSuccess, .sponsorWallBlock { padding: 0 24px 24px; }
+.sponsorForm { padding-bottom: 8px; }
+.sponsorAlways { padding: 0 24px 24px; margin: 0; }
+.sponsorForm { display: grid; gap: 8px; }
+.sponsorForm label { font-size: var(--fs-sm); font-weight: var(--fw-bold); }
+.sponsorError { margin: 0; color: var(--danger); font-size: var(--fs-sm); }
+.sponsorActions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; margin-top: 4px; }
+.sponsorActions a { color: var(--ink-2); font-size: var(--fs-sm); }
+.sponsorNote { margin: 8px 0 0; color: var(--ink-2); font-size: var(--fs-sm); }
+.sponsorWall { margin: 0 0 8px; padding: 0; list-style: none; }
+.sponsorWall li { padding: 8px 0; border-bottom: 1px solid var(--line); color: var(--ink); font-size: var(--fs-sm); }
+.sponsorWall:empty { display: none; }
+.sizePresets { display: flex; flex-wrap: wrap; gap: 8px; }
+.sizePresets button {
+  flex: 1 1 72px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: var(--radius-sm);
+  min-height: 40px;
+  padding: 8px;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  color: var(--ink-2);
+  cursor: pointer;
+}
+.sizePresets button.active {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+.sponsorHint { margin: 6px 0 0; color: var(--ink-2); font-size: var(--fs-xs); font-weight: var(--fw-normal); line-height: 1.45; }
