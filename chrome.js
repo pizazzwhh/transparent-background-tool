@@ -54,7 +54,33 @@
   }
 
   var LANG_MENU = {zh:"语言",en:"Language",ja:"言語",ko:"언어",es:"Idioma",fr:"Langue",de:"Sprache",ru:"Язык",pt:"Idioma",ar:"اللغة",vi:"Ngôn ngữ",id:"Bahasa",th:"ภาษา"};
+  function syncBlogCards() {
+    var blogHrefs = currentLang() === "zh"
+      ? ["/blog/white-to-transparent-guide.html", "/blog/ecommerce-white-background.html"]
+      : ["/blog/remove-white-background-guide.html", "/blog/compress-png-to-100kb.html", "/blog/id-photo-maker-online.html"];
+    var blogGrid = document.querySelector(".blogGrid");
+    if (blogGrid && blogHrefs.length === 3 && blogGrid.querySelectorAll(".blogCard").length < 3) {
+      var seed = blogGrid.querySelector(".blogCard");
+      if (seed) {
+        var extra = seed.cloneNode(true);
+        extra.querySelectorAll("[data-i18n]").forEach(function (el) {
+          var key = el.getAttribute("data-i18n") || "";
+          if (key.indexOf("blog1") === 0) el.setAttribute("data-i18n", key.replace("blog1", "blog3"));
+        });
+        blogGrid.appendChild(extra);
+      }
+    }
+    document.querySelectorAll(".blogCard").forEach(function (card, i) {
+      if (blogHrefs[i]) {
+        card.hidden = false;
+        card.setAttribute("href", blogHrefs[i]);
+      } else {
+        card.remove();
+      }
+    });
+  }
   function applyCopy() {
+    syncBlogCards();
     document.querySelectorAll("[data-i18n]").forEach(function (el) {
       var value = textFor(el.getAttribute("data-i18n"));
       if (value != null) el.textContent = value;
@@ -65,17 +91,6 @@
     });
     var summary = document.querySelector(".advanced > summary");
     if (summary) summary.textContent = pack().advanced;
-    var blogHrefs = currentLang() === "zh"
-      ? ["/blog/white-to-transparent-guide.html", "/blog/ecommerce-white-background.html"]
-      : ["/blog/remove-white-background-guide.html", "/blog/compress-png-to-100kb.html", "/blog/id-photo-maker-online.html"];
-    document.querySelectorAll(".blogCard").forEach(function (card, i) {
-      if (blogHrefs[i]) {
-        card.hidden = false;
-        card.setAttribute("href", blogHrefs[i]);
-      } else {
-        card.hidden = true;
-      }
-    });
     var langSelect = document.getElementById("langSelect");
     if (langSelect) langSelect.setAttribute("aria-label", LANG_MENU[currentLang()] || LANG_MENU.en);
     var icp = document.getElementById("icp");
