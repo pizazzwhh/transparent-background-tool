@@ -26,23 +26,17 @@
       <label for="sponsorCode" data-i18n="sponsorCodeLabel">兑换码</label>
       <input id="sponsorCode" name="code" type="text" maxlength="64" spellcheck="false" autocapitalize="characters" placeholder="IMAGEC-COFFEE-…" aria-describedby="sponsorError" />
       <p id="sponsorError" class="sponsorError" role="alert" hidden></p>
-      <div class="sponsorActions">
-        <button type="submit" class="secondary" data-i18n="sponsorSubmit">兑换</button>
-      </div>
+      <button type="submit" class="secondary" data-i18n="sponsorSubmit">兑换</button>
     </form>
     <div id="sponsorSuccess" class="sponsorSuccess" hidden>
       <p data-i18n="sponsorSuccess">已记下赞助包。刷新后仍然有效。清除本机存储后会消失。</p>
       <p class="sponsorNote" data-i18n="sponsorSuccessDetail">证件照换底会出现尺寸预设，滤镜调色会出现 6 个额外预设。</p>
-      <p class="sponsorActions">
-        <a href="/idphoto.html" data-i18n="toolIdphoto2">证件照换底</a>
-        <span aria-hidden="true">·</span>
-        <a href="/filter.html" data-i18n="toolFilter2">滤镜调色</a>
+      <p class="sponsorLinks">
+        <a href="/idphoto.html" data-i18n="toolIdphoto2">证件照换底</a> <span aria-hidden="true">·</span> <a href="/filter.html" data-i18n="toolFilter2">滤镜调色</a>
       </p>
     </div>
-    <p class="sponsorActions sponsorAlways">
-      <a href="https://afdian.com/a/imagec" target="_blank" rel="noopener noreferrer" data-i18n="sponsorBecome">成为赞助者</a>
-      <span aria-hidden="true">·</span>
-      <a href="/sponsors.html" data-i18n="wallTitle">赞助者</a>
+    <p class="sponsorLinks sponsorFoot">
+      <a href="https://afdian.com/a/imagec" target="_blank" rel="noopener noreferrer" data-i18n="sponsorBecome">成为赞助者</a> <span aria-hidden="true">·</span> <a href="/sponsors.html" data-i18n="wallTitle">赞助者</a>
     </p>
     <div hidden>
       <span data-i18n="sponsorErrEmpty" data-reason-src="empty">请输入兑换码。</span>

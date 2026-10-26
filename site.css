@@ -134,8 +134,8 @@ button, input, select { font: inherit; color: inherit; }
 }
 .siteFooter a, body.studio > footer a { color: var(--ink-2); text-decoration: none; }
 .siteFooter a:hover, body.studio > footer a:hover { color: var(--accent); }
-.quietLinks { margin: 0 0 8px; color: var(--ink-2); font-size: var(--fs-sm); }
-.quietLinks a { color: var(--ink-2); text-decoration: underline; text-underline-offset: 2px; }
+.quietLinks, .sponsorLinks { margin: 0 0 8px; color: var(--ink-2); font-size: var(--fs-sm); }
+.quietLinks a, .sponsorLinks a { color: var(--ink-2); text-decoration: underline; text-underline-offset: 2px; }
 .adLine {
   margin: var(--space-5) 0 0;
   text-align: center;
@@ -736,20 +736,99 @@ html[dir="rtl"] .toggle input:checked:after { transform: translateX(-18px); }
 html[dir="rtl"] body.home .searchWrap svg { left: auto; right: 12px; }
 html[dir="rtl"] body.home .searchInput { padding: 10px 36px 10px 12px; }
 
-/* ===== Sponsor redeem (quiet, secondary) ===== */
+/* ===== Sponsor redeem (quiet, secondary) =====
+   sponsorLinks matches .quietLinks. It is a separate class so chrome.js
+   does not append another redeem link into these rows. */
 .sponsorSheet { max-width: 560px; }
-.sponsorForm, .sponsorSuccess, .sponsorWallBlock { padding: 0 24px 24px; }
-.sponsorForm { padding-bottom: 8px; }
-.sponsorAlways { padding: 0 24px 24px; margin: 0; }
-.sponsorForm { display: grid; gap: 8px; }
-.sponsorForm label { font-size: var(--fs-sm); font-weight: var(--fw-bold); }
-.sponsorError { margin: 0; color: var(--danger); font-size: var(--fs-sm); }
-.sponsorActions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; margin-top: 4px; }
-.sponsorActions a { color: var(--ink-2); font-size: var(--fs-sm); }
-.sponsorNote { margin: 8px 0 0; color: var(--ink-2); font-size: var(--fs-sm); }
-.sponsorWall { margin: 0 0 8px; padding: 0; list-style: none; }
-.sponsorWall li { padding: 8px 0; border-bottom: 1px solid var(--line); color: var(--ink); font-size: var(--fs-sm); }
+.sponsorForm,
+.sponsorSuccess,
+.sponsorWallBlock {
+  border-top: 1px solid var(--line);
+  padding: 16px 24px 18px;
+}
+.sponsorForm {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  padding-bottom: 18px;
+}
+.sponsorForm label {
+  margin: 0 0 6px;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-bold);
+  line-height: 1.4;
+}
+.sponsorForm input { width: 100%; }
+.sponsorForm input::placeholder { color: var(--muted); }
+.sponsorForm input[aria-invalid="true"] { border-color: var(--danger); }
+.sponsorError {
+  margin: 6px 0 0;
+  color: var(--danger);
+  font-size: var(--fs-sm);
+  line-height: 1.45;
+}
+.sponsorForm button.secondary {
+  align-self: flex-start;
+  width: auto;
+  margin-top: 14px;
+  position: static;
+}
+.sponsorSuccess p {
+  margin: 0;
+  color: var(--ink);
+  font-size: var(--fs-sm);
+  line-height: 1.55;
+}
+.sponsorSuccess .sponsorNote {
+  margin: 6px 0 0;
+  color: var(--ink-2);
+}
+.sponsorSheet .sponsorLinks { margin: 12px 0 0; color: var(--ink-2); line-height: 1.6; }
+.sponsorFoot {
+  margin: 0;
+  border-top: 1px solid var(--line);
+  padding: 14px 24px 20px;
+}
+.sponsorFoot.sponsorLinks { margin: 0; }
+.sponsorWallBlock { padding-bottom: 20px; }
+.sponsorWall { margin: 0; padding: 0; list-style: none; }
 .sponsorWall:empty { display: none; }
+.sponsorWall li {
+  margin: 0;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+  font-size: var(--fs-sm);
+  line-height: 1.45;
+}
+.sponsorEmpty {
+  margin: 0;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink-2);
+  font-size: var(--fs-sm);
+  line-height: 1.45;
+}
+.sponsorWallBlock .sponsorLinks { margin-top: 12px; }
+@media (max-width: 800px) {
+  .sponsorForm,
+  .sponsorSuccess,
+  .sponsorWallBlock,
+  .sponsorFoot {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .sponsorSheet button,
+  .sponsorSheet .sponsorLinks,
+  .sponsorSheet .sponsorFoot {
+    position: static;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    box-shadow: none;
+  }
+}
 .sizePresets { display: flex; flex-wrap: wrap; gap: 8px; }
 .sizePresets button {
   flex: 1 1 72px;
