@@ -46,6 +46,7 @@
   function pack() { return CHROME[currentLang()] || CHROME.en; }
 
   function textFor(key) {
+    if ((key === "heroTitle" || key === "heroSubtitle") && !document.body.classList.contains("home")) return null;
     var p = pack();
     if (NAME_KEYS[key]) return p[NAME_KEYS[key]];
     if (DESC_KEYS[key]) return p[DESC_KEYS[key]];
@@ -108,6 +109,13 @@
     }
     el.hidden = false;
     el.textContent = message;
+  }
+  function clearBanner() {
+    var el = document.getElementById("formError");
+    if (el) el.hidden = true;
+  }
+  function fileLooksLikeImage(file) {
+    return !!(file && file.type && file.type.indexOf("image/") === 0);
   }
   window.imagecAlert = function (key) {
     var p = pack();
@@ -195,6 +203,21 @@
     }
     var sel = document.getElementById("langSelect");
     if (sel) sel.addEventListener("change", function () { setTimeout(applyCopy, 0); });
+    document.addEventListener("change", function (event) {
+      var input = event.target;
+      if (!input || input.type !== "file" || !input.files || !input.files.length) return;
+      for (var i = 0; i < input.files.length; i++) if (fileLooksLikeImage(input.files[i])) { clearBanner(); return; }
+    }, true);
+    document.addEventListener("drop", function (event) {
+      var files = event.dataTransfer && event.dataTransfer.files;
+      if (!files) return;
+      for (var i = 0; i < files.length; i++) if (fileLooksLikeImage(files[i])) { clearBanner(); return; }
+    }, true);
+    document.addEventListener("paste", function (event) {
+      var items = event.clipboardData && event.clipboardData.items;
+      if (!items) return;
+      for (var i = 0; i < items.length; i++) if (fileLooksLikeImage(items[i])) { clearBanner(); return; }
+    }, true);
   }
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
