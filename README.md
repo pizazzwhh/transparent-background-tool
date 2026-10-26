@@ -49,6 +49,16 @@ python -m http.server 8080
 # Open http://localhost:8080
 ```
 
+### Notify search engines (IndexNow)
+
+After a production deploy, submit the canonical sitemap URLs (clean paths such as `https://imagec.xin/compress`, not `.html`) to IndexNow:
+
+```bash
+node scripts/indexnow-submit.mjs
+```
+
+The public key is `94a6c1480ecc4341998e31c267438424.txt` at the repo root and must be reachable at `https://imagec.xin/94a6c1480ecc4341998e31c267438424.txt`. Pass URL arguments to submit a subset, or `--dry-run` to print the list without sending it. `robots.txt` already allows the key file.
+
 ---
 
 ## 🎯 Use Cases
