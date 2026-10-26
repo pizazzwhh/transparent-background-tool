@@ -90,6 +90,12 @@
             <button data-preset="cold" data-i18n="pCold">冷色</button>
             <button data-preset="highcontrast" data-i18n="pHighcontrast">高对比</button>
             <button data-preset="softfocus" data-i18n="pSoftfocus">柔焦</button>
+            <button type="button" data-preset="clear" data-i18n="presetClear" class="sponsorPreset" hidden>清透</button>
+            <button type="button" data-preset="warmtone" data-i18n="presetWarmtone" class="sponsorPreset" hidden>暖调</button>
+            <button type="button" data-preset="cooltone" data-i18n="presetCooltone" class="sponsorPreset" hidden>冷调</button>
+            <button type="button" data-preset="mono" data-i18n="presetMono" class="sponsorPreset" hidden>黑白</button>
+            <button type="button" data-preset="softlight" data-i18n="presetSoftlight" class="sponsorPreset" hidden>柔光</button>
+            <button type="button" data-preset="shopsharp" data-i18n="presetShopsharp" class="sponsorPreset" hidden>锐化电商</button>
           </div>
         </div>
 
@@ -148,6 +154,7 @@
 
 </main>
 
+<script src="/sponsor.js"></script>
 <script>
 const $ = s => document.querySelector(s);
 const file = $('#file'), drop = $('#drop'), canvas = $('#canvas'), ctx = canvas.getContext('2d');
@@ -156,8 +163,12 @@ const empty = $('#empty');
 let source = null;
 let name = 'image';
 let currentPreset = 'original';
+const SPONSOR_PRESETS = { clear: 1, warmtone: 1, cooltone: 1, mono: 1, softlight: 1, shopsharp: 1 };
+if (window.imagecSponsor && imagecSponsor.isUnlocked()) {
+  document.querySelectorAll('.sponsorPreset').forEach(function (el) { el.hidden = false; });
+}
 
-const filters = { brightness: 0, contrast: 0, saturate: 0, sepia: 0, grayscale: 0, invert: 0, hueRotate: 0, blur: 0 };
+const filters = { brightness: 0, contrast: 0, saturate: 0, sepia: 0, grayscale: 0, invert: 0, hueRotate: 0, blur: 0, sharpen: 0 };
 
 const presets = {
   original:    { brightness: 0,  contrast: 0,   saturate: 0,   sepia: 0,   grayscale: 0,   invert: 0,   hueRotate: 0,   blur: 0 },
@@ -167,7 +178,13 @@ const presets = {
   warm:        { brightness: 5,  contrast: 5,   saturate: 20,  sepia: 30,  grayscale: 0,   invert: 0,   hueRotate: -15, blur: 0 },
   cold:        { brightness: 0,  contrast: 5,   saturate: 10,  sepia: 0,   grayscale: 0,   invert: 0,   hueRotate: 180, blur: 0 },
   highcontrast:{ brightness: 0,  contrast: 50,  saturate: 20,  sepia: 0,   grayscale: 0,   invert: 0,   hueRotate: 0,   blur: 0 },
-  softfocus:   { brightness: 10, contrast: -15, saturate: -10, sepia: 10,  grayscale: 0,   invert: 0,   hueRotate: 0,   blur: 1 }
+  softfocus:   { brightness: 10, contrast: -15, saturate: -10, sepia: 10,  grayscale: 0,   invert: 0,   hueRotate: 0,   blur: 1 },
+  clear:       { brightness: 12, contrast: 6,   saturate: 4,   sepia: 0,   grayscale: 0,   invert: 0,   hueRotate: 0,   blur: 0, sharpen: 0 },
+  warmtone:    { brightness: 8,  contrast: 2,   saturate: 8,   sepia: 16,  grayscale: 0,   invert: 0,   hueRotate: -8,  blur: 0, sharpen: 0 },
+  cooltone:    { brightness: 2,  contrast: 8,   saturate: -6,  sepia: 0,   grayscale: 0,   invert: 0,   hueRotate: -14, blur: 0, sharpen: 0 },
+  mono:        { brightness: 6,  contrast: 28,  saturate: 0,   sepia: 0,   grayscale: 100, invert: 0,   hueRotate: 0,   blur: 0, sharpen: 0 },
+  softlight:   { brightness: 16, contrast: -12, saturate: 4,   sepia: 8,   grayscale: 0,   invert: 0,   hueRotate: -4,  blur: 0.8, sharpen: 0 },
+  shopsharp:   { brightness: 3,  contrast: 14,  saturate: 12,  sepia: 0,   grayscale: 0,   invert: 0,   hueRotate: 0,   blur: 0, sharpen: 0.55 }
 };
 
 const LANGS=[
@@ -334,18 +351,44 @@ function buildFilter() {
   return `brightness(${b}%) contrast(${c}%) saturate(${s}%) sepia(${filters.sepia}%) grayscale(${filters.grayscale}%) invert(${filters.invert}%) hue-rotate(${filters.hueRotate}deg) blur(${filters.blur}px)`;
 }
 
+function sharpenImage(amount) {
+  const w = canvas.width, h = canvas.height;
+  const src = ctx.getImageData(0, 0, w, h);
+  const dst = ctx.createImageData(w, h);
+  const s = src.data, d = dst.data;
+  const center = 1 + 4 * amount;
+  for (let y = 0; y < h; y++) {
+    for (let x = 0; x < w; x++) {
+      const i = (y * w + x) * 4;
+      if (x === 0 || y === 0 || x === w - 1 || y === h - 1) {
+        d[i] = s[i]; d[i+1] = s[i+1]; d[i+2] = s[i+2]; d[i+3] = s[i+3];
+        continue;
+      }
+      for (let c = 0; c < 3; c++) {
+        let v = s[i+c] * center - s[i - 4 + c] * amount - s[i + 4 + c] * amount - s[i - w * 4 + c] * amount - s[i + w * 4 + c] * amount;
+        d[i+c] = v < 0 ? 0 : v > 255 ? 255 : Math.round(v);
+      }
+      d[i+3] = s[i+3];
+    }
+  }
+  ctx.putImageData(dst, 0, 0);
+}
+
 function render() {
   if (!source) return;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.filter = buildFilter();
   ctx.drawImage(source, 0, 0);
   ctx.filter = 'none';
+  if (filters.sharpen > 0) sharpenImage(filters.sharpen);
 }
 
 function applyPreset(preset) {
+  if (SPONSOR_PRESETS[preset] && !(window.imagecSponsor && imagecSponsor.isUnlocked())) return;
   const p = presets[preset];
   if (!p) return;
   currentPreset = preset;
+  filters.sharpen = 0;
   Object.keys(p).forEach(k => filters[k] = p[k]);
   $('#brightness').value = filters.brightness;
   $('#contrast').value = filters.contrast;
@@ -378,7 +421,8 @@ document.addEventListener('paste', e => {
 
 $('#presetGrid').addEventListener('click', e => {
   const btn = e.target.closest('button');
-  if (!btn) return;
+  if (!btn || btn.hidden) return;
+  if (SPONSOR_PRESETS[btn.dataset.preset] && !(window.imagecSponsor && imagecSponsor.isUnlocked())) return;
   document.querySelectorAll('#presetGrid button').forEach(b => b.classList.toggle('active', b === btn));
   applyPreset(btn.dataset.preset);
 });

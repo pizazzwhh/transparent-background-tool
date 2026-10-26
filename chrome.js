@@ -16,6 +16,22 @@
     th: {heroTitle:"เครื่องมือรูปภาพออนไลน์ฟรี",heroSubtitle:"เครื่องมือ 10 อย่างทำงานในเบราว์เซอร์ รูปภาพจะไม่ถูกอัปโหลด",searchTools:"ค้นหาเครื่องมือ",advanced:"ปรับค่า",adText:"โฆษณา",adCta:"ติดต่อ",sponsorText:"เครื่องมือนี้ฟรี ถ้ามีประโยชน์",sponsorCta:"สนับสนุนโปรเจกต์",blogLabel:"คู่มือ",nameWhitebg:"เอาพื้นขาวออก",nameCompress:"บีบอัดรูป",nameConvert:"แปลงรูปแบบ",nameCrop:"ตัดและปรับขนาด",nameId:"พื้นหลังรูปติดบัตร",nameWm:"ลายน้ำ",nameBg:"เปลี่ยนสีพื้นหลัง",nameSplice:"ต่อรูป",namePdf:"รูปเป็น PDF",nameFilter:"ฟิลเตอร์",descWhitebg:"เปลี่ยนพื้นขาวเป็น PNG โปร่งใส",descCompress:"ย่อ PNG, JPG, WebP โดยยังคงรายละเอียด",descConvert:"แปลงระหว่าง PNG, JPG, WebP และ BMP",descCrop:"ตัดบางส่วน หรือปรับเป็นขนาดที่ต้องการ",descId:"พื้นฟ้า ขาว หรือแดงสำหรับรูปติดบัตร",descWm:"ใส่ลายน้ำตัวอักษรหรือรูป",descBg:"เติมสีพื้นหรือไล่สีให้รูปโปร่งใส",descSplice:"ต่อหลายรูปเป็นรูปเดียว",descPdf:"รวมหลายรูปเป็น PDF เดียว",descFilter:"ความสว่าง คอนทราสต์ ความอิ่มตัว และค่าสำเร็จรูป",relatedTools:"เครื่องมืออื่น",moreTools:"เครื่องมืออื่น",relatedTitle:"เครื่องมืออื่น",swatchWhite:"ขาว",swatchBlue:"น้ำเงิน",swatchRed:"แดง",swatchLight:"ฟ้าอ่อน",swatchBlack:"ดำ",swatchGreen:"เขียว",swatchYellow:"เหลือง",errType:"ไฟล์นี้ไม่ใช่รูปที่รองรับ โปรดใช้ PNG, JPG หรือ WebP",errLoad:"เปิดรูปไม่ได้ อาจเป็นรูปแบบที่ไม่รองรับหรือไฟล์เสีย",errWm:"เปิดรูปลายน้ำไม่ได้ ลองใช้ PNG หรือ JPG",errCrop:"ลากบนรูปเพื่อเลือกบริเวณที่ต้องการเก็บไว้",blog1Tag:"พื้นขาว",blog1Title:"วิธีเอาพื้นขาวออก",blog1Desc:"เปลี่ยนรูปสินค้า ลายเซ็น และโลโก้เป็น PNG โปร่งใส",blog2Tag:"บีบอัด",blog2Title:"บีบอัด PNG ให้ต่ำกว่า 100KB",blog2Desc:"วิธีฟรีแต่ละแบบต่างกันอย่างไร และบีบอัดในเบราว์เซอร์ได้อย่างไร",blog3Tag:"รูปติดบัตร",blog3Title:"เปลี่ยนพื้นหลังรูปติดบัตรออนไลน์",blog3Desc:"พื้นฟ้า ขาว และแดง ต่างจากการเอาพื้นขาวออกอย่างไร"}
   };
 
+  var SPONSOR = {
+    zh: {sponsorRedeem:"赞助兑换",sponsorPageTitle:"赞助兑换",sponsorPageLead:"图片工具仍然免费，不需要兑换码。这里只把赞助包记在这台设备上。",sponsorCodeLabel:"兑换码",sponsorSubmit:"兑换",sponsorBecome:"成为赞助者",sponsorSuccess:"已记下赞助包。刷新后仍然有效。清除本机存储后会消失。",sponsorSuccessDetail:"证件照换底会出现尺寸预设，滤镜调色会出现 6 个额外预设。",sponsorErrEmpty:"请输入兑换码。",sponsorErrInvalid:"兑换码不正确。",sponsorErrLatiao:"这个兑换码不能兑换赞助包。赞助包只接受 IMAGEC-COFFEE 兑换码。",sponsorErrStorage:"无法记在这台设备上。请允许浏览器的本地存储后再试。",wallTitle:"赞助者",wallLead:"这里会放赞助者名单。",wallEmpty:"名单还空着。",wallCta:"去爱发电",sizePackLabel:"证件照尺寸",size1:"1寸",size2:"2寸",sizeSmall2:"小二寸",sizeResume:"简历照",sizePackHint:"1寸和简历照 295×413，2寸 413×579，小二寸 413×531。按 300 dpi 常用规格居中裁切。再点一次已选尺寸可回到原来的导出大小。",presetClear:"清透",presetWarmtone:"暖调",presetCooltone:"冷调",presetMono:"黑白",presetSoftlight:"柔光",presetShopsharp:"锐化电商"},
+    en: {sponsorRedeem:"Redeem sponsor code",sponsorPageTitle:"Redeem a sponsor code",sponsorPageLead:"The image tools stay free, with no code. This page only saves the sponsor pack on this device.",sponsorCodeLabel:"Code",sponsorSubmit:"Redeem",sponsorBecome:"Become a sponsor",sponsorSuccess:"Sponsor pack saved on this device. It stays after refresh. Clearing site data removes it.",sponsorSuccessDetail:"ID photo background gains size presets. Filters gain 6 extra presets.",sponsorErrEmpty:"Enter a code.",sponsorErrInvalid:"That code is not valid.",sponsorErrLatiao:"That code does not redeem the sponsor pack. Only IMAGEC-COFFEE codes do.",sponsorErrStorage:"Could not save on this device. Allow local storage and try again.",wallTitle:"Sponsors",wallLead:"Sponsor names will go here.",wallEmpty:"The list is empty.",wallCta:"Support on Afdian",sizePackLabel:"ID photo sizes",size1:"1 inch",size2:"2 inch",sizeSmall2:"Small 2 inch",sizeResume:"Resume",sizePackHint:"1 inch and resume are 295×413, 2 inch is 413×579, small 2 inch is 413×531, at 300 dpi. The photo is center-cropped. Click the selected size again to keep the original export size.",presetClear:"Clear",presetWarmtone:"Warm tone",presetCooltone:"Cool tone",presetMono:"Black and white",presetSoftlight:"Soft light",presetShopsharp:"Product sharpen"},
+    ja: {sponsorRedeem:"支援コード"},
+    ko: {sponsorRedeem:"후원 코드"},
+    es: {sponsorRedeem:"Canjear código"},
+    fr: {sponsorRedeem:"Code de soutien"},
+    de: {sponsorRedeem:"Code einlösen"},
+    ru: {sponsorRedeem:"Код поддержки"},
+    pt: {sponsorRedeem:"Resgatar código"},
+    ar: {sponsorRedeem:"استرداد الرمز"},
+    vi: {sponsorRedeem:"Đổi mã tài trợ"},
+    id: {sponsorRedeem:"Tukar kode"},
+    th: {sponsorRedeem:"ใช้รหัสสนับสนุน"}
+  };
+
   var NAME_KEYS = {
     toolWhitebg:"nameWhitebg", cardWhitebgTitle:"nameWhitebg",
     toolCompress:"nameCompress", toolCompress2:"nameCompress", cardCompressTitle:"nameCompress", rcCompress:"nameCompress", gridCompress:"nameCompress", relatedCompress:"nameCompress",
@@ -51,6 +67,9 @@
     if (NAME_KEYS[key]) return p[NAME_KEYS[key]];
     if (DESC_KEYS[key]) return p[DESC_KEYS[key]];
     if (DIRECT.indexOf(key) !== -1) return p[key];
+    var extra = SPONSOR[currentLang()] || {};
+    if (extra[key] != null) return extra[key];
+    if (SPONSOR.en && Object.prototype.hasOwnProperty.call(SPONSOR.en, key)) return SPONSOR.en[key];
     return null;
   }
 
@@ -80,8 +99,26 @@
       }
     });
   }
+  function ensureRedeemLinks() {
+    var label = (SPONSOR.zh && SPONSOR.zh.sponsorRedeem) || "赞助兑换";
+    document.querySelectorAll(".quietLinks, .adLine").forEach(function (container) {
+      if (container.querySelector('a[data-i18n="sponsorRedeem"]')) return;
+      container.appendChild(document.createTextNode(" "));
+      var sep = document.createElement("span");
+      sep.setAttribute("aria-hidden", "true");
+      sep.textContent = "·";
+      container.appendChild(sep);
+      container.appendChild(document.createTextNode(" "));
+      var link = document.createElement("a");
+      link.href = "/sponsor.html";
+      link.setAttribute("data-i18n", "sponsorRedeem");
+      link.textContent = label;
+      container.appendChild(link);
+    });
+  }
   function applyCopy() {
     syncBlogCards();
+    ensureRedeemLinks();
     document.querySelectorAll("[data-i18n]").forEach(function (el) {
       var value = textFor(el.getAttribute("data-i18n"));
       if (value != null) el.textContent = value;
@@ -96,6 +133,11 @@
     if (langSelect) langSelect.setAttribute("aria-label", LANG_MENU[currentLang()] || LANG_MENU.en);
     var icp = document.getElementById("icp");
     if (icp) icp.hidden = currentLang() !== "zh";
+    var titleKey = document.body && document.body.getAttribute("data-title-i18n");
+    if (titleKey) {
+      var titleValue = textFor(titleKey);
+      if (titleValue) document.title = titleValue + " | imagec";
+    }
   }
 
   function showBanner(message) {

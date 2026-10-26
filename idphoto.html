@@ -117,6 +117,16 @@
               <span data-i18n="customColor">自定义颜色：</span><code id="colorCode">#FFFFFF</code>
             </div>
           </div>
+          <div class="controlGroup" id="sizePack" hidden>
+            <label data-i18n="sizePackLabel">证件照尺寸</label>
+            <div class="sizePresets" id="sizePresets">
+              <button type="button" data-size="1inch" data-w="295" data-h="413" data-i18n="size1" title="295×413">1寸</button>
+              <button type="button" data-size="2inch" data-w="413" data-h="579" data-i18n="size2" title="413×579">2寸</button>
+              <button type="button" data-size="small2" data-w="413" data-h="531" data-i18n="sizeSmall2" title="413×531">小二寸</button>
+              <button type="button" data-size="resume" data-w="295" data-h="413" data-i18n="sizeResume" title="295×413">简历照</button>
+            </div>
+            <p class="sponsorHint" data-i18n="sizePackHint">1寸和简历照 295×413，2寸 413×579，小二寸 413×531。按 300 dpi 常用规格居中裁切。再点一次已选尺寸可回到原来的导出大小。</p>
+          </div>
           <div class="controlGroup">
             <label><span data-i18n="tolerance">容差</span> <span id="tolVal">30</span></label>
             <input type="range" id="tolerance" min="10" max="80" value="30" />
@@ -314,6 +324,7 @@ langSelect.onchange=()=>setLanguage(langSelect.value);
 setLanguage(language);
 </script>
 
+<script src="/sponsor.js"></script>
 <script>
 (function(){
   const dropzone = document.getElementById('dropzone');
@@ -335,6 +346,10 @@ setLanguage(language);
   let sourceImage = null;
   let originalBg = null;
   let currentColor = '#FFFFFF';
+  let outputSize = null;
+  const sizePack = document.getElementById('sizePack');
+  const sizePresets = document.getElementById('sizePresets');
+  if (window.imagecSponsor && imagecSponsor.isUnlocked() && sizePack) sizePack.hidden = false;
 
   function hexToRgb(hex){
     const m = hex.replace('#','');
@@ -404,12 +419,31 @@ setLanguage(language);
 
   function render(){
     if(!sourceImage || !originalBg) return;
+    if(outputSize && (!window.imagecSponsor || !imagecSponsor.isUnlocked())){
+      outputSize = null;
+      if(sizePack) sizePack.hidden = true;
+    }
 
-    const maxW = 1000;
-    let w = sourceImage.width, h = sourceImage.height;
-    if(w > maxW){ h = Math.round(h * maxW / w); w = maxW; }
+    let w, h, sx, sy, sw, sh;
+    if(outputSize){
+      w = outputSize.w;
+      h = outputSize.h;
+      const srcW = sourceImage.width, srcH = sourceImage.height;
+      const targetRatio = w / h;
+      const srcRatio = srcW / srcH;
+      if(srcRatio > targetRatio){
+        sh = srcH; sw = sh * targetRatio; sx = (srcW - sw) / 2; sy = 0;
+      } else {
+        sw = srcW; sh = sw / targetRatio; sx = 0; sy = (srcH - sh) / 2;
+      }
+    } else {
+      const maxW = 1000;
+      w = sourceImage.width; h = sourceImage.height;
+      if(w > maxW){ h = Math.round(h * maxW / w); w = maxW; }
+      sx = 0; sy = 0; sw = sourceImage.width; sh = sourceImage.height;
+    }
     preview.width = w; preview.height = h;
-    ctx.drawImage(sourceImage, 0, 0, w, h);
+    ctx.drawImage(sourceImage, sx, sy, sw, sh, 0, 0, w, h);
 
     const imageData = ctx.getImageData(0, 0, w, h);
     const data = imageData.data;
@@ -471,6 +505,27 @@ setLanguage(language);
     }
   });
 
+  if(sizePresets){
+    sizePresets.addEventListener('click', e => {
+      const btn = e.target.closest('button');
+      if(!btn || !sizePack || sizePack.hidden) return;
+      if(btn.classList.contains('active')){
+        btn.classList.remove('active');
+        btn.setAttribute('aria-pressed', 'false');
+        outputSize = null;
+      } else {
+        sizePresets.querySelectorAll('button').forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-pressed', 'false');
+        });
+        btn.classList.add('active');
+        btn.setAttribute('aria-pressed', 'true');
+        outputSize = { id: btn.dataset.size, w: parseInt(btn.dataset.w, 10), h: parseInt(btn.dataset.h, 10) };
+      }
+      render();
+    });
+  }
+
   presetColors.addEventListener('click', e => {
     const btn = e.target.closest('button');
     if(!btn) return;
@@ -494,13 +549,15 @@ setLanguage(language);
 
   downloadBtn.addEventListener('click', () => {
     const link = document.createElement('a');
-    link.download = 'idphoto_' + currentColor.replace('#','') + '.png';
+    const sizeName = outputSize ? ('_' + outputSize.id + '_' + outputSize.w + 'x' + outputSize.h) : '';
+    link.download = 'idphoto_' + currentColor.replace('#','') + sizeName + '.png';
     link.href = preview.toDataURL('image/png');
     link.click();
   });
 
   resetBtn.addEventListener('click', () => {
-    sourceImage = null; originalBg = null;
+    sourceImage = null; originalBg = null; outputSize = null;
+    if(sizePresets) sizePresets.querySelectorAll('button').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
     workarea.style.display = 'none';
     dropzone.style.display = 'block';
     fileInput.value = '';

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>赞助者 | imagec</title>
+<meta name="description" content="imagec 赞助者名单。名单还空着，可以去爱发电支持。" />
+<meta name="robots" content="index,follow" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="canonical" href="https://imagec.xin/sponsors.html" />
+<meta property="og:title" content="赞助者 | imagec" />
+<meta property="og:url" content="https://imagec.xin/sponsors.html" />
+<meta property="og:image" content="https://imagec.xin/og-image.jpg" />
+<link rel="stylesheet" href="/site.css" />
+</head>
+<body class="tool" data-title-i18n="wallTitle">
+<main class="shell">
+  <header class="topbar"><a class="brand" href="/"><span class="mark"><svg viewBox="0 0 64 64" width="26" height="26" aria-hidden="true"><rect x="2" y="2" width="60" height="60" rx="6" fill="#FAFAF9"/><path fill="#1C1917" fill-rule="evenodd" d="M8 2h48a6 6 0 0 1 6 6v48a6 6 0 0 1-6 6H8a6 6 0 0 1-6-6V8a6 6 0 0 1 6-6zm5 5h38a1 1 0 0 1 1 1v38a1 1 0 0 1-1 1H13a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1z"/><rect x="36" y="36" width="26" height="26" rx="6" fill="#2563EB"/></svg></span><span class="brand-name">imagec</span></a><div class="topbar-right"><a class="searchBtn" href="/?focus=search" aria-label="搜索工具" data-chrome-aria="searchTools"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></a><select class="langSelect" id="langSelect"></select></div></header>
+
+  <section class="panel sponsorSheet">
+    <div class="hero">
+      <h1 data-i18n="wallTitle">赞助者</h1>
+      <p data-i18n="wallLead">这里会放赞助者名单。</p>
+    </div>
+    <div class="sponsorWallBlock">
+      <ul class="sponsorWall" id="sponsorWall"></ul>
+      <p class="sponsorEmpty" id="wallEmpty" data-i18n="wallEmpty">名单还空着。</p>
+      <p class="sponsorLinks">
+        <a href="https://afdian.com/a/imagec" target="_blank" rel="noopener noreferrer" data-i18n="wallCta">去爱发电</a> <span aria-hidden="true">·</span> <a href="/sponsor.html" data-i18n="sponsorRedeem">赞助兑换</a>
+      </p>
+    </div>
+  </section>
+</main>
+<footer class="siteFooter"><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer" id="icp">ICP备案号申请中</a></footer>
+<script src="/sponsor.js"></script>
+<script>
+imagecSponsor.bootLang();
+(function () {
+  var list = document.getElementById("sponsorWall");
+  var empty = document.getElementById("wallEmpty");
+  if (list && empty) empty.hidden = list.children.length > 0;
+})();
+</script>
+<script src="/chrome.js"></script>
+</body>
+</html>
