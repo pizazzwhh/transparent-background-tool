@@ -73,14 +73,14 @@
   }
   </script>
   <style>
-    :root{--ink:#1A1A1A;--ink-soft:#3A3A38;--muted:#8A8378;--paper:#F5F1EA;--card:#FBF8F2;--line:#D9D2C5;--line-soft:#E8E2D6;--accent:#1F3A2E;--accent2:#E8EDE6;--serif:Georgia,"Source Han Serif SC","Noto Serif SC","Songti SC","STSong","宋体",serif;--sans:-apple-system,BlinkMacSystemFont,"Inter","PingFang SC","Microsoft YaHei",sans-serif;--shadow:0 1px 0 rgba(26,26,26,.04)}
+    :root{--ink:#111827;--ink-soft:#4B5563;--muted:#4B5563;--paper:#FAFAF9;--card:#FFFFFF;--line:#E5E7EB;--line-soft:#E5E7EB;--accent:#2563EB;--accent2:#EFF6FF;--serif:-apple-system,BlinkMacSystemFont,"PingFang SC","Segoe UI",sans-serif;--sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Segoe UI",sans-serif;--shadow:0 1px 2px rgba(17,24,39,.06)}
     *{box-sizing:border-box}
-    body{margin:0;min-height:100vh;color:var(--ink);background:radial-gradient(circle at 10% 0,#dff6e9 0,transparent 32rem),var(--paper);font:16px/1.7 Inter,"Segoe UI",sans-serif}
+    body{margin:0;min-height:100vh;color:var(--ink);background:var(--paper);font:16px/1.7 Inter,"Segoe UI",sans-serif}
     .shell{max-width:860px;margin:auto;padding:32px 24px 64px}
     header{display:flex;align-items:center;gap:12px;margin-bottom:32px;padding-bottom:24px;border-bottom:1px solid var(--line)}
     .backLink{color:var(--accent);text-decoration:none;font-weight:600;font-size:14px}
     .logo{display:flex;align-items:center;gap:10px;font-weight:800}
-    .logoMark{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;color:white;font-family:Georgia;font-size:18px}
+    .logoMark{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;color:white;font-family:var(--sans);font-size:18px}
     h1{font-size:clamp(26px,3.5vw,40px);line-height:1.2;letter-spacing:-.03em;margin:0 0 16px}
     .meta{color:var(--muted);font-size:14px;margin-bottom:32px;display:flex;gap:16px;flex-wrap:wrap}
     .meta span{display:inline-flex;align-items:center;gap:6px}
@@ -98,7 +98,7 @@
     .warnBox strong{color:#b8860b;display:block;margin-bottom:6px}
     .toolCard{background:linear-gradient(135deg,#eaf9f1,#fbf4d7);border-radius:16px;padding:24px;margin:24px 0;border:1px solid #a7ddc6}
     .toolCard h3{margin-top:0;color:var(--accent)}
-    .toolCard .cta{display:inline-block;margin-top:12px;padding:10px 24px;background:var(--ink);color:white;border-radius:99px;text-decoration:none;font-weight:700;font-size:14px}
+    .toolCard .cta{display:inline-block;margin-top:12px;padding:10px 24px;background:var(--accent);color:#fff;border-radius:99px;text-decoration:none;font-weight:700;font-size:14px}
     .tableWrap{overflow-x:auto;margin:20px 0}
     table{width:100%;border-collapse:collapse;font-size:14px}
     th,td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--line)}
@@ -115,14 +115,14 @@
     .ctaBottom{text-align:center;margin-top:48px;padding:32px;background:linear-gradient(135deg,#eaf9f1,#fbf4d7);border-radius:20px}
     .ctaBottom h3{margin:0 0 8px;font-size:22px}
     .ctaBottom p{color:var(--muted);margin:0 0 20px}
-    .ctaBottom a{display:inline-block;padding:14px 36px;background:var(--ink);color:white;border-radius:99px;text-decoration:none;font-weight:700;font-size:16px}
+    .ctaBottom a{display:inline-block;padding:14px 36px;background:var(--accent);color:#fff;border-radius:99px;text-decoration:none;font-weight:700;font-size:16px}
     @media(max-width:640px){.article{padding:24px 20px}.shell{padding:20px 16px 40px}}
   </style>
 </head>
 <body>
 <div class="shell">
   <header>
-    <a href="/?lang=en" class="logo"><span class="logoMark"><svg viewBox="0 0 64 64" width="22" height="22" aria-hidden="true"><rect x="12" y="12" width="34" height="34" rx="3" fill="none" stroke="#1A1A1A" stroke-width="3.2"/><rect x="30" y="30" width="22" height="22" rx="3" fill="#1F3A2E"/></svg></span><span>imagec</span></a>
+    <a href="/?lang=en" class="logo"><span class="logoMark"><svg viewBox="0 0 64 64" width="22" height="22" aria-hidden="true"><rect x="12" y="12" width="34" height="34" rx="3" fill="none" stroke="#111827" stroke-width="3.2"/><rect x="30" y="30" width="22" height="22" rx="3" fill="#2563EB"/></svg></span><span>imagec</span></a>
     <a href="/?lang=en" class="backLink">&larr; Back to Home</a>
   </header>
 

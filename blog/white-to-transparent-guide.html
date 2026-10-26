@@ -42,15 +42,15 @@
   }
   </script>
   <style>
-    :root{--ink:#1A1A1A;--ink-soft:#3A3A38;--muted:#8A8378;--paper:#F5F1EA;--card:#FBF8F2;--line:#D9D2C5;--line-soft:#E8E2D6;--accent:#1F3A2E;--accent2:#E8EDE6;--serif:Georgia,"Source Han Serif SC","Noto Serif SC","Songti SC","STSong","宋体",serif;--sans:-apple-system,BlinkMacSystemFont,"Inter","PingFang SC","Microsoft YaHei",sans-serif;--shadow:0 1px 0 rgba(26,26,26,.04)}
+    :root{--ink:#111827;--ink-soft:#4B5563;--muted:#4B5563;--paper:#FAFAF9;--card:#FFFFFF;--line:#E5E7EB;--line-soft:#E5E7EB;--accent:#2563EB;--accent2:#EFF6FF;--serif:-apple-system,BlinkMacSystemFont,"PingFang SC","Segoe UI",sans-serif;--sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Segoe UI",sans-serif;--shadow:0 1px 2px rgba(17,24,39,.06)}
     *{box-sizing:border-box}
-    body{margin:0;min-height:100vh;color:var(--ink);background:radial-gradient(circle at 10% 0,#dff6e9 0,transparent 32rem),var(--paper);font:16px/1.7 var(--sans)}
+    body{margin:0;min-height:100vh;color:var(--ink);background:var(--paper);font:16px/1.7 var(--sans)}
     .shell{max-width:860px;margin:auto;padding:32px 24px 64px}
     header{display:flex;align-items:center;gap:12px;margin-bottom:32px;padding-bottom:24px;border-bottom:1px solid var(--line)}
     .backLink{color:var(--accent);text-decoration:none;font-weight:600;font-size:14px}
     .backLink:hover{text-decoration:underline}
     .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px;margin-left:auto}
-    .mark{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;color:white;font-family:Georgia;font-size:18px}
+    .mark{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;color:white;font-family:var(--sans);font-size:18px}
     article{background:var(--card);border:1px solid #ffffff;box-shadow:var(--shadow);border-radius:24px;padding:40px}
     h1{font-size:clamp(26px,3.5vw,38px);line-height:1.2;letter-spacing:-.03em;margin:0 0 12px;max-width:700px}
     .meta{color:var(--muted);font-size:14px;margin-bottom:32px;display:flex;gap:16px;flex-wrap:wrap}
@@ -76,7 +76,7 @@
     .ctaBox{background:linear-gradient(135deg,#e4f6ec,#fbf4d7);border-radius:20px;padding:32px;text-align:center;margin:40px 0}
     .ctaBox h3{margin:0 0 8px;font-size:22px}
     .ctaBox p{margin:0 0 20px;color:var(--muted)}
-    .ctaBtn{display:inline-block;background:var(--ink);color:white;padding:12px 28px;border-radius:12px;font-weight:700;text-decoration:none;transition:.18s}
+    .ctaBtn{display:inline-block;background:var(--accent);color:#fff;padding:12px 28px;border-radius:12px;font-weight:700;text-decoration:none;transition:.18s}
     .ctaBtn:hover{background:var(--accent);transform:translateY(-1px)}
     .faqItem{border:1px solid var(--line);border-radius:14px;margin:12px 0;overflow:hidden}
     .faqQ{padding:16px 20px;font-weight:700;cursor:pointer;background:#fbfaf5}
@@ -93,7 +93,7 @@
 <main class="shell">
   <header>
     <a href="/" class="backLink">← 返回工具</a>
-    <div class="brand"><span class="mark"><svg viewBox="0 0 64 64" width="22" height="22" aria-hidden="true"><rect x="12" y="12" width="34" height="34" rx="3" fill="none" stroke="#1A1A1A" stroke-width="3.2"/><rect x="30" y="30" width="22" height="22" rx="3" fill="#1F3A2E"/></svg></span><span>imagec</span></div>
+    <div class="brand"><span class="mark"><svg viewBox="0 0 64 64" width="22" height="22" aria-hidden="true"><rect x="12" y="12" width="34" height="34" rx="3" fill="none" stroke="#111827" stroke-width="3.2"/><rect x="30" y="30" width="22" height="22" rx="3" fill="#2563EB"/></svg></span><span>imagec</span></div>
   </header>
 
   <article>
@@ -101,7 +101,7 @@
     <div class="meta">
       <span>📅 2026年7月28日</span>
       <span>⏱ 阅读时间：约 8 分钟</span>
-      <span>🏷 教程 / 抠图技巧</span>
+      <span>🏷 教程 / 去白底</span>
     </div>
 
     <p>无论是电商卖家、设计师还是自媒体创作者，<strong>把白底图片转成透明背景</strong>都是高频需求。但很多人不知道：不同的图片、不同的用途，最适合的方法完全不一样。</p>
