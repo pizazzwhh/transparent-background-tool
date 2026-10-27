@@ -67,8 +67,7 @@
     <div class="hero">
       <h1 data-i18n="title">图片压缩工具</h1>
       <p data-i18n="subtitle">在线免费压缩 PNG / JPG / WebP 图片，多级压缩等级，PNG 智能压缩，实时预览压缩效果，浏览器本地处理保护隐私。</p>
-      <div class="safeBadge">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3 5 6v5c0 4.6 2.8 8.2 7 10 4.2-1.8 7-5.4 7-10V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg>
+      <div class="privacyLine safeBadge">
         <span data-i18n="privacy">仅在浏览器本地处理 · 图片不会上传到服务器</span>
       </div>
     </div>
@@ -145,7 +144,7 @@
         <div class="canvasWrap" id="wrap">
           <img id="preview" alt="压缩预览">
           <div class="empty" id="empty">
-            <div class="bubble">✦</div>
+            <div class="bubble"></div>
             <strong data-i18n="emptyTitle">把图片放进来试试</strong>
             <div data-i18n="emptyHint">也可以直接粘贴剪贴板中的图片</div>
           </div>
@@ -168,17 +167,7 @@
 
   <section class="relatedTools">
     <h2 data-i18n="moreTools">更多图片工具</h2>
-    <div class="toolGrid">
-      <a href="/compress.html" data-i18n="rcCompress">图片压缩</a>
-      <a href="/convert.html" data-i18n="rcConvert">格式转换</a>
-      <a href="/crop.html" data-i18n="rcCrop">裁剪缩放</a>
-      <a href="/idphoto.html" data-i18n="rcIdphoto">证件照换底色</a>
-      <a href="/watermark.html" data-i18n="rcWatermark">加水印</a>
-      <a href="/bgcolor.html" data-i18n="rcBgcolor">换背景色</a>
-      <a href="/splice.html" data-i18n="rcSplice">图片拼接</a>
-      <a href="/img2pdf.html" data-i18n="rcImg2pdf">转PDF</a>
-      <a href="/filter.html" data-i18n="rcFilter">滤镜调色</a>
-    </div>
+    <div class="toolsGrid" data-tool-cards></div>
   </section>
   <p class="adLine"><span data-i18n="adText">广告合作</span> · <a href="mailto:ads@imagec.xin" data-i18n="adCta">联系招商</a></p>
 
@@ -753,6 +742,7 @@ init();
 })();
 </script>
 <footer class="siteFooter"><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer" id="icp">ICP备案号申请中</a></footer>
+<script src="/tool-cards.js"></script>
 <script src="/chrome.js"></script>
 </body>
 </html>

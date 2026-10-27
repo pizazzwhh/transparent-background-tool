@@ -79,29 +79,29 @@
 <link rel="stylesheet" href="/site.css" />
 </head>
 <body class="studio">
+<main class="shell">
 <header class="topbar"><a class="brand" href="/"><span class="mark"><svg viewBox="0 0 64 64" width="26" height="26" aria-hidden="true"><rect x="2" y="2" width="60" height="60" rx="6" fill="#FAFAF9"/><path fill="#1C1917" fill-rule="evenodd" d="M8 2h48a6 6 0 0 1 6 6v48a6 6 0 0 1-6 6H8a6 6 0 0 1-6-6V8a6 6 0 0 1 6-6zm5 5h38a1 1 0 0 1 1 1v38a1 1 0 0 1-1 1H13a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1z"/><rect x="36" y="36" width="26" height="26" rx="6" fill="#2563EB"/></svg></span><span class="brand-name">imagec</span></a><div class="topbar-right"><a class="searchBtn" href="/?focus=search" aria-label="搜索工具" data-chrome-aria="searchTools"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></a><select class="langSelect" id="langSelect"></select></div></header>
-<main>
   <section class="hero">
     <h1 data-i18n="title">图片加水印</h1>
     <p data-i18n="subtitle">上传图片，添加文字或图片水印，支持九宫格定位与平铺模式，自由调节字体、颜色、透明度与旋转角度。</p>
-    <div class="badge" data-i18n="privacy">仅在浏览器本地处理 · 图片不会上传到服务器</div>
+    <div class="privacyLine badge" data-i18n="privacy">仅在浏览器本地处理 · 图片不会上传到服务器</div>
   </section>
 
   <section class="toolCard">
     <div class="dropzone" id="dropzone">
-      <div class="icon">📁</div>
+      <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M5 14v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4"/></svg></div>
       <p><span data-i18n="uploadHint">点击上传、拖拽到此处或</span> <strong data-i18n="pasteHint">Ctrl+V 粘贴</strong> <span data-i18n="uploadPhoto">图片</span></p>
-      <p style="margin-top:6px;font-size:12px" data-i18n="formatHint">支持 JPG / PNG / WEBP</p>
+      <p data-i18n="formatHint">支持 JPG / PNG / WEBP</p>
       <input type="file" id="fileInput" accept="image/*" hidden />
     </div>
 
     <div class="workarea" id="workarea">
       <div class="panel">
-        <h3>👁 <span data-i18n="previewTitle">实时预览</span></h3>
+        <h3><span data-i18n="previewTitle">实时预览</span></h3>
         <div class="previewBox"><canvas id="preview"></canvas></div>
       </div>
       <div class="panel">
-        <h3>⚙️ <span data-i18n="settingsTitle">水印设置</span></h3>
+        <h3><span data-i18n="settingsTitle">水印设置</span></h3>
         <div class="controls">
           <div class="controlGroup">
             <label data-i18n="wmType">水印类型</label>
@@ -172,7 +172,7 @@
           </div>
 
           <div class="btnRow">
-            <button class="btn primary" id="downloadBtn">⬇ <span data-i18n="download">下载图片</span></button>
+            <button class="btn primary" id="downloadBtn"><span data-i18n="download">下载图片</span></button>
             <button class="btn secondary" id="resetBtn"><span data-i18n="reset">重新上传</span></button>
           </div>
         </div>
@@ -182,18 +182,7 @@
 
   <section class="relatedTools">
     <h2 data-i18n="relatedTools">更多图片工具</h2>
-    <div class="toolGrid">
-      <a href="/whitebg.html" data-i18n="toolWhitebg">去白底</a>
-      <a href="/compress.html" data-i18n="toolCompress2">图片压缩</a>
-      <a href="/convert.html" data-i18n="toolConvert2">格式转换</a>
-      <a href="/crop.html" data-i18n="toolCrop2">裁剪缩放</a>
-      <a href="/idphoto.html" data-i18n="toolIdphoto2">证件照换底色</a>
-      <a href="/watermark.html" data-i18n="toolWatermark2">加水印</a>
-      <a href="/bgcolor.html" data-i18n="toolBgcolor2">换背景色</a>
-      <a href="/splice.html" data-i18n="toolSplice2">图片拼接</a>
-      <a href="/img2pdf.html" data-i18n="toolImg2pdf2">转PDF</a>
-      <a href="/filter.html" data-i18n="toolFilter2">滤镜调色</a>
-    </div>
+    <div class="toolsGrid" data-tool-cards></div>
   </section>
   <p class="adLine"><span data-i18n="adText">广告合作</span> · <a href="mailto:ads@imagec.xin" data-i18n="adCta">联系招商</a></p>
 
@@ -633,6 +622,7 @@ setLanguage(language);
 })();
 </script>
 <footer class="siteFooter"><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer" id="icp">ICP备案号申请中</a></footer>
+<script src="/tool-cards.js"></script>
 <script src="/chrome.js"></script>
 </body>
 </html>

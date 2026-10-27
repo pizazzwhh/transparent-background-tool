@@ -69,8 +69,7 @@
     <div class="hero">
       <h1 data-i18n="heroTitle">图片裁剪缩放工具</h1>
       <p data-i18n="heroDesc">在线裁剪或缩放图片，支持在画布上拖拽选择裁剪区域、输入目标宽高缩放、一键套用常用预设尺寸。</p>
-      <div class="safeBadge">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3 5 6v5c0 4.6 2.8 8.2 7 10 4.2-1.8 7-5.4 7-10V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg>
+      <div class="privacyLine safeBadge">
         <span data-i18n="safeBadge">仅在浏览器本地处理 · 图片不会上传到服务器</span>
       </div>
     </div>
@@ -140,7 +139,7 @@
         <div class="canvasWrap" id="wrap">
           <canvas id="canvas"></canvas>
           <div class="empty" id="empty">
-            <div class="bubble">✦</div>
+            <div class="bubble"></div>
             <strong data-i18n="emptyHint">把图片放进来试试</strong>
             <div data-i18n="emptySub">也可以直接粘贴剪贴板中的图片</div>
           </div>
@@ -153,17 +152,7 @@
   <!-- ===== 相关工具 ===== -->
   <section class="relatedTools">
     <h2 data-i18n="relatedTitle">更多图片工具</h2>
-    <div class="toolGrid">
-      <a href="/compress.html" data-i18n="relatedCompress">图片压缩</a>
-      <a href="/convert.html" data-i18n="relatedConvert">格式转换</a>
-      <a href="/crop.html" data-i18n="relatedCrop">裁剪缩放</a>
-      <a href="/idphoto.html" data-i18n="relatedIdphoto">证件照换底色</a>
-      <a href="/watermark.html" data-i18n="relatedWatermark">加水印</a>
-      <a href="/bgcolor.html" data-i18n="relatedBgcolor">换背景色</a>
-      <a href="/splice.html" data-i18n="relatedSplice">图片拼接</a>
-      <a href="/img2pdf.html" data-i18n="relatedImg2pdf">转PDF</a>
-      <a href="/filter.html" data-i18n="relatedFilter">滤镜调色</a>
-    </div>
+    <div class="toolsGrid" data-tool-cards></div>
   </section>
   <p class="adLine"><span data-i18n="adText">广告合作</span> · <a href="mailto:ads@imagec.xin" data-i18n="adCta">联系招商</a></p>
 
@@ -528,6 +517,7 @@ function setLanguage(lang){
 })();
 </script>
 <footer class="siteFooter"><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer" id="icp">ICP备案号申请中</a></footer>
+<script src="/tool-cards.js"></script>
 <script src="/chrome.js"></script>
 </body>
 </html>

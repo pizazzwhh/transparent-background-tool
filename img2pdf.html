@@ -69,7 +69,7 @@
     <div class="hero">
       <h1 data-i18n="title">图片转 PDF</h1>
       <p data-i18n="subtitle">将多张图片合并为一个 PDF 文件，支持 A4、Letter 或原始尺寸页面，可调边距与图片位置。所有处理在浏览器本地完成。</p>
-      <div class="safeBadge" data-i18n="privacy">仅在浏览器本地处理 · 图片不会上传到服务器</div>
+      <div class="privacyLine safeBadge" data-i18n="privacy">仅在浏览器本地处理 · 图片不会上传到服务器</div>
     </div>
     <div class="workspace">
       <aside class="controls">
@@ -115,7 +115,7 @@
         </div>
         <div class="previewArea" id="previewArea">
           <div class="empty" id="empty">
-            <div class="bubble">📄</div>
+            <div class="bubble"></div>
             <strong data-i18n="emptyTitle">把图片放进来转成 PDF</strong>
             <div data-i18n="emptyHint">支持多张图片，可拖拽排序</div>
           </div>
@@ -127,17 +127,7 @@
 
   <section class="relatedTools">
     <h2 data-i18n="relatedTitle">更多图片工具</h2>
-    <div class="toolGrid">
-      <a href="/compress.html" data-i18n="gridCompress">图片压缩</a>
-      <a href="/convert.html" data-i18n="gridConvert">格式转换</a>
-      <a href="/crop.html" data-i18n="gridCrop">裁剪缩放</a>
-      <a href="/idphoto.html" data-i18n="gridIdphoto">证件照换底色</a>
-      <a href="/watermark.html" data-i18n="gridWatermark">加水印</a>
-      <a href="/bgcolor.html" data-i18n="gridBgcolor">换背景色</a>
-      <a href="/splice.html" data-i18n="gridSplice">图片拼接</a>
-      <a href="/img2pdf.html" data-i18n="gridImg2pdf">转PDF</a>
-      <a href="/filter.html" data-i18n="gridFilter">滤镜调色</a>
-    </div>
+    <div class="toolsGrid" data-tool-cards></div>
   </section>
   <p class="adLine"><span data-i18n="adText">广告合作</span> · <a href="mailto:ads@imagec.xin" data-i18n="adCta">联系招商</a></p>
 
@@ -478,6 +468,7 @@ setLanguage(language);
 })();
 </script>
 <footer class="siteFooter"><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer" id="icp">ICP备案号申请中</a></footer>
+<script src="/tool-cards.js"></script>
 <script src="/chrome.js"></script>
 </body>
 </html>
