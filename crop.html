@@ -206,16 +206,21 @@ function load(blob,filename){
 }
 
 /* ===== 适配画布显示尺寸 ===== */
-function fitCanvasDisplay(){
+function fitCanvasDisplay(attempt){
   if(!sourceImg)return;
   const wrap=$('#wrap');
   const maxW=wrap.clientWidth-4;
   const maxH=wrap.clientHeight-4;
+  // 预览区在标记已选文件前是隐藏的，第一次测量可能是 0。等它有尺寸再算缩放，避免拖拽选区失效。
+  if(maxW<8||maxH<8){
+    if((attempt||0)<30) requestAnimationFrame(()=>fitCanvasDisplay((attempt||0)+1));
+    return;
+  }
   const ow=sourceImg.naturalWidth,oh=sourceImg.naturalHeight;
   const s=Math.min(maxW/ow,maxH/oh,1);
-  dispScale=s;
-  canvas.style.width=(ow*s)+'px';
-  canvas.style.height=(oh*s)+'px';
+  dispScale=s>0?s:1;
+  canvas.style.width=(ow*dispScale)+'px';
+  canvas.style.height=(oh*dispScale)+'px';
 }
 
 /* ===== 绘制画布（图片 + 选区叠加） ===== */
