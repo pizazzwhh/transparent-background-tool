@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>赞助者 | imagec</title>
-<meta name="description" content="imagec 赞助者名单。名单还空着，可以去爱发电支持。" />
+<meta name="description" content="imagec 赞助者名单。也可以去爱发电支持。" />
 <meta name="robots" content="index,follow" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="canonical" href="https://imagec.xin/sponsors.html" />
@@ -38,7 +38,47 @@ imagecSponsor.bootLang();
 (function () {
   var list = document.getElementById("sponsorWall");
   var empty = document.getElementById("wallEmpty");
-  if (list && empty) empty.hidden = list.children.length > 0;
+  if (!list || !empty) return;
+
+  function clearWall() {
+    while (list.firstChild) list.removeChild(list.firstChild);
+  }
+
+  function showEmpty() {
+    clearWall();
+    empty.hidden = false;
+  }
+
+  function showNames(names) {
+    clearWall();
+    for (var i = 0; i < names.length; i++) {
+      var li = document.createElement("li");
+      li.textContent = names[i];
+      list.appendChild(li);
+    }
+    empty.hidden = true;
+  }
+
+  fetch("/sponsors.json")
+    .then(function (res) {
+      if (!res.ok) throw new Error("status");
+      return res.json();
+    })
+    .then(function (data) {
+      var rows = data && Array.isArray(data.sponsors) ? data.sponsors : [];
+      var names = [];
+      for (var i = 0; i < rows.length; i++) {
+        var row = rows[i];
+        if (!row || typeof row.name !== "string") continue;
+        var name = row.name.trim();
+        if (name) names.push(name);
+      }
+      if (!names.length) showEmpty();
+      else showNames(names);
+    })
+    .catch(function () {
+      showEmpty();
+    });
 })();
 </script>
 <script src="/tool-cards.js"></script>
