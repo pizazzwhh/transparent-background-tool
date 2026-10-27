@@ -240,6 +240,10 @@
     });
     applyCopy();
     syncFile();
+    /* Reveal only after the fold and shared copy (sponsor link included). */
+    if (document.body.classList.contains("tool") || document.body.classList.contains("studio")) {
+      document.body.classList.add("tool-ready");
+    }
     var root = document.body;
     if (root && window.MutationObserver) {
       new MutationObserver(syncFile).observe(root, { attributes: true, subtree: true, attributeFilter: ["style", "class"] });
@@ -263,8 +267,9 @@
     }, true);
   }
 
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
-  else boot();
+  /* This script sits at the end of the body, so fold before the next paint. */
+  if (document.body) boot();
+  else document.addEventListener("DOMContentLoaded", boot);
   window.imagecApplyChrome = applyCopy;
   void nativeAlert;
 })();
