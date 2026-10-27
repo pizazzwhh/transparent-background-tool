@@ -76,9 +76,11 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M5 14v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4"/></svg>
           <strong data-i18n="upload">点击选择或拖入多张图片</strong>
           <small data-i18n="formats">支持 PNG、JPG、WebP<br>也可直接粘贴图片</small>
+          <small data-i18n="heicTip">暂不支持 HEIC，请先转成 JPG 或 PNG</small>
         </label>
         <input id="file" type="file" accept="image/png,image/jpeg,image/webp" multiple />
 
+        <div class="hint" id="minHint" data-i18n="spliceMin">请至少添加 2 张图片</div>
         <div class="hint" data-i18n="listHint">可拖拽缩略图排序，点击 × 删除</div>
         <div class="thumbList" id="thumbList"></div>
 
@@ -355,10 +357,17 @@ function updateMeta() {
   }
 }
 
+function syncDownload() {
+  const ready = images.length >= 2;
+  $('#download').disabled = !ready;
+  const minHint = $('#minHint');
+  if (minHint) minHint.hidden = ready;
+}
+
 function renderPreview() {
   const has = images.length > 0;
-  $('#download').disabled = !has;
   $('#clear').disabled = !has;
+  syncDownload();
   if (!has) {
     canvas.style.display = 'none';
     empty.style.display = 'block';
@@ -446,7 +455,7 @@ $('#clear').onclick = () => {
 };
 
 $('#download').onclick = () => {
-  if (!images.length) return;
+  if (images.length < 2) return;
   canvas.toBlob(blob => {
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);

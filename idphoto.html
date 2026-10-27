@@ -92,7 +92,8 @@
       <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M5 14v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4"/></svg></div>
       <p><span data-i18n="uploadHint">点击上传、拖拽到此处或</span> <strong data-i18n="pasteHint">Ctrl+V 粘贴</strong> <span data-i18n="uploadPhoto">证件照图片</span></p>
       <p data-i18n="formatHint">支持 JPG / PNG / WEBP · 建议使用纯色背景证件照</p>
-      <input type="file" id="fileInput" accept="image/*" hidden />
+      <p data-i18n="heicTip">暂不支持 HEIC，请先转成 JPG 或 PNG</p>
+      <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp" hidden />
     </div>
 
     <div class="workarea" id="workarea">
