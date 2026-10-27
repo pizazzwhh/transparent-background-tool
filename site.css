@@ -875,15 +875,34 @@ html[dir="rtl"] body.home .searchInput { padding: 11px 40px 11px 14px; }
 }
 .sponsorFoot.sponsorLinks { margin: 0; }
 .sponsorWallBlock { padding-bottom: 20px; }
-.sponsorWall { margin: 0; padding: 0; list-style: none; }
+.sponsorWall {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
 .sponsorWall:empty { display: none; }
+/* Locked wall card: one name per row. Colors are fixed, not theme tokens. */
 .sponsorWall li {
   margin: 0;
-  padding: 11px 0;
-  border-bottom: 1px solid var(--line);
-  color: var(--ink);
+  min-width: 0;
+  max-width: 100%;
+  padding: 11px 14px;
+  border: 1px solid #E7E5E4;
+  border-radius: var(--radius);
+  background: #FAFAF9;
+  color: #1C1917;
   font-size: var(--fs-sm);
   line-height: 1.45;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  overflow: hidden;
 }
 .sponsorEmpty {
   margin: 0;
