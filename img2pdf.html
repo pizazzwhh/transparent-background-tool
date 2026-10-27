@@ -71,6 +71,7 @@
       <p data-i18n="subtitle">将多张图片合并为一个 PDF 文件，支持 A4、Letter 或原始尺寸页面，可调边距与图片位置。所有处理在浏览器本地完成。</p>
       <div class="privacyLine safeBadge" data-i18n="privacy">仅在浏览器本地处理 · 图片不会上传到服务器</div>
     </div>
+    <div id="libStatus" class="noticeBanner" role="alert" data-i18n="libMissing" hidden>PDF 组件加载失败。请检查网络，或允许 cdnjs / jsDelivr 后刷新页面。</div>
     <div class="workspace">
       <aside class="controls">
         <label class="drop" id="drop" for="file">
@@ -113,6 +114,7 @@
         <div class="stagebar">
           <div class="meta" id="meta" data-i18n="waiting">等待图片</div>
         </div>
+        <p id="alphaNote" class="notice" role="status" data-i18n="alphaKept" hidden>含透明区域的图片会以 PNG 嵌入 PDF，透明通道会保留，不会压成 JPEG。</p>
         <div class="previewArea" id="previewArea">
           <div class="empty" id="empty">
             <div class="bubble"></div>
@@ -141,7 +143,76 @@ let images = [];
 let position = 'center';
 let dragIndex = null;
 
-const { jsPDF } = window.jspdf;
+const JSPDF_FALLBACKS = [
+  'https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js'
+];
+let jsPDF = null;
+let jsPdfLoadPromise = null;
+
+function readJsPDF() {
+  try {
+    const lib = window.jspdf;
+    if (lib && typeof lib.jsPDF === 'function') return lib.jsPDF;
+  } catch (e) {}
+  return null;
+}
+jsPDF = readJsPDF();
+
+function loadScript(src) {
+  return new Promise((resolve, reject) => {
+    const s = document.createElement('script');
+    let settled = false;
+    const timer = setTimeout(() => finish(new Error('timeout')), 8000);
+    function finish(err) {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timer);
+      s.onload = s.onerror = null;
+      if (err) { s.remove(); reject(err); }
+      else resolve();
+    }
+    s.src = src;
+    s.async = true;
+    s.onload = () => finish();
+    s.onerror = () => finish(new Error('load failed'));
+    document.head.appendChild(s);
+  });
+}
+
+function ensureJsPDF() {
+  const found = readJsPDF();
+  if (found) { jsPDF = found; return Promise.resolve(jsPDF); }
+  if (!jsPdfLoadPromise) {
+    jsPdfLoadPromise = (async () => {
+      for (const src of JSPDF_FALLBACKS) {
+        try {
+          await loadScript(src);
+          const ctor = readJsPDF();
+          if (ctor) { jsPDF = ctor; return ctor; }
+        } catch (e) {}
+      }
+      return null;
+    })();
+  }
+  return jsPdfLoadPromise.then(ctor => {
+    if (!ctor) jsPdfLoadPromise = null;
+    return ctor;
+  });
+}
+
+function showLibError() {
+  const el = $('#libStatus');
+  if (!el) return;
+  const text = (messages[language] && messages[language].libMissing) || messages.en.libMissing;
+  el.textContent = text;
+  el.hidden = false;
+}
+
+function clearLibError() {
+  const el = $('#libStatus');
+  if (!el) return;
+  el.hidden = true;
+}
 
 const LANGS=[
   {code:'zh',name:'中文',dir:'ltr'},
@@ -176,19 +247,19 @@ const SEO={
 };
 
 const messages={
-zh:{brand:'imagec',toolWhitebg:'去白底',toolCompress:'压缩',toolConvert:'转换',toolCrop:'裁剪',toolIdphoto:'证件照',toolWatermark:'水印',toolBgcolor:'换底色',toolSplice:'拼接',toolImg2pdf:'转PDF',toolFilter:'滤镜',title:'图片转 PDF',subtitle:'将多张图片合并为一个 PDF 文件，支持 A4、Letter 或原始尺寸页面，可调边距与图片位置。所有处理在浏览器本地完成。',privacy:'仅在浏览器本地处理 · 图片不会上传到服务器',upload:'点击选择或拖入多张图片',formats:'支持 PNG、JPG、WebP<br>也可直接粘贴图片',pageSize:'页面大小',sizeA4:'A4 (210 × 297mm)',sizeLetter:'Letter (8.5 × 11in)',sizeOriginal:'原始尺寸（按图片大小）',margin:'边距',marginHint:'原始尺寸模式下边距无效',position:'图片位置',posCenter:'居中',posTopleft:'左上角',generate:'生成并下载 PDF',generateLoading:'正在生成...',clear:'清空全部',waiting:'等待图片',emptyTitle:'把图片放进来转成 PDF',emptyHint:'支持多张图片，可拖拽排序',pageText:'页',relatedTitle:'更多图片工具',gridCompress:'图片压缩',gridConvert:'格式转换',gridCrop:'裁剪缩放',gridIdphoto:'证件照换底色',gridWatermark:'加水印',gridBgcolor:'换背景色',gridSplice:'图片拼接',gridImg2pdf:'转PDF',gridFilter:'滤镜调色',errorMsg:'生成 PDF 失败：'},
-en:{brand:'imagec',toolWhitebg:'WhiteBG',toolCompress:'Compress',toolConvert:'Convert',toolCrop:'Crop',toolIdphoto:'ID Photo',toolWatermark:'Watermark',toolBgcolor:'BG Color',toolSplice:'Splice',toolImg2pdf:'PDF',toolFilter:'Filter',title:'Image to PDF',subtitle:'Combine multiple images into a single PDF file, with A4, Letter, or original page sizes, adjustable margin and image position. All processing is done locally in your browser.',privacy:'Processed locally in your browser · Images are never uploaded',upload:'Choose or drop multiple images',formats:'PNG, JPG, and WebP supported<br>You can also paste images',pageSize:'Page Size',sizeA4:'A4 (210 × 297mm)',sizeLetter:'Letter (8.5 × 11in)',sizeOriginal:'Original (per image)',margin:'Margin',marginHint:'Margin has no effect in original size mode',position:'Image Position',posCenter:'Center',posTopleft:'Top Left',generate:'Generate & Download PDF',generateLoading:'Generating...',clear:'Clear All',waiting:'Waiting for images',emptyTitle:'Drop images here to turn into PDF',emptyHint:'Supports multiple images, drag to reorder',pageText:'page',relatedTitle:'More Image Tools',gridCompress:'Image Compress',gridConvert:'Convert Format',gridCrop:'Crop & Resize',gridIdphoto:'ID Photo BG',gridWatermark:'Add Watermark',gridBgcolor:'Change BG Color',gridSplice:'Image Splice',gridImg2pdf:'To PDF',gridFilter:'Filter & Color',errorMsg:'Failed to generate PDF:'},
-ja:{brand:'imagec',toolWhitebg:'白抜き',toolCompress:'圧縮',toolConvert:'変換',toolCrop:'切抜',toolIdphoto:'証明写真',toolWatermark:'透かし',toolBgcolor:'背景色',toolSplice:'結合',toolImg2pdf:'PDF化',toolFilter:'フィルター',title:'画像をPDFに',subtitle:'複数の画像を1つのPDFファイルに結合。A4、Letter、または元のサイズのページに対応、余白と画像位置を調整可能。すべてブラウザ内でローカル処理。',privacy:'ブラウザ内でローカル処理 · 画像はサーバーにアップロードされません',upload:'クリックして選択または複数の画像をドロップ',formats:'PNG、JPG、WebP対応<br>画像の貼り付けも可能',pageSize:'ページサイズ',sizeA4:'A4 (210 × 297mm)',sizeLetter:'Letter (8.5 × 11in)',sizeOriginal:'元のサイズ（画像に合わせる）',margin:'余白',marginHint:'元のサイズモードでは余白は無効です',position:'画像位置',posCenter:'中央',posTopleft:'左上',generate:'PDFを生成してダウンロード',generateLoading:'生成中...',clear:'すべて削除',waiting:'画像待ち',emptyTitle:'画像をドロップしてPDFに変換',emptyHint:'複数画像対応、ドラッグで並び替え',pageText:'ページ',relatedTitle:'その他の画像ツール',gridCompress:'画像圧縮',gridConvert:'形式変換',gridCrop:'切抜・リサイズ',gridIdphoto:'証明写真背景',gridWatermark:'透かし追加',gridBgcolor:'背景色変更',gridSplice:'画像結合',gridImg2pdf:'PDF化',gridFilter:'フィルター調整',errorMsg:'PDFの生成に失敗しました：'},
-ko:{brand:'imagec',toolWhitebg:'흰배경제거',toolCompress:'압축',toolConvert:'변환',toolCrop:'자르기',toolIdphoto:'증명사진',toolWatermark:'워터마크',toolBgcolor:'배경색',toolSplice:'결합',toolImg2pdf:'PDF변환',toolFilter:'필터',title:'이미지를 PDF로',subtitle:'여러 이미지를 하나의 PDF 파일로 결합. A4, Letter 또는 원본 크기 페이지 지원, 여백 및 이미지 위치 조절 가능. 모든 처리가 브라우저에서 로컬로 진행됩니다.',privacy:'브라우저에서 로컬 처리 · 이미지가 서버에 업로드되지 않습니다',upload:'클릭하여 선택하거나 여러 이미지를 드롭',formats:'PNG, JPG, WebP 지원<br>이미지 붙여넣기도 가능',pageSize:'페이지 크기',sizeA4:'A4 (210 × 297mm)',sizeLetter:'Letter (8.5 × 11in)',sizeOriginal:'원본 크기 (이미지 크기대로)',margin:'여백',marginHint:'원본 크기 모드에서는 여백이 적용되지 않습니다',position:'이미지 위치',posCenter:'가운데',posTopleft:'왼쪽 위',generate:'PDF 생성 및 다운로드',generateLoading:'생성 중...',clear:'모두 지우기',waiting:'이미지 대기 중',emptyTitle:'이미지를 드롭하여 PDF로 변환',emptyHint:'여러 이미지 지원, 드래그로 정렬',pageText:'페이지',relatedTitle:'더 많은 이미지 도구',gridCompress:'이미지 압축',gridConvert:'형식 변환',gridCrop:'자르기·리사이즈',gridIdphoto:'증명사진 배경',gridWatermark:'워터마크 추가',gridBgcolor:'배경색 변경',gridSplice:'이미지 결합',gridImg2pdf:'PDF 변환',gridFilter:'필터·색보정',errorMsg:'PDF 생성 실패:'},
-es:{brand:'imagec',toolWhitebg:'Quitar Fondo',toolCompress:'Comprimir',toolConvert:'Convertir',toolCrop:'Recortar',toolIdphoto:'Foto ID',toolWatermark:'Marca',toolBgcolor:'Color Fondo',toolSplice:'Unir',toolImg2pdf:'A PDF',toolFilter:'Filtro',title:'Imagen a PDF',subtitle:'Combina varias imágenes en un solo archivo PDF, con tamaños de página A4, Letter u original, espacio y posición de imagen ajustables. Todo procesado localmente en tu navegador.',privacy:'Procesado localmente en tu navegador · Las imágenes nunca se suben',upload:'Elige o suelta varias imágenes',formats:'PNG, JPG y WebP soportados<br>También puedes pegar imágenes',pageSize:'Tamaño de Página',sizeA4:'A4 (210 × 297mm)',sizeLetter:'Letter (8.5 × 11in)',sizeOriginal:'Tamaño original (según imagen)',margin:'Margen',marginHint:'El margen no tiene efecto en el modo de tamaño original',position:'Posición de Imagen',posCenter:'Centro',posTopleft:'Esquina Superior Izquierda',generate:'Generar y Descargar PDF',generateLoading:'Generando...',clear:'Limpiar Todo',waiting:'Esperando imágenes',emptyTitle:'Suelta imágenes aquí para convertir a PDF',emptyHint:'Soporta varias imágenes, arrastra para reordenar',pageText:'página',relatedTitle:'Más Herramientas de Imagen',gridCompress:'Comprimir Imagen',gridConvert:'Convertir Formato',gridCrop:'Recortar y Redimensionar',gridIdphoto:'Fondo Foto ID',gridWatermark:'Añadir Marca',gridBgcolor:'Cambiar Color Fondo',gridSplice:'Unir Imágenes',gridImg2pdf:'A PDF',gridFilter:'Filtro y Color',errorMsg:'Error al generar PDF:'},
-fr:{brand:'imagec',toolWhitebg:'Suppr Fond',toolCompress:'Compresser',toolConvert:'Convertir',toolCrop:'Rogner',toolIdphoto:'Photo ID',toolWatermark:'Filigrane',toolBgcolor:'Couleur Fond',toolSplice:'Fusionner',toolImg2pdf:'Vers PDF',toolFilter:'Filtre',title:'Image vers PDF',subtitle:'Combinez plusieurs images en un seul fichier PDF, avec des tailles de page A4, Letter ou originales, marge et position réglables. Tout est traité localement dans votre navigateur.',privacy:'Traitement local dans votre navigateur · Les images ne sont jamais téléchargées',upload:'Choisissez ou déposez plusieurs images',formats:'PNG, JPG et WebP pris en charge<br>Vous pouvez aussi coller des images',pageSize:'Taille de Page',sizeA4:'A4 (210 × 297mm)',sizeLetter:'Letter (8.5 × 11in)',sizeOriginal:'Taille originale (selon l\'image)',margin:'Marge',marginHint:'La marge n\'a aucun effet en mode taille originale',position:'Position de l\'Image',posCenter:'Centre',posTopleft:'Coin Supérieur Gauche',generate:'Générer et Télécharger le PDF',generateLoading:'Génération...',clear:'Tout Effacer',waiting:'En attente d\'images',emptyTitle:'Déposez les images ici pour convertir en PDF',emptyHint:'Prend en charge plusieurs images, glissez pour réorganiser',pageText:'page',relatedTitle:'Plus d\'Outils d\'Image',gridCompress:'Compresser Image',gridConvert:'Convertir Format',gridCrop:'Rogner et Redimensionner',gridIdphoto:'Fond Photo ID',gridWatermark:'Ajouter Filigrane',gridBgcolor:'Changer Couleur Fond',gridSplice:'Fusionner Images',gridImg2pdf:'Vers PDF',gridFilter:'Filtre et Couleur',errorMsg:'Échec de la génération du PDF:'},
-de:{brand:'imagec',toolWhitebg:'Hintergrund Entf.',toolCompress:'Komprimieren',toolConvert:'Konvertieren',toolCrop:'Zuschneiden',toolIdphoto:'Ausweisfoto',toolWatermark:'Wasserzeichen',toolBgcolor:'Hintergrundfg.',toolSplice:'Verbinden',toolImg2pdf:'Zu PDF',toolFilter:'Filter',title:'Bild zu PDF',subtitle:'Kombinieren Sie mehrere Bilder zu einer einzelnen PDF-Datei, mit A4-, Letter- oder Originalseitengrößen, einstellbarem Rand und Bildposition. Alles lokal im Browser verarbeitet.',privacy:'Lokal in Ihrem Browser verarbeitet · Bilder werden nie hochgeladen',upload:'Mehrere Bilder auswählen oder ablegen',formats:'PNG, JPG und WebP unterstützt<br>Sie können auch Bilder einfügen',pageSize:'Seitengröße',sizeA4:'A4 (210 × 297mm)',sizeLetter:'Letter (8.5 × 11in)',sizeOriginal:'Originalgröße (je nach Bild)',margin:'Rand',marginHint:'Rand hat keine Auswirkung im Originalgrößen-Modus',position:'Bildposition',posCenter:'Mitte',posTopleft:'Obere Linke Ecke',generate:'PDF Generieren und Herunterladen',generateLoading:'Generiere...',clear:'Alles Löschen',waiting:'Warte auf Bilder',emptyTitle:'Legen Sie Bilder hier zum PDF-Umwandeln ab',emptyHint:'Unterstützt mehrere Bilder, per Drag sortieren',pageText:'Seite',relatedTitle:'Weitere Bildwerkzeuge',gridCompress:'Bild Komprimieren',gridConvert:'Format Konvertieren',gridCrop:'Zuschneiden & Größe',gridIdphoto:'Ausweisfoto-Hintergrund',gridWatermark:'Wasserzeichen Hinzufügen',gridBgcolor:'Hintergrund Ändern',gridSplice:'Bilder Verbinden',gridImg2pdf:'Zu PDF',gridFilter:'Filter & Farbe',errorMsg:'Fehler bei der PDF-Erstellung:'},
-ru:{brand:'imagec',toolWhitebg:'Удалить Фон',toolCompress:'Сжатие',toolConvert:'Конверт',toolCrop:'Обрезка',toolIdphoto:'Фото Док.',toolWatermark:'Вод. Знак',toolBgcolor:'Цвет Фона',toolSplice:'Объед.',toolImg2pdf:'В PDF',toolFilter:'Фильтр',title:'Изображение в PDF',subtitle:'Объедините несколько изображений в один PDF-файл, с размерами страниц A4, Letter или исходными, настраиваемыми полями и позицией изображения. Вся обработка локально в браузере.',privacy:'Обработка локально в браузере · Изображения не загружаются на сервер',upload:'Выберите или перетащите несколько изображений',formats:'Поддерживаются PNG, JPG и WebP<br>Также можно вставить изображения',pageSize:'Размер Страницы',sizeA4:'A4 (210 × 297мм)',sizeLetter:'Letter (8.5 × 11дюйм)',sizeOriginal:'Исходный размер (по изображению)',margin:'Поле',marginHint:'Поле не действует в режиме исходного размера',position:'Позиция Изображения',posCenter:'По центру',posTopleft:'Верхний Левый Угол',generate:'Создать и Скачать PDF',generateLoading:'Создание...',clear:'Очистить Всё',waiting:'Ожидание изображений',emptyTitle:'Перетащите изображения сюда для преобразования в PDF',emptyHint:'Поддерживается несколько изображений, перетаскивайте для сортировки',pageText:'стр',relatedTitle:'Больше Инструментов для Изображений',gridCompress:'Сжатие Изображений',gridConvert:'Конвертация Формата',gridCrop:'Обрезка и Размер',gridIdphoto:'Фон Фото Документов',gridWatermark:'Добавить Вод. Знак',gridBgcolor:'Изменить Цвет Фона',gridSplice:'Объединение Изображений',gridImg2pdf:'В PDF',gridFilter:'Фильтр и Цвет',errorMsg:'Не удалось создать PDF:'},
-pt:{brand:'imagec',toolWhitebg:'Remover Fundo',toolCompress:'Comprimir',toolConvert:'Converter',toolCrop:'Cortar',toolIdphoto:'Foto ID',toolWatermark:'Marca Dágua',toolBgcolor:'Cor Fundo',toolSplice:'Unir',toolImg2pdf:'Para PDF',toolFilter:'Filtro',title:'Imagem para PDF',subtitle:'Combine várias imagens em um único arquivo PDF, com tamanhos de página A4, Letter ou originais, margem e posição ajustáveis. Tudo processado localmente no navegador.',privacy:'Processado localmente no navegador · As imagens nunca são enviadas',upload:'Escolha ou solte várias imagens',formats:'PNG, JPG e WebP suportados<br>Você também pode colar imagens',pageSize:'Tamanho da Página',sizeA4:'A4 (210 × 297mm)',sizeLetter:'Letter (8.5 × 11in)',sizeOriginal:'Tamanho original (por imagem)',margin:'Margem',marginHint:'A margem não tem efeito no modo de tamanho original',position:'Posição da Imagem',posCenter:'Centro',posTopleft:'Canto Superior Esquerdo',generate:'Gerar e Baixar PDF',generateLoading:'Gerando...',clear:'Limpar Tudo',waiting:'Aguardando imagens',emptyTitle:'Solte imagens aqui para converter em PDF',emptyHint:'Suporta várias imagens, arraste para reordenar',pageText:'página',relatedTitle:'Mais Ferramentas de Imagem',gridCompress:'Comprimir Imagem',gridConvert:'Converter Formato',gridCrop:'Cortar e Redimensionar',gridIdphoto:'Fundo Foto ID',gridWatermark:'Adicionar Marca',gridBgcolor:'Mudar Cor Fundo',gridSplice:'Unir Imagens',gridImg2pdf:'Para PDF',gridFilter:'Filtro e Cor',errorMsg:'Falha ao gerar PDF:'},
-ar:{brand:'imagec',toolWhitebg:'إزالة الخلفية',toolCompress:'ضغط',toolConvert:'تحويل',toolCrop:'اقتصاص',toolIdphoto:'صورة هوية',toolWatermark:'علامة مائية',toolBgcolor:'لون الخلفية',toolSplice:'دمج',toolImg2pdf:'إلى PDF',toolFilter:'فلتر',title:'صور إلى PDF',subtitle:'اجمع عدة صور في ملف PDF واحد، مع أحجام صفحات A4 أو Letter أو الحجم الأصلي، وإمكانية ضبط الهامش وموضع الصورة. كل المعالجة محلياً في المتصفح.',privacy:'تتم المعالجة محلياً في المتصفح · لا يتم رفع الصور أبداً',upload:'اختر أو أسقط عدة صور',formats:'يدعم PNG و JPG و WebP<br>يمكنك أيضاً لصق الصور',pageSize:'حجم الصفحة',sizeA4:'A4 (210 × 297ملم)',sizeLetter:'Letter (8.5 × 11بوصة)',sizeOriginal:'الحجم الأصلي (حسب الصورة)',margin:'الهامش',marginHint:'الهامش لا يأثر في وضع الحجم الأصلي',position:'موضع الصورة',posCenter:'المنتصف',posTopleft:'الزاوية العلوية اليسرى',generate:'إنشاء وتحميل PDF',generateLoading:'جاري الإنشاء...',clear:'مسح الكل',waiting:'في انتظار الصور',emptyTitle:'أسقط الصور هنا للتحويل إلى PDF',emptyHint:'يدعم عدة صور، اسحب لإعادة الترتيب',pageText:'صفحة',relatedTitle:'المزيد من أدوات الصور',gridCompress:'ضغط الصور',gridConvert:'تحويل الصيغ',gridCrop:'اقتصاص وتغيير الحجم',gridIdphoto:'خلفية صورة هوية',gridWatermark:'إضافة علامة مائية',gridBgcolor:'تغيير لون الخلفية',gridSplice:'دمج الصور',gridImg2pdf:'إلى PDF',gridFilter:'فلتر وتلوين',errorMsg:'فشل إنشاء PDF:'},
-vi:{brand:'imagec',toolWhitebg:'Xóa Nền',toolCompress:'Nén',toolConvert:'Chuyển',toolCrop:'Cắt',toolIdphoto:'Ảnh CMND',toolWatermark:'Watermark',toolBgcolor:'Màu Nền',toolSplice:'Ghép',toolImg2pdf:'Sang PDF',toolFilter:'Bộ Lọc',title:'Ảnh sang PDF',subtitle:'Kết hợp nhiều ảnh thành một tệp PDF duy nhất, với kích thước trang A4, Letter hoặc gốc, lề và vị trí ảnh có thể điều chỉnh. Tất cả xử lý cục bộ trong trình duyệt.',privacy:'Xử lý cục bộ trong trình duyệt · Không bao giờ tải ảnh lên',upload:'Chọn hoặc thả nhiều ảnh',formats:'Hỗ trợ PNG, JPG và WebP<br>Bạn cũng có thể dán ảnh',pageSize:'Kích thước Trang',sizeA4:'A4 (210 × 297mm)',sizeLetter:'Letter (8.5 × 11in)',sizeOriginal:'Kích thước gốc (theo ảnh)',margin:'Lề',marginHint:'Lề không có tác dụng ở chế độ kích thước gốc',position:'Vị trí Ảnh',posCenter:'Giữa',posTopleft:'Góc Trên Trái',generate:'Tạo và Tải PDF',generateLoading:'Đang tạo...',clear:'Xóa Tất Cả',waiting:'Đang chờ hình ảnh',emptyTitle:'Thả ảnh vào đây để chuyển sang PDF',emptyHint:'Hỗ trợ nhiều ảnh, kéo để sắp xếp',pageText:'trang',relatedTitle:'Thêm Công Cụ Hình Ảnh',gridCompress:'Nén Ảnh',gridConvert:'Chuyển Định Dạng',gridCrop:'Cắt và Thay Đổi Kích Thước',gridIdphoto:'Nền Ảnh CMND',gridWatermark:'Thêm Watermark',gridBgcolor:'Đổi Màu Nền',gridSplice:'Ghép Ảnh',gridImg2pdf:'Sang PDF',gridFilter:'Bộ Lọc và Màu',errorMsg:'Không thể tạo PDF:'},
-id:{brand:'imagec',toolWhitebg:'Hapus Latar',toolCompress:'Kompres',toolConvert:'Ubah',toolCrop:'Potong',toolIdphoto:'Foto ID',toolWatermark:'Tanda Air',toolBgcolor:'Warna Latar',toolSplice:'Gabung',toolImg2pdf:'Ke PDF',toolFilter:'Filter',title:'Gambar ke PDF',subtitle:'Gabungkan beberapa gambar menjadi satu file PDF, dengan ukuran halaman A4, Letter, atau asli, margin dan posisi gambar yang dapat disesuaikan. Semua diproses lokal di browser.',privacy:'Diproses secara lokal di browser · Gambar tidak pernah diunggah',upload:'Pilih atau jatuhkan beberapa gambar',formats:'Mendukung PNG, JPG, dan WebP<br>Anda juga bisa menempel gambar',pageSize:'Ukuran Halaman',sizeA4:'A4 (210 × 297mm)',sizeLetter:'Letter (8.5 × 11in)',sizeOriginal:'Ukuran asli (per gambar)',margin:'Margin',marginHint:'Margin tidak berpengaruh di mode ukuran asli',position:'Posisi Gambar',posCenter:'Tengah',posTopleft:'Pojok Kiri Atas',generate:'Buat dan Unduh PDF',generateLoading:'Membuat...',clear:'Bersihkan Semua',waiting:'Menunggu gambar',emptyTitle:'Jatuhkan gambar di sini untuk jadi PDF',emptyHint:'Mendukung banyak gambar, seret untuk mengurutkan',pageText:'hal',relatedTitle:'Lebih Banyak Alat Gambar',gridCompress:'Kompres Gambar',gridConvert:'Ubah Format',gridCrop:'Potong dan Ubah Ukuran',gridIdphoto:'Latar Foto ID',gridWatermark:'Tambah Tanda Air',gridBgcolor:'Ubah Warna Latar',gridSplice:'Gabung Gambar',gridImg2pdf:'Ke PDF',gridFilter:'Filter dan Warna',errorMsg:'Gagal membuat PDF:'},
-th:{brand:'imagec',toolWhitebg:'ลบพื้นหลัง',toolCompress:'บีบอัด',toolConvert:'แปลง',toolCrop:'ตัด',toolIdphoto:'รูปบัตร',toolWatermark:'ลายน้ำ',toolBgcolor:'สีพื้นหลัง',toolSplice:'ต่อ',toolImg2pdf:'เป็น PDF',toolFilter:'ฟิลเตอร์',title:'รูปเป็น PDF',subtitle:'รวมรูปภาพหลายรูปเป็นไฟล์ PDF เดียว รองรับขนาดหน้า A4, Letter หรือขนาดเดิม ปรับระยะขอบและตำแหน่งรูปได้ ประมวลผลทั้งหมดในเบราว์เซอร์',privacy:'ประมวลผลในเบราว์เซอร์เครื่อง · ไม่อัปโหลดรูปภาพ',upload:'คลิกเลือกหรือลากรูปมาวางหลายรูป',formats:'รองรับ PNG, JPG และ WebP<br>ยังสามารถวางรูปจากคลิปบอร์ด',pageSize:'ขนาดหน้า',sizeA4:'A4 (210 × 297มม.)',sizeLetter:'Letter (8.5 × 11นิ้ว)',sizeOriginal:'ขนาดเดิม (ตามรูป)',margin:'ระยะขอบ',marginHint:'ระยะขอบไม่มีผลในโหมดขนาดเดิม',position:'ตำแหน่งรูป',posCenter:'กลาง',posTopleft:'มุมซ้ายบน',generate:'สร้างและดาวน์โหลด PDF',generateLoading:'กำลังสร้าง...',clear:'ล้างทั้งหมด',waiting:'รอรูปภาพ',emptyTitle:'ลากรูปมาวางที่นี่เพื่อแปลงเป็น PDF',emptyHint:'รองรับหลายรูป ลากเพื่อจัดเรียง',pageText:'หน้า',relatedTitle:'เครื่องมือรูปภาพเพิ่มเติม',gridCompress:'บีบอัดรูป',gridConvert:'แปลงรูปแบบ',gridCrop:'ตัดและปรับขนาด',gridIdphoto:'พื้นหลังรูปบัตร',gridWatermark:'เพิ่มลายน้ำ',gridBgcolor:'เปลี่ยนสีพื้นหลัง',gridSplice:'ต่อรูปภาพ',gridImg2pdf:'เป็น PDF',gridFilter:'ฟิลเตอร์และสี',errorMsg:'สร้าง PDF ล้มเหลว:'}
+zh:{brand:'imagec',toolWhitebg:'去白底',toolCompress:'压缩',toolConvert:'转换',toolCrop:'裁剪',toolIdphoto:'证件照',toolWatermark:'水印',toolBgcolor:'换底色',toolSplice:'拼接',toolImg2pdf:'转PDF',toolFilter:'滤镜',title:'图片转 PDF',subtitle:'将多张图片合并为一个 PDF 文件，支持 A4、Letter 或原始尺寸页面，可调边距与图片位置。所有处理在浏览器本地完成。',privacy:'仅在浏览器本地处理 · 图片不会上传到服务器',upload:'点击选择或拖入多张图片',formats:'支持 PNG、JPG、WebP<br>也可直接粘贴图片',pageSize:'页面大小',sizeA4:'A4 (210 × 297mm)',sizeLetter:'Letter (8.5 × 11in)',sizeOriginal:'原始尺寸（按图片大小）',margin:'边距',marginHint:'原始尺寸模式下边距无效',position:'图片位置',posCenter:'居中',posTopleft:'左上角',generate:'生成并下载 PDF',generateLoading:'正在生成...',clear:'清空全部',waiting:'等待图片',emptyTitle:'把图片放进来转成 PDF',emptyHint:'支持多张图片，可拖拽排序',pageText:'页',relatedTitle:'更多图片工具',gridCompress:'图片压缩',gridConvert:'格式转换',gridCrop:'裁剪缩放',gridIdphoto:'证件照换底色',gridWatermark:'加水印',gridBgcolor:'换背景色',gridSplice:'图片拼接',gridImg2pdf:'转PDF',gridFilter:'滤镜调色',errorMsg:'生成 PDF 失败：',libMissing:'PDF 组件加载失败。请检查网络，或允许 cdnjs / jsDelivr 后刷新页面。',alphaKept:'含透明区域的图片会以 PNG 嵌入 PDF，透明通道会保留，不会压成 JPEG。'},
+en:{brand:'imagec',toolWhitebg:'WhiteBG',toolCompress:'Compress',toolConvert:'Convert',toolCrop:'Crop',toolIdphoto:'ID Photo',toolWatermark:'Watermark',toolBgcolor:'BG Color',toolSplice:'Splice',toolImg2pdf:'PDF',toolFilter:'Filter',title:'Image to PDF',subtitle:'Combine multiple images into a single PDF file, with A4, Letter, or original page sizes, adjustable margin and image position. All processing is done locally in your browser.',privacy:'Processed locally in your browser · Images are never uploaded',upload:'Choose or drop multiple images',formats:'PNG, JPG, and WebP supported<br>You can also paste images',pageSize:'Page Size',sizeA4:'A4 (210 × 297mm)',sizeLetter:'Letter (8.5 × 11in)',sizeOriginal:'Original (per image)',margin:'Margin',marginHint:'Margin has no effect in original size mode',position:'Image Position',posCenter:'Center',posTopleft:'Top Left',generate:'Generate & Download PDF',generateLoading:'Generating...',clear:'Clear All',waiting:'Waiting for images',emptyTitle:'Drop images here to turn into PDF',emptyHint:'Supports multiple images, drag to reorder',pageText:'page',relatedTitle:'More Image Tools',gridCompress:'Image Compress',gridConvert:'Convert Format',gridCrop:'Crop & Resize',gridIdphoto:'ID Photo BG',gridWatermark:'Add Watermark',gridBgcolor:'Change BG Color',gridSplice:'Image Splice',gridImg2pdf:'To PDF',gridFilter:'Filter & Color',errorMsg:'Failed to generate PDF:',libMissing:'The PDF library failed to load. Check your connection, or allow cdnjs / jsDelivr and refresh.',alphaKept:'Images with transparency are embedded as PNG, so the alpha channel is kept instead of being flattened to JPEG.'},
+ja:{brand:'imagec',toolWhitebg:'白抜き',toolCompress:'圧縮',toolConvert:'変換',toolCrop:'切抜',toolIdphoto:'証明写真',toolWatermark:'透かし',toolBgcolor:'背景色',toolSplice:'結合',toolImg2pdf:'PDF化',toolFilter:'フィルター',title:'画像をPDFに',subtitle:'複数の画像を1つのPDFファイルに結合。A4、Letter、または元のサイズのページに対応、余白と画像位置を調整可能。すべてブラウザ内でローカル処理。',privacy:'ブラウザ内でローカル処理 · 画像はサーバーにアップロードされません',upload:'クリックして選択または複数の画像をドロップ',formats:'PNG、JPG、WebP対応<br>画像の貼り付けも可能',pageSize:'ページサイズ',sizeA4:'A4 (210 × 297mm)',sizeLetter:'Letter (8.5 × 11in)',sizeOriginal:'元のサイズ（画像に合わせる）',margin:'余白',marginHint:'元のサイズモードでは余白は無効です',position:'画像位置',posCenter:'中央',posTopleft:'左上',generate:'PDFを生成してダウンロード',generateLoading:'生成中...',clear:'すべて削除',waiting:'画像待ち',emptyTitle:'画像をドロップしてPDFに変換',emptyHint:'複数画像対応、ドラッグで並び替え',pageText:'ページ',relatedTitle:'その他の画像ツール',gridCompress:'画像圧縮',gridConvert:'形式変換',gridCrop:'切抜・リサイズ',gridIdphoto:'証明写真背景',gridWatermark:'透かし追加',gridBgcolor:'背景色変更',gridSplice:'画像結合',gridImg2pdf:'PDF化',gridFilter:'フィルター調整',errorMsg:'PDFの生成に失敗しました：',libMissing:'PDFライブラリの読み込みに失敗しました。ネットワークを確認するか、cdnjs / jsDelivr を許可して再読み込みしてください。',alphaKept:'透明部分のある画像は PNG として PDF に埋め込まれ、アルファチャンネルは保持されます（JPEG には変換しません）。'},
+ko:{brand:'imagec',toolWhitebg:'흰배경제거',toolCompress:'압축',toolConvert:'변환',toolCrop:'자르기',toolIdphoto:'증명사진',toolWatermark:'워터마크',toolBgcolor:'배경색',toolSplice:'결합',toolImg2pdf:'PDF변환',toolFilter:'필터',title:'이미지를 PDF로',subtitle:'여러 이미지를 하나의 PDF 파일로 결합. A4, Letter 또는 원본 크기 페이지 지원, 여백 및 이미지 위치 조절 가능. 모든 처리가 브라우저에서 로컬로 진행됩니다.',privacy:'브라우저에서 로컬 처리 · 이미지가 서버에 업로드되지 않습니다',upload:'클릭하여 선택하거나 여러 이미지를 드롭',formats:'PNG, JPG, WebP 지원<br>이미지 붙여넣기도 가능',pageSize:'페이지 크기',sizeA4:'A4 (210 × 297mm)',sizeLetter:'Letter (8.5 × 11in)',sizeOriginal:'원본 크기 (이미지 크기대로)',margin:'여백',marginHint:'원본 크기 모드에서는 여백이 적용되지 않습니다',position:'이미지 위치',posCenter:'가운데',posTopleft:'왼쪽 위',generate:'PDF 생성 및 다운로드',generateLoading:'생성 중...',clear:'모두 지우기',waiting:'이미지 대기 중',emptyTitle:'이미지를 드롭하여 PDF로 변환',emptyHint:'여러 이미지 지원, 드래그로 정렬',pageText:'페이지',relatedTitle:'더 많은 이미지 도구',gridCompress:'이미지 압축',gridConvert:'형식 변환',gridCrop:'자르기·리사이즈',gridIdphoto:'증명사진 배경',gridWatermark:'워터마크 추가',gridBgcolor:'배경색 변경',gridSplice:'이미지 결합',gridImg2pdf:'PDF 변환',gridFilter:'필터·색보정',errorMsg:'PDF 생성 실패:',libMissing:'PDF 라이브러리를 불러오지 못했습니다. 네트워크를 확인하거나 cdnjs / jsDelivr를 허용한 뒤 새로고침하세요.',alphaKept:'투명 영역이 있는 이미지는 PNG로 PDF에 넣어 알파 채널을 유지합니다. JPEG로 바꾸지 않습니다.'},
+es:{brand:'imagec',toolWhitebg:'Quitar Fondo',toolCompress:'Comprimir',toolConvert:'Convertir',toolCrop:'Recortar',toolIdphoto:'Foto ID',toolWatermark:'Marca',toolBgcolor:'Color Fondo',toolSplice:'Unir',toolImg2pdf:'A PDF',toolFilter:'Filtro',title:'Imagen a PDF',subtitle:'Combina varias imágenes en un solo archivo PDF, con tamaños de página A4, Letter u original, espacio y posición de imagen ajustables. Todo procesado localmente en tu navegador.',privacy:'Procesado localmente en tu navegador · Las imágenes nunca se suben',upload:'Elige o suelta varias imágenes',formats:'PNG, JPG y WebP soportados<br>También puedes pegar imágenes',pageSize:'Tamaño de Página',sizeA4:'A4 (210 × 297mm)',sizeLetter:'Letter (8.5 × 11in)',sizeOriginal:'Tamaño original (según imagen)',margin:'Margen',marginHint:'El margen no tiene efecto en el modo de tamaño original',position:'Posición de Imagen',posCenter:'Centro',posTopleft:'Esquina Superior Izquierda',generate:'Generar y Descargar PDF',generateLoading:'Generando...',clear:'Limpiar Todo',waiting:'Esperando imágenes',emptyTitle:'Suelta imágenes aquí para convertir a PDF',emptyHint:'Soporta varias imágenes, arrastra para reordenar',pageText:'página',relatedTitle:'Más Herramientas de Imagen',gridCompress:'Comprimir Imagen',gridConvert:'Convertir Formato',gridCrop:'Recortar y Redimensionar',gridIdphoto:'Fondo Foto ID',gridWatermark:'Añadir Marca',gridBgcolor:'Cambiar Color Fondo',gridSplice:'Unir Imágenes',gridImg2pdf:'A PDF',gridFilter:'Filtro y Color',errorMsg:'Error al generar PDF:',libMissing:'No se pudo cargar la biblioteca PDF. Comprueba la conexión o permite cdnjs / jsDelivr y actualiza.',alphaKept:'Las imágenes con transparencia se incrustan como PNG: se conserva el canal alfa y no se aplanan a JPEG.'},
+fr:{brand:'imagec',toolWhitebg:'Suppr Fond',toolCompress:'Compresser',toolConvert:'Convertir',toolCrop:'Rogner',toolIdphoto:'Photo ID',toolWatermark:'Filigrane',toolBgcolor:'Couleur Fond',toolSplice:'Fusionner',toolImg2pdf:'Vers PDF',toolFilter:'Filtre',title:'Image vers PDF',subtitle:'Combinez plusieurs images en un seul fichier PDF, avec des tailles de page A4, Letter ou originales, marge et position réglables. Tout est traité localement dans votre navigateur.',privacy:'Traitement local dans votre navigateur · Les images ne sont jamais téléchargées',upload:'Choisissez ou déposez plusieurs images',formats:'PNG, JPG et WebP pris en charge<br>Vous pouvez aussi coller des images',pageSize:'Taille de Page',sizeA4:'A4 (210 × 297mm)',sizeLetter:'Letter (8.5 × 11in)',sizeOriginal:'Taille originale (selon l\'image)',margin:'Marge',marginHint:'La marge n\'a aucun effet en mode taille originale',position:'Position de l\'Image',posCenter:'Centre',posTopleft:'Coin Supérieur Gauche',generate:'Générer et Télécharger le PDF',generateLoading:'Génération...',clear:'Tout Effacer',waiting:'En attente d\'images',emptyTitle:'Déposez les images ici pour convertir en PDF',emptyHint:'Prend en charge plusieurs images, glissez pour réorganiser',pageText:'page',relatedTitle:'Plus d\'Outils d\'Image',gridCompress:'Compresser Image',gridConvert:'Convertir Format',gridCrop:'Rogner et Redimensionner',gridIdphoto:'Fond Photo ID',gridWatermark:'Ajouter Filigrane',gridBgcolor:'Changer Couleur Fond',gridSplice:'Fusionner Images',gridImg2pdf:'Vers PDF',gridFilter:'Filtre et Couleur',errorMsg:'Échec de la génération du PDF:',libMissing:'Le chargement de la bibliothèque PDF a échoué. Vérifiez la connexion ou autorisez cdnjs / jsDelivr, puis actualisez.',alphaKept:'Les images transparentes sont intégrées en PNG : le canal alpha est conservé, sans aplatissement en JPEG.'},
+de:{brand:'imagec',toolWhitebg:'Hintergrund Entf.',toolCompress:'Komprimieren',toolConvert:'Konvertieren',toolCrop:'Zuschneiden',toolIdphoto:'Ausweisfoto',toolWatermark:'Wasserzeichen',toolBgcolor:'Hintergrundfg.',toolSplice:'Verbinden',toolImg2pdf:'Zu PDF',toolFilter:'Filter',title:'Bild zu PDF',subtitle:'Kombinieren Sie mehrere Bilder zu einer einzelnen PDF-Datei, mit A4-, Letter- oder Originalseitengrößen, einstellbarem Rand und Bildposition. Alles lokal im Browser verarbeitet.',privacy:'Lokal in Ihrem Browser verarbeitet · Bilder werden nie hochgeladen',upload:'Mehrere Bilder auswählen oder ablegen',formats:'PNG, JPG und WebP unterstützt<br>Sie können auch Bilder einfügen',pageSize:'Seitengröße',sizeA4:'A4 (210 × 297mm)',sizeLetter:'Letter (8.5 × 11in)',sizeOriginal:'Originalgröße (je nach Bild)',margin:'Rand',marginHint:'Rand hat keine Auswirkung im Originalgrößen-Modus',position:'Bildposition',posCenter:'Mitte',posTopleft:'Obere Linke Ecke',generate:'PDF Generieren und Herunterladen',generateLoading:'Generiere...',clear:'Alles Löschen',waiting:'Warte auf Bilder',emptyTitle:'Legen Sie Bilder hier zum PDF-Umwandeln ab',emptyHint:'Unterstützt mehrere Bilder, per Drag sortieren',pageText:'Seite',relatedTitle:'Weitere Bildwerkzeuge',gridCompress:'Bild Komprimieren',gridConvert:'Format Konvertieren',gridCrop:'Zuschneiden & Größe',gridIdphoto:'Ausweisfoto-Hintergrund',gridWatermark:'Wasserzeichen Hinzufügen',gridBgcolor:'Hintergrund Ändern',gridSplice:'Bilder Verbinden',gridImg2pdf:'Zu PDF',gridFilter:'Filter & Farbe',errorMsg:'Fehler bei der PDF-Erstellung:',libMissing:'Die PDF-Bibliothek konnte nicht geladen werden. Prüfen Sie die Verbindung oder erlauben Sie cdnjs / jsDelivr und laden Sie neu.',alphaKept:'Bilder mit Transparenz werden als PNG eingebettet. Der Alphakanal bleibt erhalten und wird nicht zu JPEG verflacht.'},
+ru:{brand:'imagec',toolWhitebg:'Удалить Фон',toolCompress:'Сжатие',toolConvert:'Конверт',toolCrop:'Обрезка',toolIdphoto:'Фото Док.',toolWatermark:'Вод. Знак',toolBgcolor:'Цвет Фона',toolSplice:'Объед.',toolImg2pdf:'В PDF',toolFilter:'Фильтр',title:'Изображение в PDF',subtitle:'Объедините несколько изображений в один PDF-файл, с размерами страниц A4, Letter или исходными, настраиваемыми полями и позицией изображения. Вся обработка локально в браузере.',privacy:'Обработка локально в браузере · Изображения не загружаются на сервер',upload:'Выберите или перетащите несколько изображений',formats:'Поддерживаются PNG, JPG и WebP<br>Также можно вставить изображения',pageSize:'Размер Страницы',sizeA4:'A4 (210 × 297мм)',sizeLetter:'Letter (8.5 × 11дюйм)',sizeOriginal:'Исходный размер (по изображению)',margin:'Поле',marginHint:'Поле не действует в режиме исходного размера',position:'Позиция Изображения',posCenter:'По центру',posTopleft:'Верхний Левый Угол',generate:'Создать и Скачать PDF',generateLoading:'Создание...',clear:'Очистить Всё',waiting:'Ожидание изображений',emptyTitle:'Перетащите изображения сюда для преобразования в PDF',emptyHint:'Поддерживается несколько изображений, перетаскивайте для сортировки',pageText:'стр',relatedTitle:'Больше Инструментов для Изображений',gridCompress:'Сжатие Изображений',gridConvert:'Конвертация Формата',gridCrop:'Обрезка и Размер',gridIdphoto:'Фон Фото Документов',gridWatermark:'Добавить Вод. Знак',gridBgcolor:'Изменить Цвет Фона',gridSplice:'Объединение Изображений',gridImg2pdf:'В PDF',gridFilter:'Фильтр и Цвет',errorMsg:'Не удалось создать PDF:',libMissing:'Не удалось загрузить библиотеку PDF. Проверьте сеть или разрешите cdnjs / jsDelivr и обновите страницу.',alphaKept:'Изображения с прозрачностью вставляются как PNG: альфа-канал сохраняется и не сжимается в JPEG.'},
+pt:{brand:'imagec',toolWhitebg:'Remover Fundo',toolCompress:'Comprimir',toolConvert:'Converter',toolCrop:'Cortar',toolIdphoto:'Foto ID',toolWatermark:'Marca Dágua',toolBgcolor:'Cor Fundo',toolSplice:'Unir',toolImg2pdf:'Para PDF',toolFilter:'Filtro',title:'Imagem para PDF',subtitle:'Combine várias imagens em um único arquivo PDF, com tamanhos de página A4, Letter ou originais, margem e posição ajustáveis. Tudo processado localmente no navegador.',privacy:'Processado localmente no navegador · As imagens nunca são enviadas',upload:'Escolha ou solte várias imagens',formats:'PNG, JPG e WebP suportados<br>Você também pode colar imagens',pageSize:'Tamanho da Página',sizeA4:'A4 (210 × 297mm)',sizeLetter:'Letter (8.5 × 11in)',sizeOriginal:'Tamanho original (por imagem)',margin:'Margem',marginHint:'A margem não tem efeito no modo de tamanho original',position:'Posição da Imagem',posCenter:'Centro',posTopleft:'Canto Superior Esquerdo',generate:'Gerar e Baixar PDF',generateLoading:'Gerando...',clear:'Limpar Tudo',waiting:'Aguardando imagens',emptyTitle:'Solte imagens aqui para converter em PDF',emptyHint:'Suporta várias imagens, arraste para reordenar',pageText:'página',relatedTitle:'Mais Ferramentas de Imagem',gridCompress:'Comprimir Imagem',gridConvert:'Converter Formato',gridCrop:'Cortar e Redimensionar',gridIdphoto:'Fundo Foto ID',gridWatermark:'Adicionar Marca',gridBgcolor:'Mudar Cor Fundo',gridSplice:'Unir Imagens',gridImg2pdf:'Para PDF',gridFilter:'Filtro e Cor',errorMsg:'Falha ao gerar PDF:',libMissing:'A biblioteca de PDF não carregou. Verifique a conexão ou permita cdnjs / jsDelivr e atualize.',alphaKept:'Imagens com transparência são incorporadas como PNG: o canal alfa é mantido e não é achatado para JPEG.'},
+ar:{brand:'imagec',toolWhitebg:'إزالة الخلفية',toolCompress:'ضغط',toolConvert:'تحويل',toolCrop:'اقتصاص',toolIdphoto:'صورة هوية',toolWatermark:'علامة مائية',toolBgcolor:'لون الخلفية',toolSplice:'دمج',toolImg2pdf:'إلى PDF',toolFilter:'فلتر',title:'صور إلى PDF',subtitle:'اجمع عدة صور في ملف PDF واحد، مع أحجام صفحات A4 أو Letter أو الحجم الأصلي، وإمكانية ضبط الهامش وموضع الصورة. كل المعالجة محلياً في المتصفح.',privacy:'تتم المعالجة محلياً في المتصفح · لا يتم رفع الصور أبداً',upload:'اختر أو أسقط عدة صور',formats:'يدعم PNG و JPG و WebP<br>يمكنك أيضاً لصق الصور',pageSize:'حجم الصفحة',sizeA4:'A4 (210 × 297ملم)',sizeLetter:'Letter (8.5 × 11بوصة)',sizeOriginal:'الحجم الأصلي (حسب الصورة)',margin:'الهامش',marginHint:'الهامش لا يأثر في وضع الحجم الأصلي',position:'موضع الصورة',posCenter:'المنتصف',posTopleft:'الزاوية العلوية اليسرى',generate:'إنشاء وتحميل PDF',generateLoading:'جاري الإنشاء...',clear:'مسح الكل',waiting:'في انتظار الصور',emptyTitle:'أسقط الصور هنا للتحويل إلى PDF',emptyHint:'يدعم عدة صور، اسحب لإعادة الترتيب',pageText:'صفحة',relatedTitle:'المزيد من أدوات الصور',gridCompress:'ضغط الصور',gridConvert:'تحويل الصيغ',gridCrop:'اقتصاص وتغيير الحجم',gridIdphoto:'خلفية صورة هوية',gridWatermark:'إضافة علامة مائية',gridBgcolor:'تغيير لون الخلفية',gridSplice:'دمج الصور',gridImg2pdf:'إلى PDF',gridFilter:'فلتر وتلوين',errorMsg:'فشل إنشاء PDF:',libMissing:'تعذر تحميل مكتبة PDF. تحقق من الاتصال أو اسمح لـ cdnjs / jsDelivr ثم حدّث الصفحة.',alphaKept:'تُدرج الصور الشفافة كـ PNG، فيُحفظ تدرج الشفافية ولا تُسطَّح إلى JPEG.'},
+vi:{brand:'imagec',toolWhitebg:'Xóa Nền',toolCompress:'Nén',toolConvert:'Chuyển',toolCrop:'Cắt',toolIdphoto:'Ảnh CMND',toolWatermark:'Watermark',toolBgcolor:'Màu Nền',toolSplice:'Ghép',toolImg2pdf:'Sang PDF',toolFilter:'Bộ Lọc',title:'Ảnh sang PDF',subtitle:'Kết hợp nhiều ảnh thành một tệp PDF duy nhất, với kích thước trang A4, Letter hoặc gốc, lề và vị trí ảnh có thể điều chỉnh. Tất cả xử lý cục bộ trong trình duyệt.',privacy:'Xử lý cục bộ trong trình duyệt · Không bao giờ tải ảnh lên',upload:'Chọn hoặc thả nhiều ảnh',formats:'Hỗ trợ PNG, JPG và WebP<br>Bạn cũng có thể dán ảnh',pageSize:'Kích thước Trang',sizeA4:'A4 (210 × 297mm)',sizeLetter:'Letter (8.5 × 11in)',sizeOriginal:'Kích thước gốc (theo ảnh)',margin:'Lề',marginHint:'Lề không có tác dụng ở chế độ kích thước gốc',position:'Vị trí Ảnh',posCenter:'Giữa',posTopleft:'Góc Trên Trái',generate:'Tạo và Tải PDF',generateLoading:'Đang tạo...',clear:'Xóa Tất Cả',waiting:'Đang chờ hình ảnh',emptyTitle:'Thả ảnh vào đây để chuyển sang PDF',emptyHint:'Hỗ trợ nhiều ảnh, kéo để sắp xếp',pageText:'trang',relatedTitle:'Thêm Công Cụ Hình Ảnh',gridCompress:'Nén Ảnh',gridConvert:'Chuyển Định Dạng',gridCrop:'Cắt và Thay Đổi Kích Thước',gridIdphoto:'Nền Ảnh CMND',gridWatermark:'Thêm Watermark',gridBgcolor:'Đổi Màu Nền',gridSplice:'Ghép Ảnh',gridImg2pdf:'Sang PDF',gridFilter:'Bộ Lọc và Màu',errorMsg:'Không thể tạo PDF:',libMissing:'Không tải được thư viện PDF. Kiểm tra mạng hoặc cho phép cdnjs / jsDelivr rồi tải lại trang.',alphaKept:'Ảnh có vùng trong suốt được nhúng dạng PNG, giữ kênh alpha, không bị làm phẳng thành JPEG.'},
+id:{brand:'imagec',toolWhitebg:'Hapus Latar',toolCompress:'Kompres',toolConvert:'Ubah',toolCrop:'Potong',toolIdphoto:'Foto ID',toolWatermark:'Tanda Air',toolBgcolor:'Warna Latar',toolSplice:'Gabung',toolImg2pdf:'Ke PDF',toolFilter:'Filter',title:'Gambar ke PDF',subtitle:'Gabungkan beberapa gambar menjadi satu file PDF, dengan ukuran halaman A4, Letter, atau asli, margin dan posisi gambar yang dapat disesuaikan. Semua diproses lokal di browser.',privacy:'Diproses secara lokal di browser · Gambar tidak pernah diunggah',upload:'Pilih atau jatuhkan beberapa gambar',formats:'Mendukung PNG, JPG, dan WebP<br>Anda juga bisa menempel gambar',pageSize:'Ukuran Halaman',sizeA4:'A4 (210 × 297mm)',sizeLetter:'Letter (8.5 × 11in)',sizeOriginal:'Ukuran asli (per gambar)',margin:'Margin',marginHint:'Margin tidak berpengaruh di mode ukuran asli',position:'Posisi Gambar',posCenter:'Tengah',posTopleft:'Pojok Kiri Atas',generate:'Buat dan Unduh PDF',generateLoading:'Membuat...',clear:'Bersihkan Semua',waiting:'Menunggu gambar',emptyTitle:'Jatuhkan gambar di sini untuk jadi PDF',emptyHint:'Mendukung banyak gambar, seret untuk mengurutkan',pageText:'hal',relatedTitle:'Lebih Banyak Alat Gambar',gridCompress:'Kompres Gambar',gridConvert:'Ubah Format',gridCrop:'Potong dan Ubah Ukuran',gridIdphoto:'Latar Foto ID',gridWatermark:'Tambah Tanda Air',gridBgcolor:'Ubah Warna Latar',gridSplice:'Gabung Gambar',gridImg2pdf:'Ke PDF',gridFilter:'Filter dan Warna',errorMsg:'Gagal membuat PDF:',libMissing:'Pustaka PDF gagal dimuat. Periksa koneksi atau izinkan cdnjs / jsDelivr, lalu muat ulang.',alphaKept:'Gambar transparan disematkan sebagai PNG, jadi kanal alfa tetap ada dan tidak diratakan menjadi JPEG.'},
+th:{brand:'imagec',toolWhitebg:'ลบพื้นหลัง',toolCompress:'บีบอัด',toolConvert:'แปลง',toolCrop:'ตัด',toolIdphoto:'รูปบัตร',toolWatermark:'ลายน้ำ',toolBgcolor:'สีพื้นหลัง',toolSplice:'ต่อ',toolImg2pdf:'เป็น PDF',toolFilter:'ฟิลเตอร์',title:'รูปเป็น PDF',subtitle:'รวมรูปภาพหลายรูปเป็นไฟล์ PDF เดียว รองรับขนาดหน้า A4, Letter หรือขนาดเดิม ปรับระยะขอบและตำแหน่งรูปได้ ประมวลผลทั้งหมดในเบราว์เซอร์',privacy:'ประมวลผลในเบราว์เซอร์เครื่อง · ไม่อัปโหลดรูปภาพ',upload:'คลิกเลือกหรือลากรูปมาวางหลายรูป',formats:'รองรับ PNG, JPG และ WebP<br>ยังสามารถวางรูปจากคลิปบอร์ด',pageSize:'ขนาดหน้า',sizeA4:'A4 (210 × 297มม.)',sizeLetter:'Letter (8.5 × 11นิ้ว)',sizeOriginal:'ขนาดเดิม (ตามรูป)',margin:'ระยะขอบ',marginHint:'ระยะขอบไม่มีผลในโหมดขนาดเดิม',position:'ตำแหน่งรูป',posCenter:'กลาง',posTopleft:'มุมซ้ายบน',generate:'สร้างและดาวน์โหลด PDF',generateLoading:'กำลังสร้าง...',clear:'ล้างทั้งหมด',waiting:'รอรูปภาพ',emptyTitle:'ลากรูปมาวางที่นี่เพื่อแปลงเป็น PDF',emptyHint:'รองรับหลายรูป ลากเพื่อจัดเรียง',pageText:'หน้า',relatedTitle:'เครื่องมือรูปภาพเพิ่มเติม',gridCompress:'บีบอัดรูป',gridConvert:'แปลงรูปแบบ',gridCrop:'ตัดและปรับขนาด',gridIdphoto:'พื้นหลังรูปบัตร',gridWatermark:'เพิ่มลายน้ำ',gridBgcolor:'เปลี่ยนสีพื้นหลัง',gridSplice:'ต่อรูปภาพ',gridImg2pdf:'เป็น PDF',gridFilter:'ฟิลเตอร์และสี',errorMsg:'สร้าง PDF ล้มเหลว:',libMissing:'โหลดไลบรารี PDF ไม่สำเร็จ ตรวจสอบเครือข่าย หรืออนุญาต cdnjs / jsDelivr แล้วรีเฟรชหน้า',alphaKept:'รูปที่มีความโปร่งใสจะถูกฝังเป็น PNG จึงเก็บช่องอัลฟาไว้ และจะไม่ถูกแบนเป็น JPEG'}
 };
 
 function detectLang(){
@@ -299,7 +370,8 @@ function loadFiles(files) {
     const url = URL.createObjectURL(f);
     img.onload = () => {
       // 不立即revokeObjectURL，保留URL用于缩略图显示，删除时统一清理
-      images.push({ img, url, name: f.name.replace(/\.[^.]+$/, ''), w: img.naturalWidth, h: img.naturalHeight });
+      const hasAlpha = f.type === 'image/jpeg' ? false : imageHasAlpha(img);
+      images.push({ img, url, name: f.name.replace(/\.[^.]+$/, ''), w: img.naturalWidth, h: img.naturalHeight, hasAlpha });
       renderList();
     };
     img.onerror = () => { URL.revokeObjectURL(url); imagecAlert('errLoad'); };
@@ -313,6 +385,8 @@ function renderList() {
   $('#generate').disabled = !has;
   $('#clear').disabled = !has;
   empty.style.display = has ? 'none' : 'block';
+  const alphaNote = $('#alphaNote');
+  if (alphaNote) alphaNote.hidden = !images.some(it => it.hasAlpha);
   updateMeta();
 
   images.forEach((item, i) => {
@@ -380,15 +454,38 @@ function computePage(item) {
   return { pw, ph, ix, iy, iw, ih };
 }
 
-function imageToDataURL(item) {
+function imageHasAlpha(img) {
+  const w = img.naturalWidth, h = img.naturalHeight;
+  if (!w || !h) return false;
+  const c = document.createElement('canvas');
+  c.width = w;
+  c.height = h;
+  const cx = c.getContext('2d', { willReadFrequently: true });
+  if (!cx) return true;
+  cx.drawImage(img, 0, 0);
+  let data;
+  try { data = cx.getImageData(0, 0, w, h).data; }
+  catch (e) { return true; }
+  for (let i = 3; i < data.length; i += 4) {
+    if (data[i] !== 255) return true;
+  }
+  return false;
+}
+
+function imageForPdf(item) {
   const c = document.createElement('canvas');
   c.width = item.w;
   c.height = item.h;
   const cx = c.getContext('2d');
+  if (item.hasAlpha) {
+    cx.clearRect(0, 0, c.width, c.height);
+    cx.drawImage(item.img, 0, 0);
+    return { data: c.toDataURL('image/png'), format: 'PNG' };
+  }
   cx.fillStyle = '#ffffff';
   cx.fillRect(0, 0, c.width, c.height);
   cx.drawImage(item.img, 0, 0);
-  return c.toDataURL('image/jpeg', 0.92);
+  return { data: c.toDataURL('image/jpeg', 0.92), format: 'JPEG' };
 }
 
 function generatePDF() {
@@ -397,26 +494,41 @@ function generatePDF() {
   btn.disabled = true;
   btn.textContent = messages[language].generateLoading;
 
-  setTimeout(() => {
-    try {
-      const first = computePage(images[0]);
-      const pdf = new jsPDF({ unit: 'pt', format: [first.pw, first.ph], orientation: first.pw > first.ph ? 'l' : 'p' });
-      pdf.addImage(imageToDataURL(images[0]), 'JPEG', first.ix, first.iy, first.iw, first.ih);
-
-      for (let i = 1; i < images.length; i++) {
-        const p = computePage(images[i]);
-        pdf.addPage([p.pw, p.ph], p.pw > p.ph ? 'l' : 'p');
-        pdf.addImage(imageToDataURL(images[i]), 'JPEG', p.ix, p.iy, p.iw, p.ih);
-      }
-
-      pdf.save('images.pdf');
-    } catch (err) {
-      alert(messages[language].errorMsg + err.message);
-    } finally {
-      btn.disabled = false;
+  ensureJsPDF().then(ctor => {
+    if (!ctor) {
+      showLibError();
+      btn.disabled = images.length === 0;
       btn.textContent = messages[language].generate;
+      return;
     }
-  }, 50);
+    setTimeout(() => {
+      try {
+        const first = computePage(images[0]);
+        const pdf = new ctor({ unit: 'pt', format: [first.pw, first.ph], orientation: first.pw > first.ph ? 'l' : 'p' });
+        const firstImg = imageForPdf(images[0]);
+        pdf.addImage(firstImg.data, firstImg.format, first.ix, first.iy, first.iw, first.ih);
+
+        for (let i = 1; i < images.length; i++) {
+          const p = computePage(images[i]);
+          const img = imageForPdf(images[i]);
+          pdf.addPage([p.pw, p.ph], p.pw > p.ph ? 'l' : 'p');
+          pdf.addImage(img.data, img.format, p.ix, p.iy, p.iw, p.ih);
+        }
+
+        pdf.save('images.pdf');
+        clearLibError();
+      } catch (err) {
+        alert(messages[language].errorMsg + (err && err.message ? err.message : err));
+      } finally {
+        btn.disabled = images.length === 0;
+        btn.textContent = messages[language].generate;
+      }
+    }, 50);
+  }).catch(() => {
+    showLibError();
+    btn.disabled = images.length === 0;
+    btn.textContent = messages[language].generate;
+  });
 }
 
 file.onchange = e => { if (e.target.files.length) loadFiles(e.target.files); file.value = ''; };
@@ -448,6 +560,10 @@ $('#clear').onclick = () => {
 $('#generate').onclick = generatePDF;
 
 setLanguage(language);
+if (!jsPDF) {
+  showLibError();
+  ensureJsPDF().then(ctor => { if (ctor) clearLibError(); else showLibError(); });
+}
 </script>
 <script>
 (function(){

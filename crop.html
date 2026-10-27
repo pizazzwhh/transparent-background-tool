@@ -461,8 +461,10 @@ function detectLang(){
     if(l.startsWith('th'))return 'th';
   }return 'en';
 }
+let language=detectLang();
 function setLanguage(lang){
   if(!LANGS.includes(lang))lang='en';
+  language=lang;
   const rtl=lang==='ar';
   document.documentElement.lang=lang==='zh'?'zh-CN':lang;
   document.documentElement.dir=rtl?'rtl':'ltr';
