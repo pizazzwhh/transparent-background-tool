@@ -420,6 +420,11 @@ body.tool .controls .advanced { order: 4; }
 body:not(.has-file) .advanced,
 body:not(.has-file) .actions,
 body:not(.has-file) .btnRow { display: none !important; }
+/* display:none on <details> itself breaks the closed state in current Chrome,
+   so a file would paint every row. Keep closed content out of layout here. */
+.advanced:not([open]) > :not(summary) {
+  display: none !important;
+}
 /* Empty state must not paint settings. These nodes stay out of layout until
    chrome.js moves them into .advanced; hiding only .advanced is too late. */
 body.tool .controls > :not(.drop):not(.actions):not(.thumbList):not(.advanced):not(input):not(.hint) {
