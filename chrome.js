@@ -229,6 +229,7 @@
   }
 
   function boot() {
+    if (window.imagecToolCards) window.imagecToolCards.mountAll();
     document.querySelectorAll("body.tool .controls").forEach(foldTool);
     document.querySelectorAll("body.studio .workarea .controls").forEach(foldStudio);
     document.querySelectorAll(".empty").forEach(function (el) { el.setAttribute("role", "status"); });
