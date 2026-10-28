@@ -1,0 +1,835 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>批量压缩与格式转换 - 多图打包 ZIP | imagec</title>
+  <meta name="description" content="一次压缩或转换多张 PNG、JPG、WebP。失败的可以单独重试，成功的可以逐张下载或打包成一个 ZIP。浏览器本地处理，图片不上传服务器。" />
+  <meta name="keywords" content="批量压缩,批量转换,图片打包,ZIP,PNG压缩,JPG压缩,WebP转换,batch compress,batch convert" />
+  <meta name="author" content="imagec" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+  <meta name="googlebot" content="index,follow" />
+  <meta name="bingbot" content="index,follow" />
+  <meta name="msvalidate.01" content="6D09E7478DB0959D20C7BBBF26665B04" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/favicon.svg" />
+  <link rel="canonical" href="https://imagec.xin/batch" />
+  <link rel="alternate" hreflang="zh-CN" href="https://imagec.xin/batch?lang=zh" />
+  <link rel="alternate" hreflang="en" href="https://imagec.xin/batch?lang=en" />
+  <link rel="alternate" hreflang="ja" href="https://imagec.xin/batch?lang=ja" />
+  <link rel="alternate" hreflang="ko" href="https://imagec.xin/batch?lang=ko" />
+  <link rel="alternate" hreflang="es" href="https://imagec.xin/batch?lang=es" />
+  <link rel="alternate" hreflang="fr" href="https://imagec.xin/batch?lang=fr" />
+  <link rel="alternate" hreflang="de" href="https://imagec.xin/batch?lang=de" />
+  <link rel="alternate" hreflang="ru" href="https://imagec.xin/batch?lang=ru" />
+  <link rel="alternate" hreflang="pt" href="https://imagec.xin/batch?lang=pt" />
+  <link rel="alternate" hreflang="ar" href="https://imagec.xin/batch?lang=ar" />
+  <link rel="alternate" hreflang="vi" href="https://imagec.xin/batch?lang=vi" />
+  <link rel="alternate" hreflang="id" href="https://imagec.xin/batch?lang=id" />
+  <link rel="alternate" hreflang="th" href="https://imagec.xin/batch?lang=th" />
+  <link rel="alternate" hreflang="x-default" href="https://imagec.xin/batch" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="imagec" />
+  <meta property="og:title" content="批量压缩与格式转换 - 多图打包 ZIP | imagec" />
+  <meta property="og:description" content="一次压缩或转换多张 PNG、JPG、WebP，失败可单独重试，成功的可逐张下载或打包 ZIP。浏览器本地处理，不上传。" />
+  <meta property="og:url" content="https://imagec.xin/batch" />
+  <meta property="og:image" content="https://imagec.xin/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="批量压缩与格式转换 - 多图打包 ZIP | imagec" />
+  <meta name="twitter:description" content="一次压缩或转换多张图片，打包成一个 ZIP。浏览器本地处理，不上传服务器。" />
+  <meta name="twitter:image" content="https://imagec.xin/og-image.jpg" />
+  <meta name="theme-color" content="#FAFAF9" />
+  <meta name="application-name" content="imagec" />
+  <meta name="apple-mobile-web-app-title" content="imagec" />
+  <script type="application/ld+json" id="ldjson">{"@context":"https://schema.org","@type":"WebApplication","name":"批量压缩与格式转换","alternateName":"imagec","url":"https://imagec.xin/batch","image":"https://imagec.xin/og-image.jpg","applicationCategory":"MultimediaApplication","operatingSystem":"Any","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"一次压缩或转换多张 PNG、JPG、WebP。失败的可以单独重试，成功的可以逐张下载或打包成一个 ZIP。所有处理在浏览器本地完成。","inLanguage":["zh-CN","en","ja","ko","es","fr","de","ru","pt","ar","vi","id","th"],"featureList":["多图队列","批量压缩","批量格式转换","失败单独重试","逐张下载","打包 ZIP","浏览器本地处理不上传"],"screenshot":"https://imagec.xin/og-image.jpg"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://imagec.xin/"},{"@type":"ListItem","position":2,"name":"批量压缩与格式转换","item":"https://imagec.xin/batch"}]}</script>
+  <link rel="stylesheet" href="/site.css" />
+</head>
+<body class="tool">
+<main class="shell">
+  <header class="topbar"><a class="brand" href="/"><span class="mark"><svg viewBox="0 0 64 64" width="26" height="26" aria-hidden="true"><rect x="2" y="2" width="60" height="60" rx="6" fill="#FAFAF9"/><path fill="#1C1917" fill-rule="evenodd" d="M8 2h48a6 6 0 0 1 6 6v48a6 6 0 0 1-6 6H8a6 6 0 0 1-6-6V8a6 6 0 0 1 6-6zm5 5h38a1 1 0 0 1 1 1v38a1 1 0 0 1-1 1H13a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1z"/><rect x="36" y="36" width="26" height="26" rx="6" fill="#2563EB"/></svg></span><span class="brand-name">imagec</span></a><div class="topbar-right"><a class="searchBtn" href="/?focus=search" aria-label="搜索工具" data-chrome-aria="searchTools"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></a><select class="langSelect" id="langSelect"></select></div></header>
+
+  <section class="panel">
+    <div class="hero">
+      <h1 data-i18n="title">批量压缩与格式转换</h1>
+      <p data-i18n="subtitle">一次处理多张 PNG、JPG、WebP：只压缩，或转换成 PNG、JPG、WebP、BMP。失败的可以单独重试，成功的可以逐张下载或打包成一个 ZIP。</p>
+      <div class="privacyLine safeBadge">
+        <span data-i18n="privacy">仅在浏览器本地处理 · 图片不会上传到服务器</span>
+      </div>
+      <p class="heroLinks"><a href="/compress.html" data-i18n="linkCompress">单张压缩</a> <span aria-hidden="true">·</span> <a href="/convert.html" data-i18n="linkConvert">单张格式转换</a></p>
+    </div>
+    <div class="workspace">
+      <aside class="controls">
+        <label class="drop" id="drop" for="file">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M5 14v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4"/></svg>
+          <strong data-i18n="upload">点击选择或拖入多张图片</strong>
+          <small data-i18n="formats">支持 PNG、JPG、WebP<br>也可直接粘贴图片</small>
+          <small data-i18n="heicTip">暂不支持 HEIC，请先转成 JPG 或 PNG</small>
+        </label>
+        <input id="file" type="file" accept="image/png,image/jpeg,image/webp,image/bmp,.heic,.heif,image/heic,image/heif" multiple />
+
+        <div class="pin" id="modePin">
+          <div class="labelrow"><label data-i18n="mode">处理方式</label></div>
+          <div class="seg" id="modeSeg" role="group">
+            <button type="button" class="active" data-mode="compress" data-i18n="modeCompress">压缩</button>
+            <button type="button" data-mode="convert" data-i18n="modeConvert">转换</button>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="primary" id="zipBtn" type="button" disabled data-i18n="zip">打包 ZIP</button>
+          <button class="secondary" id="clear" type="button" disabled data-i18n="clear">清空全部</button>
+        </div>
+
+        <div class="group" id="levelWrap">
+          <div class="labelrow">
+            <label data-i18n="level">压缩等级</label>
+            <span class="tooltip" data-tip="level">?</span>
+          </div>
+          <div class="levelGroup" id="levelGroup">
+            <div class="levelCard" data-level="light"><span class="levelName" data-i18n="lvLight">轻度</span><span class="levelDesc" data-i18n="lvLightDesc">画质几乎不变</span></div>
+            <div class="levelCard active" data-level="standard"><span class="levelName" data-i18n="lvStd">标准</span><span class="levelDesc" data-i18n="lvStdDesc">推荐 · 平衡</span></div>
+            <div class="levelCard" data-level="strong"><span class="levelName" data-i18n="lvStrong">强力</span><span class="levelDesc" data-i18n="lvStrongDesc">体积大幅减小</span></div>
+            <div class="levelCard" data-level="extreme"><span class="levelName" data-i18n="lvExtreme">极致</span><span class="levelDesc" data-i18n="lvExtremeDesc">最小体积</span></div>
+          </div>
+        </div>
+
+        <div class="group" id="qualityWrap">
+          <div class="labelrow">
+            <label id="qualityLabel" for="quality" data-i18n="quality">压缩质量</label>
+            <span class="tooltip" data-tip="quality">?</span>
+            <span class="value" id="qualityV">75</span>
+          </div>
+          <input id="quality" type="range" min="1" max="100" value="75">
+          <div class="hint" id="qualityHint" data-i18n="qualityHint">数值越低体积越小，画质越低</div>
+        </div>
+
+        <div class="group" id="scaleWrap">
+          <div class="labelrow">
+            <label data-i18n="scale">宽度缩放</label>
+            <span class="tooltip" data-tip="scale">?</span>
+          </div>
+          <div class="seg" id="scaleMode">
+            <button type="button" class="active" data-mode="percent" data-i18n="byPercent">按百分比</button>
+            <button type="button" data-mode="pixel" data-i18n="byPixel">按像素</button>
+          </div>
+          <div style="margin-top:10px">
+            <input id="scalePercent" type="number" min="1" max="100" value="100">
+            <input id="scalePixel" type="number" min="1" value="1920" hidden>
+          </div>
+          <div class="hint" data-i18n="scaleHint">缩小宽度可显著减小体积（50% = 体积约 1/4）</div>
+        </div>
+
+        <div class="group" id="fmtWrap" hidden>
+          <div class="labelrow"><label data-i18n="targetFmt">目标格式</label></div>
+          <div class="fmtGrid" id="fmtGrid">
+            <div class="fmtBtn active" data-fmt="png" data-i18n="fmtPng">PNG<small>无损 · 支持透明</small></div>
+            <div class="fmtBtn" data-fmt="jpeg" data-i18n="fmtJpeg">JPG<small>有损 · 体积小</small></div>
+            <div class="fmtBtn" data-fmt="webp" data-i18n="fmtWebp">WebP<small>现代格式 · 高压缩</small></div>
+            <div class="fmtBtn" data-fmt="bmp" data-i18n="fmtBmp">BMP<small>无损 · 不压缩</small></div>
+          </div>
+        </div>
+
+        <div class="notice" id="jpgNotice" hidden>
+          <b data-i18n="noticeTitle">注意：</b><span data-i18n="noticeJpg">转 JPG 时不支持透明背景，透明区域会自动用白色填充。</span>
+        </div>
+      </aside>
+
+      <section class="stage" aria-label="queue">
+        <div class="stagebar">
+          <div class="meta" id="meta" data-i18n="waiting" aria-live="polite">等待图片</div>
+        </div>
+        <div class="queue" id="queue" role="list"></div>
+        <div class="empty" id="empty">
+          <strong data-i18n="emptyTitle">把多张图片放进来</strong>
+          <div data-i18n="emptyHint">也可以直接粘贴剪贴板中的图片</div>
+        </div>
+      </section>
+    </div>
+  </section>
+
+  <section class="relatedTools">
+    <h2 data-i18n="moreTools">更多图片工具</h2>
+    <div class="toolsGrid" data-tool-cards></div>
+  </section>
+  <p class="adLine"><span data-i18n="adText">广告合作</span> · <a href="mailto:ads@imagec.xin" data-i18n="adCta">联系招商</a></p>
+</main>
+
+<script>
+const $=s=>document.querySelector(s);
+const LANGS=[
+  {code:'zh',name:'中文',dir:'ltr'},{code:'en',name:'English',dir:'ltr'},{code:'ja',name:'日本語',dir:'ltr'},
+  {code:'ko',name:'한국어',dir:'ltr'},{code:'es',name:'Español',dir:'ltr'},{code:'fr',name:'Français',dir:'ltr'},
+  {code:'de',name:'Deutsch',dir:'ltr'},{code:'ru',name:'Русский',dir:'ltr'},{code:'pt',name:'Português',dir:'ltr'},
+  {code:'ar',name:'العربية',dir:'rtl'},{code:'vi',name:'Tiếng Việt',dir:'ltr'},{code:'id',name:'Bahasa Indonesia',dir:'ltr'},
+  {code:'th',name:'ไทย',dir:'ltr'}
+];
+const SEO={
+  zh:{title:'批量压缩与格式转换 - 多图打包 ZIP | imagec',desc:'一次压缩或转换多张 PNG、JPG、WebP。失败的可以单独重试，成功的可以逐张下载或打包成一个 ZIP。浏览器本地处理，图片不上传服务器。'},
+  en:{title:'Batch compress and convert - Download a ZIP | imagec',desc:'Compress or convert many PNG, JPG, and WebP images. Retry a failure on its own, download finished files one by one, or pack them into one ZIP. Processed locally in your browser.'},
+  ja:{title:'一括圧縮・形式変換 - ZIPでダウンロード | imagec',desc:'複数の PNG・JPG・WebP をまとめて圧縮または変換。失敗は個別に再試行、成功は1枚ずつ、または ZIP で保存。ブラウザ内でローカル処理。'},
+  ko:{title:'일괄 압축·형식 변환 - ZIP 다운로드 | imagec',desc:'여러 PNG, JPG, WebP를 한 번에 압축하거나 변환합니다. 실패는 따로 다시 시도하고, 성공한 파일은 하나씩 또는 ZIP으로 받습니다. 브라우저에서 로컬 처리.'},
+  es:{title:'Comprimir y convertir por lotes - Descargar ZIP | imagec',desc:'Comprime o convierte varias imágenes PNG, JPG y WebP. Reintenta un fallo, descarga una a una o empaquétalas en un ZIP. Procesado local en el navegador.'},
+  fr:{title:'Compression et conversion par lot - Télécharger un ZIP | imagec',desc:'Compressez ou convertissez plusieurs images PNG, JPG et WebP. Réessayez un échec, téléchargez une par une, ou un seul ZIP. Traitement local dans le navigateur.'},
+  de:{title:'Stapel komprimieren und umwandeln - ZIP herunterladen | imagec',desc:'Mehrere PNG-, JPG- und WebP-Bilder komprimieren oder umwandeln. Fehler einzeln wiederholen, Dateien einzeln oder als ZIP laden. Lokal im Browser.'},
+  ru:{title:'Пакетное сжатие и конвертация - скачать ZIP | imagec',desc:'Сжимайте или конвертируйте несколько PNG, JPG и WebP. Ошибку можно повторить, готовые файлы скачать по одному или одним ZIP. Локально в браузере.'},
+  pt:{title:'Comprimir e converter em lote - baixar ZIP | imagec',desc:'Comprime ou converte várias imagens PNG, JPG e WebP. Repete uma falha, baixa uma a uma ou num ZIP. Processado localmente no navegador.'},
+  ar:{title:'ضغط وتحويل دفعة - تنزيل ZIP | imagec',desc:'اضغط أو حوّل عدة صور PNG وJPG وWebP. أعد المحاولة لملف فاشل، أو نزّل الملفات واحداً واحداً أو في ZIP. المعالجة محلية في المتصفح.'},
+  vi:{title:'Nén và chuyển hàng loạt - tải ZIP | imagec',desc:'Nén hoặc chuyển nhiều ảnh PNG, JPG, WebP. Thử lại từng ảnh lỗi, tải từng ảnh hoặc một file ZIP. Xử lý cục bộ trong trình duyệt.'},
+  id:{title:'Kompres dan konversi batch - unduh ZIP | imagec',desc:'Kompres atau konversi banyak gambar PNG, JPG, dan WebP. Coba lagi yang gagal, unduh satu per satu, atau satu ZIP. Diproses lokal di browser.'},
+  th:{title:'บีบอัดและแปลงหลายรูป - ดาวน์โหลด ZIP | imagec',desc:'บีบอัดหรือแปลงรูป PNG, JPG, WebP หลายไฟล์ ลองใหม่ทีละรูป หรือดาวน์โหลดทีละรูปหรือเป็น ZIP ประมวลผลในเบราว์เซอร์'}
+};
+const messages={
+zh:{title:'批量压缩与格式转换',subtitle:'一次处理多张 PNG、JPG、WebP：只压缩，或转换成 PNG、JPG、WebP、BMP。失败的可以单独重试，成功的可以逐张下载或打包成一个 ZIP。',privacy:'仅在浏览器本地处理 · 图片不会上传到服务器',linkCompress:'单张压缩',linkConvert:'单张格式转换',upload:'点击选择或拖入多张图片',formats:'支持 PNG、JPG、WebP<br>也可直接粘贴图片',heicTip:'暂不支持 HEIC，请先转成 JPG 或 PNG',mode:'处理方式',modeCompress:'压缩',modeConvert:'转换',zip:'打包 ZIP',zipBusy:'处理中…',clear:'清空全部',waiting:'等待图片',emptyTitle:'把多张图片放进来',emptyHint:'也可以直接粘贴剪贴板中的图片',level:'压缩等级',lvLight:'轻度',lvLightDesc:'画质几乎不变',lvStd:'标准',lvStdDesc:'推荐 · 平衡',lvStrong:'强力',lvStrongDesc:'体积大幅减小',lvExtreme:'极致',lvExtremeDesc:'最小体积',quality:'压缩质量',qualityShort:'质量',qualityHint:'数值越低体积越小，画质越低',qualityHintConvert:'仅 JPG / WebP 有效，数值越低体积越小',scale:'宽度缩放',byPercent:'按百分比',byPixel:'按像素',scaleHint:'缩小宽度可显著减小体积（50% = 体积约 1/4）',targetFmt:'目标格式',fmtPng:'PNG<small>无损 · 支持透明</small>',fmtJpeg:'JPG<small>有损 · 体积小</small>',fmtWebp:'WebP<small>现代格式 · 高压缩</small>',fmtBmp:'BMP<small>无损 · 不压缩</small>',noticeTitle:'注意：',noticeJpg:'转 JPG 时不支持透明背景，透明区域会自动用白色填充。',count:'{n} 张',doneCount:'完成 {n}',failCount:'失败 {n}',runCount:'处理中 {n}',statusWait:'等待处理',statusRun:'处理中…',statusDone:'完成',dl:'下载',retry:'重试',remove:'移除',errHeic:'暂不支持 HEIC，请先转成 JPG 或 PNG',errType:'这个文件不是支持的图片格式。请换一张 PNG、JPG 或 WebP。',errLoad:'图片加载失败，可能是格式不支持或文件已损坏。',moreTools:'更多图片工具',tipLevel:'轻度几乎不损画质，标准最均衡，强力和极致会明显减小体积。',tipQuality:'JPG / WebP 直接按这个质量编码。PNG 会映射成更少的颜色。',tipScale:'按宽度缩小，高度自动跟着变。50% 大约是原来体积的 1/4。',tipConvertQ:'只对 JPG 和 WebP 生效，数值越低文件越小。'},
+en:{title:'Batch compress and convert',subtitle:'Compress several PNG, JPG, or WebP images, or convert them to PNG, JPG, WebP, or BMP. Retry a failure on its own, download finished files one by one, or pack them into one ZIP.',privacy:'Processed locally in your browser · Images are never uploaded',linkCompress:'Compress one image',linkConvert:'Convert one image',upload:'Choose or drop images',formats:'PNG, JPG, and WebP<br>You can also paste images',heicTip:'HEIC isn’t supported yet — convert to JPG or PNG first',mode:'What to do',modeCompress:'Compress',modeConvert:'Convert',zip:'Download ZIP',zipBusy:'Working…',clear:'Clear all',waiting:'Waiting for images',emptyTitle:'Drop images here',emptyHint:'Or paste images from your clipboard',level:'Compression level',lvLight:'Light',lvLightDesc:'Nearly identical quality',lvStd:'Standard',lvStdDesc:'Recommended · Balanced',lvStrong:'Strong',lvStrongDesc:'Much smaller size',lvExtreme:'Extreme',lvExtremeDesc:'Minimum size',quality:'Compression quality',qualityShort:'Quality',qualityHint:'Lower values = smaller file, lower quality',qualityHintConvert:'JPG / WebP only. Lower = smaller file',scale:'Width scaling',byPercent:'By percent',byPixel:'By pixels',scaleHint:'Reducing width significantly reduces file size (50% ≈ 1/4 volume)',targetFmt:'Target format',fmtPng:'PNG<small>Lossless · Transparent</small>',fmtJpeg:'JPG<small>Lossy · Smaller</small>',fmtWebp:'WebP<small>Modern · High compression</small>',fmtBmp:'BMP<small>Lossless · Uncompressed</small>',noticeTitle:'Note:',noticeJpg:'JPG does not support transparency; transparent areas will be filled with white.',count:'{n} files',doneCount:'Done {n}',failCount:'Failed {n}',runCount:'Working {n}',statusWait:'Waiting',statusRun:'Working…',statusDone:'Done',dl:'Download',retry:'Retry',remove:'Remove',errHeic:'HEIC isn’t supported yet — convert to JPG or PNG first',errType:'That file is not a supported image. Use PNG, JPG, or WebP.',errLoad:'Could not load the image. The format may be unsupported or the file is damaged.',moreTools:'More image tools',tipLevel:'Light keeps quality, Standard is balanced, Strong and Extreme shrink the file further.',tipQuality:'JPG and WebP use this quality directly. PNG maps it to fewer colors.',tipScale:'Width sets the size; height follows. 50% is about 1/4 of the file size.',tipConvertQ:'Applies to JPG and WebP only. Lower means a smaller file.'},
+ja:{title:'一括圧縮・形式変換',subtitle:'複数の PNG・JPG・WebP をまとめて圧縮するか、PNG・JPG・WebP・BMP に変換します。失敗は1枚ずつ再試行、成功は1枚ずつ、または ZIP でダウンロードできます。',privacy:'ブラウザ内でローカル処理 · 画像はサーバーにアップロードされません',linkCompress:'1枚を圧縮',linkConvert:'1枚を変換',upload:'クリックして選択、または複数の画像をドロップ',formats:'PNG、JPG、WebP 対応<br>画像の貼り付けも可能',heicTip:'HEIC はまだ非対応です。先に JPG または PNG に変換してください',mode:'処理',modeCompress:'圧縮',modeConvert:'変換',zip:'ZIP をダウンロード',zipBusy:'処理中…',clear:'すべて削除',waiting:'画像待ち',emptyTitle:'画像をまとめてドロップ',emptyHint:'クリップボードから貼り付けもできます',level:'圧縮レベル',lvLight:'軽度',lvLightDesc:'画質ほぼそのまま',lvStd:'標準',lvStdDesc:'推奨 · バランス',lvStrong:'強力',lvStrongDesc:'大幅に軽量化',lvExtreme:'極限',lvExtremeDesc:'最小サイズ',quality:'圧縮品質',qualityShort:'品質',qualityHint:'値が低いほど小さく、画質も下がります',qualityHintConvert:'JPG / WebP のみ。低いほど小さい',scale:'幅の縮小',byPercent:'パーセント',byPixel:'ピクセル',scaleHint:'幅を小さくすると容量が大きく減ります（50%≈1/4）',targetFmt:'出力形式',fmtPng:'PNG<small>可逆 · 透過</small>',fmtJpeg:'JPG<small>非可逆 · 小さい</small>',fmtWebp:'WebP<small>新しい形式 · 高圧縮</small>',fmtBmp:'BMP<small>可逆 · 非圧縮</small>',noticeTitle:'注意：',noticeJpg:'JPG は透過に対応していないため、透過部分は白で塗りつぶされます。',count:'{n} 枚',doneCount:'完了 {n}',failCount:'失敗 {n}',runCount:'処理中 {n}',statusWait:'待機中',statusRun:'処理中…',statusDone:'完了',dl:'保存',retry:'再試行',remove:'削除',errHeic:'HEIC はまだ非対応です。先に JPG または PNG に変換してください',errType:'対応していないファイルです。PNG、JPG、WebP を選んでください。',errLoad:'画像を読み込めませんでした。形式が未対応か、ファイルが破損しています。',moreTools:'ほかの画像ツール',tipLevel:'軽度は画質優先、標準はバランス、強力と極限はより小さくなります。',tipQuality:'JPG / WebP はこの品質で符号化します。PNG は色数に置き換わります。',tipScale:'幅に合わせて縮小し、高さは自動です。50% はおよそ 1/4 の容量です。',tipConvertQ:'JPG と WebP だけに効きます。低いほどファイルは小さいです。'},
+ko:{title:'일괄 압축·형식 변환',subtitle:'여러 PNG, JPG, WebP를 압축하거나 PNG, JPG, WebP, BMP로 변환합니다. 실패한 파일은 따로 다시 시도하고, 성공한 파일은 하나씩 또는 ZIP으로 받을 수 있습니다.',privacy:'브라우저에서 로컬 처리 · 이미지가 서버에 업로드되지 않습니다',linkCompress:'한 장 압축',linkConvert:'한 장 변환',upload:'클릭하거나 여러 이미지를 놓으세요',formats:'PNG, JPG, WebP 지원<br>붙여넣기도 가능',heicTip:'HEIC는 아직 지원하지 않습니다. 먼저 JPG 또는 PNG로 변환하세요',mode:'처리 방식',modeCompress:'압축',modeConvert:'변환',zip:'ZIP 받기',zipBusy:'처리 중…',clear:'모두 지우기',waiting:'이미지 대기',emptyTitle:'이미지를 여기에 놓으세요',emptyHint:'클립보드에서 붙여넣을 수도 있습니다',level:'압축 수준',lvLight:'가벼움',lvLightDesc:'품질 거의 동일',lvStd:'표준',lvStdDesc:'추천 · 균형',lvStrong:'강력',lvStrongDesc:'훨씬 작은 크기',lvExtreme:'극한',lvExtremeDesc:'최소 크기',quality:'압축 품질',qualityShort:'품질',qualityHint:'값이 낮을수록 파일이 작고 품질도 낮아집니다',qualityHintConvert:'JPG / WebP만 적용. 낮을수록 작음',scale:'너비 축소',byPercent:'비율',byPixel:'픽셀',scaleHint:'너비를 줄이면 용량이 크게 줄어듭니다 (50%≈1/4)',targetFmt:'대상 형식',fmtPng:'PNG<small>무손실 · 투명</small>',fmtJpeg:'JPG<small>손실 · 작음</small>',fmtWebp:'WebP<small>최신 · 고압축</small>',fmtBmp:'BMP<small>무손실 · 비압축</small>',noticeTitle:'참고:',noticeJpg:'JPG는 투명을 지원하지 않아 투명 영역이 흰색으로 채워집니다.',count:'{n}장',doneCount:'완료 {n}',failCount:'실패 {n}',runCount:'처리 중 {n}',statusWait:'대기',statusRun:'처리 중…',statusDone:'완료',dl:'다운로드',retry:'다시 시도',remove:'제거',errHeic:'HEIC는 아직 지원하지 않습니다. 먼저 JPG 또는 PNG로 변환하세요',errType:'지원하지 않는 파일입니다. PNG, JPG 또는 WebP를 사용하세요.',errLoad:'이미지를 열 수 없습니다. 형식이 맞지 않거나 파일이 손상되었습니다.',moreTools:'다른 이미지 도구',tipLevel:'가벼움은 화질 유지, 표준은 균형, 강력과 극한은 더 작아집니다.',tipQuality:'JPG / WebP는 이 품질로 저장합니다. PNG는 색 수로 바꿉니다.',tipScale:'너비 기준으로 줄이고 높이는 자동입니다. 50%는 약 1/4 크기입니다.',tipConvertQ:'JPG와 WebP에만 적용됩니다. 낮을수록 파일이 작습니다.'},
+es:{title:'Comprimir y convertir por lotes',subtitle:'Comprime varias imágenes PNG, JPG o WebP, o conviértelas a PNG, JPG, WebP o BMP. Reintenta un fallo, descarga una a una o empaquétalas en un ZIP.',privacy:'Procesado localmente en tu navegador · Las imágenes nunca se suben',linkCompress:'Comprimir una',linkConvert:'Convertir una',upload:'Elige o suelta varias imágenes',formats:'PNG, JPG y WebP<br>También puedes pegar imágenes',heicTip:'HEIC aún no es compatible — conviértelo primero a JPG o PNG',mode:'Qué hacer',modeCompress:'Comprimir',modeConvert:'Convertir',zip:'Descargar ZIP',zipBusy:'Procesando…',clear:'Vaciar todo',waiting:'Esperando imágenes',emptyTitle:'Suelta las imágenes aquí',emptyHint:'O pega imágenes del portapapeles',level:'Nivel de compresión',lvLight:'Ligero',lvLightDesc:'Calidad casi idéntica',lvStd:'Estándar',lvStdDesc:'Recomendado · Equilibrado',lvStrong:'Fuerte',lvStrongDesc:'Mucho más pequeño',lvExtreme:'Extremo',lvExtremeDesc:'Tamaño mínimo',quality:'Calidad de compresión',qualityShort:'Calidad',qualityHint:'Más bajo = archivo más pequeño y menos calidad',qualityHintConvert:'Solo JPG / WebP. Más bajo = más pequeño',scale:'Ancho',byPercent:'Porcentaje',byPixel:'Píxeles',scaleHint:'Reducir el ancho reduce mucho el tamaño (50% ≈ 1/4)',targetFmt:'Formato de destino',fmtPng:'PNG<small>Sin pérdida · Transparente</small>',fmtJpeg:'JPG<small>Con pérdida · Más pequeño</small>',fmtWebp:'WebP<small>Moderno · Alta compresión</small>',fmtBmp:'BMP<small>Sin pérdida · Sin comprimir</small>',noticeTitle:'Nota:',noticeJpg:'JPG no admite transparencia; las zonas transparentes se rellenan de blanco.',count:'{n} archivos',doneCount:'Listos {n}',failCount:'Fallos {n}',runCount:'En curso {n}',statusWait:'En espera',statusRun:'Procesando…',statusDone:'Listo',dl:'Descargar',retry:'Reintentar',remove:'Quitar',errHeic:'HEIC aún no es compatible — conviértelo primero a JPG o PNG',errType:'Ese archivo no es una imagen compatible. Usa PNG, JPG o WebP.',errLoad:'No se pudo abrir la imagen. El formato no es compatible o el archivo está dañado.',moreTools:'Más herramientas',tipLevel:'Ligero conserva la calidad, Estándar equilibra, Fuerte y Extremo reducen más.',tipQuality:'JPG y WebP usan esta calidad. PNG la convierte en menos colores.',tipScale:'El ancho manda y la altura acompaña. 50% es cerca de 1/4 del tamaño.',tipConvertQ:'Solo vale para JPG y WebP. Más bajo, archivo más pequeño.'},
+fr:{title:'Compression et conversion par lot',subtitle:'Compressez plusieurs images PNG, JPG ou WebP, ou convertissez-les en PNG, JPG, WebP ou BMP. Réessayez un échec, téléchargez une par une, ou dans un seul ZIP.',privacy:'Traitement local dans votre navigateur · Les images ne sont jamais envoyées',linkCompress:'Compresser une image',linkConvert:'Convertir une image',upload:'Choisir ou déposer plusieurs images',formats:'PNG, JPG et WebP<br>Vous pouvez aussi coller des images',heicTip:'HEIC n’est pas encore pris en charge — convertissez d’abord en JPG ou PNG',mode:'Action',modeCompress:'Compresser',modeConvert:'Convertir',zip:'Télécharger le ZIP',zipBusy:'Traitement…',clear:'Tout effacer',waiting:'En attente d’images',emptyTitle:'Déposez les images ici',emptyHint:'Ou collez des images depuis le presse-papiers',level:'Niveau de compression',lvLight:'Léger',lvLightDesc:'Qualité presque identique',lvStd:'Standard',lvStdDesc:'Recommandé · Équilibré',lvStrong:'Fort',lvStrongDesc:'Beaucoup plus petit',lvExtreme:'Extrême',lvExtremeDesc:'Taille minimale',quality:'Qualité de compression',qualityShort:'Qualité',qualityHint:'Plus bas = fichier plus petit, qualité plus basse',qualityHintConvert:'JPG / WebP seulement. Plus bas = plus petit',scale:'Largeur',byPercent:'Pourcentage',byPixel:'Pixels',scaleHint:'Réduire la largeur réduit beaucoup la taille (50% ≈ 1/4)',targetFmt:'Format cible',fmtPng:'PNG<small>Sans perte · Transparent</small>',fmtJpeg:'JPG<small>Avec perte · Plus petit</small>',fmtWebp:'WebP<small>Moderne · Haute compression</small>',fmtBmp:'BMP<small>Sans perte · Non compressé</small>',noticeTitle:'Remarque :',noticeJpg:'Le JPG ne gère pas la transparence : les zones transparentes deviennent blanches.',count:'{n} fichiers',doneCount:'Prêts {n}',failCount:'Échecs {n}',runCount:'En cours {n}',statusWait:'En attente',statusRun:'Traitement…',statusDone:'Prêt',dl:'Télécharger',retry:'Réessayer',remove:'Retirer',errHeic:'HEIC n’est pas encore pris en charge — convertissez d’abord en JPG ou PNG',errType:'Ce fichier n’est pas une image prise en charge. Utilisez PNG, JPG ou WebP.',errLoad:'Impossible d’ouvrir l’image. Format non pris en charge ou fichier endommagé.',moreTools:'Autres outils',tipLevel:'Léger garde la qualité, Standard équilibre, Fort et Extrême réduisent plus.',tipQuality:'JPG et WebP utilisent cette qualité. Le PNG la traduit en moins de couleurs.',tipScale:'La largeur fixe la taille, la hauteur suit. 50 % vaut environ 1/4 du fichier.',tipConvertQ:'Uniquement pour JPG et WebP. Plus bas, fichier plus petit.'},
+de:{title:'Stapel komprimieren und umwandeln',subtitle:'Mehrere PNG-, JPG- oder WebP-Bilder komprimieren oder nach PNG, JPG, WebP oder BMP umwandeln. Fehler einzeln wiederholen, Dateien einzeln oder als ZIP laden.',privacy:'Lokal im Browser verarbeitet · Bilder werden nicht hochgeladen',linkCompress:'Ein Bild komprimieren',linkConvert:'Ein Bild umwandeln',upload:'Bilder wählen oder ablegen',formats:'PNG, JPG und WebP<br>Bilder können auch eingefügt werden',heicTip:'HEIC wird noch nicht unterstützt — bitte zuerst in JPG oder PNG umwandeln',mode:'Aktion',modeCompress:'Komprimieren',modeConvert:'Umwandeln',zip:'ZIP laden',zipBusy:'Arbeitet…',clear:'Alles leeren',waiting:'Warte auf Bilder',emptyTitle:'Bilder hier ablegen',emptyHint:'Oder Bilder aus der Zwischenablage einfügen',level:'Kompressionsstufe',lvLight:'Leicht',lvLightDesc:'Fast gleiche Qualität',lvStd:'Standard',lvStdDesc:'Empfohlen · Ausgewogen',lvStrong:'Stark',lvStrongDesc:'Viel kleiner',lvExtreme:'Extrem',lvExtremeDesc:'Minimale Größe',quality:'Kompressionsqualität',qualityShort:'Qualität',qualityHint:'Niedriger = kleinere Datei, geringere Qualität',qualityHintConvert:'Nur JPG / WebP. Niedriger = kleiner',scale:'Breite',byPercent:'Prozent',byPixel:'Pixel',scaleHint:'Weniger Breite verkleinert die Datei stark (50% ≈ 1/4)',targetFmt:'Zielformat',fmtPng:'PNG<small>Verlustfrei · Transparent</small>',fmtJpeg:'JPG<small>Verlustbehaftet · Kleiner</small>',fmtWebp:'WebP<small>Modern · Hohe Kompression</small>',fmtBmp:'BMP<small>Verlustfrei · Unkomprimiert</small>',noticeTitle:'Hinweis:',noticeJpg:'JPG kennt keine Transparenz; transparente Bereiche werden weiß.',count:'{n} Dateien',doneCount:'Fertig {n}',failCount:'Fehler {n}',runCount:'Läuft {n}',statusWait:'Wartet',statusRun:'Arbeitet…',statusDone:'Fertig',dl:'Download',retry:'Wiederholen',remove:'Entfernen',errHeic:'HEIC wird noch nicht unterstützt — bitte zuerst in JPG oder PNG umwandeln',errType:'Diese Datei ist kein unterstütztes Bild. Bitte PNG, JPG oder WebP verwenden.',errLoad:'Bild konnte nicht geladen werden. Format nicht unterstützt oder Datei beschädigt.',moreTools:'Weitere Werkzeuge',tipLevel:'Leicht erhält die Qualität, Standard ist ausgewogen, Stark und Extrem verkleinern stärker.',tipQuality:'JPG und WebP nutzen diese Qualität. PNG wird auf weniger Farben abgebildet.',tipScale:'Die Breite bestimmt die Größe, die Höhe folgt. 50 % sind etwa 1/4 der Datei.',tipConvertQ:'Nur für JPG und WebP. Niedriger bedeutet kleinere Datei.'},
+ru:{title:'Пакетное сжатие и конвертация',subtitle:'Сжимайте несколько PNG, JPG или WebP или конвертируйте их в PNG, JPG, WebP или BMP. Ошибку можно повторить, готовые файлы скачать по одному или одним ZIP.',privacy:'Обработка локально в браузере · Изображения не загружаются',linkCompress:'Сжать одно',linkConvert:'Конвертировать одно',upload:'Выберите или перетащите изображения',formats:'PNG, JPG и WebP<br>Можно вставить изображения',heicTip:'HEIC пока не поддерживается — сначала конвертируйте в JPG или PNG',mode:'Действие',modeCompress:'Сжать',modeConvert:'Конвертировать',zip:'Скачать ZIP',zipBusy:'Обработка…',clear:'Очистить всё',waiting:'Ожидание изображений',emptyTitle:'Перетащите изображения сюда',emptyHint:'Или вставьте их из буфера обмена',level:'Уровень сжатия',lvLight:'Лёгкий',lvLightDesc:'Качество почти то же',lvStd:'Стандарт',lvStdDesc:'Рекомендуется · Баланс',lvStrong:'Сильный',lvStrongDesc:'Намного меньше',lvExtreme:'Экстрим',lvExtremeDesc:'Минимальный размер',quality:'Качество сжатия',qualityShort:'Качество',qualityHint:'Ниже = меньше файл и ниже качество',qualityHintConvert:'Только JPG / WebP. Ниже = меньше',scale:'Ширина',byPercent:'Проценты',byPixel:'Пиксели',scaleHint:'Меньше ширина — заметно меньше файл (50% ≈ 1/4)',targetFmt:'Формат',fmtPng:'PNG<small>Без потерь · Прозрачность</small>',fmtJpeg:'JPG<small>С потерями · Меньше</small>',fmtWebp:'WebP<small>Современный · Сильное сжатие</small>',fmtBmp:'BMP<small>Без потерь · Без сжатия</small>',noticeTitle:'Примечание:',noticeJpg:'JPG не поддерживает прозрачность: прозрачные области станут белыми.',count:'{n} файлов',doneCount:'Готово {n}',failCount:'Ошибки {n}',runCount:'В работе {n}',statusWait:'Ожидание',statusRun:'Обработка…',statusDone:'Готово',dl:'Скачать',retry:'Повторить',remove:'Убрать',errHeic:'HEIC пока не поддерживается — сначала конвертируйте в JPG или PNG',errType:'Этот файл не является поддерживаемым изображением. Используйте PNG, JPG или WebP.',errLoad:'Не удалось открыть изображение. Формат не поддерживается или файл повреждён.',moreTools:'Другие инструменты',tipLevel:'Лёгкий бережёт качество, Стандарт сбалансирован, Сильный и Экстрим уменьшают сильнее.',tipQuality:'JPG и WebP кодируются с этим качеством. PNG сводится к меньшему числу цветов.',tipScale:'Ширина задаёт размер, высота следует за ней. 50% — примерно 1/4 файла.',tipConvertQ:'Только для JPG и WebP. Ниже — меньше файл.'},
+pt:{title:'Comprimir e converter em lote',subtitle:'Comprime várias imagens PNG, JPG ou WebP, ou converte para PNG, JPG, WebP ou BMP. Repete uma falha, baixa uma a uma ou num ZIP.',privacy:'Processado localmente no navegador · As imagens não são enviadas',linkCompress:'Comprimir uma',linkConvert:'Converter uma',upload:'Escolha ou solte várias imagens',formats:'PNG, JPG e WebP<br>Também pode colar imagens',heicTip:'HEIC ainda não é suportado — converta primeiro para JPG ou PNG',mode:'O que fazer',modeCompress:'Comprimir',modeConvert:'Converter',zip:'Baixar ZIP',zipBusy:'A processar…',clear:'Limpar tudo',waiting:'À espera de imagens',emptyTitle:'Solte as imagens aqui',emptyHint:'Ou cole imagens da área de transferência',level:'Nível de compressão',lvLight:'Leve',lvLightDesc:'Qualidade quase igual',lvStd:'Padrão',lvStdDesc:'Recomendado · Equilíbrio',lvStrong:'Forte',lvStrongDesc:'Muito menor',lvExtreme:'Extremo',lvExtremeDesc:'Tamanho mínimo',quality:'Qualidade da compressão',qualityShort:'Qualidade',qualityHint:'Mais baixo = ficheiro menor e menos qualidade',qualityHintConvert:'Só JPG / WebP. Mais baixo = menor',scale:'Largura',byPercent:'Percentagem',byPixel:'Pixéis',scaleHint:'Reduzir a largura reduz muito o tamanho (50% ≈ 1/4)',targetFmt:'Formato de destino',fmtPng:'PNG<small>Sem perdas · Transparente</small>',fmtJpeg:'JPG<small>Com perdas · Menor</small>',fmtWebp:'WebP<small>Moderno · Alta compressão</small>',fmtBmp:'BMP<small>Sem perdas · Sem compressão</small>',noticeTitle:'Nota:',noticeJpg:'JPG não suporta transparência; as áreas transparentes ficam brancas.',count:'{n} ficheiros',doneCount:'Prontos {n}',failCount:'Falhas {n}',runCount:'A decorrer {n}',statusWait:'À espera',statusRun:'A processar…',statusDone:'Pronto',dl:'Baixar',retry:'Repetir',remove:'Remover',errHeic:'HEIC ainda não é suportado — converta primeiro para JPG ou PNG',errType:'Esse ficheiro não é uma imagem suportada. Use PNG, JPG ou WebP.',errLoad:'Não foi possível abrir a imagem. Formato não suportado ou ficheiro danificado.',moreTools:'Mais ferramentas',tipLevel:'Leve mantém a qualidade, Padrão equilibra, Forte e Extremo reduzem mais.',tipQuality:'JPG e WebP usam esta qualidade. PNG passa a ter menos cores.',tipScale:'A largura define o tamanho e a altura acompanha. 50% é cerca de 1/4 do ficheiro.',tipConvertQ:'Só para JPG e WebP. Mais baixo, ficheiro mais pequeno.'},
+ar:{title:'ضغط وتحويل دفعة',subtitle:'اضغط عدة صور PNG أو JPG أو WebP، أو حوّلها إلى PNG أو JPG أو WebP أو BMP. أعد المحاولة لملف فاشل، أو نزّل الملفات واحداً واحداً أو في ملف ZIP.',privacy:'تتم المعالجة محلياً في المتصفح · لا يتم رفع الصور',linkCompress:'ضغط صورة واحدة',linkConvert:'تحويل صورة واحدة',upload:'اختر أو أفلت عدة صور',formats:'يدعم PNG وJPG وWebP<br>يمكن أيضاً اللصق',heicTip:'HEIC غير مدعوم بعد — حوّله أولاً إلى JPG أو PNG',mode:'طريقة المعالجة',modeCompress:'ضغط',modeConvert:'تحويل',zip:'تنزيل ZIP',zipBusy:'جارٍ المعالجة…',clear:'مسح الكل',waiting:'بانتظار الصور',emptyTitle:'أفلت الصور هنا',emptyHint:'أو الصق صوراً من الحافظة',level:'مستوى الضغط',lvLight:'خفيف',lvLightDesc:'جودة شبه ثابتة',lvStd:'قياسي',lvStdDesc:'موصى به · متوازن',lvStrong:'قوي',lvStrongDesc:'حجم أصغر بكثير',lvExtreme:'أقصى',lvExtremeDesc:'أصغر حجم',quality:'جودة الضغط',qualityShort:'الجودة',qualityHint:'قيمة أقل = ملف أصغر وجودة أقل',qualityHintConvert:'لـ JPG / WebP فقط. الأقل أصغر',scale:'عرض الصورة',byPercent:'نسبة مئوية',byPixel:'بكسل',scaleHint:'تقليل العرض يصغّر الملف كثيراً (50% ≈ 1/4)',targetFmt:'التنسيق الهدف',fmtPng:'PNG<small>بدون فقد · شفافية</small>',fmtJpeg:'JPG<small>بفقد · أصغر</small>',fmtWebp:'WebP<small>حديث · ضغط عالٍ</small>',fmtBmp:'BMP<small>بدون فقد · بلا ضغط</small>',noticeTitle:'ملاحظة:',noticeJpg:'JPG لا يدعم الشفافية، وتُملأ المناطق الشفافة بالأبيض.',count:'{n} ملفات',doneCount:'تم {n}',failCount:'فشل {n}',runCount:'جارٍ {n}',statusWait:'بالانتظار',statusRun:'جارٍ المعالجة…',statusDone:'تم',dl:'تنزيل',retry:'إعادة',remove:'إزالة',errHeic:'HEIC غير مدعوم بعد — حوّله أولاً إلى JPG أو PNG',errType:'هذا الملف ليس صورة مدعومة. استخدم PNG أو JPG أو WebP.',errLoad:'تعذر فتح الصورة. قد تكون الصيغة غير مدعومة أو الملف تالفاً.',moreTools:'المزيد من الأدوات',tipLevel:'الخفيف يحافظ على الجودة، والقياسي متوازن، والقوي والأقصى يصغّران أكثر.',tipQuality:'يستخدم JPG وWebP هذه الجودة. ويُحوَّل PNG إلى ألوان أقل.',tipScale:'العرض يحدد القياس والارتفاع يتبعه. 50% حوالي ربع حجم الملف.',tipConvertQ:'ينطبق على JPG وWebP فقط. القيمة الأقل تعني ملفاً أصغر.'},
+vi:{title:'Nén và chuyển hàng loạt',subtitle:'Nén nhiều ảnh PNG, JPG hoặc WebP, hoặc chuyển sang PNG, JPG, WebP, BMP. Thử lại từng ảnh lỗi, tải từng ảnh hoặc một file ZIP.',privacy:'Xử lý cục bộ trong trình duyệt · Ảnh không được tải lên',linkCompress:'Nén một ảnh',linkConvert:'Chuyển một ảnh',upload:'Chọn hoặc thả nhiều ảnh',formats:'PNG, JPG, WebP<br>Cũng có thể dán ảnh',heicTip:'Chưa hỗ trợ HEIC — hãy chuyển sang JPG hoặc PNG trước',mode:'Cách xử lý',modeCompress:'Nén',modeConvert:'Chuyển',zip:'Tải ZIP',zipBusy:'Đang xử lý…',clear:'Xóa hết',waiting:'Đang chờ ảnh',emptyTitle:'Thả ảnh vào đây',emptyHint:'Hoặc dán ảnh từ bộ nhớ tạm',level:'Mức nén',lvLight:'Nhẹ',lvLightDesc:'Chất lượng gần như giữ nguyên',lvStd:'Tiêu chuẩn',lvStdDesc:'Nên dùng · Cân bằng',lvStrong:'Mạnh',lvStrongDesc:'Nhỏ hơn nhiều',lvExtreme:'Cực hạn',lvExtremeDesc:'Nhỏ nhất',quality:'Chất lượng nén',qualityShort:'Chất lượng',qualityHint:'Thấp hơn = tệp nhỏ hơn, chất lượng thấp hơn',qualityHintConvert:'Chỉ JPG / WebP. Thấp hơn = nhỏ hơn',scale:'Thu chiều rộng',byPercent:'Phần trăm',byPixel:'Pixel',scaleHint:'Giảm chiều rộng làm tệp nhỏ đi rõ (50% ≈ 1/4)',targetFmt:'Định dạng đích',fmtPng:'PNG<small>Không mất · Trong suốt</small>',fmtJpeg:'JPG<small>Mất dữ liệu · Nhỏ hơn</small>',fmtWebp:'WebP<small>Hiện đại · Nén cao</small>',fmtBmp:'BMP<small>Không mất · Không nén</small>',noticeTitle:'Lưu ý:',noticeJpg:'JPG không có trong suốt; vùng trong suốt sẽ được đổ trắng.',count:'{n} tệp',doneCount:'Xong {n}',failCount:'Lỗi {n}',runCount:'Đang chạy {n}',statusWait:'Đang chờ',statusRun:'Đang xử lý…',statusDone:'Xong',dl:'Tải xuống',retry:'Thử lại',remove:'Xóa',errHeic:'Chưa hỗ trợ HEIC — hãy chuyển sang JPG hoặc PNG trước',errType:'Tệp này không phải ảnh được hỗ trợ. Hãy dùng PNG, JPG hoặc WebP.',errLoad:'Không mở được ảnh. Định dạng không hỗ trợ hoặc tệp đã hỏng.',moreTools:'Công cụ khác',tipLevel:'Nhẹ giữ chất lượng, Tiêu chuẩn cân bằng, Mạnh và Cực hạn nhỏ hơn nữa.',tipQuality:'JPG và WebP dùng chất lượng này. PNG được đổi thành ít màu hơn.',tipScale:'Chiều rộng quyết định kích thước, chiều cao đi theo. 50% khoảng 1/4 dung lượng.',tipConvertQ:'Chỉ áp dụng cho JPG và WebP. Thấp hơn thì tệp nhỏ hơn.'},
+id:{title:'Kompres dan konversi batch',subtitle:'Kompres beberapa gambar PNG, JPG, atau WebP, atau konversi ke PNG, JPG, WebP, atau BMP. Coba lagi yang gagal, unduh satu per satu, atau satu ZIP.',privacy:'Diproses secara lokal di browser · Gambar tidak diunggah',linkCompress:'Kompres satu gambar',linkConvert:'Konversi satu gambar',upload:'Pilih atau jatuhkan beberapa gambar',formats:'PNG, JPG, dan WebP<br>Gambar juga bisa ditempel',heicTip:'HEIC belum didukung — ubah dulu ke JPG atau PNG',mode:'Cara kerja',modeCompress:'Kompres',modeConvert:'Konversi',zip:'Unduh ZIP',zipBusy:'Memproses…',clear:'Kosongkan',waiting:'Menunggu gambar',emptyTitle:'Jatuhkan gambar di sini',emptyHint:'Atau tempel gambar dari papan klip',level:'Level kompresi',lvLight:'Ringan',lvLightDesc:'Kualitas hampir sama',lvStd:'Standar',lvStdDesc:'Disarankan · Seimbang',lvStrong:'Kuat',lvStrongDesc:'Jauh lebih kecil',lvExtreme:'Ekstrem',lvExtremeDesc:'Ukuran minimum',quality:'Kualitas kompresi',qualityShort:'Kualitas',qualityHint:'Lebih rendah = berkas lebih kecil, kualitas lebih rendah',qualityHintConvert:'Hanya JPG / WebP. Lebih rendah = lebih kecil',scale:'Lebar',byPercent:'Persen',byPixel:'Piksel',scaleHint:'Mengurangi lebar membuat berkas jauh lebih kecil (50% ≈ 1/4)',targetFmt:'Format tujuan',fmtPng:'PNG<small>Tanpa rugi · Transparan</small>',fmtJpeg:'JPG<small>Dengan rugi · Lebih kecil</small>',fmtWebp:'WebP<small>Modern · Kompresi tinggi</small>',fmtBmp:'BMP<small>Tanpa rugi · Tanpa kompresi</small>',noticeTitle:'Catatan:',noticeJpg:'JPG tidak mendukung transparansi; area transparan diisi putih.',count:'{n} berkas',doneCount:'Selesai {n}',failCount:'Gagal {n}',runCount:'Berjalan {n}',statusWait:'Menunggu',statusRun:'Memproses…',statusDone:'Selesai',dl:'Unduh',retry:'Coba lagi',remove:'Hapus',errHeic:'HEIC belum didukung — ubah dulu ke JPG atau PNG',errType:'Berkas ini bukan gambar yang didukung. Gunakan PNG, JPG, atau WebP.',errLoad:'Gambar tidak bisa dibuka. Format tidak didukung atau berkas rusak.',moreTools:'Alat lain',tipLevel:'Ringan menjaga kualitas, Standar seimbang, Kuat dan Ekstrem lebih kecil.',tipQuality:'JPG dan WebP memakai kualitas ini. PNG diubah menjadi lebih sedikit warna.',tipScale:'Lebar menentukan ukuran, tinggi mengikuti. 50% kira-kira 1/4 ukuran berkas.',tipConvertQ:'Hanya untuk JPG dan WebP. Lebih rendah berarti berkas lebih kecil.'},
+th:{title:'บีบอัดและแปลงหลายรูป',subtitle:'บีบอัดรูป PNG, JPG หรือ WebP หลายไฟล์ หรือแปลงเป็น PNG, JPG, WebP หรือ BMP ไฟล์ที่พลาดลองใหม่ทีละรูป ไฟล์ที่สำเร็จดาวน์โหลดทีละรูปหรือรวมเป็น ZIP',privacy:'ประมวลผลในเบราว์เซอร์ · ไม่อัปโหลดรูป',linkCompress:'บีบอัดทีละรูป',linkConvert:'แปลงทีละรูป',upload:'คลิกเลือกหรือลากหลายรูปมาวาง',formats:'รองรับ PNG, JPG, WebP<br>วางรูปจากคลิปบอร์ดได้',heicTip:'ยังไม่รองรับ HEIC — โปรดแปลงเป็น JPG หรือ PNG ก่อน',mode:'วิธีประมวลผล',modeCompress:'บีบอัด',modeConvert:'แปลง',zip:'ดาวน์โหลด ZIP',zipBusy:'กำลังทำ…',clear:'ล้างทั้งหมด',waiting:'รอรูป',emptyTitle:'วางรูปที่นี่',emptyHint:'หรือวางรูปจากคลิปบอร์ด',level:'ระดับการบีบอัด',lvLight:'เบา',lvLightDesc:'คุณภาพใกล้เคียงเดิม',lvStd:'มาตรฐาน',lvStdDesc:'แนะนำ · สมดุล',lvStrong:'แรง',lvStrongDesc:'เล็กกว่ามาก',lvExtreme:'สุดขีด',lvExtremeDesc:'เล็กที่สุด',quality:'คุณภาพการบีบอัด',qualityShort:'คุณภาพ',qualityHint:'ค่าน้อยลง = ไฟล์เล็กลง คุณภาพลดลง',qualityHintConvert:'ใช้กับ JPG / WebP เท่านั้น ค่าน้อยลง = ไฟล์เล็กลง',scale:'ย่อความกว้าง',byPercent:'เปอร์เซ็นต์',byPixel:'พิกเซล',scaleHint:'ลดความกว้างแล้วไฟล์จะเล็กลงมาก (50% ≈ 1/4)',targetFmt:'รูปแบบปลายทาง',fmtPng:'PNG<small>ไม่สูญเสีย · โปร่งใส</small>',fmtJpeg:'JPG<small>สูญเสีย · เล็กกว่า</small>',fmtWebp:'WebP<small>ทันสมัย · บีบอัดสูง</small>',fmtBmp:'BMP<small>ไม่สูญเสีย · ไม่บีบอัด</small>',noticeTitle:'หมายเหตุ:',noticeJpg:'JPG ไม่รองรับโปร่งใส พื้นที่โปร่งใสจะถูกเติมสีขาว',count:'{n} ไฟล์',doneCount:'เสร็จ {n}',failCount:'ไม่สำเร็จ {n}',runCount:'กำลังทำ {n}',statusWait:'รอ',statusRun:'กำลังทำ…',statusDone:'เสร็จ',dl:'ดาวน์โหลด',retry:'ลองใหม่',remove:'เอาออก',errHeic:'ยังไม่รองรับ HEIC — โปรดแปลงเป็น JPG หรือ PNG ก่อน',errType:'ไฟล์นี้ไม่ใช่รูปที่รองรับ โปรดใช้ PNG, JPG หรือ WebP',errLoad:'เปิดรูปไม่ได้ อาจเป็นรูปแบบที่ไม่รองรับหรือไฟล์เสีย',moreTools:'เครื่องมืออื่น',tipLevel:'เบาคงคุณภาพ มาตรฐานสมดุล แรงและสุดขีดจะเล็กลงอีก',tipQuality:'JPG และ WebP ใช้คุณภาพนี้ PNG จะถูกแมปเป็นสีน้อยลง',tipScale:'ความกว้างกำหนดขนาด ความสูงปรับตาม 50% ประมาณ 1/4 ของไฟล์',tipConvertQ:'ใช้กับ JPG และ WebP เท่านั้น ค่าน้อยลงไฟล์ยิ่งเล็ก'}
+};
+function detectLang(){
+  const param=new URL(location.href).searchParams.get('lang');
+  if(param&&messages[param])return param;
+  let saved='';
+  try{saved=localStorage.getItem('language')||'';}catch(e){}
+  if(saved&&messages[saved])return saved;
+  const navLangs=navigator.languages||[navigator.language||'zh'];
+  for(const l of navLangs){
+    const lc=String(l).toLowerCase();
+    if(lc.startsWith('zh'))return 'zh';
+    const code=lc.slice(0,2);
+    if(messages[code])return code;
+  }
+  return 'zh';
+}
+let language=detectLang();
+let mode='compress';
+let compressQuality=75;
+let convertQuality=85;
+let scaleMode='percent';
+let targetFmt='png';
+let items=[];
+let seq=0;
+let runId=0;
+let zipping=false;
+let timer=0;
+const queue=$('#queue');
+const langSelect=$('#langSelect');
+LANGS.forEach(l=>{
+  const opt=document.createElement('option');
+  opt.value=l.code;
+  opt.textContent=l.name;
+  langSelect.appendChild(opt);
+});
+function t(key){
+  const pack=messages[language]||messages.zh;
+  if(pack[key]!=null)return pack[key];
+  if(messages.en[key]!=null)return messages.en[key];
+  return key;
+}
+function fill(key,n){return t(key).replace('{n}',String(n));}
+function setMeta(attr,name,content){
+  let el=document.querySelector(`meta[${attr}="${name}"]`);
+  if(!el){el=document.createElement('meta');el.setAttribute(attr,name);document.head.appendChild(el);}
+  el.setAttribute('content',content);
+}
+function applyI18n(){
+  const def=LANGS.find(l=>l.code===language)||LANGS[0];
+  document.documentElement.lang=language==='zh'?'zh-CN':language;
+  document.documentElement.dir=def.dir;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key=el.getAttribute('data-i18n');
+    const value=t(key);
+    if(value!==key)el.innerHTML=value;
+  });
+  document.querySelectorAll('.tooltip').forEach(el=>{
+    const key=el.getAttribute('data-tip');
+    const tipKey=key==='quality'?(mode==='compress'?'tipQuality':'tipConvertQ'):key==='scale'?'tipScale':'tipLevel';
+    let tip=el.querySelector('.tip');
+    if(!tip){tip=document.createElement('span');tip.className='tip';el.appendChild(tip);}
+    tip.textContent=t(tipKey);
+  });
+  const seo=SEO[language]||SEO.en;
+  document.title=seo.title;
+  setMeta('name','description',seo.desc);
+  setMeta('property','og:title',seo.title);
+  setMeta('property','og:description',seo.desc);
+  setMeta('name','twitter:title',seo.title);
+  setMeta('name','twitter:description',seo.desc);
+  const ld=document.querySelector('#ldjson');
+  if(ld){
+    try{
+      const obj=JSON.parse(ld.textContent);
+      obj.name=t('title');
+      obj.description=seo.desc;
+      ld.textContent=JSON.stringify(obj);
+    }catch(e){}
+  }
+  paintAll();
+}
+function setLanguage(lang){
+  if(!messages[lang])lang='en';
+  language=lang;
+  try{localStorage.setItem('language',lang);}catch(e){}
+  langSelect.value=language;
+  applyI18n();
+}
+function formatSize(bytes){
+  if(bytes<1024)return bytes+' B';
+  if(bytes<1048576)return (bytes/1024).toFixed(1)+' KB';
+  return (bytes/1048576).toFixed(2)+' MB';
+}
+function levelToQuality(level){
+  if(level==='light')return 90;
+  if(level==='strong')return 50;
+  if(level==='extreme')return 25;
+  return 75;
+}
+function qualityToLevels(quality){
+  if(quality>=100)return {rgb:8,a:8};
+  if(quality>=85)return {rgb:7,a:7};
+  if(quality>=75)return {rgb:6,a:6};
+  if(quality>=65)return {rgb:5,a:5};
+  if(quality>=50)return {rgb:4,a:4};
+  if(quality>=40)return {rgb:4,a:3};
+  if(quality>=25)return {rgb:3,a:3};
+  if(quality>=15)return {rgb:3,a:2};
+  return {rgb:2,a:2};
+}
+function scaleValue(){
+  if(scaleMode==='percent'){
+    const n=parseInt($('#scalePercent').value,10);
+    return Math.min(100,Math.max(1,n||100));
+  }
+  const n=parseInt($('#scalePixel').value,10);
+  return Math.max(1,n||1);
+}
+function settingsKey(){
+  const quality=mode==='compress'?compressQuality:convertQuality;
+  return [mode,quality,scaleMode,scaleValue(),targetFmt].join('|');
+}
+function updateMode(next){
+  mode=next;
+  $('#modeSeg').querySelectorAll('button').forEach(btn=>{
+    const on=btn.dataset.mode===mode;
+    btn.classList.toggle('active',on);
+    btn.setAttribute('aria-pressed',on?'true':'false');
+  });
+  const compressOn=mode==='compress';
+  $('#levelWrap').hidden=!compressOn;
+  $('#scaleWrap').hidden=!compressOn;
+  $('#fmtWrap').hidden=compressOn;
+  const showQ=compressOn||targetFmt==='jpeg'||targetFmt==='webp';
+  $('#qualityWrap').hidden=!showQ;
+  $('#jpgNotice').hidden=compressOn||targetFmt!=='jpeg';
+  const q=compressOn?compressQuality:convertQuality;
+  $('#quality').value=String(q);
+  $('#qualityV').textContent=String(q);
+  $('#qualityLabel').setAttribute('data-i18n',compressOn?'quality':'qualityShort');
+  $('#qualityHint').setAttribute('data-i18n',compressOn?'qualityHint':'qualityHintConvert');
+}
+function sniff(file){
+  const type=(file.type||'').toLowerCase();
+  const name=(file.name||'').toLowerCase();
+  if(type==='image/heic'||type==='image/heif'||name.endsWith('.heic')||name.endsWith('.heif'))return 'heic';
+  if(type==='image/png'||name.endsWith('.png'))return 'png';
+  if(type==='image/jpeg'||type==='image/jpg'||name.endsWith('.jpg')||name.endsWith('.jpeg'))return 'jpg';
+  if(type==='image/webp'||name.endsWith('.webp'))return 'webp';
+  if(type==='image/bmp'||type==='image/x-ms-bmp'||name.endsWith('.bmp'))return 'bmp';
+  return 'other';
+}
+function statusText(item){
+  if(item.status==='done'&&item.outBlob)return t('statusDone')+' · '+formatSize(item.file.size)+' → '+formatSize(item.outBlob.size);
+  if(item.status==='running')return t('statusRun');
+  if(item.status==='error')return t(item.err==='heic'?'errHeic':item.err==='type'?'errType':'errLoad');
+  return t('statusWait');
+}
+function paint(item){
+  if(!items.includes(item))return;
+  let row=queue.querySelector('[data-id="'+item.id+'"]');
+  if(!row){
+    row=document.createElement('article');
+    row.className='qItem';
+    row.dataset.id=item.id;
+    row.setAttribute('role','listitem');
+    row.innerHTML='<img class="qThumb" alt="" hidden><span class="qPh" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 3h7l5 5v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v5h5"/></svg></span><div class="qBody"><div class="qName"></div><div class="qStatus"></div></div><div class="qBtns"><button type="button" class="secondary" data-act="dl"></button><button type="button" class="secondary" data-act="retry"></button><button type="button" class="qX" data-act="remove"></button></div>';
+    queue.appendChild(row);
+  }
+  row.classList.toggle('done',item.status==='done');
+  row.classList.toggle('err',item.status==='error');
+  row.classList.toggle('run',item.status==='running'||item.status==='queued');
+  row.querySelector('.qName').textContent=item.name;
+  row.querySelector('.qStatus').textContent=statusText(item);
+  const thumb=row.querySelector('.qThumb');
+  const ph=row.querySelector('.qPh');
+  if(item.thumbUrl&&item.status!=='error'){thumb.hidden=false;thumb.src=item.thumbUrl;ph.hidden=true;}
+  else{thumb.hidden=true;ph.hidden=false;}
+  const dl=row.querySelector('[data-act="dl"]');
+  const retry=row.querySelector('[data-act="retry"]');
+  dl.hidden=item.status!=='done';
+  retry.hidden=item.status!=='error';
+  dl.textContent=t('dl');
+  retry.textContent=t('retry');
+  row.querySelector('[data-act="remove"]').setAttribute('aria-label',t('remove'));
+  row.querySelector('[data-act="remove"]').textContent='×';
+}
+function paintAll(){items.forEach(paint);syncButtons();}
+function metaText(){
+  const done=items.filter(i=>i.status==='done').length;
+  const fail=items.filter(i=>i.status==='error').length;
+  const run=items.length-done-fail;
+  const parts=[fill('count',items.length)];
+  if(done)parts.push(fill('doneCount',done));
+  if(fail)parts.push(fill('failCount',fail));
+  if(run)parts.push(fill('runCount',run));
+  return parts.join(' · ');
+}
+function syncButtons(){
+  const running=items.some(i=>i.status==='queued'||i.status==='running')||zipping;
+  const done=items.some(i=>i.status==='done'&&i.outBlob);
+  const zipBtn=$('#zipBtn');
+  zipBtn.disabled=!done||running;
+  zipBtn.textContent=running?t('zipBusy'):t('zip');
+  $('#clear').disabled=items.length===0;
+  $('#meta').textContent=items.length?metaText():t('waiting');
+}
+function needsRun(item){
+  if(item.status==='error')return false;
+  if(item.status==='done'&&item.key===settingsKey())return false;
+  return true;
+}
+function loadImage(file){
+  return new Promise((resolve,reject)=>{
+    const url=URL.createObjectURL(file);
+    const img=new Image();
+    img.onload=()=>{URL.revokeObjectURL(url);resolve(img);};
+    img.onerror=()=>{URL.revokeObjectURL(url);const err=new Error('load');err.code='load';reject(err);};
+    img.src=url;
+  });
+}
+function makeThumb(img){
+  const max=88;
+  const w=img.naturalWidth||img.width;
+  const h=img.naturalHeight||img.height;
+  const scale=Math.min(1,max/Math.max(w,h,1));
+  const canvas=document.createElement('canvas');
+  canvas.width=Math.max(1,Math.round(w*scale));
+  canvas.height=Math.max(1,Math.round(h*scale));
+  canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);
+  return canvas.toDataURL('image/png');
+}
+function canvasToBlob(canvas,mime,quality){
+  return new Promise(resolve=>{canvas.toBlob(blob=>resolve(blob),mime,quality);});
+}
+async function quantizePng(imageData,levels){
+  const data=imageData.data,width=imageData.width,height=imageData.height;
+  const out=new Uint8ClampedArray(data.length);
+  const rgbShift=8-levels.rgb,aShift=8-levels.a;
+  const rgbMask=(0xFF<<rgbShift)&0xFF,aMask=(0xFF<<aShift)&0xFF;
+  const rgbFill=rgbShift>0?((1<<rgbShift)>>>1):0;
+  const aFill=aShift>0?((1<<aShift)>>>1):0;
+  const total=data.length/4;
+  const chunk=Math.max(20000,Math.floor(total/8));
+  let offset=0;
+  return new Promise(resolve=>{
+    function step(){
+      const end=Math.min(offset+chunk,total);
+      for(let i=offset;i<end;i++){
+        const idx=i*4;
+        out[idx]=(data[idx]&rgbMask)|rgbFill;
+        out[idx+1]=(data[idx+1]&rgbMask)|rgbFill;
+        out[idx+2]=(data[idx+2]&rgbMask)|rgbFill;
+        out[idx+3]=(data[idx+3]&aMask)|aFill;
+      }
+      offset=end;
+      if(offset<total)setTimeout(step,0);
+      else resolve(new ImageData(out,width,height));
+    }
+    step();
+  });
+}
+async function compressPng(canvas,quality){
+  const ctx=canvas.getContext('2d',{willReadFrequently:true});
+  const reduced=await quantizePng(ctx.getImageData(0,0,canvas.width,canvas.height),qualityToLevels(quality));
+  const out=document.createElement('canvas');
+  out.width=canvas.width;out.height=canvas.height;
+  out.getContext('2d').putImageData(reduced,0,0);
+  return canvasToBlob(out,'image/png');
+}
+function encodeBMP(canvas){
+  const ctx=canvas.getContext('2d');
+  const w=canvas.width,h=canvas.height;
+  const data=ctx.getImageData(0,0,w,h).data;
+  const rowSize=Math.floor((24*w+31)/32)*4;
+  const pixelDataSize=rowSize*h;
+  const fileSize=54+pixelDataSize;
+  const view=new DataView(new ArrayBuffer(fileSize));
+  view.setUint8(0,0x42);view.setUint8(1,0x4D);
+  view.setUint32(2,fileSize,true);view.setUint32(10,54,true);view.setUint32(14,40,true);
+  view.setInt32(18,w,true);view.setInt32(22,h,true);
+  view.setUint16(26,1,true);view.setUint16(28,24,true);
+  view.setUint32(34,pixelDataSize,true);
+  view.setInt32(38,2835,true);view.setInt32(42,2835,true);
+  for(let y=0;y<h;y++){
+    const src=(h-1-y)*w*4,dst=y*rowSize;
+    for(let x=0;x<w;x++){
+      const si=src+x*4,di=dst+x*3;
+      view.setUint8(54+di,data[si+2]);
+      view.setUint8(54+di+1,data[si+1]);
+      view.setUint8(54+di+2,data[si]);
+    }
+  }
+  return new Blob([view.buffer],{type:'image/bmp'});
+}
+function targetWidth(img){
+  const w=img.naturalWidth||img.width;
+  if(scaleMode==='percent')return Math.max(1,Math.round(w*scaleValue()/100));
+  return Math.max(1,Math.min(w,scaleValue()));
+}
+async function encode(item){
+  if(!item.img){
+    item.img=await loadImage(item.file);
+    item.thumbUrl=makeThumb(item.img);
+    paint(item);
+  }
+  const img=item.img;
+  const tw=targetWidth(img);
+  const th=Math.max(1,Math.round((img.naturalHeight||img.height)*(tw/(img.naturalWidth||img.width))));
+  const canvas=document.createElement('canvas');
+  canvas.width=tw;canvas.height=th;
+  const ctx=canvas.getContext('2d',{willReadFrequently:true});
+  const jpegLike=(mode==='convert'&&targetFmt==='jpeg')||(mode==='compress'&&(item.kind==='jpg'||item.kind==='bmp'));
+  if(jpegLike){ctx.fillStyle='#ffffff';ctx.fillRect(0,0,tw,th);}
+  ctx.drawImage(img,0,0,tw,th);
+  if(mode==='convert'){
+    if(targetFmt==='bmp')return {blob:encodeBMP(canvas),ext:'bmp'};
+    const mime=targetFmt==='png'?'image/png':targetFmt==='webp'?'image/webp':'image/jpeg';
+    const blob=await canvasToBlob(canvas,mime,targetFmt==='png'?undefined:convertQuality/100);
+    if(!blob){const err=new Error('load');err.code='load';throw err;}
+    return {blob,ext:targetFmt==='jpeg'?'jpg':targetFmt};
+  }
+  let blob,ext;
+  if(item.kind==='png'){blob=await compressPng(canvas,compressQuality);ext='png';}
+  else if(item.kind==='webp'){blob=await canvasToBlob(canvas,'image/webp',compressQuality/100);ext='webp';}
+  else{blob=await canvasToBlob(canvas,'image/jpeg',compressQuality/100);ext='jpg';}
+  if(!blob){const err=new Error('load');err.code='load';throw err;}
+  const samePixels=tw===(img.naturalWidth||img.width)&&th===(img.naturalHeight||img.height);
+  const sameType=(ext==='png'&&item.kind==='png')||(ext==='webp'&&item.kind==='webp')||(ext==='jpg'&&item.kind==='jpg');
+  if(samePixels&&sameType&&blob.size>=item.file.size)return {blob:item.file,ext:item.kind==='jpeg'?'jpg':item.kind};
+  return {blob,ext};
+}
+async function processItem(item,id){
+  const token={};
+  item.token=token;
+  item.status='running';
+  item.err=null;
+  paint(item);
+  syncButtons();
+  try{
+    const result=await encode(item);
+    if(item.token!==token||id!==runId)return;
+    item.outBlob=result.blob;
+    item.outExt=result.ext;
+    item.outName=fileBase(item.name)+'.'+result.ext;
+    item.status='done';
+    item.key=settingsKey();
+  }catch(err){
+    if(item.token!==token||id!==runId)return;
+    item.status='error';
+    item.err=err&&err.code==='type'?'type':'load';
+    item.outBlob=null;
+  }
+  paint(item);
+  syncButtons();
+}
+async function runQueue(){
+  const id=++runId;
+  const ids=items.map(item=>item.id);
+  for(const itemId of ids){
+    if(id!==runId)return;
+    const item=items.find(entry=>entry.id===itemId);
+    if(!item||!needsRun(item))continue;
+    await processItem(item,id);
+  }
+  if(id===runId)syncButtons();
+}
+function schedule(){clearTimeout(timer);timer=setTimeout(runQueue,280);}
+function fileBase(name){
+  const clean=String(name||'image').replace(/[\\/:*?"<>|]/g,'_');
+  const cut=clean.replace(/\.[^.]+$/,'');
+  return (cut||'image').slice(0,120);
+}
+function addFiles(list){
+  const arr=[...list];
+  if(!arr.length)return;
+  for(const file of arr){
+    const kind=sniff(file);
+    const item={id:String(++seq),file,name:file.name||'image',kind,status:'queued',key:null,img:null,thumbUrl:'',outBlob:null,outName:'',err:null,token:null};
+    if(kind==='heic'){item.status='error';item.err='heic';}
+    else if(kind==='other'){item.status='error';item.err='type';}
+    items.push(item);
+    paint(item);
+  }
+  $('#empty').style.display='none';
+  syncButtons();
+  runQueue();
+}
+function removeItem(item){
+  item.token=null;
+  item.img=null;
+  item.outBlob=null;
+  const i=items.indexOf(item);
+  if(i>=0)items.splice(i,1);
+  const row=queue.querySelector('[data-id="'+item.id+'"]');
+  if(row)row.remove();
+  if(!items.length)$('#empty').style.display='';
+  syncButtons();
+}
+function clearAll(){
+  runId++;
+  items.forEach(item=>{item.token=null;item.img=null;item.outBlob=null;});
+  items=[];
+  queue.replaceChildren();
+  $('#empty').style.display='';
+  syncButtons();
+}
+function saveBlob(blob,name){
+  const a=document.createElement('a');
+  const url=URL.createObjectURL(blob);
+  a.href=url;a.download=name;
+  document.body.appendChild(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),1500);
+}
+const CRC_TABLE=(()=>{
+  const table=new Uint32Array(256);
+  for(let n=0;n<256;n++){
+    let c=n;
+    for(let k=0;k<8;k++)c=(c&1)?(0xEDB88320^(c>>>1)):(c>>>1);
+    table[n]=c>>>0;
+  }
+  return table;
+})();
+function crc32(data){
+  let c=0xFFFFFFFF;
+  for(let i=0;i<data.length;i++)c=CRC_TABLE[(c^data[i])&0xFF]^(c>>>8);
+  return (c^0xFFFFFFFF)>>>0;
+}
+function buildZip(files){
+  const now=new Date();
+  let year=now.getFullYear();
+  if(year<1980)year=1980;
+  const time=(now.getHours()<<11)|(now.getMinutes()<<5)|Math.floor(now.getSeconds()/2);
+  const date=((year-1980)<<9)|((now.getMonth()+1)<<5)|now.getDate();
+  const encoder=new TextEncoder();
+  const parts=[];
+  const central=[];
+  let offset=0;
+  files.forEach(file=>{
+    const name=encoder.encode(file.name);
+    const local=new Uint8Array(30+name.length);
+    const view=new DataView(local.buffer);
+    view.setUint32(0,0x04034b50,true);
+    view.setUint16(4,20,true);
+    view.setUint16(6,0x0800,true);
+    view.setUint16(10,time,true);
+    view.setUint16(12,date,true);
+    view.setUint32(14,file.crc,true);
+    view.setUint32(18,file.data.length,true);
+    view.setUint32(22,file.data.length,true);
+    view.setUint16(26,name.length,true);
+    local.set(name,30);
+    parts.push(local,file.data);
+    const cd=new Uint8Array(46+name.length);
+    const cdView=new DataView(cd.buffer);
+    cdView.setUint32(0,0x02014b50,true);
+    cdView.setUint16(4,20,true);
+    cdView.setUint16(6,20,true);
+    cdView.setUint16(8,0x0800,true);
+    cdView.setUint16(12,time,true);
+    cdView.setUint16(14,date,true);
+    cdView.setUint32(16,file.crc,true);
+    cdView.setUint32(20,file.data.length,true);
+    cdView.setUint32(24,file.data.length,true);
+    cdView.setUint16(28,name.length,true);
+    cdView.setUint32(42,offset,true);
+    cd.set(name,46);
+    central.push(cd);
+    offset+=local.length+file.data.length;
+  });
+  const cdSize=central.reduce((sum,part)=>sum+part.length,0);
+  const end=new Uint8Array(22);
+  const endView=new DataView(end.buffer);
+  endView.setUint32(0,0x06054b50,true);
+  endView.setUint16(8,files.length,true);
+  endView.setUint16(10,files.length,true);
+  endView.setUint32(12,cdSize,true);
+  endView.setUint32(16,offset,true);
+  const blobParts=parts.concat(central,[end]);
+  const total=blobParts.reduce((sum,part)=>sum+part.length,0);
+  const out=new Uint8Array(total);
+  let cursor=0;
+  blobParts.forEach(part=>{out.set(part,cursor);cursor+=part.length;});
+  return out;
+}
+function uniqueName(name,used){
+  if(!used.has(name)){used.add(name);return name;}
+  const dot=name.lastIndexOf('.');
+  const base=dot>0?name.slice(0,dot):name;
+  const ext=dot>0?name.slice(dot):'';
+  let i=2,next=base+'-'+i+ext;
+  while(used.has(next)){i+=1;next=base+'-'+i+ext;}
+  used.add(next);
+  return next;
+}
+async function downloadZip(){
+  const ready=items.filter(item=>item.status==='done'&&item.outBlob);
+  if(!ready.length||zipping)return;
+  zipping=true;
+  syncButtons();
+  try{
+    const used=new Set();
+    const files=[];
+    for(const item of ready){
+      if(!item.outBlob)continue;
+      const data=new Uint8Array(await item.outBlob.arrayBuffer());
+      files.push({name:uniqueName(item.outName||'image.png',used),data,crc:crc32(data)});
+    }
+    saveBlob(new Blob([buildZip(files)],{type:'application/zip'}),'imagec-batch.zip');
+  }finally{
+    zipping=false;
+    syncButtons();
+  }
+}
+function bind(){
+  const drop=$('#drop');
+  const input=$('#file');
+  drop.addEventListener('dragover',e=>{e.preventDefault();drop.classList.add('over');});
+  drop.addEventListener('dragleave',()=>drop.classList.remove('over'));
+  drop.addEventListener('drop',e=>{
+    e.preventDefault();
+    drop.classList.remove('over');
+    if(e.dataTransfer&&e.dataTransfer.files)addFiles(e.dataTransfer.files);
+  });
+  input.addEventListener('change',()=>{if(input.files)addFiles(input.files);input.value='';});
+  document.addEventListener('paste',e=>{
+    const found=[];
+    const clip=e.clipboardData&&e.clipboardData.items;
+    if(!clip)return;
+    for(const item of clip){
+      if(item.type&&item.type.startsWith('image/')){
+        const file=item.getAsFile();
+        if(file)found.push(file);
+      }
+    }
+    if(found.length)addFiles(found);
+  });
+  $('#modeSeg').addEventListener('click',e=>{
+    const btn=e.target.closest('button');
+    if(!btn)return;
+    updateMode(btn.dataset.mode);
+    applyI18n();
+    schedule();
+  });
+  $('#levelGroup').addEventListener('click',e=>{
+    const card=e.target.closest('.levelCard');
+    if(!card)return;
+    $('#levelGroup').querySelectorAll('.levelCard').forEach(el=>el.classList.toggle('active',el===card));
+    compressQuality=levelToQuality(card.dataset.level);
+    if(mode==='compress'){
+      $('#quality').value=String(compressQuality);
+      $('#qualityV').textContent=String(compressQuality);
+    }
+    schedule();
+  });
+  $('#quality').addEventListener('input',()=>{
+    const n=+$('#quality').value;
+    $('#qualityV').textContent=String(n);
+    if(mode==='compress')compressQuality=n;
+    else convertQuality=n;
+    schedule();
+  });
+  $('#scaleMode').addEventListener('click',e=>{
+    const btn=e.target.closest('button');
+    if(!btn)return;
+    scaleMode=btn.dataset.mode;
+    $('#scaleMode').querySelectorAll('button').forEach(el=>el.classList.toggle('active',el===btn));
+    $('#scalePercent').hidden=scaleMode!=='percent';
+    $('#scalePixel').hidden=scaleMode!=='pixel';
+    schedule();
+  });
+  $('#scalePercent').addEventListener('input',schedule);
+  $('#scalePixel').addEventListener('input',schedule);
+  $('#fmtGrid').addEventListener('click',e=>{
+    const btn=e.target.closest('.fmtBtn');
+    if(!btn)return;
+    targetFmt=btn.dataset.fmt;
+    $('#fmtGrid').querySelectorAll('.fmtBtn').forEach(el=>el.classList.toggle('active',el===btn));
+    updateMode('convert');
+    applyI18n();
+    schedule();
+  });
+  $('#zipBtn').addEventListener('click',downloadZip);
+  $('#clear').addEventListener('click',clearAll);
+  queue.addEventListener('click',e=>{
+    const btn=e.target.closest('button');
+    if(!btn)return;
+    const row=btn.closest('[data-id]');
+    if(!row)return;
+    const item=items.find(entry=>entry.id===row.dataset.id);
+    if(!item)return;
+    if(btn.dataset.act==='remove')removeItem(item);
+    else if(btn.dataset.act==='dl'&&item.outBlob)saveBlob(item.outBlob,item.outName||'image');
+    else if(btn.dataset.act==='retry'){
+      item.status='queued';
+      item.key=null;
+      item.err=null;
+      if(item.kind==='heic'||item.kind==='other'){
+        item.status='error';
+        item.err=item.kind==='heic'?'heic':'type';
+        paint(item);
+        syncButtons();
+        return;
+      }
+      runQueue();
+    }
+  });
+  langSelect.addEventListener('change',()=>setLanguage(langSelect.value));
+}
+bind();
+updateMode('compress');
+setLanguage(language);
+</script>
+<script>
+(function(){
+  var p = encodeURIComponent(location.pathname + location.search);
+  var u = '/__track__?t=' + Date.now() + '&p=' + p;
+  try {
+    var img = new Image();
+    img.alt = '';
+    img.style.position = 'absolute';
+    img.style.width = '0';
+    img.style.height = '0';
+    img.src = u;
+    document.body.appendChild(img);
+  } catch(e) {}
+  try {
+    if (navigator.sendBeacon) navigator.sendBeacon(u);
+  } catch(e2) {}
+})();
+</script>
+<footer class="siteFooter"><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer" id="icp">ICP备案号申请中</a></footer>
+<script src="/tool-cards.js"></script>
+<script src="/chrome.js"></script>
+</body>
+</html>

@@ -297,6 +297,9 @@ export default {
     }
 
     if (pathname === "/" || pathname === "") pathname = "/index.html";
+    else if (pathname.length > 1 && pathname.indexOf("/__") !== 0 && !/\.[a-zA-Z0-9]+$/.test(pathname)) {
+      pathname = pathname.replace(/\/+$/, "") + ".html";
+    }
     let response;
     const ext = pathname.split(".").pop().toLowerCase();
     const contentType = mimeTypes[ext] || "application/octet-stream";

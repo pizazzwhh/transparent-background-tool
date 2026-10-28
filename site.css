@@ -292,6 +292,7 @@ body.home .siteFooter { padding-top: 28px; padding-bottom: 36px; }
   body.home .toolCard:nth-child(8) { animation-delay: 196ms; }
   body.home .toolCard:nth-child(9) { animation-delay: 224ms; }
   body.home .toolCard:nth-child(10) { animation-delay: 252ms; }
+  body.home .toolCard:nth-child(11) { animation-delay: 280ms; }
   body.home .toolsGrid.settled .toolCard { animation: none; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -447,10 +448,11 @@ body.studio .dropzone .icon { display: grid; place-items: center; line-height: 0
 input[type=file] { display: none; }
 body.tool .actions { display: grid; gap: 8px; margin-top: 12px; }
 body.tool .controls .drop { order: 1; }
-body.tool .controls .actions { order: 2; }
+body.tool .controls .pin { order: 2; }
+body.tool .controls .actions { order: 3; }
 body.tool .controls > .hint,
-body.tool .controls > .thumbList { order: 3; }
-body.tool .controls .advanced { order: 4; }
+body.tool .controls > .thumbList { order: 4; }
+body.tool .controls .advanced { order: 5; }
 body:not(.has-file) .advanced,
 body:not(.has-file) .actions,
 body:not(.has-file) .btnRow { display: none !important; }
@@ -461,7 +463,7 @@ body:not(.has-file) .btnRow { display: none !important; }
 }
 /* Empty state must not paint settings. These nodes stay out of layout until
    chrome.js moves them into .advanced; hiding only .advanced is too late. */
-body.tool .controls > :not(.drop):not(.actions):not(.thumbList):not(.advanced):not(input):not(.hint) {
+body.tool .controls > :not(.drop):not(.pin):not(.actions):not(.thumbList):not(.advanced):not(input):not(.hint) {
   display: none !important;
 }
 body.tool .controls:not(:has(.thumbList)) > .hint {
@@ -682,6 +684,68 @@ body.tool .empty strong, body.studio .empty strong {
   z-index: 5;
 }
 .tooltip:hover .tip, .tooltip:focus .tip { display: block; }
+.pin { margin-top: 14px; }
+body.tool .pin .seg button {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink-2);
+  min-height: 48px;
+}
+body.tool .pin .seg button.active {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+.heroLinks { margin: 10px 0 0; font-size: var(--fs-sm); color: #57534E; }
+.heroLinks a { font-weight: var(--fw-bold); text-decoration: none; }
+.heroLinks a:hover { text-decoration: underline; }
+.queue { display: flex; flex-direction: column; gap: 10px; max-height: min(70vh, 640px); overflow: auto; }
+.qItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.qItem.err { background: #FEF2F2; border-color: #FECACA; }
+.qThumb, .qPh {
+  width: 44px;
+  height: 44px;
+  border-radius: 6px;
+  flex: none;
+  background: var(--bg);
+  border: 1px solid var(--line);
+}
+.qThumb { object-fit: cover; display: block; }
+.qPh { display: grid; place-items: center; color: var(--ink-2); }
+.qPh svg { width: 22px; height: 22px; }
+.qBody { min-width: 0; flex: 1; }
+.qName {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-bold);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.qStatus { margin-top: 2px; font-size: var(--fs-xs); line-height: 1.45; color: var(--ink-2); }
+.qItem.done .qStatus { color: var(--ok); }
+.qItem.err .qStatus { color: var(--danger); }
+.qItem.run .qStatus { color: var(--accent); }
+.qBtns { display: flex; align-items: center; gap: 4px; flex: none; }
+body.tool .qBtns button { min-height: 36px; padding: 6px 12px; }
+body.tool .qX {
+  width: 32px;
+  min-height: 32px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink-2);
+  font-size: 18px;
+  line-height: 1;
+}
+body.tool .qX:hover { color: var(--danger); }
 .computing .canvasWrap::before {
   content: attr(data-loading);
   position: absolute;

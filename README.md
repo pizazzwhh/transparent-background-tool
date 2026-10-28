@@ -1,18 +1,19 @@
-# imagec — Free Online Image Tools (10-in-1)
+# imagec — Free Online Image Tools
 
-> 10 free browser-based image tools in one place. No uploads, no registration, no watermarks. All processing happens locally in your browser. Supports 13 languages.
+> Free browser-based image tools in one place. No uploads, no registration, no watermarks. All processing happens locally in your browser. Supports 13 languages.
 
 **🌐 Live: [https://imagec.xin/](https://imagec.xin/)**
 
 ---
 
-## 🛠 10 Free Image Tools
+## 🛠 Image Tools
 
 | Tool | What it does | Link |
 |---|---|---|
 | 🎨 **White BG → Transparent** | Remove white background, export transparent PNG | [/whitebg](https://imagec.xin/whitebg) |
 | 🗜️ **Image Compressor** | Compress PNG/JPG/WebP, reduce file size up to 80% | [/compress](https://imagec.xin/compress) |
 | 🔄 **Format Converter** | Convert between PNG, JPG, WebP, BMP, GIF | [/convert](https://imagec.xin/convert) |
+| 📦 **Batch compress / convert** | Compress or convert many images, then download a ZIP | [/batch](https://imagec.xin/batch) |
 | ✂️ **Image Cropper** | Crop to any size or aspect ratio (16:9, 1:1, A4, social) | [/crop](https://imagec.xin/crop) |
 | 🪪 **ID Photo Maker** | Create passport/visa photos with correct sizes | [/idphoto](https://imagec.xin/idphoto) |
 | 💧 **Watermark Adder** | Add text or image watermark, batch processing | [/watermark](https://imagec.xin/watermark) |
