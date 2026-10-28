@@ -2,19 +2,19 @@
 (function () {
   var SVG_OPEN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">';
   var TOOLS = [
-    {file:"whitebg.html", keywords:"背景 去白 透明 png 白底 remove white background", titleKey:"cardWhitebgTitle", title:"去白底", descKey:"cardWhitebgDesc", desc:"把白色背景变成透明 PNG", svg:'<rect x="4" y="5" width="16" height="14" rx="2"/><path d="M8 15.5 11 12l2 2 2.5-3L18 15.5"/>'},
-    {file:"compress.html", keywords:"压缩 减小 体积 png jpg webp compress", titleKey:"cardCompressTitle", title:"图片压缩", descKey:"cardCompressDesc", desc:"缩小 PNG、JPG、WebP，尽量保住画质", svg:'<path d="M8 3H4v4M16 3h4v4M8 21H4v-4M16 21h4v-4M7 12h10"/>'},
-    {file:"convert.html", keywords:"转换 格式 png jpg webp bmp convert", titleKey:"cardConvertTitle", title:"格式转换", descKey:"cardConvertDesc", desc:"PNG、JPG、WebP、BMP 互转", svg:'<path d="M4 7h11l-2.5-2.5M20 17H9l2.5 2.5"/><path d="M15 4.5 17.5 7 15 9.5M9 14.5 6.5 17 9 19.5"/>'},
-    {file:"batch.html", keywords:"批量 压缩 转换 zip 打包 batch compress convert", titleKey:"cardBatchTitle", title:"批量处理", descKey:"cardBatchDesc", desc:"一次压缩或转换多张图，打包 ZIP", svg:'<rect x="6" y="3" width="12" height="12" rx="2"/><path d="M4 8v11a2 2 0 0 0 2 2h11"/>'},
-    {file:"qr.html", keywords:"二维码 qr qrcode 免费生成二维码 链接转二维码 文字生成二维码", titleKey:"cardQrTitle", title:"免费生成二维码", descKey:"cardQrDesc", desc:"输入链接或文字，本地生成二维码 PNG", svg:'<path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4z"/><path d="M14 14h2.5v2.5H14zM17.5 17.5H20V20h-2.5zM14 18h2"/>'},
-    {file:"round.html", keywords:"圆角 阴影 投影 圆角阴影 图片加圆角 图片加阴影 rounded shadow corner", titleKey:"cardRoundTitle", title:"圆角阴影", descKey:"cardRoundDesc", desc:"给图片加圆角或阴影，导出 PNG", svg:'<rect x="4" y="4" width="13" height="13" rx="4"/><path d="M9 17h8a2 2 0 0 0 2-2V9"/>'},
-    {file:"crop.html", keywords:"裁剪 缩放 尺寸 crop resize", titleKey:"cardCropTitle", title:"裁剪缩放", descKey:"cardCropDesc", desc:"裁切一块，或改成指定尺寸", svg:'<path d="M7 3v12a2 2 0 0 0 2 2h12"/><path d="M3 7h12a2 2 0 0 1 2 2v12"/>'},
-    {file:"idphoto.html", keywords:"证件照 蓝底 白底 红底 id photo", titleKey:"cardIdphotoTitle", title:"证件照换底", descKey:"cardIdphotoDesc", desc:"蓝底、白底、红底证件照", svg:'<rect x="4" y="5" width="16" height="14" rx="2"/><circle cx="10" cy="11" r="2"/><path d="M7 16c.6-1.4 1.7-2 3-2s2.4.6 3 2M14 10h3M14 13h3"/>'},
-    {file:"watermark.html", keywords:"水印 watermark", titleKey:"cardWatermarkTitle", title:"加水印", descKey:"cardWatermarkDesc", desc:"加文字或图片水印", svg:'<path d="M5 19 19 5"/><path d="M8 6h.01M6 8h.01M16 16h.01M18 18h.01"/>'},
-    {file:"bgcolor.html", keywords:"背景色 透明 png 纯色 渐变 background color", titleKey:"cardBgcolorTitle", title:"换背景色", descKey:"cardBgcolorDesc", desc:"给透明图铺纯色或渐变", svg:'<rect x="4" y="4" width="16" height="16" rx="3"/><circle cx="12" cy="12" r="4" fill="currentColor" stroke="none"/>'},
-    {file:"splice.html", keywords:"拼接 长图 stitch", titleKey:"cardSpliceTitle", title:"图片拼接", descKey:"cardSpliceDesc", desc:"把多张图拼成一张", svg:'<rect x="3" y="5" width="7" height="14" rx="1.5"/><rect x="14" y="5" width="7" height="14" rx="1.5"/>'},
-    {file:"img2pdf.html", keywords:"pdf 转pdf", titleKey:"cardPdfTitle", title:"图片转 PDF", descKey:"cardPdfDesc", desc:"把多张图合成一个 PDF", svg:'<path d="M7 3h7l5 5v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v5h5M8 15h8M8 18h5"/>'},
-    {file:"filter.html", keywords:"滤镜 亮度 对比度 饱和度 filter", titleKey:"cardFilterTitle", title:"滤镜调色", descKey:"cardFilterDesc", desc:"亮度、对比度、饱和度和预设滤镜", svg:'<path d="M4 7h16M7 12h10M10 17h4"/>'}
+    {file:"whitebg", keywords:"背景 去白 透明 png 白底 remove white background", titleKey:"cardWhitebgTitle", title:"去白底", descKey:"cardWhitebgDesc", desc:"把白色背景变成透明 PNG", svg:'<rect x="4" y="5" width="16" height="14" rx="2"/><path d="M8 15.5 11 12l2 2 2.5-3L18 15.5"/>'},
+    {file:"compress", keywords:"压缩 减小 体积 png jpg webp compress", titleKey:"cardCompressTitle", title:"图片压缩", descKey:"cardCompressDesc", desc:"缩小 PNG、JPG、WebP，尽量保住画质", svg:'<path d="M8 3H4v4M16 3h4v4M8 21H4v-4M16 21h4v-4M7 12h10"/>'},
+    {file:"convert", keywords:"转换 格式 png jpg webp bmp convert", titleKey:"cardConvertTitle", title:"格式转换", descKey:"cardConvertDesc", desc:"PNG、JPG、WebP、BMP 互转", svg:'<path d="M4 7h11l-2.5-2.5M20 17H9l2.5 2.5"/><path d="M15 4.5 17.5 7 15 9.5M9 14.5 6.5 17 9 19.5"/>'},
+    {file:"batch", keywords:"批量 压缩 转换 zip 打包 batch compress convert", titleKey:"cardBatchTitle", title:"批量处理", descKey:"cardBatchDesc", desc:"一次压缩或转换多张图，打包 ZIP", svg:'<rect x="6" y="3" width="12" height="12" rx="2"/><path d="M4 8v11a2 2 0 0 0 2 2h11"/>'},
+    {file:"qr", keywords:"二维码 qr qrcode 免费生成二维码 链接转二维码 文字生成二维码", titleKey:"cardQrTitle", title:"免费生成二维码", descKey:"cardQrDesc", desc:"输入链接或文字，本地生成二维码 PNG", svg:'<path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4z"/><path d="M14 14h2.5v2.5H14zM17.5 17.5H20V20h-2.5zM14 18h2"/>'},
+    {file:"round", keywords:"圆角 阴影 投影 圆角阴影 图片加圆角 图片加阴影 rounded shadow corner", titleKey:"cardRoundTitle", title:"圆角阴影", descKey:"cardRoundDesc", desc:"给图片加圆角或阴影，导出 PNG", svg:'<rect x="4" y="4" width="13" height="13" rx="4"/><path d="M9 17h8a2 2 0 0 0 2-2V9"/>'},
+    {file:"crop", keywords:"裁剪 缩放 尺寸 crop resize", titleKey:"cardCropTitle", title:"裁剪缩放", descKey:"cardCropDesc", desc:"裁切一块，或改成指定尺寸", svg:'<path d="M7 3v12a2 2 0 0 0 2 2h12"/><path d="M3 7h12a2 2 0 0 1 2 2v12"/>'},
+    {file:"idphoto", keywords:"证件照 蓝底 白底 红底 id photo", titleKey:"cardIdphotoTitle", title:"证件照换底", descKey:"cardIdphotoDesc", desc:"蓝底、白底、红底证件照", svg:'<rect x="4" y="5" width="16" height="14" rx="2"/><circle cx="10" cy="11" r="2"/><path d="M7 16c.6-1.4 1.7-2 3-2s2.4.6 3 2M14 10h3M14 13h3"/>'},
+    {file:"watermark", keywords:"水印 watermark", titleKey:"cardWatermarkTitle", title:"加水印", descKey:"cardWatermarkDesc", desc:"加文字或图片水印", svg:'<path d="M5 19 19 5"/><path d="M8 6h.01M6 8h.01M16 16h.01M18 18h.01"/>'},
+    {file:"bgcolor", keywords:"背景色 透明 png 纯色 渐变 background color", titleKey:"cardBgcolorTitle", title:"换背景色", descKey:"cardBgcolorDesc", desc:"给透明图铺纯色或渐变", svg:'<rect x="4" y="4" width="16" height="16" rx="3"/><circle cx="12" cy="12" r="4" fill="currentColor" stroke="none"/>'},
+    {file:"splice", keywords:"拼接 长图 stitch", titleKey:"cardSpliceTitle", title:"图片拼接", descKey:"cardSpliceDesc", desc:"把多张图拼成一张", svg:'<rect x="3" y="5" width="7" height="14" rx="1.5"/><rect x="14" y="5" width="7" height="14" rx="1.5"/>'},
+    {file:"img2pdf", keywords:"pdf 转pdf", titleKey:"cardPdfTitle", title:"图片转 PDF", descKey:"cardPdfDesc", desc:"把多张图合成一个 PDF", svg:'<path d="M7 3h7l5 5v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v5h5M8 15h8M8 18h5"/>'},
+    {file:"filter", keywords:"滤镜 亮度 对比度 饱和度 filter", titleKey:"cardFilterTitle", title:"滤镜调色", descKey:"cardFilterDesc", desc:"亮度、对比度、饱和度和预设滤镜", svg:'<path d="M4 7h16M7 12h10M10 17h4"/>'}
   ];
 
   function esc(value) {
@@ -30,9 +30,10 @@
 
   function pageFile() {
     var path = (location.pathname || "/").split("/").pop() || "";
-    if (!path || path === "index.html") return "";
-    if (path.indexOf(".") === -1) path += ".html";
-    return path.toLowerCase();
+    path = path.toLowerCase();
+    if (path.slice(-5) === ".html") path = path.slice(0, -5);
+    if (!path || path === "index") return "";
+    return path;
   }
 
   function mount(root, excludeFile) {
