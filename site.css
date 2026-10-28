@@ -411,6 +411,16 @@ body.tool .workspace { display: grid; grid-template-columns: minmax(260px, 320px
 body.tool:not(.has-file) .workspace { grid-template-columns: 1fr; }
 body.tool:not(.has-file) .drop { min-height: 220px; }
 body.tool:not(.has-file) .stage { display: none; }
+/* Batch keeps the right-hand stage on an empty queue. The placeholder stays inside .stage. */
+body.tool.batch:not(.has-file) .workspace { grid-template-columns: minmax(260px, 320px) minmax(0, 1fr); }
+body.tool.batch:not(.has-file) .controls { border-right: 1px solid rgba(28, 25, 23, 0.12); }
+body.tool.batch:not(.has-file) .stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 320px;
+}
+body.tool.batch:not(.has-file) .queue { display: none; }
 body.tool:not(.has-file) .controls { border-right: 0; }
 body.tool .controls {
   display: flex;
@@ -846,7 +856,10 @@ body.studio input[type=color] { width: 44px; height: 36px; padding: 0; border: 1
   .toolsGrid { grid-template-columns: 1fr; }
   body.home .hero-title { font-size: 28px; }
   body.tool .workspace, body.studio .workarea { grid-template-columns: 1fr; }
+  body.tool.batch:not(.has-file) .workspace { grid-template-columns: 1fr; }
   body.tool .controls { border-right: 0; border-bottom: 1px solid var(--line); }
+  body.tool.batch:not(.has-file) .controls { border-right: 0; }
+  body.tool.batch.has-file .actions:has(#zipBtn[hidden]) { grid-template-columns: 1fr; }
   body.tool .hero, body.studio .hero { padding: 8px 0 16px; }
   body.tool .panel.sponsorSheet .hero { padding: 16px; }
   body.tool.has-file .canvasWrap { height: 320px; }
