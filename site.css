@@ -432,6 +432,17 @@ body.tool.qr:not(.has-file) .stage {
 }
 body.tool.qr:not(.has-file) .canvasWrap { display: none; }
 body.tool.qr:not(.has-file) .actions { display: grid !important; }
+/* Round keeps the right-hand stage on an empty canvas. The placeholder stays inside .stage. */
+body.tool.round:not(.has-file) .workspace { grid-template-columns: minmax(260px, 320px) minmax(0, 1fr); }
+body.tool.round:not(.has-file) .controls { border-right: 1px solid rgba(28, 25, 23, 0.12); }
+body.tool.round:not(.has-file) .stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 320px;
+}
+body.tool.round:not(.has-file) .canvasWrap { display: none; }
+body.tool.round .shadowFields.is-off { opacity: 0.45; }
 body.tool.qr .controls .options { order: 4; }
 body.tool.qr #eccSeg button { flex: 1 1 0; }
 body.tool:not(.has-file) .controls { border-right: 0; }
@@ -874,9 +885,11 @@ body.studio input[type=color] { width: 44px; height: 36px; padding: 0; border: 1
   body.tool .workspace, body.studio .workarea { grid-template-columns: 1fr; }
   body.tool.batch:not(.has-file) .workspace { grid-template-columns: 1fr; }
   body.tool.qr:not(.has-file) .workspace { grid-template-columns: 1fr; }
+  body.tool.round:not(.has-file) .workspace { grid-template-columns: 1fr; }
   body.tool .controls { border-right: 0; border-bottom: 1px solid var(--line); }
   body.tool.batch:not(.has-file) .controls { border-right: 0; }
   body.tool.qr:not(.has-file) .controls { border-right: 0; }
+  body.tool.round:not(.has-file) .controls { border-right: 0; }
   body.tool.batch.has-file .actions:has(#zipBtn[hidden]) { grid-template-columns: 1fr; }
   body.tool .hero, body.studio .hero { padding: 8px 0 16px; }
   body.tool .panel.sponsorSheet .hero { padding: 16px; }
