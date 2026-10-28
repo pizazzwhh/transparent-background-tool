@@ -297,6 +297,7 @@ export default {
     }
 
     if (pathname === "/" || pathname === "") pathname = "/index.html";
+    // Extensionless tool URLs (/batch, /qr, /compress, …) serve the matching .html file.
     else if (pathname.length > 1 && pathname.indexOf("/__") !== 0 && !/\.[a-zA-Z0-9]+$/.test(pathname)) {
       pathname = pathname.replace(/\/+$/, "") + ".html";
     }
