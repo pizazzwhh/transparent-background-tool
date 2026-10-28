@@ -423,6 +423,24 @@ $('#download').addEventListener('click',()=>{
 langSelect.addEventListener('change',()=>setLanguage(langSelect.value));
 setLanguage(language);
 </script>
+<script>
+(function(){
+  var p = encodeURIComponent(location.pathname + location.search);
+  var u = '/__track__?t=' + Date.now() + '&p=' + p;
+  try {
+    var img = new Image();
+    img.alt = '';
+    img.style.position = 'absolute';
+    img.style.width = '0';
+    img.style.height = '0';
+    img.src = u;
+    document.body.appendChild(img);
+  } catch(e) {}
+  try {
+    if (navigator.sendBeacon) navigator.sendBeacon(u);
+  } catch(e2) {}
+})();
+</script>
 <script src="/tool-cards.js"></script>
 <script src="/chrome.js"></script>
 </body>
