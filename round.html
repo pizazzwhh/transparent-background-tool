@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>在线圆角阴影｜图片加圆角与投影 | imagec</title>
+  <meta name="description" content="在线给图片加圆角和投影。可调圆角半径，以及阴影的模糊、偏移、颜色和不透明度。棋盘格预览，导出 PNG。本地处理，不上传服务器。" />
+  <meta name="keywords" content="圆角阴影,图片加圆角,图片加阴影,在线圆角,图片投影,rounded corners,drop shadow,本地处理" />
+  <meta name="author" content="imagec" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+  <meta name="googlebot" content="index,follow" />
+  <meta name="bingbot" content="index,follow" />
+  <meta name="msvalidate.01" content="6D09E7478DB0959D20C7BBBF26665B04" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/favicon.svg" />
+  <link rel="canonical" href="https://imagec.xin/round" />
+  <link rel="alternate" hreflang="zh-CN" href="https://imagec.xin/round?lang=zh" />
+  <link rel="alternate" hreflang="en" href="https://imagec.xin/round?lang=en" />
+  <link rel="alternate" hreflang="ja" href="https://imagec.xin/round?lang=ja" />
+  <link rel="alternate" hreflang="ko" href="https://imagec.xin/round?lang=ko" />
+  <link rel="alternate" hreflang="es" href="https://imagec.xin/round?lang=es" />
+  <link rel="alternate" hreflang="fr" href="https://imagec.xin/round?lang=fr" />
+  <link rel="alternate" hreflang="de" href="https://imagec.xin/round?lang=de" />
+  <link rel="alternate" hreflang="ru" href="https://imagec.xin/round?lang=ru" />
+  <link rel="alternate" hreflang="pt" href="https://imagec.xin/round?lang=pt" />
+  <link rel="alternate" hreflang="ar" href="https://imagec.xin/round?lang=ar" />
+  <link rel="alternate" hreflang="vi" href="https://imagec.xin/round?lang=vi" />
+  <link rel="alternate" hreflang="id" href="https://imagec.xin/round?lang=id" />
+  <link rel="alternate" hreflang="th" href="https://imagec.xin/round?lang=th" />
+  <link rel="alternate" hreflang="x-default" href="https://imagec.xin/round" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="imagec" />
+  <meta property="og:title" content="在线圆角阴影｜图片加圆角与投影 | imagec" />
+  <meta property="og:description" content="给图片加圆角或投影，棋盘格预览后下载 PNG。本地处理，不上传服务器。" />
+  <meta property="og:url" content="https://imagec.xin/round" />
+  <meta property="og:image" content="https://imagec.xin/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="在线圆角阴影｜图片加圆角与投影 | imagec" />
+  <meta name="twitter:description" content="给图片加圆角或投影，导出 PNG。本地处理，不上传服务器。" />
+  <meta name="twitter:image" content="https://imagec.xin/og-image.jpg" />
+  <meta name="theme-color" content="#FAFAF9" />
+  <meta name="application-name" content="imagec" />
+  <meta name="apple-mobile-web-app-title" content="imagec" />
+  <script type="application/ld+json" id="ldjson">{"@context":"https://schema.org","@type":"WebApplication","name":"在线圆角阴影｜图片加圆角与投影","alternateName":"imagec","url":"https://imagec.xin/round","image":"https://imagec.xin/og-image.jpg","applicationCategory":"MultimediaApplication","operatingSystem":"Any","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"在线给图片加圆角和投影。可调圆角半径，以及阴影的模糊、偏移、颜色和不透明度。棋盘格预览，导出 PNG。本地处理，不上传服务器。","inLanguage":["zh-CN","en","ja","ko","es","fr","de","ru","pt","ar","vi","id","th"],"featureList":["圆角阴影","图片加圆角","图片加阴影","圆角半径","阴影模糊","阴影偏移","阴影颜色","阴影不透明度","棋盘格预览","下载 PNG","本地处理不上传"],"screenshot":"https://imagec.xin/og-image.jpg"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://imagec.xin/"},{"@type":"ListItem","position":2,"name":"圆角阴影","item":"https://imagec.xin/round"}]}</script>
+  <link rel="stylesheet" href="/site.css" />
+</head>
+<body class="tool round">
+<main class="shell">
+  <header class="topbar"><a class="brand" href="/"><span class="mark"><svg viewBox="0 0 64 64" width="26" height="26" aria-hidden="true"><rect x="2" y="2" width="60" height="60" rx="6" fill="#FAFAF9"/><path fill="#1C1917" fill-rule="evenodd" d="M8 2h48a6 6 0 0 1 6 6v48a6 6 0 0 1-6 6H8a6 6 0 0 1-6-6V8a6 6 0 0 1 6-6zm5 5h38a1 1 0 0 1 1 1v38a1 1 0 0 1-1 1H13a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1z"/><rect x="36" y="36" width="26" height="26" rx="6" fill="#2563EB"/></svg></span><span class="brand-name">imagec</span></a><div class="topbar-right"><a class="searchBtn" href="/?focus=search" aria-label="搜索工具" data-chrome-aria="searchTools"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></a><select class="langSelect" id="langSelect"></select></div></header>
+
+  <section class="panel">
+    <div class="hero">
+      <h1 data-i18n="title">在线圆角阴影｜图片加圆角与投影</h1>
+      <p data-i18n="subtitle">给图片加圆角或投影，下载 PNG。半径、模糊、偏移、颜色和不透明度都可以调。本地处理，不上传服务器。</p>
+      <div class="privacyLine safeBadge">
+        <span data-i18n="privacy">本地处理 · 不上传服务器</span>
+      </div>
+      <p class="heroLinks"><a href="/crop.html" data-i18n="linkCrop">裁剪缩放</a> <span aria-hidden="true">·</span> <a href="/filter.html" data-i18n="linkFilter">滤镜调色</a></p>
+    </div>
+    <div class="workspace">
+      <aside class="controls">
+        <label class="drop" id="drop" for="file">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M5 14v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4"/></svg>
+          <strong data-i18n="upload">点击选择或拖入图片</strong>
+          <small data-i18n="formats">支持 PNG、JPG、WebP<br>也可直接粘贴图片</small>
+          <small data-i18n="heicTip">暂不支持 HEIC，请先转成 JPG 或 PNG</small>
+        </label>
+        <input id="file" type="file" accept="image/png,image/jpeg,image/webp" />
+
+        <div class="pin">
+          <div class="group">
+            <div class="labelrow">
+              <label for="radius" data-i18n="radius">圆角半径</label>
+              <span class="value" id="radiusV">32</span>
+            </div>
+            <input id="radius" type="range" min="0" max="160" value="32">
+          </div>
+
+          <label class="toggle">
+            <span data-i18n="shadow">阴影</span>
+            <input id="shadowOn" type="checkbox" checked>
+          </label>
+
+          <div class="shadowFields" id="shadowFields">
+            <div class="group">
+              <div class="labelrow">
+                <label for="blur" data-i18n="blur">模糊</label>
+                <span class="value" id="blurV">24</span>
+              </div>
+              <input id="blur" type="range" min="0" max="80" value="24">
+            </div>
+            <div class="group">
+              <div class="labelrow">
+                <label for="offset" data-i18n="offset">偏移</label>
+                <span class="value" id="offsetV">12</span>
+              </div>
+              <input id="offset" type="range" min="-40" max="60" value="12">
+            </div>
+            <div class="group">
+              <div class="labelrow"><label for="shadowColor" data-i18n="color">颜色</label></div>
+              <div class="colorRow">
+                <input id="shadowColor" type="color" value="#1c1917">
+                <span id="shadowHex">#1C1917</span>
+              </div>
+            </div>
+            <div class="group">
+              <div class="labelrow">
+                <label for="opacity" data-i18n="opacity">不透明度</label>
+                <span class="value" id="opacityV">40%</span>
+              </div>
+              <input id="opacity" type="range" min="0" max="100" value="40">
+            </div>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="primary" id="download" type="button" disabled data-i18n="download">下载 PNG</button>
+          <button class="secondary" id="clear" type="button" disabled data-i18n="clear">清空</button>
+        </div>
+      </aside>
+
+      <section class="stage" aria-label="preview">
+        <div class="stagebar">
+          <div class="meta" id="meta" data-i18n="waiting" aria-live="polite">等待图片</div>
+        </div>
+        <div class="canvasWrap" id="wrap">
+          <canvas id="canvas"></canvas>
+        </div>
+        <div class="empty" id="empty">
+          <strong data-i18n="emptyTitle">把图片放进来，加圆角或阴影</strong>
+        </div>
+      </section>
+    </div>
+  </section>
+
+  <section class="relatedTools">
+    <h2 data-i18n="moreTools">更多图片工具</h2>
+    <div class="toolsGrid" data-tool-cards></div>
+  </section>
+  <p class="adLine"><span data-i18n="adText">广告合作</span> · <a href="mailto:ads@imagec.xin" data-i18n="adCta">联系招商</a></p>
+</main>
+
+<script>
+const $=s=>document.querySelector(s);
+const LANGS=[
+  {code:'zh',name:'中文',dir:'ltr'},{code:'en',name:'English',dir:'ltr'},{code:'ja',name:'日本語',dir:'ltr'},
+  {code:'ko',name:'한국어',dir:'ltr'},{code:'es',name:'Español',dir:'ltr'},{code:'fr',name:'Français',dir:'ltr'},
+  {code:'de',name:'Deutsch',dir:'ltr'},{code:'ru',name:'Русский',dir:'ltr'},{code:'pt',name:'Português',dir:'ltr'},
+  {code:'ar',name:'العربية',dir:'rtl'},{code:'vi',name:'Tiếng Việt',dir:'ltr'},{code:'id',name:'Bahasa Indonesia',dir:'ltr'},
+  {code:'th',name:'ไทย',dir:'ltr'}
+];
+const SEO={
+  zh:{title:'在线圆角阴影｜图片加圆角与投影 | imagec',desc:'在线给图片加圆角和投影。可调圆角半径，以及阴影的模糊、偏移、颜色和不透明度。棋盘格预览，导出 PNG。本地处理，不上传服务器。'},
+  en:{title:'Rounded corners and shadow | imagec',desc:'Round the corners of an image or add a drop shadow. Adjust radius, blur, offset, color, and opacity, preview on a checkerboard, and download a PNG. Processed locally — nothing is uploaded.'},
+  ja:{title:'角丸と影 | imagec',desc:'画像に角丸やドロップシャドウを付けます。半径、ぼかし、距離、色、不透明度を調整し、チェッカー背景で確認してPNGを保存。端末内で処理し、アップロードしません。'},
+  ko:{title:'모서리 둥글게와 그림자 | imagec',desc:'이미지 모서리를 둥글게 하거나 그림자를 넣습니다. 반지름, 흐림, 거리, 색, 불투명도를 조절하고 바둑판 위에서 미리본 뒤 PNG로 받습니다. 기기에서 처리하며 올리지 않습니다.'},
+  es:{title:'Esquinas redondeadas y sombra | imagec',desc:'Redondea las esquinas de una imagen o añade una sombra. Ajusta radio, desenfoque, desplazamiento, color y opacidad, previsualiza sobre un damero y descarga un PNG. Se procesa en local y no se sube.'},
+  fr:{title:'Coins arrondis et ombre | imagec',desc:'Arrondissez les coins d’une image ou ajoutez une ombre. Réglez le rayon, le flou, le décalage, la couleur et l’opacité, prévisualisez sur un damier et téléchargez un PNG. Traitement local, rien n’est envoyé.'},
+  de:{title:'Abgerundete Ecken und Schatten | imagec',desc:'Ecken abrunden oder einen Schatten setzen. Radius, Weichzeichnung, Versatz, Farbe und Deckkraft, Vorschau auf einem Schachbrett, PNG-Download. Lokal verarbeitet, nichts wird hochgeladen.'},
+  ru:{title:'Скругление и тень | imagec',desc:'Скруглите углы изображения или добавьте тень. Радиус, размытие, сдвиг, цвет и непрозрачность, предпросмотр на шахматке и скачивание PNG. Обработка локально, ничего не загружается.'},
+  pt:{title:'Cantos arredondados e sombra | imagec',desc:'Arredonde os cantos de uma imagem ou adicione uma sombra. Ajuste raio, desfoque, deslocamento, cor e opacidade, veja num xadrez e baixe um PNG. Processado localmente, sem envio.'},
+  ar:{title:'زوايا مستديرة وظل | imagec',desc:'دوّر زوايا الصورة أو أضف ظلاً. اضبط نصف القطر والضبابية والإزاحة واللون والتعتيم، وشاهد المعاينة على رقعة شطرنج ثم نزّل PNG. معالجة محلية، بلا رفع إلى خادم.'},
+  vi:{title:'Bo góc và đổ bóng | imagec',desc:'Bo góc ảnh hoặc thêm bóng đổ. Chỉnh bán kính, độ mờ, độ lệch, màu và độ đục, xem trước trên ô caro rồi tải PNG. Xử lý tại máy, không tải lên máy chủ.'},
+  id:{title:'Sudut membulat dan bayangan | imagec',desc:'Bulatkan sudut gambar atau tambahkan bayangan. Atur radius, blur, jarak, warna, dan opasitas, lihat di papan kotak-kotak, lalu unduh PNG. Diproses secara lokal, tidak diunggah.'},
+  th:{title:'มุมมนและเงา | imagec',desc:'ทำให้มุมรูปมน หรือใส่เงา ปรับรัศมี ความเบลอ ระยะ สี และความทึบ ดูก่อนบนตารางหมากรุก แล้วดาวน์โหลด PNG ประมวลผลในเครื่อง ไม่อัปโหลด'}
+};
+const messages={
+  zh:{title:'在线圆角阴影｜图片加圆角与投影',subtitle:'给图片加圆角或投影，下载 PNG。半径、模糊、偏移、颜色和不透明度都可以调。本地处理，不上传服务器。',privacy:'本地处理 · 不上传服务器',upload:'点击选择或拖入图片',formats:'支持 PNG、JPG、WebP<br>也可直接粘贴图片',radius:'圆角半径',shadow:'阴影',blur:'模糊',offset:'偏移',color:'颜色',opacity:'不透明度',download:'下载 PNG',clear:'清空',waiting:'等待图片',emptyTitle:'把图片放进来，加圆角或阴影',ready:'{w} × {h} px',moreTools:'更多图片工具',linkCrop:'裁剪缩放',linkFilter:'滤镜调色'},
+  en:{title:'Rounded corners and shadow',subtitle:'Round the corners or add a drop shadow, then download a PNG. Radius, blur, offset, color, and opacity are all adjustable. Processed locally — nothing is uploaded.',privacy:'Processed locally · Nothing is uploaded',upload:'Choose or drop an image',formats:'PNG, JPG, and WebP<br>You can also paste an image',radius:'Corner radius',shadow:'Shadow',blur:'Blur',offset:'Offset',color:'Color',opacity:'Opacity',download:'Download PNG',clear:'Clear',waiting:'Waiting for an image',emptyTitle:'Drop an image to round the corners or add a shadow',ready:'{w} × {h} px',moreTools:'More image tools',linkCrop:'Crop and resize',linkFilter:'Filters'},
+  ja:{title:'角丸と影',subtitle:'画像に角丸やドロップシャドウを付けてPNGで保存。半径、ぼかし、距離、色、不透明度を調整できます。端末内で処理し、送信しません。',privacy:'端末内で処理 · サーバーには送信しません',upload:'クリックして選択、または画像をドロップ',formats:'PNG、JPG、WebP 対応<br>画像の貼り付けも可能',radius:'角丸の半径',shadow:'影',blur:'ぼかし',offset:'距離',color:'色',opacity:'不透明度',download:'PNGをダウンロード',clear:'クリア',waiting:'画像待ち',emptyTitle:'画像をドロップして、角丸か影を付ける',ready:'{w} × {h} px',moreTools:'ほかの画像ツール',linkCrop:'切り抜き・サイズ変更',linkFilter:'フィルター'},
+  ko:{title:'모서리 둥글게와 그림자',subtitle:'모서리를 둥글게 하거나 그림자를 넣고 PNG로 받습니다. 반지름, 흐림, 거리, 색, 불투명도를 조절할 수 있습니다. 기기에서 처리하며 올리지 않습니다.',privacy:'기기에서 처리 · 서버에 올리지 않음',upload:'클릭하거나 이미지를 놓으세요',formats:'PNG, JPG, WebP<br>붙여넣기도 가능',radius:'모서리 반지름',shadow:'그림자',blur:'흐림',offset:'거리',color:'색',opacity:'불투명도',download:'PNG 받기',clear:'지우기',waiting:'이미지 대기',emptyTitle:'이미지를 놓아 모서리를 둥글게 하거나 그림자를 넣으세요',ready:'{w} × {h} px',moreTools:'다른 이미지 도구',linkCrop:'자르기·크기 조절',linkFilter:'필터'},
+  es:{title:'Esquinas redondeadas y sombra',subtitle:'Redondea las esquinas o añade una sombra y descarga un PNG. Puedes ajustar el radio, el desenfoque, el desplazamiento, el color y la opacidad. Se procesa en local.',privacy:'Procesado en local · No se sube nada',upload:'Elige o suelta una imagen',formats:'PNG, JPG y WebP<br>También puedes pegar una imagen',radius:'Radio de esquina',shadow:'Sombra',blur:'Desenfoque',offset:'Desplazamiento',color:'Color',opacity:'Opacidad',download:'Descargar PNG',clear:'Vaciar',waiting:'Esperando imagen',emptyTitle:'Suelta una imagen para redondear las esquinas o añadir una sombra',ready:'{w} × {h} px',moreTools:'Más herramientas',linkCrop:'Recortar y redimensionar',linkFilter:'Filtros'},
+  fr:{title:'Coins arrondis et ombre',subtitle:'Arrondissez les coins ou ajoutez une ombre, puis téléchargez un PNG. Rayon, flou, décalage, couleur et opacité se règlent. Traitement local, rien n’est envoyé.',privacy:'Traitement local · Rien n’est envoyé',upload:'Choisissez ou déposez une image',formats:'PNG, JPG et WebP<br>Vous pouvez aussi coller une image',radius:'Rayon des coins',shadow:'Ombre',blur:'Flou',offset:'Décalage',color:'Couleur',opacity:'Opacité',download:'Télécharger le PNG',clear:'Effacer',waiting:'En attente d’image',emptyTitle:'Déposez une image pour arrondir les coins ou ajouter une ombre',ready:'{w} × {h} px',moreTools:'Autres outils',linkCrop:'Rogner et redimensionner',linkFilter:'Filtres'},
+  de:{title:'Abgerundete Ecken und Schatten',subtitle:'Ecken abrunden oder einen Schatten setzen und als PNG laden. Radius, Weichzeichnung, Versatz, Farbe und Deckkraft sind einstellbar. Lokal verarbeitet.',privacy:'Lokal verarbeitet · Nichts wird hochgeladen',upload:'Bild wählen oder ablegen',formats:'PNG, JPG und WebP<br>Bilder können auch eingefügt werden',radius:'Eckenradius',shadow:'Schatten',blur:'Weichzeichnung',offset:'Versatz',color:'Farbe',opacity:'Deckkraft',download:'PNG laden',clear:'Leeren',waiting:'Warte auf ein Bild',emptyTitle:'Bild ablegen, um Ecken abzurunden oder einen Schatten zu setzen',ready:'{w} × {h} px',moreTools:'Weitere Werkzeuge',linkCrop:'Zuschneiden und skalieren',linkFilter:'Filter'},
+  ru:{title:'Скругление и тень',subtitle:'Скруглите углы или добавьте тень и скачайте PNG. Радиус, размытие, сдвиг, цвет и непрозрачность настраиваются. Обработка локально, ничего не отправляется.',privacy:'Локально · Ничего не отправляется',upload:'Выберите или перетащите изображение',formats:'PNG, JPG и WebP<br>Можно вставить изображение',radius:'Радиус углов',shadow:'Тень',blur:'Размытие',offset:'Сдвиг',color:'Цвет',opacity:'Непрозрачность',download:'Скачать PNG',clear:'Очистить',waiting:'Ожидание изображения',emptyTitle:'Перетащите изображение, чтобы скруглить углы или добавить тень',ready:'{w} × {h} px',moreTools:'Другие инструменты',linkCrop:'Обрезать и масштабировать',linkFilter:'Фильтры'},
+  pt:{title:'Cantos arredondados e sombra',subtitle:'Arredonde os cantos ou adicione uma sombra e baixe um PNG. Raio, desfoque, deslocamento, cor e opacidade são ajustáveis. Processado localmente, sem envio.',privacy:'Processado localmente · Nada é enviado',upload:'Escolha ou solte uma imagem',formats:'PNG, JPG e WebP<br>Também pode colar uma imagem',radius:'Raio dos cantos',shadow:'Sombra',blur:'Desfoque',offset:'Deslocamento',color:'Cor',opacity:'Opacidade',download:'Baixar PNG',clear:'Limpar',waiting:'À espera de uma imagem',emptyTitle:'Solte uma imagem para arredondar os cantos ou adicionar uma sombra',ready:'{w} × {h} px',moreTools:'Mais ferramentas',linkCrop:'Recortar e redimensionar',linkFilter:'Filtros'},
+  ar:{title:'زوايا مستديرة وظل',subtitle:'دوّر الزوايا أو أضف ظلاً ثم نزّل PNG. يمكن ضبط نصف القطر والضبابية والإزاحة واللون والتعتيم. تُعالَج الصورة محلياً ولا تُرفع.',privacy:'معالجة محلية · لا يتم الرفع',upload:'اختر صورة أو أفلتها',formats:'PNG وJPG وWebP<br>يمكن أيضاً اللصق',radius:'نصف قطر الزاوية',shadow:'الظل',blur:'الضبابية',offset:'الإزاحة',color:'اللون',opacity:'التعتيم',download:'تنزيل PNG',clear:'مسح',waiting:'بانتظار صورة',emptyTitle:'أفلت صورة لتدوير الزوايا أو إضافة ظل',ready:'{w} × {h} px',moreTools:'المزيد من الأدوات',linkCrop:'قص وتغيير الحجم',linkFilter:'فلاتر'},
+  vi:{title:'Bo góc và đổ bóng',subtitle:'Bo góc hoặc thêm bóng đổ rồi tải PNG. Có thể chỉnh bán kính, độ mờ, độ lệch, màu và độ đục. Xử lý tại máy, không tải lên.',privacy:'Xử lý tại máy · Không tải lên',upload:'Chọn hoặc thả một ảnh',formats:'PNG, JPG, WebP<br>Cũng có thể dán ảnh',radius:'Bán kính góc',shadow:'Bóng',blur:'Độ mờ',offset:'Độ lệch',color:'Màu',opacity:'Độ đục',download:'Tải PNG',clear:'Xóa',waiting:'Đang chờ ảnh',emptyTitle:'Thả ảnh vào để bo góc hoặc thêm bóng',ready:'{w} × {h} px',moreTools:'Công cụ khác',linkCrop:'Cắt và đổi kích thước',linkFilter:'Bộ lọc'},
+  id:{title:'Sudut membulat dan bayangan',subtitle:'Bulatkan sudut atau tambahkan bayangan, lalu unduh PNG. Radius, blur, jarak, warna, dan opasitas bisa diatur. Diproses secara lokal, tidak diunggah.',privacy:'Diproses secara lokal · Tidak diunggah',upload:'Pilih atau jatuhkan gambar',formats:'PNG, JPG, dan WebP<br>Gambar juga bisa ditempel',radius:'Radius sudut',shadow:'Bayangan',blur:'Blur',offset:'Jarak',color:'Warna',opacity:'Opasitas',download:'Unduh PNG',clear:'Kosongkan',waiting:'Menunggu gambar',emptyTitle:'Jatuhkan gambar untuk membulatkan sudut atau menambah bayangan',ready:'{w} × {h} px',moreTools:'Alat lain',linkCrop:'Pangkas dan ubah ukuran',linkFilter:'Filter'},
+  th:{title:'มุมมนและเงา',subtitle:'ทำให้มุมมนหรือใส่เงา แล้วดาวน์โหลด PNG ปรับรัศมี ความเบลอ ระยะ สี และความทึบได้ ประมวลผลในเครื่อง ไม่อัปโหลด',privacy:'ประมวลผลในเครื่อง · ไม่อัปโหลด',upload:'คลิกเลือกหรือลากรูปมาวาง',formats:'รองรับ PNG, JPG, WebP<br>วางรูปจากคลิปบอร์ดได้',radius:'รัศมีมุม',shadow:'เงา',blur:'ความเบลอ',offset:'ระยะ',color:'สี',opacity:'ความทึบ',download:'ดาวน์โหลด PNG',clear:'ล้าง',waiting:'รอรูป',emptyTitle:'วางรูปเพื่อทำให้มุมมน หรือใส่เงา',ready:'{w} × {h} px',moreTools:'เครื่องมืออื่น',linkCrop:'ตัดและปรับขนาด',linkFilter:'ฟิลเตอร์'}
+};
+let language=detectLang();
+let source=null;
+let baseName='image';
+let raf=0;
+const canvas=$('#canvas');
+const ctx=canvas.getContext('2d');
+const shape=document.createElement('canvas');
+const shapeCtx=shape.getContext('2d');
+const langSelect=$('#langSelect');
+LANGS.forEach(l=>{
+  const opt=document.createElement('option');
+  opt.value=l.code;
+  opt.textContent=l.name;
+  langSelect.appendChild(opt);
+});
+function detectLang(){
+  const param=new URL(location.href).searchParams.get('lang');
+  if(param&&messages[param])return param;
+  let saved='';
+  try{saved=localStorage.getItem('language')||'';}catch(e){}
+  if(saved&&messages[saved])return saved;
+  const navLangs=navigator.languages||[navigator.language||'zh'];
+  for(const l of navLangs){
+    const lc=String(l).toLowerCase();
+    if(lc.startsWith('zh'))return 'zh';
+    const code=lc.slice(0,2);
+    if(messages[code])return code;
+  }
+  return 'zh';
+}
+function t(key){
+  const pack=messages[language]||messages.zh;
+  if(pack[key]!=null)return pack[key];
+  if(messages.en[key]!=null)return messages.en[key];
+  return key;
+}
+function setMeta(attr,name,content){
+  let el=document.querySelector(`meta[${attr}="${name}"]`);
+  if(!el){el=document.createElement('meta');el.setAttribute(attr,name);document.head.appendChild(el);}
+  el.setAttribute('content',content);
+}
+function num(id,min,max){
+  const n=parseInt($(id).value,10);
+  if(!Number.isFinite(n))return min;
+  return Math.min(max,Math.max(min,n));
+}
+function hexToRgba(hex,alpha){
+  let h=String(hex||'').replace('#','');
+  if(h.length===3)h=h.split('').map(ch=>ch+ch).join('');
+  const n=parseInt(h,16);
+  if(!Number.isFinite(n))return `rgba(28,25,23,${alpha})`;
+  return `rgba(${(n>>16)&255},${(n>>8)&255},${n&255},${alpha})`;
+}
+function traceRoundRect(context,x,y,w,h,r){
+  const rr=Math.max(0,Math.min(r,w/2,h/2));
+  context.beginPath();
+  if(rr<=0){
+    context.rect(x,y,w,h);
+  }else{
+    context.moveTo(x+rr,y);
+    context.arcTo(x+w,y,x+w,y+h,rr);
+    context.arcTo(x+w,y+h,x,y+h,rr);
+    context.arcTo(x,y+h,x,y,rr);
+    context.arcTo(x,y,x+w,y,rr);
+  }
+  context.closePath();
+}
+function updateLabels(){
+  $('#radiusV').textContent=String(num('#radius',0,160));
+  $('#blurV').textContent=String(num('#blur',0,80));
+  $('#offsetV').textContent=String(num('#offset',-40,60));
+  $('#opacityV').textContent=num('#opacity',0,100)+'%';
+  $('#shadowHex').textContent=$('#shadowColor').value.toUpperCase();
+}
+function syncShadow(){
+  const on=$('#shadowOn').checked;
+  $('#shadowFields').classList.toggle('is-off',!on);
+  $('#shadowFields').querySelectorAll('input').forEach(el=>{el.disabled=!on;});
+}
+function applyI18n(){
+  const def=LANGS.find(l=>l.code===language)||LANGS[0];
+  document.documentElement.lang=language==='zh'?'zh-CN':language;
+  document.documentElement.dir=def.dir;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key=el.getAttribute('data-i18n');
+    const value=t(key);
+    if(value!==key)el.innerHTML=value;
+  });
+  updateLabels();
+  const seo=SEO[language]||SEO.en;
+  document.title=seo.title;
+  setMeta('name','description',seo.desc);
+  setMeta('property','og:title',seo.title);
+  setMeta('property','og:description',seo.desc);
+  setMeta('name','twitter:title',seo.title);
+  setMeta('name','twitter:description',seo.desc);
+  const ld=document.querySelector('#ldjson');
+  if(ld){
+    try{
+      const obj=JSON.parse(ld.textContent);
+      obj.name=t('title');
+      obj.description=seo.desc;
+      ld.textContent=JSON.stringify(obj);
+    }catch(e){}
+  }
+  if(!source)$('#meta').textContent=t('waiting');
+}
+function setLanguage(lang){
+  if(!messages[lang])lang='en';
+  language=lang;
+  try{localStorage.setItem('language',lang);}catch(e){}
+  langSelect.value=language;
+  applyI18n();
+  if(source)render();
+}
+function showEmpty(){
+  source=null;
+  baseName='image';
+  canvas.width=0;
+  canvas.height=0;
+  canvas.style.display='none';
+  $('#empty').style.display='';
+  $('#download').disabled=true;
+  $('#clear').disabled=true;
+  $('#file').value='';
+  $('#meta').textContent=t('waiting');
+}
+function showReady(){
+  $('#empty').style.display='none';
+  canvas.style.display='block';
+  $('#download').disabled=false;
+  $('#clear').disabled=false;
+  $('#meta').textContent=t('ready').replace('{w}',String(canvas.width)).replace('{h}',String(canvas.height));
+}
+function render(){
+  if(!source)return;
+  const radius=num('#radius',0,160);
+  const shadowOn=$('#shadowOn').checked;
+  const blur=shadowOn?num('#blur',0,80):0;
+  const offset=shadowOn?num('#offset',-40,60):0;
+  const opacity=shadowOn?num('#opacity',0,100)/100:0;
+  const maxEdge=4096;
+  const edge=Math.max(source.naturalWidth,source.naturalHeight)||1;
+  const scale=edge>maxEdge?maxEdge/edge:1;
+  const w=Math.max(1,Math.round(source.naturalWidth*scale));
+  const h=Math.max(1,Math.round(source.naturalHeight*scale));
+  const pad=shadowOn?Math.ceil(blur*2+Math.abs(offset))+4:0;
+  canvas.width=w+pad*2;
+  canvas.height=h+pad*2;
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  shape.width=w;
+  shape.height=h;
+  shapeCtx.setTransform(1,0,0,1,0,0);
+  shapeCtx.clearRect(0,0,w,h);
+  shapeCtx.save();
+  traceRoundRect(shapeCtx,0,0,w,h,radius*scale);
+  shapeCtx.clip();
+  shapeCtx.imageSmoothingEnabled=true;
+  shapeCtx.imageSmoothingQuality='high';
+  shapeCtx.drawImage(source,0,0,w,h);
+  shapeCtx.restore();
+  ctx.save();
+  if(shadowOn&&opacity>0){
+    ctx.shadowColor=hexToRgba($('#shadowColor').value,opacity);
+    ctx.shadowBlur=blur;
+    ctx.shadowOffsetX=offset;
+    ctx.shadowOffsetY=offset;
+  }
+  ctx.drawImage(shape,pad,pad);
+  ctx.restore();
+  showReady();
+}
+function schedule(){
+  updateLabels();
+  if(!source)return;
+  if(raf)cancelAnimationFrame(raf);
+  raf=requestAnimationFrame(()=>{raf=0;render();});
+}
+function load(blob,filename){
+  if(!blob)return;
+  if(blob.type&&blob.type.indexOf('image/')!==0){
+    if(window.imagecAlert)imagecAlert('errType');
+    return;
+  }
+  const img=new Image();
+  const url=URL.createObjectURL(blob);
+  img.onload=()=>{
+    URL.revokeObjectURL(url);
+    source=img;
+    baseName=(filename||'image').replace(/\.[^.]+$/,'')||'image';
+    render();
+  };
+  img.onerror=()=>{
+    URL.revokeObjectURL(url);
+    if(window.imagecAlert)imagecAlert('errLoad');
+  };
+  img.src=url;
+}
+$('#file').addEventListener('change',e=>{
+  if(e.target.files&&e.target.files[0])load(e.target.files[0],e.target.files[0].name);
+});
+['dragenter','dragover'].forEach(type=>{
+  $('#drop').addEventListener(type,e=>{e.preventDefault();$('#drop').classList.add('over');});
+});
+['dragleave','drop'].forEach(type=>{
+  $('#drop').addEventListener(type,e=>{e.preventDefault();$('#drop').classList.remove('over');});
+});
+$('#drop').addEventListener('drop',e=>{
+  const file=e.dataTransfer&&e.dataTransfer.files&&e.dataTransfer.files[0];
+  if(file)load(file,file.name);
+});
+document.addEventListener('paste',e=>{
+  const items=e.clipboardData&&e.clipboardData.items;
+  if(!items)return;
+  for(const item of items){
+    if(item.type&&item.type.indexOf('image/')===0){
+      const file=item.getAsFile();
+      if(file)load(file,'pasted-image.png');
+      break;
+    }
+  }
+});
+['#radius','#blur','#offset','#opacity','#shadowColor'].forEach(id=>{
+  $(id).addEventListener('input',()=>{
+    if(id==='#shadowColor')$('#shadowHex').textContent=$(id).value.toUpperCase();
+    schedule();
+  });
+});
+$('#shadowOn').addEventListener('change',()=>{syncShadow();schedule();});
+$('#clear').addEventListener('click',showEmpty);
+$('#download').addEventListener('click',()=>{
+  if(!source||!canvas.width)return;
+  canvas.toBlob(blob=>{
+    if(!blob)return;
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');
+    a.href=url;
+    a.download=baseName+'-round.png';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),1000);
+  },'image/png');
+});
+langSelect.addEventListener('change',()=>setLanguage(langSelect.value));
+syncShadow();
+setLanguage(language);
+</script>
+<script>
+(function(){
+  var p = encodeURIComponent(location.pathname + location.search);
+  var u = '/__track__?t=' + Date.now() + '&p=' + p;
+  try {
+    if (navigator.sendBeacon) navigator.sendBeacon(u);
+  } catch(e) {}
+})();
+</script>
+<footer class="siteFooter"><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer" id="icp">ICP备案号申请中</a></footer>
+<script src="/tool-cards.js"></script>
+<script src="/chrome.js"></script>
+</body>
+</html>
