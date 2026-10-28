@@ -339,7 +339,7 @@ function renderFeed(items){
         <span class="tag browser">${label(it.br)}</span>
         <span class="tag os">${label(it.os)}</span>
         <span class="tag device">${label(it.dev)}</span>
-        <span class="tag ctry">${label(it.ctry)}</span>
+        ${it.ctry?`<span class="tag ctry">${label(it.ctry)}</span>`:''}
       </div>
     </div>`;
   });

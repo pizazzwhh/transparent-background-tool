@@ -43,6 +43,84 @@ function parseUA(ua) {
   return { br: br, os: os, dev: dev };
 }
 
+// CLI and in-house probes that the older bot|crawl pattern does not catch.
+var BOT_UA = new RegExp("bot|crawl|spider|slurp|bingbot|googlebot|yandex|baidu|duckduckbot|semrush|ahref|facebookexternalhit|twitterbot|linkedinbot|telegrambot|discordbot|applebot|ia_archiver|preview|checker|monitor|headless|curl(?:/|\\b)|wget(?:/|\\b)|python-requests|go-http-client|imagec-deploy-check|imagec-qa|imagec-smoke", "i");
+
+function isBotUA(ua) {
+  return BOT_UA.test(ua || "");
+}
+
+// ISO 3166-1 alpha-2. UK is not a code; stats.html labels GB.
+function normalizeCountry(raw) {
+  if (raw == null) return "";
+  var code = String(raw).trim().toUpperCase();
+  if (code === "UK") code = "GB";
+  if (!/^[A-Z]{2}$/.test(code)) return "";
+  // XX = unrecognized (ESA). T1/A1/A2 = anonymous/proxy placeholders used by some CDNs.
+  if (code === "XX" || code === "T1" || code === "A1" || code === "A2") return "";
+  return code;
+}
+
+// Country for this runtime: export default { async fetch(request) }.
+// Live ESA edge functions expose geo on request.info (same fields as the older
+// addEventListener event.info sample). ip_country_id is the ISO code ("CN");
+// ip_country_en is an English name ("China") and is not used as the label.
+// ali-ip-country is only injected on origin requests after Managed Transforms →
+// "Add visitor location headers" (lowercase alpha-2, e.g. cn). It is read as a
+// fallback when the function request actually carries it. cf-ipcountry /
+// cloudfront-viewer-country cover a CDN sitting in front.
+function countryFromInfo(info) {
+  if (!info || typeof info !== "object") return "";
+  var code = normalizeCountry(info.ip_country_id || info.ip_country);
+  if (code) return code;
+  var region = String(info.ip_region_id || "").trim().toUpperCase();
+  var m = region.match(/^([A-Z]{2})-/);
+  return m ? normalizeCountry(m[1]) : "";
+}
+
+function readCountry(request, context) {
+  var candidates = [];
+  try { candidates.push(countryFromInfo(request && request.info)); } catch (e) {}
+  try { candidates.push(countryFromInfo(context && context.info)); } catch (e2) {}
+  try {
+    if (typeof event !== "undefined" && event) candidates.push(countryFromInfo(event.info));
+  } catch (e3) {}
+  try {
+    var h = request && request.headers;
+    if (h && h.get) {
+      candidates.push(h.get("ali-ip-country"));
+      candidates.push(h.get("cf-ipcountry"));
+      candidates.push(h.get("cloudfront-viewer-country"));
+      candidates.push(h.get("x-country-code"));
+    }
+  } catch (e4) {}
+  for (var i = 0; i < candidates.length; i++) {
+    var code = normalizeCountry(candidates[i]);
+    if (code) return code;
+  }
+  return "";
+}
+
+// Beacon path from ?p=. Missing, blank, non-path, or /__track__ is not a page view.
+function normalizeTrackPath(url) {
+  var raw = url.searchParams.get("p");
+  if (raw == null) return "";
+  raw = String(raw).trim();
+  if (!raw) return "";
+  try { raw = decodeURIComponent(raw); } catch (e) {}
+  raw = String(raw).replace(/[\u0000-\u001f\u007f]/g, "").trim();
+  if (!raw) return "";
+  var path = raw.split("#")[0].split("?")[0].trim();
+  if (!path || path.charAt(0) !== "/") return "";
+  if (path === "/__track__" || path === "/__track__/") return "";
+  if (path === "/") return "/";
+  return path.slice(0, 48);
+}
+
+function trackQuiet() {
+  return new Response("ok", { headers: { "cache-control": "no-store" } });
+}
+
 function getStatsFromLog() {
   const ek = new EdgeKV({ namespace: NS });
   const today = todayStr();
@@ -68,6 +146,7 @@ function getStatsFromLog() {
       var langMap = {};
       var pathMap = {};
       var refMap = {};
+      var ctryMap = {};
 
       for (var i = 0; i < log.length; i++) {
         var e = log[i];
@@ -84,6 +163,7 @@ function getStatsFromLog() {
         if (e.os) osMap[e.os] = (osMap[e.os] || 0) + 1;
         if (e.dev) devMap[e.dev] = (devMap[e.dev] || 0) + 1;
         if (e.lang) langMap[e.lang] = (langMap[e.lang] || 0) + 1;
+        if (e.ctry) ctryMap[e.ctry] = (ctryMap[e.ctry] || 0) + 1;
 
         var p = e.path || "/";
         pathMap[p] = (pathMap[p] || 0) + 1;
@@ -133,7 +213,7 @@ function getStatsFromLog() {
       result.os = toTop(osMap, 6);
       result.devices = toTop(devMap, 6);
       result.languages = toTop(langMap, 6);
-      result.countries = [];
+      result.countries = toTop(ctryMap, 10);
 
       result.recent = [];
       for (var ri = 0; ri < Math.min(50, log.length); ri++) {
@@ -144,7 +224,8 @@ function getStatsFromLog() {
         }
         result.recent.push({
           ts: e2.ts, path: e2.path, ref: ref2,
-          br: e2.br, dev: e2.dev, os: e2.os, ua: e2.ua || ""
+          br: e2.br, dev: e2.dev, os: e2.os, ua: e2.ua || "",
+          ctry: e2.ctry || ""
         });
       }
 
@@ -184,7 +265,7 @@ function getStatsFromLog() {
 }
 
 export default {
-  async fetch(request) {
+  async fetch(request, context) {
     const url = new URL(request.url);
     let pathname = url.pathname;
 
@@ -215,7 +296,8 @@ export default {
         return new Response(JSON.stringify({
           ok: true,
           testVal: testVal,
-          lastVisit: lastVisit
+          lastVisit: lastVisit,
+          ctry: readCountry(request, context)
         }), {
           headers: { "content-type": "application/json", "cache-control": "no-store" },
         });
@@ -229,22 +311,20 @@ export default {
 
     if (pathname === "/__track__") {
       try {
-        const ek = new EdgeKV({ namespace: NS });
         const ua = request.headers.get("user-agent") || "";
+        if (isBotUA(ua)) return trackQuiet();
 
-        if (new RegExp("bot|crawl|spider|slurp|bingbot|googlebot|yandex|baidu|duckduckbot|semrush|ahref|facebookexternalhit|twitterbot|linkedinbot|telegrambot|discordbot|applebot|ia_archiver|preview|checker|monitor|headless", "i").test(ua)) {
-          return new Response("ok", { headers: { "cache-control": "no-store" } });
-        }
+        var path = normalizeTrackPath(url);
+        if (!path) return trackQuiet();
+
+        const ek = new EdgeKV({ namespace: NS });
 
         const now = new Date().toISOString();
-        const today = now.slice(0, 10);
-        var path = url.searchParams.get("p") || url.pathname;
-        try { path = decodeURIComponent(path); } catch(e) {}
-        path = (path === "/" || path === "") ? "/" : path.split("?")[0].split("#")[0].slice(0, 48);
         var ref = (request.headers.get("referer") || "").slice(0, 128);
         var uaInfo = parseUA(ua);
         var langRaw = (request.headers.get("accept-language") || "").split(",")[0];
         var lang = langRaw.startsWith("zh") ? "zh" : langRaw.startsWith("en") ? "en" : "other";
+        var ctry = readCountry(request, context);
 
         const cookies = request.headers.get("cookie") || "";
         var sid = null;
@@ -260,7 +340,7 @@ export default {
         if (raw) { try { log = JSON.parse(raw); } catch (e) { log = []; } }
         if (!Array.isArray(log)) log = [];
 
-        log.unshift({
+        var entry = {
           ts: now,
           sid: sid,
           path: path,
@@ -270,7 +350,9 @@ export default {
           dev: uaInfo.dev,
           lang: lang,
           ua: ua.slice(0, 200)
-        });
+        };
+        if (ctry) entry.ctry = ctry;
+        log.unshift(entry);
         if (log.length > LOG_LIMIT) log = log.slice(0, LOG_LIMIT);
 
         var pvTotalStr = await ek.get(PV_TOTAL_KEY);
