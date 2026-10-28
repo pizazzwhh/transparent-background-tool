@@ -136,13 +136,12 @@ button, input, select { font: inherit; color: inherit; }
 .siteFooter a:hover, body.studio > footer a:hover { color: var(--accent); }
 .quietLinks, .sponsorLinks { margin: 0 0 8px; color: var(--ink-2); font-size: var(--fs-sm); }
 .quietLinks a, .sponsorLinks a { color: var(--ink-2); text-decoration: underline; text-underline-offset: 2px; }
-.adLine {
+/* Tool pages place the same sponsor line under related tools, not in the footer. */
+body.tool main.shell > .quietLinks,
+body.studio main.shell > .quietLinks {
   margin: var(--space-5) 0 0;
   text-align: center;
-  color: var(--ink-2);
-  font-size: var(--fs-xs);
 }
-.adLine a { color: var(--ink-2); font-weight: var(--fw-med); text-decoration: underline; text-underline-offset: 2px; }
 
 /* ===== Home =====
    Cards echo the logo: stone fill, ink nested frame, blue corner on interaction.
@@ -314,11 +313,11 @@ body.home .siteFooter { padding-top: 28px; padding-bottom: 36px; }
 body.tool:not(.tool-ready) .panel,
 body.tool:not(.tool-ready) .relatedTools,
 body.tool:not(.tool-ready) .toolsShowcase,
-body.tool:not(.tool-ready) .adLine,
+body.tool:not(.tool-ready) main.shell > .quietLinks,
 body.studio:not(.tool-ready) .hero,
 body.studio:not(.tool-ready) > main > .toolCard,
 body.studio:not(.tool-ready) .relatedTools,
-body.studio:not(.tool-ready) .adLine {
+body.studio:not(.tool-ready) main.shell > .quietLinks {
   opacity: 0;
 }
 @keyframes toolEnter {
@@ -332,10 +331,10 @@ body.studio:not(.tool-ready) .adLine {
   }
   body.tool.tool-ready .relatedTools,
   body.tool.tool-ready .toolsShowcase,
-  body.tool.tool-ready .adLine,
+  body.tool.tool-ready main.shell > .quietLinks,
   body.studio.tool-ready > main > .toolCard,
   body.studio.tool-ready .relatedTools,
-  body.studio.tool-ready .adLine {
+  body.studio.tool-ready main.shell > .quietLinks {
     animation: toolEnter 180ms ease-out 40ms both;
   }
 }
@@ -343,11 +342,11 @@ body.studio:not(.tool-ready) .adLine {
   body.tool .panel,
   body.tool .relatedTools,
   body.tool .toolsShowcase,
-  body.tool .adLine,
+  body.tool main.shell > .quietLinks,
   body.studio .hero,
   body.studio > main > .toolCard,
   body.studio .relatedTools,
-  body.studio .adLine {
+  body.studio main.shell > .quietLinks {
     animation: none;
     translate: none;
   }
