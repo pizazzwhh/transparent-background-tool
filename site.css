@@ -421,6 +421,19 @@ body.tool.batch:not(.has-file) .stage {
   min-height: 320px;
 }
 body.tool.batch:not(.has-file) .queue { display: none; }
+/* QR has no file drop. Keep the right-hand stage, and the text controls, on an empty page. */
+body.tool.qr:not(.has-file) .workspace { grid-template-columns: minmax(260px, 320px) minmax(0, 1fr); }
+body.tool.qr:not(.has-file) .controls { border-right: 1px solid rgba(28, 25, 23, 0.12); }
+body.tool.qr:not(.has-file) .stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 320px;
+}
+body.tool.qr:not(.has-file) .canvasWrap { display: none; }
+body.tool.qr:not(.has-file) .actions { display: grid !important; }
+body.tool.qr .controls .options { order: 4; }
+body.tool.qr #eccSeg button { flex: 1 1 0; }
 body.tool:not(.has-file) .controls { border-right: 0; }
 body.tool .controls {
   display: flex;
@@ -651,7 +664,7 @@ body.tool .empty strong, body.studio .empty strong {
 .ratio .neg { color: var(--danger); }
 .notice { margin-top: 10px; padding: 8px 10px; border-radius: var(--radius-sm); background: #FFFBEB; color: var(--ink); font-size: var(--fs-xs); }
 .dimRow { display: flex; align-items: center; gap: 8px; }
-.dimRow input, body.tool select, body.tool input[type=number], body.tool input[type=text], body.studio input[type=text], body.studio select {
+.dimRow input, body.tool select, body.tool input[type=number], body.tool input[type=text], body.tool textarea, body.studio input[type=text], body.studio select {
   width: 100%;
   border: 1px solid var(--line);
   background: var(--surface);
@@ -677,6 +690,9 @@ body.tool .empty strong, body.studio .empty strong {
 .thumb .dim, .thumb .idx { font-size: var(--fs-xs); color: var(--ink-2); }
 .thumb .del { border: 0; background: transparent; color: var(--danger); cursor: pointer; min-height: 32px; font-weight: var(--fw-bold); }
 .colorRow { display: flex; align-items: center; gap: 8px; }
+body.tool textarea { min-height: 96px; resize: vertical; font: inherit; color: inherit; }
+body.tool input[type=color] { width: 44px; height: 36px; padding: 0; border: 1px solid var(--line); background: var(--surface); border-radius: var(--radius-sm); }
+body.tool .colorRow span { font-variant-numeric: tabular-nums; font-size: var(--fs-xs); color: var(--ink-2); }
 .tooltip { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; border-radius: 50%; background: var(--line); color: var(--ink-2); font-size: 11px; cursor: help; }
 .tooltip .tip {
   display: none;
@@ -857,8 +873,10 @@ body.studio input[type=color] { width: 44px; height: 36px; padding: 0; border: 1
   body.home .hero-title { font-size: 28px; }
   body.tool .workspace, body.studio .workarea { grid-template-columns: 1fr; }
   body.tool.batch:not(.has-file) .workspace { grid-template-columns: 1fr; }
+  body.tool.qr:not(.has-file) .workspace { grid-template-columns: 1fr; }
   body.tool .controls { border-right: 0; border-bottom: 1px solid var(--line); }
   body.tool.batch:not(.has-file) .controls { border-right: 0; }
+  body.tool.qr:not(.has-file) .controls { border-right: 0; }
   body.tool.batch.has-file .actions:has(#zipBtn[hidden]) { grid-template-columns: 1fr; }
   body.tool .hero, body.studio .hero { padding: 8px 0 16px; }
   body.tool .panel.sponsorSheet .hero { padding: 16px; }
