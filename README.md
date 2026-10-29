@@ -62,6 +62,39 @@ node scripts/indexnow-submit.mjs
 
 The public key is `94a6c1480ecc4341998e31c267438424.txt` at the repo root and must be reachable at `https://imagec.xin/94a6c1480ecc4341998e31c267438424.txt`. Pass URL arguments to submit a subset, or `--dry-run` to print the list without sending it. `robots.txt` already allows the key file.
 
+### Smoke checks
+
+Two Node scripts hit a live origin. `BASE_URL` defaults to `https://imagec.xin`. Point it at another origin to check a preview. Both print `PASS` / `FAIL` per check and exit non-zero on failure.
+
+HTTP and SEO (Node 20+; the live script has no npm dependencies):
+
+```bash
+npm run smoke:live
+```
+
+Covers `/`, `/whitebg`, `/compress`, `/qr`, `/round`, `/batch`, and `/sponsors`: status 200, `Age` / `Last-Modified` / `ETag`, a title, a visible `h1`, and a canonical URL without `.html`. Tool pages must have `#guide` and a visible FAQ whose questions match the FAQPage JSON-LD. `/sponsors` must link「免费在线图片工具」to `/`. Same-site tool links such as `/compress.html` fail. External URLs are ignored. `/sponsor.html`, `/stats.html`, `/index.html`, and `/blog/*.html` are allowed, as are the legacy cross-links that still sit in `.heroLinks`. The same `.html` tool path outside that block fails.
+
+Mobile first screen (Playwright, 375×812). Install the browser once:
+
+```bash
+npm install
+npx playwright install chromium
+```
+
+On a clean Linux image that is missing system libraries:
+
+```bash
+npx playwright install --with-deps chromium
+```
+
+Then:
+
+```bash
+npm run smoke:mobile
+```
+
+Opens `/`, `/whitebg`, `/compress`, `/qr`, `/round`, and `/batch`. The workspace or main input, and the primary action, must be visible in the first screen (`#searchInput`, `#toolsGrid`, and the first `a.toolCard` on the home page; `#drop` on upload tools, where `button.primary` stays hidden until a file is chosen; `#text` and `button.primary` on `/qr`). Related `a.toolCard` links must be extensionless. A failure saves a viewport screenshot under `artifacts/mobile-smoke/` (gitignored).
+
 ---
 
 ## 🎯 Use Cases
