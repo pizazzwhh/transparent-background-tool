@@ -58,6 +58,7 @@
   <meta name="apple-mobile-web-app-title" content="imagec" />
   <script type="application/ld+json" id="ldjson">{"@context":"https://schema.org","@type":"WebApplication","name":"图片裁剪缩放工具","alternateName":"imagec","url":"https://imagec.xin/crop","image":"https://imagec.xin/og-image.jpg","applicationCategory":"MultimediaApplication","operatingSystem":"Any","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"在线免费图片裁剪缩放工具，支持拖拽选择裁剪区域、输入目标宽高缩放、预设尺寸快捷选择。所有处理在浏览器本地完成，图片不上传服务器。","inLanguage":["zh-CN","en","ja","ko","es","fr","de","ru","pt","ar","vi","id","th"],"featureList":["画布拖拽选择裁剪区域","输入目标宽高缩放","锁定宽高比","预设尺寸快捷按钮","1920x1080/1280x720/800x800/500x500","浏览器本地处理不上传"],"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.8","ratingCount":"1"},"screenshot":"https://imagec.xin/og-image.jpg"}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://imagec.xin/"},{"@type":"ListItem","position":2,"name":"裁剪缩放","item":"https://imagec.xin/crop"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"裁剪缩放会上传图片吗？","acceptedAnswer":{"@type":"Answer","text":"不会。选区与缩放都在浏览器本地处理。"}},{"@type":"Question","name":"裁剪和缩放怎么选？","acceptedAnswer":{"@type":"Answer","text":"「裁剪」按选区切掉多余部分；「缩放」按目标宽高改变尺寸。可先裁后缩，以页面模式切换为准。"}},{"@type":"Question","name":"预设尺寸有哪些？","acceptedAnswer":{"@type":"Answer","text":"常见包括 1920×1080、1280×720、800×800、500×500 等（以页面按钮为准），也可自己输入宽高。"}},{"@type":"Question","name":"怎样避免拉变形？","acceptedAnswer":{"@type":"Answer","text":"打开「锁定宽高比」，或只改宽度/高度之一让另一边按比例计算（以页面控件行为为准）。"}},{"@type":"Question","name":"支持哪些格式？","acceptedAnswer":{"@type":"Answer","text":"PNG、JPG、WebP。HEIC 请先用「格式转换」(/convert)。若还要加圆角，可用「图片加圆角」(/round)。"}}]}</script>
   <link rel="stylesheet" href="/site.css" />
 </head>
 <body class="tool">
@@ -69,11 +70,11 @@
   <section class="panel">
     <div class="hero">
       <h1 data-i18n="heroTitle">图片裁剪缩放工具</h1>
-      <p data-i18n="heroDesc">在线裁剪或缩放图片，支持在画布上拖拽选择裁剪区域、输入目标宽高缩放、一键套用常用预设尺寸。</p>
+      <p data-i18n="heroDesc">在线裁剪或缩放图片：画布拖拽选区、输入目标宽高，或一键套用 1920×1080 等预设。浏览器本地处理，图片不上传。</p>
       <div class="privacyLine safeBadge">
         <span data-i18n="safeBadge">仅在浏览器本地处理 · 图片不会上传到服务器</span>
       </div>
-      <p class="heroLinks"><a href="/round.html" data-i18n="linkRoundCorner">图片加圆角</a></p>
+      <p class="heroLinks"><a href="/round" data-i18n="linkRoundCorner">图片加圆角</a></p>
     </div>
     <div class="workspace">
       <!-- ===== 左侧控制区 ===== -->
@@ -150,6 +151,52 @@
         <div class="cropHint" id="cropHint" data-i18n="cropHint">提示：在图片上按住鼠标拖拽即可选择裁剪区域</div>
       </section>
     </div>
+  </section>
+
+  <section class="seoContent" id="guide" aria-labelledby="guide-title">
+    <h2 id="guide-title">适合这些情况</h2>
+    <ol>
+      <li>截图或照片只要中间一块，拖拽选区后导出。</li>
+      <li>封面、头像、缩略图要改成固定像素（如 800×800、500×500）。</li>
+      <li>横图改成 16:9（如 1920×1080 / 1280×720）再发视频封面或幻灯片。</li>
+      <li>先裁再缩，或只改尺寸、锁定宽高比，避免拉伸变形。</li>
+      <li>证件照换底色前，先裁到合适构图（可接「<a href="/idphoto">证件照换底色</a>」）。</li>
+    </ol>
+    <h2>怎么用</h2>
+    <ol>
+      <li>上传或粘贴 PNG / JPG / WebP。</li>
+      <li>选「裁剪」：在画布上拖拽保留区域；或选「缩放」：输入目标宽高（可锁比例），也可用预设尺寸按钮。</li>
+      <li>预览满意后下载结果图片；选区不对可清除后重选。</li>
+    </ol>
+    <h2>为什么用 imagec</h2>
+    <ul>
+      <li>裁剪与缩放同一页完成，全部在浏览器本地计算，不上传服务器。</li>
+      <li>支持拖拽选区、数值输入、锁定宽高比，以及 Full HD / HD / 正方形 / 缩略图等快捷预设。</li>
+      <li>免费无水印；限制：受设备内存与浏览器限制，超大图可能较慢；不负责复杂抠像（去白底请用「<a href="/whitebg">图片去白底</a>」）。</li>
+    </ul>
+    <h2>常见问题</h2>
+    <dl class="seoFaq">
+      <div>
+        <dt>裁剪缩放会上传图片吗？</dt>
+        <dd>不会。选区与缩放都在浏览器本地处理。</dd>
+      </div>
+      <div>
+        <dt>裁剪和缩放怎么选？</dt>
+        <dd>「裁剪」按选区切掉多余部分；「缩放」按目标宽高改变尺寸。可先裁后缩，以页面模式切换为准。</dd>
+      </div>
+      <div>
+        <dt>预设尺寸有哪些？</dt>
+        <dd>常见包括 1920×1080、1280×720、800×800、500×500 等（以页面按钮为准），也可自己输入宽高。</dd>
+      </div>
+      <div>
+        <dt>怎样避免拉变形？</dt>
+        <dd>打开「锁定宽高比」，或只改宽度/高度之一让另一边按比例计算（以页面控件行为为准）。</dd>
+      </div>
+      <div>
+        <dt>支持哪些格式？</dt>
+        <dd>PNG、JPG、WebP。HEIC 请先用「<a href="/convert">格式转换</a>」(<a href="/convert">/convert</a>)。若还要加圆角，可用「<a href="/round">图片加圆角</a>」(<a href="/round">/round</a>)。</dd>
+      </div>
+    </dl>
   </section>
 
   <!-- ===== 相关工具 ===== -->
@@ -442,7 +489,7 @@ const SEO={
   th:{title:'เครื่องมือครอปและปรับขนาดภาพ - ครอป/เปลี่ยนขนาดออนไลน์ | imagec',desc:'เครื่องมือครอปและปรับขนาดภาพออนไลน์ฟรี ลากเพื่อเลือกพื้นที่ครอบบนแคนวาส ป้อนความกว้าง/ความสูงเป้าหมายเพื่อปรับขนาด หรือเลือกจากขนาดพร้อมตั้ง (1920x1080/1280x720/800x800 ฯลฯ) ประมวลผลทั้งหมดในเบราว์เซอร์ ไม่อัปโหลดรูปภาพไปยังเซิร์ฟเวอร์',ogTitle:'เครื่องมือครอปและปรับขนาดภาพ',ogDesc:'เครื่องมือฟรีครอปและปรับขนาดภาพออนไลน์ ลากเพื่อครอป ป้อนขนาดหรือใช้ขนาดพร้อมตั้ง ไม่อัปโหลดไปเซิร์ฟเวอร์',siteName:'imagec',jsonLdDesc:'เครื่องมือฟรีครอปและปรับขนาดภาพออนไลน์ ด้วยการเลือกพื้นที่ลาก ปรับขนาดตามเป้าหมาย และขนาดพร้อมตั้ง ประมวลผลในเครื่องผ่านเบราว์เซอร์',locale:'th_TH'}
 };
 const messages={
-  zh:{brand:'imagec',toolWhitebg:'去白底',toolCompress:'压缩',toolConvert:'转换',toolCrop:'裁剪',toolIdphoto:'证件照',toolWatermark:'水印',toolBgcolor:'换底色',toolSplice:'拼接',toolImg2pdf:'转PDF',toolFilter:'滤镜',heroTitle:'图片裁剪缩放工具',heroDesc:'在线裁剪或缩放图片，支持在画布上拖拽选择裁剪区域、输入目标宽高缩放、一键套用常用预设尺寸。',safeBadge:'仅在浏览器本地处理 · 图片不会上传到服务器',dropHint:'点击选择或拖入图片',dropDesc:'支持 PNG、JPG、WebP<br>也可直接粘贴图片',labelMode:'操作模式',btnCropMode:'裁剪',btnResizeMode:'缩放',hintCrop:'在右侧画布上按住鼠标拖拽，选择要保留的裁剪区域。',labelCropArea:'裁剪区域',infoNoCrop:'未选择',hintAfterCrop:'拖拽选择后可下载裁剪结果',btnClearCrop:'清除选区',labelTargetSize:'目标尺寸',phWidth:'宽',phHeight:'高',labelLockRatio:'锁定宽高比',labelPresets:'预设尺寸',presetFullHD:'Full HD',presetHD:'HD',presetSquare:'正方形',presetThumb:'缩略图',btnDownload:'下载结果图片',metaWaiting:'等待图片',emptyHint:'把图片放进来试试',emptySub:'也可以直接粘贴剪贴板中的图片',cropHint:'提示：在图片上按住鼠标拖拽即可选择裁剪区域',relatedTitle:'更多图片工具',relatedCompress:'图片压缩',relatedConvert:'格式转换',relatedCrop:'裁剪缩放',relatedIdphoto:'证件照换底色',relatedWatermark:'加水印',relatedBgcolor:'换背景色',relatedSplice:'图片拼接',relatedImg2pdf:'转PDF',relatedFilter:'滤镜调色'},
+  zh:{brand:'imagec',toolWhitebg:'去白底',toolCompress:'压缩',toolConvert:'转换',toolCrop:'裁剪',toolIdphoto:'证件照',toolWatermark:'水印',toolBgcolor:'换底色',toolSplice:'拼接',toolImg2pdf:'转PDF',toolFilter:'滤镜',heroTitle:'图片裁剪缩放工具',heroDesc:'在线裁剪或缩放图片：画布拖拽选区、输入目标宽高，或一键套用 1920×1080 等预设。浏览器本地处理，图片不上传。',safeBadge:'仅在浏览器本地处理 · 图片不会上传到服务器',dropHint:'点击选择或拖入图片',dropDesc:'支持 PNG、JPG、WebP<br>也可直接粘贴图片',labelMode:'操作模式',btnCropMode:'裁剪',btnResizeMode:'缩放',hintCrop:'在右侧画布上按住鼠标拖拽，选择要保留的裁剪区域。',labelCropArea:'裁剪区域',infoNoCrop:'未选择',hintAfterCrop:'拖拽选择后可下载裁剪结果',btnClearCrop:'清除选区',labelTargetSize:'目标尺寸',phWidth:'宽',phHeight:'高',labelLockRatio:'锁定宽高比',labelPresets:'预设尺寸',presetFullHD:'Full HD',presetHD:'HD',presetSquare:'正方形',presetThumb:'缩略图',btnDownload:'下载结果图片',metaWaiting:'等待图片',emptyHint:'把图片放进来试试',emptySub:'也可以直接粘贴剪贴板中的图片',cropHint:'提示：在图片上按住鼠标拖拽即可选择裁剪区域',relatedTitle:'更多图片工具',relatedCompress:'图片压缩',relatedConvert:'格式转换',relatedCrop:'裁剪缩放',relatedIdphoto:'证件照换底色',relatedWatermark:'加水印',relatedBgcolor:'换背景色',relatedSplice:'图片拼接',relatedImg2pdf:'转PDF',relatedFilter:'滤镜调色'},
   en:{brand:'imagec',toolWhitebg:'Remove White',toolCompress:'Compress',toolConvert:'Convert',toolCrop:'Crop',toolIdphoto:'ID Photo',toolWatermark:'Watermark',toolBgcolor:'BG Color',toolSplice:'Splice',toolImg2pdf:'To PDF',toolFilter:'Filters',heroTitle:'Image Crop & Resize Tool',heroDesc:'Crop or resize images online. Drag to select crop area on canvas, enter target dimensions for scaling, or apply common preset sizes in one click.',safeBadge:'Processed locally in your browser · Images are never uploaded',dropHint:'Click to select or drop an image',dropDesc:'Supports PNG, JPG, WebP<br>or paste directly',labelMode:'Operation Mode',btnCropMode:'Crop',btnResizeMode:'Resize',hintCrop:'Click and drag on the right canvas to select the crop area to keep.',labelCropArea:'Crop Area',infoNoCrop:'Not selected',hintAfterCrop:'Drag to select, then download the cropped result',btnClearCrop:'Clear Selection',labelTargetSize:'Target Size',phWidth:'Width',phHeight:'Height',labelLockRatio:'Lock Aspect Ratio',labelPresets:'Preset Sizes',presetFullHD:'Full HD',presetHD:'HD',presetSquare:'Square',presetThumb:'Thumbnail',btnDownload:'Download Result',metaWaiting:'Waiting for image',emptyHint:'Drop an image here to try',emptySub:'Or paste an image from clipboard',cropHint:'Tip: Click and drag on the image to select a crop area',relatedTitle:'More Image Tools',relatedCompress:'Image Compress',relatedConvert:'Format Convert',relatedCrop:'Crop & Resize',relatedIdphoto:'ID Photo BG',relatedWatermark:'Add Watermark',relatedBgcolor:'Change BG Color',relatedSplice:'Image Splice',relatedImg2pdf:'To PDF',relatedFilter:'Filters & Color'},
   ja:{brand:'imagec',toolWhitebg:'白抜き',toolCompress:'圧縮',toolConvert:'変換',toolCrop:'トリミング',toolIdphoto:'証明写真',toolWatermark:'ウォーターマーク',toolBgcolor:'背景色変更',toolSplice:'結合',toolImg2pdf:'PDF変換',toolFilter:'フィルター',heroTitle:'画像トリミング・リサイズツール',heroDesc:'オンラインで画像をトリミングまたはリサイズ。キャンバス上でドラッグして範囲選択、目標サイズ入力で拡大縮小、ワンクリックでプリセットサイズを適用。',safeBadge:'すべてブラウザ内処理・画像はアップロードされません',dropHint:'クリックで選ぶ or ドラッグ&ドロップ',dropDesc:'PNG、JPG、WebP対応<br>直接貼り付けも可',labelMode:'操作モード',btnCropMode:'トリミング',btnResizeMode:'リサイズ',hintCrop:'右側のキャンバスでマウスをドラッグし、残したい範囲を選択してください。',labelCropArea:'トリミング範囲',infoNoCrop:'未選択',hintAfterCrop:'ドラッグで選択後、トリミング結果をダウンロードできます',btnClearCrop:'選択解除',labelTargetSize:'目標サイズ',phWidth:'幅',phHeight:'高さ',labelLockRatio:'縦横比を固定',labelPresets:'プリセットサイズ',presetFullHD:'Full HD',presetHD:'HD',presetSquare:'正方形',presetThumb:'サムネイル',btnDownload:'結果画像をダウンロード',metaWaiting:'画像待ち',emptyHint:'画像をドロップして試す',emptySub:'またはクリップボードから貼り付け',cropHint:'ヒント：画像上をマウスでドラッグするとトリミング範囲を選択できます',relatedTitle:'その他の画像ツール',relatedCompress:'画像圧縮',relatedConvert:'フォーマット変換',relatedCrop:'トリミング・リサイズ',relatedIdphoto:'証明写真背景',relatedWatermark:'ウォーターマーク',relatedBgcolor:'背景色変更',relatedSplice:'画像結合',relatedImg2pdf:'PDF変換',relatedFilter:'フィルター調整'},
   ko:{brand:'imagec',toolWhitebg:'흰배경제거',toolCompress:'압축',toolConvert:'변환',toolCrop:'자르기',toolIdphoto:'증명사진',toolWatermark:'워터마크',toolBgcolor:'배경색변경',toolSplice:'이어붙이기',toolImg2pdf:'PDF변환',toolFilter:'필터',heroTitle:'이미지 자르기 및 리사이즈 도구',heroDesc:'온라인에서 이미지를 자르거나 크기 조절. 캔버스에서 드래그로 영역 선택, 목표 크기 입력으로 확대/축소, 원클릭으로 프리셋 사이즈 적용.',safeBadge:'브라우저 내 로컬 처리 · 이미지 서버 업로드 안함',dropHint:'클릭으로 선택하거나 이미지 드롭',dropDesc:'PNG, JPG, WebP 지원<br>직접 붙여넣기도 가능',labelMode:'작업 모드',btnCropMode:'자르기',btnResizeMode:'리사이즈',hintCrop:'오른쪽 캔버스에서 마우스를 드래그하여 남길 영역을 선택하세요.',labelCropArea:'자르기 영역',infoNoCrop:'선택 안됨',hintAfterCrop:'드래그로 선택 후 자른 결과를 다운로드할 수 있습니다',btnClearCrop:'선택 지우기',labelTargetSize:'목표 크기',phWidth:'너비',phHeight:'높이',labelLockRatio:'가로세로 비율 고정',labelPresets:'프리셋 사이즈',presetFullHD:'Full HD',presetHD:'HD',presetSquare:'정사각형',presetThumb:'썸네일',btnDownload:'결과 이미지 다운로드',metaWaiting:'이미지 대기',emptyHint:'이미지를 여기에 넣어보세요',emptySub:'또는 클립보드에서 붙여넣기',cropHint:'팁: 이미지 위에서 마우스를 드래그하면 자르기 영역을 선택할 수 있습니다',relatedTitle:'더 많은 이미지 도구',relatedCompress:'이미지 압축',relatedConvert:'형식 변환',relatedCrop:'자르기 및 리사이즈',relatedIdphoto:'증명사진 배경',relatedWatermark:'워터마크 추가',relatedBgcolor:'배경색 변경',relatedSplice:'이미지 이어붙이기',relatedImg2pdf:'PDF 변환',relatedFilter:'필터 보정'},
