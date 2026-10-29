@@ -12,6 +12,8 @@
  *   home     #searchInput, #toolsGrid, first a.toolCard
  *   upload   .workspace, label#drop (button.primary stays hidden until a file)
  *   qr       .workspace, #text, button.primary
+ *   idphoto  section.toolCard, #dropzone (#fileInput is hidden;
+ *            #workarea and button.primary stay hidden until a file)
  * Related cards are a.toolCard, mounted by tool-cards.js.
  */
 
@@ -31,6 +33,9 @@ const PAGES = [
   { path: "/qr", name: "qr", workspace: ".workspace", action: "#text", cta: "button.primary" },
   { path: "/round", name: "round", workspace: ".workspace", action: "#drop", cta: "button.primary" },
   { path: "/batch", name: "batch", workspace: ".workspace", action: "#drop", cta: "button.primary" },
+  { path: "/convert", name: "convert", workspace: ".workspace", action: "#drop", cta: "button.primary" },
+  { path: "/crop", name: "crop", workspace: ".workspace", action: "#drop", cta: "button.primary" },
+  { path: "/idphoto", name: "idphoto", workspace: "section.toolCard", action: "#dropzone", cta: "button.primary" },
 ];
 
 const TOOL_HREF = /^\/(?:whitebg|compress|convert|batch|qr|round|crop|idphoto|watermark|bgcolor|splice|img2pdf|filter)$/;
