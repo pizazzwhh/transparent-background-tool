@@ -76,6 +76,7 @@
 }
 </script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://imagec.xin/"},{"@type":"ListItem","position":2,"name":"证件照换底色","item":"https://imagec.xin/idphoto"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"证件照会上传到服务器吗？","acceptedAnswer":{"@type":"Answer","text":"不会。换底色在浏览器本地完成，图片不会离开这台设备。"}},{"@type":"Question","name":"能换哪些底色？","acceptedAnswer":{"@type":"Answer","text":"提供白、蓝、红、浅蓝等预设，也可自定义颜色（以页面控件为准）。"}},{"@type":"Question","name":"边缘发毛或残留旧底色怎么办？","acceptedAnswer":{"@type":"Answer","text":"略增「容差」清残留；边缘发硬可加大「边缘柔化」。原图尽量用均匀纯色底，效果更稳。"}},{"@type":"Question","name":"适合什么照片？不适合什么？","acceptedAnswer":{"@type":"Answer","text":"适合纯色或接近纯色背景的证件照。花背景、强阴影、主体颜色贴近旧底色时，可能误伤或清不干净——可换更干净的原图，或先用「图片裁剪缩放」(/crop) 再试。"}},{"@type":"Question","name":"收费吗？有水印吗？","acceptedAnswer":{"@type":"Answer","text":"免费，无水印，也不用注册登录。"}}]}</script>
 <link rel="stylesheet" href="/site.css" />
 </head>
 <body class="studio">
@@ -83,7 +84,7 @@
 <header class="topbar"><a class="brand" href="/"><span class="mark"><svg viewBox="0 0 64 64" width="26" height="26" aria-hidden="true"><rect x="2" y="2" width="60" height="60" rx="6" fill="#FAFAF9"/><path fill="#1C1917" fill-rule="evenodd" d="M8 2h48a6 6 0 0 1 6 6v48a6 6 0 0 1-6 6H8a6 6 0 0 1-6-6V8a6 6 0 0 1 6-6zm5 5h38a1 1 0 0 1 1 1v38a1 1 0 0 1-1 1H13a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1z"/><rect x="36" y="36" width="26" height="26" rx="6" fill="#2563EB"/></svg></span><span class="brand-name">imagec</span></a><div class="topbar-right"><a class="searchBtn" href="/?focus=search" aria-label="搜索工具" data-chrome-aria="searchTools"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></a><select class="langSelect" id="langSelect"></select></div></header>
   <section class="hero">
     <h1 data-i18n="title">证件照换底色</h1>
-    <p data-i18n="subtitle">上传证件照，一键将蓝底换白底、白底换红底，自由调节容差与边缘柔化，获得干净利落的换底效果。</p>
+    <p data-i18n="subtitle">证件照换底色：蓝底换白底、白底换红底等，预设与自定义颜色，可调容差与边缘柔化。纯前端本地处理，图片不上传。</p>
     <div class="privacyLine badge" data-i18n="privacy">仅在浏览器本地处理 · 图片不会上传到服务器</div>
   </section>
 
@@ -145,6 +146,52 @@
     </div>
   </section>
 
+  <section class="seoContent" id="guide" aria-labelledby="guide-title">
+    <h2 id="guide-title">适合这些情况</h2>
+    <ol>
+      <li>简历、考试报名要白底，手头却是蓝底证件照。</li>
+      <li>政务/窗口材料要求红底或浅蓝，需要快速换底再打印。</li>
+      <li>同一张证件照要出多套底色版本，反复试色不必重拍。</li>
+      <li>边缘有杂色或抠边不干净时，用容差与柔化微调。</li>
+      <li>不想把证件照上传到不明换底站，只在本机浏览器处理。</li>
+    </ol>
+    <h2>怎么用</h2>
+    <ol>
+      <li>上传或粘贴证件照（JPG / PNG / WebP；建议纯色背景）。</li>
+      <li>选预设底色（白/蓝/红/浅蓝）或自定义颜色；按需调「容差」「边缘柔化」。</li>
+      <li>预览满意后下载；不满意可重新上传或继续微调。</li>
+    </ol>
+    <h2>为什么用 imagec</h2>
+    <ul>
+      <li>换底在浏览器本地完成，证件照不上传服务器。</li>
+      <li>预设常用证件底色 + 自定义色，容差与边缘柔化可调，适合纯色背景换色。</li>
+      <li>免费、无水印、即开即用。限制：面向接近纯色的证件照背景；复杂场景、渐变背景或发丝级抠图效果有限——不是通用 AI 抠图。需要去白底透明 PNG 请用「<a href="/whitebg">图片去白底</a>」；要先裁尺寸请用「<a href="/crop">图片裁剪缩放</a>」。透明图铺色可用「<a href="/bgcolor">换背景色</a>」。</li>
+    </ul>
+    <h2>常见问题</h2>
+    <dl class="seoFaq">
+      <div>
+        <dt>证件照会上传到服务器吗？</dt>
+        <dd>不会。换底色在浏览器本地完成，图片不会离开这台设备。</dd>
+      </div>
+      <div>
+        <dt>能换哪些底色？</dt>
+        <dd>提供白、蓝、红、浅蓝等预设，也可自定义颜色（以页面控件为准）。</dd>
+      </div>
+      <div>
+        <dt>边缘发毛或残留旧底色怎么办？</dt>
+        <dd>略增「容差」清残留；边缘发硬可加大「边缘柔化」。原图尽量用均匀纯色底，效果更稳。</dd>
+      </div>
+      <div>
+        <dt>适合什么照片？不适合什么？</dt>
+        <dd>适合纯色或接近纯色背景的证件照。花背景、强阴影、主体颜色贴近旧底色时，可能误伤或清不干净——可换更干净的原图，或先用「<a href="/crop">图片裁剪缩放</a>」(<a href="/crop">/crop</a>) 再试。</dd>
+      </div>
+      <div>
+        <dt>收费吗？有水印吗？</dt>
+        <dd>免费，无水印，也不用注册登录。</dd>
+      </div>
+    </dl>
+  </section>
+
   <section class="relatedTools">
     <h2 data-i18n="relatedTools">更多图片工具</h2>
     <div class="toolsGrid" data-tool-cards></div>
@@ -191,7 +238,7 @@ const SEO={
 
 /* ===== UI messages per language ===== */
 const messages={
-zh:{brand:'imagec',title:'证件照换底色',subtitle:'上传证件照，一键将蓝底换白底、白底换红底，自由调节容差与边缘柔化，获得干净利落的换底效果。',privacy:'仅在浏览器本地处理 · 图片不会上传到服务器',uploadHint:'点击上传、拖拽到此处或',pasteHint:'Ctrl+V 粘贴',uploadPhoto:'证件照图片',formatHint:'支持 JPG / PNG / WEBP · 建议使用纯色背景证件照',previewTitle:'预览效果',settingsTitle:'换底设置',presetColors:'预设底色',white:'白色',blue:'蓝色',red:'红色',lightBlue:'浅蓝',customColor:'自定义颜色：',tolerance:'容差',feather:'边缘柔化',download:'下载图片',reset:'重新上传',relatedTools:'更多图片工具',footer:'imagec工具 · 所有处理均在浏览器本地完成，图片不会离开您的设备',toolWhitebg:'去白底',toolCompress:'压缩',toolConvert:'转换',toolCrop:'裁剪',toolIdphoto:'证件照',toolWatermark:'水印',toolBgcolor:'换底色',toolSplice:'拼接',toolImg2pdf:'转PDF',toolFilter:'滤镜',toolCompress2:'图片压缩',toolConvert2:'格式转换',toolCrop2:'裁剪缩放',toolIdphoto2:'证件照换底色',toolWatermark2:'加水印',toolBgcolor2:'换背景色',toolSplice2:'图片拼接',toolImg2pdf2:'转PDF',toolFilter2:'滤镜调色',sampleDetected:'自动检测原底色：',sampleNew:'新底色：'},
+zh:{brand:'imagec',title:'证件照换底色',subtitle:'证件照换底色：蓝底换白底、白底换红底等，预设与自定义颜色，可调容差与边缘柔化。纯前端本地处理，图片不上传。',privacy:'仅在浏览器本地处理 · 图片不会上传到服务器',uploadHint:'点击上传、拖拽到此处或',pasteHint:'Ctrl+V 粘贴',uploadPhoto:'证件照图片',formatHint:'支持 JPG / PNG / WEBP · 建议使用纯色背景证件照',previewTitle:'预览效果',settingsTitle:'换底设置',presetColors:'预设底色',white:'白色',blue:'蓝色',red:'红色',lightBlue:'浅蓝',customColor:'自定义颜色：',tolerance:'容差',feather:'边缘柔化',download:'下载图片',reset:'重新上传',relatedTools:'更多图片工具',footer:'imagec工具 · 所有处理均在浏览器本地完成，图片不会离开您的设备',toolWhitebg:'去白底',toolCompress:'压缩',toolConvert:'转换',toolCrop:'裁剪',toolIdphoto:'证件照',toolWatermark:'水印',toolBgcolor:'换底色',toolSplice:'拼接',toolImg2pdf:'转PDF',toolFilter:'滤镜',toolCompress2:'图片压缩',toolConvert2:'格式转换',toolCrop2:'裁剪缩放',toolIdphoto2:'证件照换底色',toolWatermark2:'加水印',toolBgcolor2:'换背景色',toolSplice2:'图片拼接',toolImg2pdf2:'转PDF',toolFilter2:'滤镜调色',sampleDetected:'自动检测原底色：',sampleNew:'新底色：'},
 en:{brand:'imagec',title:'ID Photo Background Changer',subtitle:'Upload your ID photo and swap backgrounds: blue to white, white to red. Adjustable tolerance and edge feathering for clean, professional results.',privacy:'Processed locally in your browser · Images are never uploaded',uploadHint:'Click, drop, or',pasteHint:'Ctrl+V to paste',uploadPhoto:'your ID photo',formatHint:'Supports JPG / PNG / WEBP · Solid background recommended',previewTitle:'Preview',settingsTitle:'Background Settings',presetColors:'Preset Colors',white:'White',blue:'Blue',red:'Red',lightBlue:'Light Blue',customColor:'Custom Color:',tolerance:'Tolerance',feather:'Edge Feathering',download:'Download Image',reset:'Re-upload',relatedTools:'More Image Tools',footer:'Frame Tools · All processing is done locally in your browser. Images never leave your device.',toolWhitebg:'White BG Remover',toolCompress:'Compress',toolConvert:'Convert',toolCrop:'Crop',toolIdphoto:'ID Photo',toolWatermark:'Watermark',toolBgcolor:'BG Color',toolSplice:'Splice',toolImg2pdf:'To PDF',toolFilter:'Filter',toolCompress2:'Compress Image',toolConvert2:'Format Convert',toolCrop2:'Crop & Resize',toolIdphoto2:'ID Photo BG',toolWatermark2:'Add Watermark',toolBgcolor2:'Background Color',toolSplice2:'Image Splice',toolImg2pdf2:'To PDF',toolFilter2:'Filters',sampleDetected:'Detected original background:',sampleNew:'New background:'},
 ja:{brand:'imagec',title:'証明写真背景変更',subtitle:'証明写真をアップロードして、青背景から白背景、白背景から赤背景にワンクリックで変更。許容値とエッジ柔化を調整して、クリーンでプロフェッショナルな仕上がりに。',privacy:'ブラウザ内でローカル処理 · 画像はアップロードされません',uploadHint:'クリックまたはドラッグ＆ドロップ、または',pasteHint:'Ctrl+V で貼り付け',uploadPhoto:'証明写真をアップロード',formatHint:'JPG / PNG / WEBP対応 · 無地背景の写真推奨',previewTitle:'プレビュー',settingsTitle:'背景設定',presetColors:'プリセット背景色',white:'白',blue:'青',red:'赤',lightBlue:'水色',customColor:'カスタムカラー：',tolerance:'許容値',feather:'エッジ柔化',download:'画像をダウンロード',reset:'再アップロード',relatedTools:'その他の画像ツール',footer:'フレーム · すべての処理はブラウザ内でローカルに実行され、画像はデバイスから送信されません。',toolWhitebg:'白抜き',toolCompress:'圧縮',toolConvert:'変換',toolCrop:'切り抜き',toolIdphoto:'証明写真',toolWatermark:'透かし',toolBgcolor:'背景色',toolSplice:'結合',toolImg2pdf:'PDF化',toolFilter:'フィルター',toolCompress2:'画像圧縮',toolConvert2:'形式変換',toolCrop2:'切抜き・リサイズ',toolIdphoto2:'証明写真背景',toolWatermark2:'透かし追加',toolBgcolor2:'背景色変更',toolSplice2:'画像結合',toolImg2pdf2:'PDF変換',toolFilter2:'フィルター調整',sampleDetected:'検出された元の背景：',sampleNew:'新しい背景：'},
 ko:{brand:'imagec',title:'증명사진 배경 변경',subtitle:'증명사진을 업로드하고 파란색에서 흰색, 흰색에서 빨간색 배경으로 원클릭 전환. 허용오차와 가장자리 부드러움을 조절하여 깔끔하고 전문적인 결과물을 만드세요.',privacy:'브라우저에서 로컬 처리 · 이미지가 업로드되지 않습니다',uploadHint:'클릭하거나 드래그 앤 드롭, 또는',pasteHint:'Ctrl+V로 붙여넣기',uploadPhoto:'증명사진 업로드',formatHint:'JPG / PNG / WEBP 지원 · 단색 배경 사진 권장',previewTitle:'미리보기',settingsTitle:'배경 설정',presetColors:'프리셋 배경색',white:'흰색',blue:'파란색',red:'빨간색',lightBlue:'하늘색',customColor:'사용자 지정 색상：',tolerance:'허용오차',feather:'가장자리 부드럽게',download:'이미지 다운로드',reset:'다시 업로드',relatedTools:'더 많은 이미지 도구',footer:'프레임 · 모든 처리는 브라우저에서 로컬로 실행되며 이미지가 장치를 벗어나지 않습니다.',toolWhitebg:'흰배경제거',toolCompress:'압축',toolConvert:'변환',toolCrop:'자르기',toolIdphoto:'증명사진',toolWatermark:'워터마크',toolBgcolor:'배경색',toolSplice:'이어붙이기',toolImg2pdf:'PDF변환',toolFilter:'필터',toolCompress2:'이미지 압축',toolConvert2:'형식 변환',toolCrop2:'자르기 및 리사이즈',toolIdphoto2:'증명사진 배경',toolWatermark2:'워터마크 추가',toolBgcolor2:'배경색 변경',toolSplice2:'이미지 이어붙이기',toolImg2pdf2:'PDF로 변환',toolFilter2:'필터 보정',sampleDetected:'감지된 원래 배경：',sampleNew:'새 배경：'},

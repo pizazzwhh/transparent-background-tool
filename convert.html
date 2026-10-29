@@ -58,6 +58,7 @@
   <meta name="apple-mobile-web-app-title" content="imagec" />
   <script type="application/ld+json" id="ldjson">{"@context":"https://schema.org","@type":"WebApplication","name":"图片格式转换工具","alternateName":"imagec","url":"https://imagec.xin/convert","image":"https://imagec.xin/og-image.jpg","applicationCategory":"MultimediaApplication","operatingSystem":"Any","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"在线免费图片格式转换工具，支持 PNG、JPG、WebP、BMP 互转。JPG/WebP 可调质量。所有处理在浏览器本地完成，图片不上传服务器。","inLanguage":["zh-CN","en","ja","ko","es","fr","de","ru","pt","ar","vi","id","th"],"featureList":["PNG/JPG/WebP/BMP 互转","JPG/WebP 质量可调","转换前后大小对比","JPG 自动白色填充背景","浏览器本地处理不上传"],"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.8","ratingCount":"1"},"screenshot":"https://imagec.xin/og-image.jpg"}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://imagec.xin/"},{"@type":"ListItem","position":2,"name":"格式转换","item":"https://imagec.xin/convert"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"图片格式转换会上传我的图吗？","acceptedAnswer":{"@type":"Answer","text":"不会。PNG/JPG/WebP/BMP 互转都在浏览器本地完成，图片不会离开这台设备。"}},{"@type":"Question","name":"支持哪些格式？","acceptedAnswer":{"@type":"Answer","text":"输入与输出均支持 PNG、JPG、WebP、BMP。HEIC 等格式请先转成上述之一再处理。"}},{"@type":"Question","name":"转成 JPG 后透明背景怎么没了？","acceptedAnswer":{"@type":"Answer","text":"JPG 不支持透明。转 JPG 时透明区域会自动用白色填充；若要保留透明请选 PNG（或 WebP，视浏览器导出支持而定，以页面选项为准）。"}},{"@type":"Question","name":"质量和体积怎么选？","acceptedAnswer":{"@type":"Answer","text":"数值越高画质越好、文件通常越大。网页展示可先试中等质量，对照预览与体积再微调。"}},{"@type":"Question","name":"和「批量压缩」有什么区别？","acceptedAnswer":{"@type":"Answer","text":"本页适合单张精细选格式与质量；一次多张压缩/转换并打包 ZIP，请用「批量压缩图片」(/batch)。单张只想缩小体积也可看「在线图片压缩」(/compress)。"}}]}</script>
   <link rel="stylesheet" href="/site.css" />
 </head>
 <body class="tool">
@@ -69,11 +70,11 @@
   <section class="panel">
     <div class="hero">
       <h1 data-i18n="title">图片格式转换</h1>
-      <p data-i18n="subtitle">在线免费转换图片格式，支持 PNG、JPG、WebP、BMP 互转。JPG/WebP 可调质量，实时预览转换效果与文件大小。</p>
+      <p data-i18n="subtitle">免费在线图片格式转换：PNG、JPG、WebP、BMP 互转。JPG/WebP 可调质量，转换前后体积对比——浏览器本地处理，图片不上传。</p>
       <div class="privacyLine safeBadge">
         <span data-i18n="privacy">仅在浏览器本地处理 · 图片不会上传到服务器</span>
       </div>
-      <p class="heroLinks"><a href="/qr.html" data-i18n="linkQrText">文字生成二维码</a></p>
+      <p class="heroLinks"><a href="/qr" data-i18n="linkQrText">文字生成二维码</a></p>
     </div>
     <div class="workspace">
       <!-- ===== 左侧控制区 ===== -->
@@ -142,6 +143,52 @@
     </div>
   </section>
 
+  <section class="seoContent" id="guide" aria-labelledby="guide-title">
+    <h2 id="guide-title">适合这些情况</h2>
+    <ol>
+      <li>网页或博客需要 WebP/JPG，手头却是 PNG，想快速互转再上传。</li>
+      <li>带透明通道的 PNG 要交给只收 JPG 的系统：先转 JPG（透明区会填白），再提交。</li>
+      <li>设计导出 BMP/大图，需要换成更通用的 PNG 或 JPG 再分享。</li>
+      <li>想对比同一张图转成不同格式后的体积，边调质量边看预览。</li>
+      <li>隐私图或不便上传的素材，只想在本机浏览器完成格式转换。</li>
+    </ol>
+    <h2>怎么用</h2>
+    <ol>
+      <li>点击、拖入或粘贴图片（PNG / JPG / WebP / BMP）。</li>
+      <li>选择目标格式；若为 JPG 或 WebP，按需调节质量滑杆。</li>
+      <li>对照预览与「原始/转换后大小」，满意后下载。</li>
+    </ol>
+    <h2>为什么用 imagec</h2>
+    <ul>
+      <li>转换在浏览器本地完成，图片不上传服务器；已打开的页面断网也可继续用。</li>
+      <li>支持 PNG、JPG、WebP、BMP 互转，JPG/WebP 质量可调，并显示转换前后体积。</li>
+      <li>免费、无水印、不必注册；限制：转 JPG 不保留透明（透明区自动白底填充）；HEIC 等未列出的格式请先另转。需要裁切尺寸时，可用「<a href="/crop">图片裁剪缩放</a>」(<a href="/crop">/crop</a>)。</li>
+    </ul>
+    <h2>常见问题</h2>
+    <dl class="seoFaq">
+      <div>
+        <dt>图片格式转换会上传我的图吗？</dt>
+        <dd>不会。PNG/JPG/WebP/BMP 互转都在浏览器本地完成，图片不会离开这台设备。</dd>
+      </div>
+      <div>
+        <dt>支持哪些格式？</dt>
+        <dd>输入与输出均支持 PNG、JPG、WebP、BMP。HEIC 等格式请先转成上述之一再处理。</dd>
+      </div>
+      <div>
+        <dt>转成 JPG 后透明背景怎么没了？</dt>
+        <dd>JPG 不支持透明。转 JPG 时透明区域会自动用白色填充；若要保留透明请选 PNG（或 WebP，视浏览器导出支持而定，以页面选项为准）。</dd>
+      </div>
+      <div>
+        <dt>质量和体积怎么选？</dt>
+        <dd>数值越高画质越好、文件通常越大。网页展示可先试中等质量，对照预览与体积再微调。</dd>
+      </div>
+      <div>
+        <dt>和「批量压缩」有什么区别？</dt>
+        <dd>本页适合单张精细选格式与质量；一次多张压缩/转换并打包 ZIP，请用「<a href="/batch">批量压缩图片</a>」(<a href="/batch">/batch</a>)。单张只想缩小体积也可看「<a href="/compress">在线图片压缩</a>」(<a href="/compress">/compress</a>)。</dd>
+      </div>
+    </dl>
+  </section>
+
   <!-- ===== 相关工具 ===== -->
   <section class="relatedTools">
     <h2 data-i18n="moreTools">更多图片工具</h2>
@@ -190,7 +237,7 @@ const SEO={
 
 /* ===== UI messages per language ===== */
 const messages={
-zh:{brand:'imagec',toolWhitebg:'去白底',toolCompress:'压缩',toolConvert:'转换',toolCrop:'裁剪',toolIdphoto:'证件照',toolWatermark:'水印',toolBgcolor:'换底色',toolSplice:'拼接',toolImg2pdf:'转PDF',toolFilter:'滤镜',title:'图片格式转换',subtitle:'在线免费转换图片格式，支持 PNG、JPG、WebP、BMP 互转。JPG/WebP 可调质量，实时预览转换效果与文件大小。',privacy:'仅在浏览器本地处理 · 图片不会上传到服务器',upload:'点击选择或拖入图片',formats:'支持 PNG、JPG、WebP、BMP<br>也可直接粘贴图片',targetFmt:'目标格式',fmtPng:'PNG<small>无损 · 支持透明</small>',fmtJpeg:'JPG<small>有损 · 体积小</small>',fmtWebp:'WebP<small>现代格式 · 高压缩</small>',fmtBmp:'BMP<small>无损 · 不压缩</small>',quality:'质量',qualityHint:'仅 JPG / WebP 有效，数值越低体积越小',noticeTitle:'注意：',noticeJpg:'转 JPG 时不支持透明背景，透明区域会自动用白色填充。',download:'下载转换后图片',waiting:'等待图片',emptyTitle:'把图片放进来试试',emptyHint:'也可以直接粘贴剪贴板中的图片',origSize:'原始大小',newSize:'转换后大小',moreTools:'更多图片工具',rcCompress:'图片压缩',rcConvert:'格式转换',rcCrop:'裁剪缩放',rcIdphoto:'证件照换底色',rcWatermark:'加水印',rcBgcolor:'换背景色',rcSplice:'图片拼接',rcImg2pdf:'转PDF',rcFilter:'滤镜调色'},
+zh:{brand:'imagec',toolWhitebg:'去白底',toolCompress:'压缩',toolConvert:'转换',toolCrop:'裁剪',toolIdphoto:'证件照',toolWatermark:'水印',toolBgcolor:'换底色',toolSplice:'拼接',toolImg2pdf:'转PDF',toolFilter:'滤镜',title:'图片格式转换',subtitle:'免费在线图片格式转换：PNG、JPG、WebP、BMP 互转。JPG/WebP 可调质量，转换前后体积对比——浏览器本地处理，图片不上传。',privacy:'仅在浏览器本地处理 · 图片不会上传到服务器',upload:'点击选择或拖入图片',formats:'支持 PNG、JPG、WebP、BMP<br>也可直接粘贴图片',targetFmt:'目标格式',fmtPng:'PNG<small>无损 · 支持透明</small>',fmtJpeg:'JPG<small>有损 · 体积小</small>',fmtWebp:'WebP<small>现代格式 · 高压缩</small>',fmtBmp:'BMP<small>无损 · 不压缩</small>',quality:'质量',qualityHint:'仅 JPG / WebP 有效，数值越低体积越小',noticeTitle:'注意：',noticeJpg:'转 JPG 时不支持透明背景，透明区域会自动用白色填充。',download:'下载转换后图片',waiting:'等待图片',emptyTitle:'把图片放进来试试',emptyHint:'也可以直接粘贴剪贴板中的图片',origSize:'原始大小',newSize:'转换后大小',moreTools:'更多图片工具',rcCompress:'图片压缩',rcConvert:'格式转换',rcCrop:'裁剪缩放',rcIdphoto:'证件照换底色',rcWatermark:'加水印',rcBgcolor:'换背景色',rcSplice:'图片拼接',rcImg2pdf:'转PDF',rcFilter:'滤镜调色'},
 en:{brand:'imagec',toolWhitebg:'Remove White',toolCompress:'Compress',toolConvert:'Convert',toolCrop:'Crop',toolIdphoto:'ID Photo',toolWatermark:'Watermark',toolBgcolor:'BG Color',toolSplice:'Splice',toolImg2pdf:'to PDF',toolFilter:'Filters',title:'Image Format Converter',subtitle:'Free online image format conversion between PNG, JPG, WebP, and BMP. Adjustable quality for JPG/WebP with live preview and file size.',privacy:'Processed locally in your browser · Images are never uploaded',upload:'Choose or drop an image',formats:'PNG, JPG, WebP, BMP supported<br>You can also paste an image',targetFmt:'Target format',fmtPng:'PNG<small>Lossless · Transparent</small>',fmtJpeg:'JPG<small>Lossy · Smaller</small>',fmtWebp:'WebP<small>Modern · High compression</small>',fmtBmp:'BMP<small>Lossless · Uncompressed</small>',quality:'Quality',qualityHint:'Only for JPG/WebP, lower = smaller file',noticeTitle:'Note:',noticeJpg:'JPG does not support transparency; transparent areas will be filled with white.',download:'Download converted image',waiting:'Waiting for image',emptyTitle:'Drop an image here',emptyHint:'Or paste an image from your clipboard',origSize:'Original size',newSize:'Converted size',moreTools:'More image tools',rcCompress:'Compress',rcConvert:'Convert Format',rcCrop:'Crop & Resize',rcIdphoto:'ID Photo BG',rcWatermark:'Watermark',rcBgcolor:'BG Color',rcSplice:'Splice',rcImg2pdf:'To PDF',rcFilter:'Filters'},
 ja:{brand:'imagec',toolWhitebg:'白抜き',toolCompress:'圧縮',toolConvert:'変換',toolCrop:'切り抜き',toolIdphoto:'証明写真',toolWatermark:'透かし',toolBgcolor:'背景色',toolSplice:'結合',toolImg2pdf:'PDF変換',toolFilter:'フィルタ',title:'画像形式変換',subtitle:'PNG・JPG・WebP・BMP画像をオンラインで無料変換。JPG/WebPは品質調整可能、変換結果とファイルサイズをリアルタイムプレビュー。',privacy:'ブラウザ内でローカル処理 · 画像はサーバーにアップロードされません',upload:'クリックして選択または画像をドロップ',formats:'PNG、JPG、WebP、BMP対応<br>画像の貼り付けも可能',targetFmt:'出力形式',fmtPng:'PNG<small>非圧縮・透過対応</small>',fmtJpeg:'JPG<small>非可逆・サイズ小</small>',fmtWebp:'WebP<small>新形式・高圧縮</small>',fmtBmp:'BMP<small>非圧縮・無圧縮</small>',quality:'品質',qualityHint:'JPG/WebPのみ有効、値が低いほどファイルは小さく',noticeTitle:'注意：',noticeJpg:'JPGは透過に対応していないため、透過部分は自動的に白で塗りつぶされます。',download:'変換後の画像をダウンロード',waiting:'画像待ち',emptyTitle:'画像をドロップしてください',emptyHint:'クリップボードから画像を貼り付けも可能',origSize:'元のサイズ',newSize:'変換後サイズ',moreTools:'その他の画像ツール',rcCompress:'画像圧縮',rcConvert:'形式変換',rcCrop:'切り抜き・サイズ変更',rcIdphoto:'証明写真背景',rcWatermark:'透かし',rcBgcolor:'背景色',rcSplice:'画像結合',rcImg2pdf:'PDF変換',rcFilter:'フィルタ調整'},
 ko:{brand:'imagec',toolWhitebg:'흰배경제거',toolCompress:'압축',toolConvert:'변환',toolCrop:'자르기',toolIdphoto:'증명사진',toolWatermark:'워터마크',toolBgcolor:'배경색',toolSplice:'이어붙이기',toolImg2pdf:'PDF변환',toolFilter:'필터',title:'이미지 형식 변환',subtitle:'PNG/JPG/WebP/BMP 이미지를 온라인에서 무료로 변환. JPG/WebP 품질 조절 가능, 실시간 미리보기와 파일 크기 확인.',privacy:'브라우저에서 로컬 처리 · 이미지가 서버에 업로드되지 않습니다',upload:'클릭하여 선택하거나 이미지를 드롭',formats:'PNG, JPG, WebP, BMP 지원<br>이미지 붙여넣기도 가능',targetFmt:'대상 형식',fmtPng:'PNG<small>무손실 · 투명 지원</small>',fmtJpeg:'JPG<small>손실 · 작은 크기</small>',fmtWebp:'WebP<small>최신 형식 · 고압축</small>',fmtBmp:'BMP<small>무손실 · 비압축</small>',quality:'품질',qualityHint:'JPG/WebP에만 적용, 낮을수록 파일 작아짐',noticeTitle:'참고:',noticeJpg:'JPG는 투명을 지원하지 않으므로 투명 영역은 자동으로 흰색으로 채워집니다.',download:'변환된 이미지 다운로드',waiting:'이미지 대기 중',emptyTitle:'이미지를 드롭하세요',emptyHint:'클립보드에서 이미지를 붙여넣을 수도 있습니다',origSize:'원본 크기',newSize:'변환 후 크기',moreTools:'더 많은 이미지 도구',rcCompress:'이미지 압축',rcConvert:'형식 변환',rcCrop:'자르기 및 크기 조절',rcIdphoto:'증명사진 배경',rcWatermark:'워터마크',rcBgcolor:'배경색',rcSplice:'이미지 이어붙이기',rcImg2pdf:'PDF 변환',rcFilter:'필터 보정'},
