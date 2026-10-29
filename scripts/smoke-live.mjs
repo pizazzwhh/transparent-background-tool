@@ -25,6 +25,9 @@ const PAGES = [
   { path: "/qr", tool: true },
   { path: "/round", tool: true },
   { path: "/batch", tool: true },
+  { path: "/convert", tool: true },
+  { path: "/crop", tool: true },
+  { path: "/idphoto", tool: true },
   { path: "/sponsors", sponsors: true },
 ];
 

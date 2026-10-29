@@ -72,7 +72,7 @@ HTTP and SEO (Node 20+; the live script has no npm dependencies):
 npm run smoke:live
 ```
 
-Covers `/`, `/whitebg`, `/compress`, `/qr`, `/round`, `/batch`, and `/sponsors`: status 200, `Age` / `Last-Modified` / `ETag`, a title, a visible `h1`, and a canonical URL without `.html`. Tool pages must have `#guide` and a visible FAQ whose questions match the FAQPage JSON-LD. `/sponsors` must link「免费在线图片工具」to `/`. Same-site tool links such as `/compress.html` fail. External URLs are ignored. `/sponsor.html`, `/stats.html`, `/index.html`, and `/blog/*.html` are allowed, as are the legacy cross-links that still sit in `.heroLinks`. The same `.html` tool path outside that block fails.
+Covers `/`, `/whitebg`, `/compress`, `/qr`, `/round`, `/batch`, `/convert`, `/crop`, `/idphoto`, and `/sponsors`: status 200, `Age` / `Last-Modified` / `ETag`, a title, a visible `h1`, and a canonical URL without `.html`. Tool pages must have `#guide` and a visible FAQ whose questions match the FAQPage JSON-LD. `/sponsors` must link「免费在线图片工具」to `/`. Same-site tool links such as `/compress.html` fail. External URLs are ignored. `/sponsor.html`, `/stats.html`, `/index.html`, and `/blog/*.html` are allowed, as are the legacy cross-links that still sit in `.heroLinks`. The same `.html` tool path outside that block fails.
 
 Mobile first screen (Playwright, 375×812). Install the browser once:
 
@@ -93,7 +93,7 @@ Then:
 npm run smoke:mobile
 ```
 
-Opens `/`, `/whitebg`, `/compress`, `/qr`, `/round`, and `/batch`. The workspace or main input, and the primary action, must be visible in the first screen (`#searchInput`, `#toolsGrid`, and the first `a.toolCard` on the home page; `#drop` on upload tools, where `button.primary` stays hidden until a file is chosen; `#text` and `button.primary` on `/qr`). Related `a.toolCard` links must be extensionless. A failure saves a viewport screenshot under `artifacts/mobile-smoke/` (gitignored).
+Opens `/`, `/whitebg`, `/compress`, `/qr`, `/round`, `/batch`, `/convert`, `/crop`, and `/idphoto`. The workspace or main input, and the primary action, must be visible in the first screen (`#searchInput`, `#toolsGrid`, and the first `a.toolCard` on the home page; `#drop` on upload tools, including `/convert` and `/crop`, where `button.primary` stays hidden until a file is chosen; `#text` and `button.primary` on `/qr`; `#dropzone` inside `section.toolCard` on `/idphoto`, where `#fileInput` is hidden and `#workarea` plus `button.primary` stay hidden until a file is chosen). Related `a.toolCard` links must be extensionless. A failure saves a viewport screenshot under `artifacts/mobile-smoke/` (gitignored).
 
 ---
 
