@@ -10,12 +10,12 @@
 
 | Tool | What it does | Link |
 |---|---|---|
-| 🎨 **White BG → Transparent** | Remove white background, export transparent PNG | [/whitebg](https://imagec.xin/whitebg) |
-| 🗜️ **Image Compressor** | Compress PNG/JPG/WebP, reduce file size up to 80% | [/compress](https://imagec.xin/compress) |
+| 🎨 [去白底](https://imagec.xin/whitebg) · **White BG → Transparent** | Remove white background, export transparent PNG | [/whitebg](https://imagec.xin/whitebg) |
+| 🗜️ [压缩](https://imagec.xin/compress) · **Image Compressor** | Compress PNG/JPG/WebP, reduce file size up to 80% | [/compress](https://imagec.xin/compress) |
 | 🔄 **Format Converter** | Convert between PNG, JPG, WebP, BMP, GIF | [/convert](https://imagec.xin/convert) |
-| 📦 **Batch compress / convert** | Compress or convert many images, then download a ZIP | [/batch](https://imagec.xin/batch) |
-| 🔲 **QR code** | Turn a link or text into a QR code PNG, in the browser | [/qr](https://imagec.xin/qr) |
-| ⬜ **Rounded corners and shadow** | Round image corners or add a drop shadow, then export a PNG | [/round](https://imagec.xin/round) |
+| 📦 [批量压缩](https://imagec.xin/batch) · **Batch compress / convert** | Compress or convert many images, then download a ZIP | [/batch](https://imagec.xin/batch) |
+| 🔲 [二维码](https://imagec.xin/qr) · **QR code** | Turn a link or text into a QR code PNG, in the browser | [/qr](https://imagec.xin/qr) |
+| ⬜ [圆角阴影](https://imagec.xin/round) · **Rounded corners and shadow** | Round image corners or add a drop shadow, then export a PNG | [/round](https://imagec.xin/round) |
 | ✂️ **Image Cropper** | Crop to any size or aspect ratio (16:9, 1:1, A4, social) | [/crop](https://imagec.xin/crop) |
 | 🪪 **ID Photo Maker** | Create passport/visa photos with correct sizes | [/idphoto](https://imagec.xin/idphoto) |
 | 💧 **Watermark Adder** | Add text or image watermark, batch processing | [/watermark](https://imagec.xin/watermark) |
