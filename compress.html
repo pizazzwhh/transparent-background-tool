@@ -58,6 +58,7 @@
   <meta name="apple-mobile-web-app-title" content="imagec" />
   <script type="application/ld+json" id="ldjson">{"@context":"https://schema.org","@type":"WebApplication","name":"在线图片压缩","alternateName":"imagec","url":"https://imagec.xin/compress","image":"https://imagec.xin/og-image.jpg","applicationCategory":"MultimediaApplication","operatingSystem":"Any","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"在线图片压缩，支持 PNG、JPG、WebP 格式，多级压缩等级选择，PNG智能压缩，实时预览。所有处理在浏览器本地完成，图片不上传服务器。","inLanguage":["zh-CN","en","ja","ko","es","fr","de","ru","pt","ar","vi","id","th"],"featureList":["多级压缩等级选择","PNG/JPG/WebP 压缩","PNG智能压缩","智能格式推荐","实时压缩预览","浏览器本地处理不上传"],"screenshot":"https://imagec.xin/og-image.jpg"}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://imagec.xin/"},{"@type":"ListItem","position":2,"name":"图片压缩","item":"https://imagec.xin/compress"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"在线图片压缩会上传我的图吗？","acceptedAnswer":{"@type":"Answer","text":"不会。压缩在浏览器本地完成。"}},{"@type":"Question","name":"支持哪些格式？","acceptedAnswer":{"@type":"Answer","text":"PNG、JPG、WebP。HEIC 请先转成 JPG 或 PNG。"}},{"@type":"Question","name":"选哪个压缩等级？","acceptedAnswer":{"@type":"Answer","text":"多数情况用「标准」；要尽量小选「强力/极致」，并看预览是否可接受。"}},{"@type":"Question","name":"压缩后画质会差很多吗？","acceptedAnswer":{"@type":"Answer","text":"取决于等级与原图。轻度几乎看不出；极致体积更小，细节可能变软，以预览为准。"}},{"@type":"Question","name":"和批量压缩有什么区别？","acceptedAnswer":{"@type":"Answer","text":"本页适合单张精细调参与预览；多张请用「批量压缩图片」(/batch)。"}}]}</script>
   <link rel="stylesheet" href="/site.css" />
 </head>
 <body class="tool">
@@ -67,7 +68,7 @@
   <section class="panel">
     <div class="hero">
       <h1 data-i18n="title">在线图片压缩</h1>
-      <p data-i18n="subtitle">在线免费压缩 PNG / JPG / WebP 图片，多级压缩等级，PNG 智能压缩，实时预览压缩效果，浏览器本地处理保护隐私。</p>
+      <p data-i18n="subtitle">免费在线图片压缩：PNG / JPG / WebP 多档压缩，可预览效果。浏览器本地处理，图片不上传。</p>
       <div class="privacyLine safeBadge">
         <span data-i18n="privacy">仅在浏览器本地处理 · 图片不会上传到服务器</span>
       </div>
@@ -166,6 +167,52 @@
         <div class="strategy" id="strategy" style="display:none"></div>
       </section>
     </div>
+  </section>
+
+  <section class="seoContent" id="guide" aria-labelledby="guide-title">
+    <h2 id="guide-title">适合这些情况</h2>
+    <ol>
+      <li>网页、博客配图体积过大，需要压到合适大小再上传。</li>
+      <li>微信、邮件发图受限，先在线压缩再发送。</li>
+      <li>设计导出原图像素够用但文件太大，想在尽量保画质下调体积。</li>
+      <li>批量前先单张试「标准 / 强力」档，确认观感再决定参数。</li>
+      <li>隐私图不想传到第三方压缩站，只在本机压缩。</li>
+    </ol>
+    <h2>怎么用</h2>
+    <ol>
+      <li>选择或拖入（可粘贴）PNG / JPG / WebP。</li>
+      <li>选压缩等级（轻度→极致），需要时再调质量与宽度缩放。</li>
+      <li>对照预览后下载压缩结果。</li>
+    </ol>
+    <h2>为什么用 imagec</h2>
+    <ul>
+      <li>本地压缩，不上传服务器。</li>
+      <li>多级预设 + 可调质量，PNG 有智能压缩路径，并可实时预览。</li>
+      <li>免费使用；暂不支持 HEIC（需先转为 JPG/PNG）。</li>
+    </ul>
+    <h2>常见问题</h2>
+    <dl class="seoFaq">
+      <div>
+        <dt>在线图片压缩会上传我的图吗？</dt>
+        <dd>不会。压缩在浏览器本地完成。</dd>
+      </div>
+      <div>
+        <dt>支持哪些格式？</dt>
+        <dd>PNG、JPG、WebP。HEIC 请先转成 JPG 或 PNG。</dd>
+      </div>
+      <div>
+        <dt>选哪个压缩等级？</dt>
+        <dd>多数情况用「标准」；要尽量小选「强力/极致」，并看预览是否可接受。</dd>
+      </div>
+      <div>
+        <dt>压缩后画质会差很多吗？</dt>
+        <dd>取决于等级与原图。轻度几乎看不出；极致体积更小，细节可能变软，以预览为准。</dd>
+      </div>
+      <div>
+        <dt>和批量压缩有什么区别？</dt>
+        <dd>本页适合单张精细调参与预览；多张请用「<a href="/batch">批量压缩图片</a>」(<a href="/batch">/batch</a>)。</dd>
+      </div>
+    </dl>
   </section>
 
   <section class="relatedTools">
@@ -280,7 +327,7 @@ const SEO={
 };
 
 const messages={
-zh:{brand:'imagec',toolWhitebg:'去白底',toolCompress:'压缩',toolConvert:'转换',toolCrop:'裁剪',toolIdphoto:'证件照',toolWatermark:'水印',toolBgcolor:'换底色',toolSplice:'拼接',toolImg2pdf:'转PDF',toolFilter:'滤镜',title:'在线图片压缩',subtitle:'在线免费压缩 PNG / JPG / WebP 图片，多级压缩等级，PNG 智能压缩，实时预览压缩效果，浏览器本地处理保护隐私。',privacy:'仅在浏览器本地处理 · 图片不会上传到服务器',upload:'点击选择或拖入图片',formats:'支持 PNG、JPG、WebP<br>也可直接粘贴图片',level:'压缩等级',lvLight:'轻度',lvLightDesc:'画质几乎不变',lvStd:'标准',lvStdDesc:'推荐 · 平衡',lvStrong:'强力',lvStrongDesc:'体积大幅减小',lvExtreme:'极致',lvExtremeDesc:'最小体积',quality:'压缩质量',qualityHint:'数值越低体积越小，画质越低',scale:'宽度缩放',byPercent:'按百分比',byPixel:'按像素',scaleHint:'缩小宽度可显著减小体积（50% = 体积约 1/4）',download:'下载压缩后图片',reset:'恢复默认',waiting:'等待图片',emptyTitle:'把图片放进来试试',emptyHint:'也可以直接粘贴剪贴板中的图片',origSize:'原始大小',compSize:'压缩后大小',saved:'压缩率',savedPrefix:'节省',increased:'体积增加',noChange:'体积无变化',methodPalette:'调色板压缩',methodWebp:'WebP 压缩',methodLossy:'有损压缩',methodLossless:'无损压缩',methodJpeg:'JPG 压缩',smartChoice:'智能选择',moreTools:'更多图片工具',rcCompress:'图片压缩',rcConvert:'格式转换',rcCrop:'裁剪缩放',rcIdphoto:'证件照换底色',rcWatermark:'加水印',rcBgcolor:'换背景色',rcSplice:'图片拼接',rcImg2pdf:'转PDF',rcFilter:'滤镜调色'},
+zh:{brand:'imagec',toolWhitebg:'去白底',toolCompress:'压缩',toolConvert:'转换',toolCrop:'裁剪',toolIdphoto:'证件照',toolWatermark:'水印',toolBgcolor:'换底色',toolSplice:'拼接',toolImg2pdf:'转PDF',toolFilter:'滤镜',title:'在线图片压缩',subtitle:'免费在线图片压缩：PNG / JPG / WebP 多档压缩，可预览效果。浏览器本地处理，图片不上传。',privacy:'仅在浏览器本地处理 · 图片不会上传到服务器',upload:'点击选择或拖入图片',formats:'支持 PNG、JPG、WebP<br>也可直接粘贴图片',level:'压缩等级',lvLight:'轻度',lvLightDesc:'画质几乎不变',lvStd:'标准',lvStdDesc:'推荐 · 平衡',lvStrong:'强力',lvStrongDesc:'体积大幅减小',lvExtreme:'极致',lvExtremeDesc:'最小体积',quality:'压缩质量',qualityHint:'数值越低体积越小，画质越低',scale:'宽度缩放',byPercent:'按百分比',byPixel:'按像素',scaleHint:'缩小宽度可显著减小体积（50% = 体积约 1/4）',download:'下载压缩后图片',reset:'恢复默认',waiting:'等待图片',emptyTitle:'把图片放进来试试',emptyHint:'也可以直接粘贴剪贴板中的图片',origSize:'原始大小',compSize:'压缩后大小',saved:'压缩率',savedPrefix:'节省',increased:'体积增加',noChange:'体积无变化',methodPalette:'调色板压缩',methodWebp:'WebP 压缩',methodLossy:'有损压缩',methodLossless:'无损压缩',methodJpeg:'JPG 压缩',smartChoice:'智能选择',moreTools:'更多图片工具',rcCompress:'图片压缩',rcConvert:'格式转换',rcCrop:'裁剪缩放',rcIdphoto:'证件照换底色',rcWatermark:'加水印',rcBgcolor:'换背景色',rcSplice:'图片拼接',rcImg2pdf:'转PDF',rcFilter:'滤镜调色'},
 en:{brand:'imagec',toolWhitebg:'Remove White',toolCompress:'Compress',toolConvert:'Convert',toolCrop:'Crop',toolIdphoto:'ID Photo',toolWatermark:'Watermark',toolBgcolor:'BG Color',toolSplice:'Splice',toolImg2pdf:'to PDF',toolFilter:'Filters',title:'Image Compressor',subtitle:'Free online image compression for PNG/JPG/WebP with multi-level compression, smart PNG handling, and real-time preview. Processed locally in your browser.',privacy:'Processed locally in your browser · Images are never uploaded',upload:'Choose or drop an image',formats:'PNG, JPG, and WebP supported<br>You can also paste an image',level:'Compression level',lvLight:'Light',lvLightDesc:'Nearly identical quality',lvStd:'Standard',lvStdDesc:'Recommended · Balanced',lvStrong:'Strong',lvStrongDesc:'Much smaller size',lvExtreme:'Extreme',lvExtremeDesc:'Minimum size',quality:'Compression quality',qualityHint:'Lower values = smaller file, lower quality',scale:'Width scaling',byPercent:'By percent',byPixel:'By pixels',scaleHint:'Reducing width significantly reduces file size (50% ≈ 1/4 volume)',download:'Download compressed image',reset:'Reset defaults',waiting:'Waiting for image',emptyTitle:'Drop an image here',emptyHint:'Or paste an image from your clipboard',origSize:'Original size',compSize:'Compressed size',saved:'Saved',savedPrefix:'saved',increased:'Size increased by',noChange:'No change in size',methodPalette:'Palette compression',methodWebp:'WebP compression',methodLossy:'Lossy compression',methodLossless:'Lossless compression',methodJpeg:'JPEG compression',smartChoice:'Smart choice',moreTools:'More image tools',rcCompress:'Compress',rcConvert:'Convert Format',rcCrop:'Crop & Resize',rcIdphoto:'ID Photo BG',rcWatermark:'Watermark',rcBgcolor:'BG Color',rcSplice:'Splice',rcImg2pdf:'To PDF',rcFilter:'Filters'},
 ja:{brand:'imagec',toolWhitebg:'白抜き',toolCompress:'圧縮',toolConvert:'変換',toolCrop:'切り抜き',toolIdphoto:'証明写真',toolWatermark:'透かし',toolBgcolor:'背景色',toolSplice:'結合',toolImg2pdf:'PDF変換',toolFilter:'フィルタ',title:'画像圧縮ツール',subtitle:'PNG・JPG・WebP画像をオンラインで無料圧縮。複数レベルの圧縮、PNGスマート圧縮、リアルタイムプレビュー。ブラウザ内でローカル処理。',privacy:'ブラウザ内でローカル処理 · 画像はサーバーにアップロードされません',upload:'クリックして選択または画像をドロップ',formats:'PNG、JPG、WebP対応<br>画像の貼り付けも可能',level:'圧縮レベル',lvLight:'軽度',lvLightDesc:'画質ほぼそのまま',lvStd:'標準',lvStdDesc:'推奨 · バランス',lvStrong:'強力',lvStrongDesc:'大幅に軽量化',lvExtreme:'极致',lvExtremeDesc:'最小サイズ',quality:'圧縮品質',qualityHint:'値が低いほどファイルは小さく、品質は低下',scale:'幅スケーリング',byPercent:'パーセントで',byPixel:'ピクセルで',scaleHint:'幅を小さくするとファイルサイズが大幅に削減（50%≈1/4）',download:'圧縮後の画像をダウンロード',reset:'デフォルトに戻す',waiting:'画像待ち',emptyTitle:'画像をドロップしてください',emptyHint:'クリップボードから画像を貼り付けも可能',origSize:'元のサイズ',compSize:'圧縮後サイズ',saved:'圧縮率',savedPrefix:'削減',increased:'サイズ増加',noChange:'サイズ変化なし',methodPalette:'パレット圧縮',methodWebp:'WebP圧縮',methodLossy:'非可逆圧縮',methodLossless:'可逆圧縮',methodJpeg:'JPEG圧縮',smartChoice:'スマート選択',moreTools:'その他の画像ツール',rcCompress:'画像圧縮',rcConvert:'形式変換',rcCrop:'切り抜き・サイズ変更',rcIdphoto:'証明写真背景',rcWatermark:'透かし',rcBgcolor:'背景色',rcSplice:'画像結合',rcImg2pdf:'PDF変換',rcFilter:'フィルタ調整'},
 ko:{brand:'imagec',toolWhitebg:'흰배경제거',toolCompress:'압축',toolConvert:'변환',toolCrop:'자르기',toolIdphoto:'증명사진',toolWatermark:'워터마크',toolBgcolor:'배경색',toolSplice:'이어붙이기',toolImg2pdf:'PDF변환',toolFilter:'필터',title:'이미지 압축 도구',subtitle:'PNG/JPG/WebP 이미지를 온라인에서 무료 압축. 다중 레벨 압축, PNG 스마트 압축, 실시간 미리보기. 브라우저에서 로컬 처리.',privacy:'브라우저에서 로컬 처리 · 이미지가 서버에 업로드되지 않습니다',upload:'클릭하여 선택하거나 이미지를 드롭',formats:'PNG, JPG, WebP 지원<br>이미지 붙여넣기도 가능',level:'압축 레벨',lvLight:'가벼움',lvLightDesc:'품질 거의 동일',lvStd:'표준',lvStdDesc:'추천 · 균형',lvStrong:'강력',lvStrongDesc:'훨씬 작은 크기',lvExtreme:'극한',lvExtremeDesc:'최소 크기',quality:'압축 품질',qualityHint:'값이 낮을수록 파일은 작고 품질은 낮아집니다',scale:'너비 크기 조절',byPercent:'비율로',byPixel:'픽셀로',scaleHint:'너비를 줄이면 파일 크기가 크게 줄어듭니다 (50%≈1/4)',download:'압축된 이미지 다운로드',reset:'기본값으로 재설정',waiting:'이미지 대기 중',emptyTitle:'이미지를 드롭하세요',emptyHint:'클립보드에서 이미지를 붙여넣을 수도 있습니다',origSize:'원본 크기',compSize:'압축 후 크기',saved:'압축률',savedPrefix:'절약',increased:'크기 증가',noChange:'크기 변화 없음',methodPalette:'팔레트 압축',methodWebp:'WebP 압축',methodLossy:'손실 압축',methodLossless:'무손실',methodJpeg:'JPEG 압축',smartChoice:'스마트 선택',moreTools:'더 많은 이미지 도구',rcCompress:'이미지 압축',rcConvert:'형식 변환',rcCrop:'자르기 및 크기 조절',rcIdphoto:'증명사진 배경',rcWatermark:'워터마크',rcBgcolor:'배경색',rcSplice:'이미지 이어붙이기',rcImg2pdf:'PDF 변환',rcFilter:'필터 보정'},

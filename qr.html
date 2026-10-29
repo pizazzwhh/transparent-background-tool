@@ -47,6 +47,7 @@
   <meta name="apple-mobile-web-app-title" content="imagec" />
   <script type="application/ld+json" id="ldjson">{"@context":"https://schema.org","@type":"WebApplication","name":"免费生成二维码","alternateName":"imagec","url":"https://imagec.xin/qr","image":"https://imagec.xin/og-image.jpg","applicationCategory":"MultimediaApplication","operatingSystem":"Any","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"免费在线二维码生成。输入链接或文字，本地生成二维码并下载 PNG。本地生成，不上传服务器。","inLanguage":["zh-CN","en","ja","ko","es","fr","de","ru","pt","ar","vi","id","th"],"featureList":["免费生成二维码","链接转二维码","文字生成二维码","纠错等级 L/M/Q/H","边距","前景色与背景色","尺寸预设","下载 PNG","本地生成不上传"],"screenshot":"https://imagec.xin/og-image.jpg"}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://imagec.xin/"},{"@type":"ListItem","position":2,"name":"二维码生成","item":"https://imagec.xin/qr"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"生成二维码收费吗？","acceptedAnswer":{"@type":"Answer","text":"免费，可直接下载 PNG。"}},{"@type":"Question","name":"我输入的链接会上传吗？","acceptedAnswer":{"@type":"Answer","text":"不会。二维码在浏览器本地绘制，不上传服务器。"}},{"@type":"Question","name":"纠错等级怎么选？","acceptedAnswer":{"@type":"Answer","text":"普通屏幕展示用 M 即可；易遮挡或印刷场景可提高到 Q/H（码会更密）。"}},{"@type":"Question","name":"边距为什么常设为 4？","acceptedAnswer":{"@type":"Answer","text":"四周留白按模块计，常见扫码器对 quiet zone 有要求，4 是稳妥起点。"}},{"@type":"Question","name":"能做成透明底吗？","acceptedAnswer":{"@type":"Answer","text":"本页导出为彩色 PNG；若需透明底可先导出再在其他工具处理，或把背景设为纯白后按需再加工。"}}]}</script>
   <link rel="stylesheet" href="/site.css" />
 </head>
 <body class="tool qr">
@@ -56,7 +57,7 @@
   <section class="panel">
     <div class="hero">
       <h1 data-i18n="title">免费生成二维码</h1>
-      <p data-i18n="subtitle">把链接或文字做成二维码，下载 PNG。纠错、边距、颜色和尺寸都可以调。本地生成，不上传服务器。</p>
+      <p data-i18n="subtitle">免费生成二维码：把链接或文字转成二维码并下载 PNG。可调纠错、边距、颜色和尺寸；本地生成，不上传。</p>
       <div class="privacyLine safeBadge">
         <span data-i18n="privacy">本地生成 · 不上传服务器</span>
       </div>
@@ -140,6 +141,52 @@
     </div>
   </section>
 
+  <section class="seoContent" id="guide" aria-labelledby="guide-title">
+    <h2 id="guide-title">适合这些情况</h2>
+    <ol>
+      <li>活动海报、名片需要放一个可扫的链接二维码。</li>
+      <li>Wi‑Fi、表单、文档短链做成二维码方便当面扫。</li>
+      <li>打印物料要固定尺寸、深色前景的二维码 PNG。</li>
+      <li>需要较高容错（遮挡、印刷误差）时提高纠错等级。</li>
+      <li>不想把链接内容提交到不明生成站，仅在浏览器本地生成。</li>
+    </ol>
+    <h2>怎么用</h2>
+    <ol>
+      <li>输入链接或文字。</li>
+      <li>按需设置纠错等级、边距、前景/背景色、尺寸。</li>
+      <li>下载 PNG；不需要时点清空。</li>
+    </ol>
+    <h2>为什么用 imagec</h2>
+    <ul>
+      <li>本地生成二维码，内容不上传服务器。</li>
+      <li>纠错、边距、颜色、尺寸可调，导出 PNG 便于印刷或贴图。</li>
+      <li>免费、即开即用。</li>
+    </ul>
+    <h2>常见问题</h2>
+    <dl class="seoFaq">
+      <div>
+        <dt>生成二维码收费吗？</dt>
+        <dd>免费，可直接下载 PNG。</dd>
+      </div>
+      <div>
+        <dt>我输入的链接会上传吗？</dt>
+        <dd>不会。二维码在浏览器本地绘制，不上传服务器。</dd>
+      </div>
+      <div>
+        <dt>纠错等级怎么选？</dt>
+        <dd>普通屏幕展示用 M 即可；易遮挡或印刷场景可提高到 Q/H（码会更密）。</dd>
+      </div>
+      <div>
+        <dt>边距为什么常设为 4？</dt>
+        <dd>四周留白按模块计，常见扫码器对 quiet zone 有要求，4 是稳妥起点。</dd>
+      </div>
+      <div>
+        <dt>能做成透明底吗？</dt>
+        <dd>本页导出为彩色 PNG；若需透明底可先导出再在其他工具处理，或把背景设为纯白后按需再加工。</dd>
+      </div>
+    </dl>
+  </section>
+
   <section class="relatedTools">
     <h2 data-i18n="moreTools">更多图片工具</h2>
     <div class="toolsGrid" data-tool-cards></div>
@@ -173,7 +220,7 @@ const SEO={
   th:{title:'สร้าง QR ออนไลน์ | ลิงก์หรือข้อความ | imagec',desc:'สร้าง QR เป็น PNG จากลิงก์หรือข้อความ ปรับการแก้ข้อผิดพลาด ขอบ สี และขนาด สร้างในเครื่อง ไม่อัปโหลด'}
 };
 const messages={
-  zh:{title:'免费生成二维码',subtitle:'把链接或文字做成二维码，下载 PNG。纠错、边距、颜色和尺寸都可以调。本地生成，不上传服务器。',privacy:'本地生成 · 不上传服务器',textLabel:'链接或文字',placeholder:'https://imagec.xin 或任意文字',ecc:'纠错等级',eccL:'L · 约可恢复 7%',eccM:'M · 约可恢复 15%',eccQ:'Q · 约可恢复 25%',eccH:'H · 约可恢复 30%',margin:'边距',marginHint:'四周留白，按模块计。常用 4。',fg:'前景色',bg:'背景色',size:'尺寸',download:'下载 PNG',clear:'清空',emptyTitle:'输入链接或文字，生成二维码',waiting:'等待内容',ready:'{size}×{size} · {ecc}',errLong:'这段内容太长，当前纠错等级放不下。换更低的等级，或缩短文字。',errLib:'二维码组件加载失败。请检查网络，或允许 cdnjs / jsDelivr 后刷新页面。',moreTools:'更多图片工具',linkCompress:'压缩图片',linkConvert:'转换格式'},
+  zh:{title:'免费生成二维码',subtitle:'免费生成二维码：把链接或文字转成二维码并下载 PNG。可调纠错、边距、颜色和尺寸；本地生成，不上传。',privacy:'本地生成 · 不上传服务器',textLabel:'链接或文字',placeholder:'https://imagec.xin 或任意文字',ecc:'纠错等级',eccL:'L · 约可恢复 7%',eccM:'M · 约可恢复 15%',eccQ:'Q · 约可恢复 25%',eccH:'H · 约可恢复 30%',margin:'边距',marginHint:'四周留白，按模块计。常用 4。',fg:'前景色',bg:'背景色',size:'尺寸',download:'下载 PNG',clear:'清空',emptyTitle:'输入链接或文字，生成二维码',waiting:'等待内容',ready:'{size}×{size} · {ecc}',errLong:'这段内容太长，当前纠错等级放不下。换更低的等级，或缩短文字。',errLib:'二维码组件加载失败。请检查网络，或允许 cdnjs / jsDelivr 后刷新页面。',moreTools:'更多图片工具',linkCompress:'压缩图片',linkConvert:'转换格式'},
   en:{title:'Online QR code generator',subtitle:'Turn a link or some text into a QR code and download a PNG. Error correction, margin, colors, and size are all adjustable. Generated locally — nothing is uploaded.',privacy:'Generated locally · Nothing is uploaded',textLabel:'Link or text',placeholder:'https://imagec.xin or any text',ecc:'Error correction',eccL:'L · recovers about 7%',eccM:'M · recovers about 15%',eccQ:'Q · recovers about 25%',eccH:'H · recovers about 30%',margin:'Margin',marginHint:'Quiet zone, in modules. 4 is the usual value.',fg:'Foreground',bg:'Background',size:'Size',download:'Download PNG',clear:'Clear',emptyTitle:'Enter a link or text to make a QR code',waiting:'Waiting for text',ready:'{size}×{size} · {ecc}',errLong:'That text is too long for this error-correction level. Choose a lower level, or shorten it.',errLib:'The QR library failed to load. Check the network, allow cdnjs / jsDelivr, and refresh.',moreTools:'More image tools',linkCompress:'Compress an image',linkConvert:'Convert a format'},
   ja:{title:'オンラインQRコード作成',subtitle:'リンクや文字をQRコードにしてPNGで保存。誤り訂正、余白、色、サイズを調整できます。端末内で生成し、送信しません。',privacy:'端末内で生成 · サーバーには送信しません',textLabel:'リンクまたは文字',placeholder:'https://imagec.xin または任意の文字',ecc:'誤り訂正',eccL:'L · 約7%まで復元',eccM:'M · 約15%まで復元',eccQ:'Q · 約25%まで復元',eccH:'H · 約30%まで復元',margin:'余白',marginHint:'周囲の空白。単位はモジュール。通常は 4。',fg:'前景色',bg:'背景色',size:'サイズ',download:'PNGをダウンロード',clear:'クリア',emptyTitle:'リンクか文字を入力してQRコードを作成',waiting:'入力待ち',ready:'{size}×{size} · {ecc}',errLong:'この誤り訂正レベルでは長すぎます。レベルを下げるか、文字を短くしてください。',errLib:'QRコンポーネントを読み込めませんでした。ネットワークを確認し、cdnjs / jsDelivr を許可して再読み込みしてください。',moreTools:'ほかの画像ツール',linkCompress:'画像を圧縮',linkConvert:'形式を変換'},
   ko:{title:'온라인 QR 코드 만들기',subtitle:'링크나 글을 QR 코드로 만들고 PNG로 받습니다. 오류 정정, 여백, 색, 크기를 조절할 수 있습니다. 기기에서 만들며 올리지 않습니다.',privacy:'기기에서 생성 · 서버에 올리지 않음',textLabel:'링크 또는 글',placeholder:'https://imagec.xin 또는 임의의 글',ecc:'오류 정정',eccL:'L · 약 7% 복구',eccM:'M · 약 15% 복구',eccQ:'Q · 약 25% 복구',eccH:'H · 약 30% 복구',margin:'여백',marginHint:'주변 여백, 모듈 단위. 보통 4.',fg:'전경색',bg:'배경색',size:'크기',download:'PNG 받기',clear:'지우기',emptyTitle:'링크나 글을 입력해 QR 코드를 만드세요',waiting:'입력 대기',ready:'{size}×{size} · {ecc}',errLong:'이 오류 정정 수준에는 너무 깁니다. 수준을 낮추거나 글을 줄이세요.',errLib:'QR 구성 요소를 불러오지 못했습니다. 네트워크를 확인하고 cdnjs / jsDelivr를 허용한 뒤 새로고침하세요.',moreTools:'다른 이미지 도구',linkCompress:'이미지 압축',linkConvert:'형식 변환'},

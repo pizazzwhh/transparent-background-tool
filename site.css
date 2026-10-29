@@ -307,10 +307,11 @@ body.home .siteFooter { padding-top: 28px; padding-bottom: 36px; }
   }
 }
 
-/* Tool pages: keep the shell, then enter the panel, related tools, and the
+/* Tool pages: keep the shell, then enter the panel, guide, related tools, and the
    sponsor line together once chrome has folded params and applied copy.
    Opacity only — the drop target stays clickable during the enter. */
 body.tool:not(.tool-ready) .panel,
+body.tool:not(.tool-ready) .seoContent,
 body.tool:not(.tool-ready) .relatedTools,
 body.tool:not(.tool-ready) .toolsShowcase,
 body.tool:not(.tool-ready) main.shell > .quietLinks,
@@ -329,6 +330,7 @@ body.studio:not(.tool-ready) main.shell > .quietLinks {
   body.studio.tool-ready .hero {
     animation: toolEnter 180ms ease-out both;
   }
+  body.tool.tool-ready .seoContent,
   body.tool.tool-ready .relatedTools,
   body.tool.tool-ready .toolsShowcase,
   body.tool.tool-ready main.shell > .quietLinks,
@@ -340,6 +342,7 @@ body.studio:not(.tool-ready) main.shell > .quietLinks {
 }
 @media (prefers-reduced-motion: reduce) {
   body.tool .panel,
+  body.tool .seoContent,
   body.tool .relatedTools,
   body.tool .toolsShowcase,
   body.tool main.shell > .quietLinks,
@@ -863,6 +866,65 @@ body.studio .sampleInfo { margin-top: 8px; font-size: var(--fs-xs); color: var(-
 body.studio .checkboxRow { display: flex; align-items: center; gap: 8px; font-size: var(--fs-sm); }
 body.studio .inline { display: flex; gap: 12px; }
 body.studio input[type=color] { width: 44px; height: 36px; padding: 0; border: 1px solid var(--line); background: var(--surface); border-radius: var(--radius-sm); }
+
+/* Guide + FAQ sit between the workspace and related tools. */
+.seoContent {
+  margin: var(--space-6) 0 0;
+  color: #1C1917;
+}
+.seoContent h2 {
+  margin: var(--space-5) 0 var(--space-3);
+  text-align: start;
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-bold);
+  letter-spacing: -0.02em;
+  line-height: 1.35;
+  color: #1C1917;
+}
+.seoContent h2:first-child { margin-top: 0; }
+.seoContent ol,
+.seoContent ul {
+  margin: 0;
+  padding: 0;
+  padding-inline-start: 1.25em;
+  max-width: 42rem;
+  color: #57534E;
+  font-size: var(--fs-base);
+  line-height: 1.65;
+}
+.seoContent li + li { margin-top: 6px; }
+.seoContent a { font-weight: var(--fw-med); text-underline-offset: 2px; }
+.seoFaq {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 42rem;
+}
+.seoFaq > div {
+  margin: 0;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.seoFaq dt {
+  margin: 0;
+  font-size: var(--fs-base);
+  font-weight: var(--fw-bold);
+  line-height: 1.45;
+  color: #1C1917;
+}
+.seoFaq dd {
+  margin: 4px 0 0;
+  font-size: var(--fs-base);
+  line-height: 1.65;
+  color: #57534E;
+}
+@media (max-width: 800px) {
+  .seoContent { margin-top: var(--space-5); }
+  .seoFaq > div { padding: 12px; }
+}
 
 /* Related tools use the home .toolsGrid / a.toolCard rules. */
 .relatedTools, .toolsShowcase { margin-top: var(--space-5); }

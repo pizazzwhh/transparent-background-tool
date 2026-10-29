@@ -47,6 +47,7 @@
   <meta name="apple-mobile-web-app-title" content="imagec" />
   <script type="application/ld+json" id="ldjson">{"@context":"https://schema.org","@type":"WebApplication","name":"图片加圆角阴影","alternateName":"imagec","url":"https://imagec.xin/round","image":"https://imagec.xin/og-image.jpg","applicationCategory":"MultimediaApplication","operatingSystem":"Any","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"在线给图片加圆角和投影。可调圆角半径，以及阴影的模糊、偏移、颜色和不透明度。棋盘格预览，导出 PNG。本地处理，不上传服务器。","inLanguage":["zh-CN","en","ja","ko","es","fr","de","ru","pt","ar","vi","id","th"],"featureList":["圆角阴影","图片加圆角","图片加阴影","圆角半径","阴影模糊","阴影偏移","阴影颜色","阴影不透明度","棋盘格预览","下载 PNG","本地处理不上传"],"screenshot":"https://imagec.xin/og-image.jpg"}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://imagec.xin/"},{"@type":"ListItem","position":2,"name":"圆角阴影","item":"https://imagec.xin/round"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"加圆角后还能保留透明吗？","acceptedAnswer":{"@type":"Answer","text":"可以。导出 PNG，透明区域会保留；预览区棋盘格用于确认。"}},{"@type":"Question","name":"图片会上传吗？","acceptedAnswer":{"@type":"Answer","text":"不会，圆角与阴影都在浏览器本地计算。"}},{"@type":"Question","name":"阴影太重或太淡怎么办？","acceptedAnswer":{"@type":"Answer","text":"降低/提高不透明度，或减小/增大模糊与偏移，边看预览边调。"}},{"@type":"Question","name":"只想圆角不要阴影？","acceptedAnswer":{"@type":"Answer","text":"关闭阴影相关开关（或把不透明度调到 0，以页面实际控件为准），只保留圆角半径。"}},{"@type":"Question","name":"支持哪些格式？","acceptedAnswer":{"@type":"Answer","text":"PNG、JPG、WebP；HEIC 需先转换。"}}]}</script>
   <link rel="stylesheet" href="/site.css" />
 </head>
 <body class="tool round">
@@ -56,7 +57,7 @@
   <section class="panel">
     <div class="hero">
       <h1 data-i18n="title">图片加圆角阴影</h1>
-      <p data-i18n="subtitle">给图片加圆角或投影，下载 PNG。半径、模糊、偏移、颜色和不透明度都可以调。本地处理，不上传服务器。</p>
+      <p data-i18n="subtitle">给图片加圆角或投影，导出 PNG。半径、模糊、偏移、颜色、不透明度可调；本地处理，不上传。</p>
       <div class="privacyLine safeBadge">
         <span data-i18n="privacy">本地处理 · 不上传服务器</span>
       </div>
@@ -138,6 +139,52 @@
     </div>
   </section>
 
+  <section class="seoContent" id="guide" aria-labelledby="guide-title">
+    <h2 id="guide-title">适合这些情况</h2>
+    <ol>
+      <li>头像、应用截图做成圆角卡片风格。</li>
+      <li>海报、封面需要轻微投影让主体浮起。</li>
+      <li>商详/落地页素材统一圆角半径，保持视觉一致。</li>
+      <li>透明底 PNG 加圆角后仍保留透明区域（棋盘格预览可核对）。</li>
+      <li>快速出一版带阴影的分享图，不必开重型设计软件。</li>
+    </ol>
+    <h2>怎么用</h2>
+    <ol>
+      <li>上传或粘贴 PNG / JPG / WebP。</li>
+      <li>调圆角半径；需要阴影时打开并设置模糊、偏移、颜色、不透明度。</li>
+      <li>预览后下载 PNG。</li>
+    </ol>
+    <h2>为什么用 imagec</h2>
+    <ul>
+      <li>圆角与阴影同一页调完，本地处理不上传。</li>
+      <li>参数可视可调，棋盘格便于看透明边缘。</li>
+      <li>轻量在线完成，适合「只改圆角/阴影」的快需求。</li>
+    </ul>
+    <h2>常见问题</h2>
+    <dl class="seoFaq">
+      <div>
+        <dt>加圆角后还能保留透明吗？</dt>
+        <dd>可以。导出 PNG，透明区域会保留；预览区棋盘格用于确认。</dd>
+      </div>
+      <div>
+        <dt>图片会上传吗？</dt>
+        <dd>不会，圆角与阴影都在浏览器本地计算。</dd>
+      </div>
+      <div>
+        <dt>阴影太重或太淡怎么办？</dt>
+        <dd>降低/提高不透明度，或减小/增大模糊与偏移，边看预览边调。</dd>
+      </div>
+      <div>
+        <dt>只想圆角不要阴影？</dt>
+        <dd>关闭阴影相关开关（或把不透明度调到 0，以页面实际控件为准），只保留圆角半径。</dd>
+      </div>
+      <div>
+        <dt>支持哪些格式？</dt>
+        <dd>PNG、JPG、WebP；HEIC 需先转换。</dd>
+      </div>
+    </dl>
+  </section>
+
   <section class="relatedTools">
     <h2 data-i18n="moreTools">更多图片工具</h2>
     <div class="toolsGrid" data-tool-cards></div>
@@ -170,7 +217,7 @@ const SEO={
   th:{title:'มุมมนและเงา | imagec',desc:'ทำให้มุมรูปมน หรือใส่เงา ปรับรัศมี ความเบลอ ระยะ สี และความทึบ ดูก่อนบนตารางหมากรุก แล้วดาวน์โหลด PNG ประมวลผลในเครื่อง ไม่อัปโหลด'}
 };
 const messages={
-  zh:{title:'图片加圆角阴影',subtitle:'给图片加圆角或投影，下载 PNG。半径、模糊、偏移、颜色和不透明度都可以调。本地处理，不上传服务器。',privacy:'本地处理 · 不上传服务器',upload:'点击选择或拖入图片',formats:'支持 PNG、JPG、WebP<br>也可直接粘贴图片',radius:'圆角半径',shadow:'阴影',blur:'模糊',offset:'偏移',color:'颜色',opacity:'不透明度',download:'下载 PNG',clear:'清空',waiting:'等待图片',emptyTitle:'把图片放进来，加圆角或阴影',ready:'{w} × {h} px',moreTools:'更多图片工具',linkCrop:'裁剪缩放',linkFilter:'滤镜调色'},
+  zh:{title:'图片加圆角阴影',subtitle:'给图片加圆角或投影，导出 PNG。半径、模糊、偏移、颜色、不透明度可调；本地处理，不上传。',privacy:'本地处理 · 不上传服务器',upload:'点击选择或拖入图片',formats:'支持 PNG、JPG、WebP<br>也可直接粘贴图片',radius:'圆角半径',shadow:'阴影',blur:'模糊',offset:'偏移',color:'颜色',opacity:'不透明度',download:'下载 PNG',clear:'清空',waiting:'等待图片',emptyTitle:'把图片放进来，加圆角或阴影',ready:'{w} × {h} px',moreTools:'更多图片工具',linkCrop:'裁剪缩放',linkFilter:'滤镜调色'},
   en:{title:'Rounded corners and shadow',subtitle:'Round the corners or add a drop shadow, then download a PNG. Radius, blur, offset, color, and opacity are all adjustable. Processed locally — nothing is uploaded.',privacy:'Processed locally · Nothing is uploaded',upload:'Choose or drop an image',formats:'PNG, JPG, and WebP<br>You can also paste an image',radius:'Corner radius',shadow:'Shadow',blur:'Blur',offset:'Offset',color:'Color',opacity:'Opacity',download:'Download PNG',clear:'Clear',waiting:'Waiting for an image',emptyTitle:'Drop an image to round the corners or add a shadow',ready:'{w} × {h} px',moreTools:'More image tools',linkCrop:'Crop and resize',linkFilter:'Filters'},
   ja:{title:'角丸と影',subtitle:'画像に角丸やドロップシャドウを付けてPNGで保存。半径、ぼかし、距離、色、不透明度を調整できます。端末内で処理し、送信しません。',privacy:'端末内で処理 · サーバーには送信しません',upload:'クリックして選択、または画像をドロップ',formats:'PNG、JPG、WebP 対応<br>画像の貼り付けも可能',radius:'角丸の半径',shadow:'影',blur:'ぼかし',offset:'距離',color:'色',opacity:'不透明度',download:'PNGをダウンロード',clear:'クリア',waiting:'画像待ち',emptyTitle:'画像をドロップして、角丸か影を付ける',ready:'{w} × {h} px',moreTools:'ほかの画像ツール',linkCrop:'切り抜き・サイズ変更',linkFilter:'フィルター'},
   ko:{title:'모서리 둥글게와 그림자',subtitle:'모서리를 둥글게 하거나 그림자를 넣고 PNG로 받습니다. 반지름, 흐림, 거리, 색, 불투명도를 조절할 수 있습니다. 기기에서 처리하며 올리지 않습니다.',privacy:'기기에서 처리 · 서버에 올리지 않음',upload:'클릭하거나 이미지를 놓으세요',formats:'PNG, JPG, WebP<br>붙여넣기도 가능',radius:'모서리 반지름',shadow:'그림자',blur:'흐림',offset:'거리',color:'색',opacity:'불투명도',download:'PNG 받기',clear:'지우기',waiting:'이미지 대기',emptyTitle:'이미지를 놓아 모서리를 둥글게 하거나 그림자를 넣으세요',ready:'{w} × {h} px',moreTools:'다른 이미지 도구',linkCrop:'자르기·크기 조절',linkFilter:'필터'},
